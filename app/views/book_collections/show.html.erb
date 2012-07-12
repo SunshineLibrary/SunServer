@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @book_collection.title %>
+</p>
+
+<p>
+  <b>Intro:</b>
+  <%= @book_collection.intro %>
+</p>
+
+<p>
+  <b>Cover m path:</b>
+  <%= @book_collection.cover_m_path %>
+</p>
+
+<p>
+  <b>Cover s path:</b>
+  <%= @book_collection.cover_s_path %>
+</p>
+
+
+<%= link_to 'Edit', edit_book_collection_path(@book_collection) %> |
+<%= link_to 'New', new_book_collection_path %> |
+<%= link_to 'Back', book_collections_path %> 
+

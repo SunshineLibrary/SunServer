@@ -13,6 +13,9 @@
   %b Logo_path:
   = @provider.logo_path
  
-= link_to 'Edit', edit_provider_path(@provider)
+= link_to 'Edit', edit_provider_path(@provider) 
+|
+= link_to 'New', new_provider_path 
+|
 = link_to 'Back', providers_path
-= link_to 'New', new_provider_path
+

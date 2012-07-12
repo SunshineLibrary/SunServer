@@ -1,0 +1,29 @@
+<h1>图书合集列表</h1>
+
+<table border="1" cellspacing="0" cellpadding="3" >
+  <tr>
+    <th>Title</th>
+    <th>Intro</th>
+    <th>Cover m path</th>
+    <th>Cover s path</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @book_collections.each do |book_collection| %>
+  <tr>
+    <td><%= book_collection.title %></td>
+    <td><%= book_collection.intro %></td>
+    <td><%= book_collection.cover_m_path %></td>
+    <td><%= book_collection.cover_s_path %></td>
+    <td><%= link_to 'Show', book_collection %></td>
+    <td><%= link_to 'Edit', edit_book_collection_path(book_collection) %></td>
+    <td><%= link_to 'Destroy', book_collection, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Book collection', new_book_collection_path %>
