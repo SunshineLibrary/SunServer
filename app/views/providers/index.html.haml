@@ -1,0 +1,21 @@
+%h1 Listing Providers
+
+%table(cellspacing="0" cellpadding="3" border="1")
+  %tr
+    %th Name
+    %th Intro
+    %th Logo  
+    %th/
+    %th/
+    %th/
+   
+  - @providers.each do |provider|
+    %tr
+      %td= provider.name
+      %td= provider.intro
+      %td= provider.logo_path
+      %td= link_to 'Show', provider
+      %td= link_to 'Edit', edit_provider_path(provider)
+      %td= link_to 'Destory', provider, :confirm => "Are you sure?", :method => :delete                                      
+%br/
+= link_to 'New Provider', new_provider_path

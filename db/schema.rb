@@ -11,11 +11,75 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120709090356) do
+ActiveRecord::Schema.define(:version => 20120711045257) do
 
   create_table "apis", :force => true do |t|
     t.string   "table_name"
     t.string   "api_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "apks", :force => true do |t|
+    t.string   "version"
+    t.string   "name"
+    t.string   "path"
+    t.string   "description"
+    t.integer  "permission_level"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "apks_machine_types", :force => true do |t|
+    t.integer  "apk_id"
+    t.integer  "machine_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "authors", :force => true do |t|
+    t.string   "name"
+    t.string   "intro"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "book_collections", :force => true do |t|
+    t.string   "title"
+    t.string   "intro"
+    t.string   "cover_m_path"
+    t.string   "cover_s_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "books", :force => true do |t|
+    t.string   "title"
+    t.integer  "author_id"
+    t.string   "intro"
+    t.string   "ISBN"
+    t.string   "file_path"
+    t.integer  "book_collection_id"
+    t.integer  "publication_year"
+    t.string   "publisher"
+    t.string   "cover_m_path"
+    t.string   "cover_s_path"
+    t.integer  "provider_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "machine_types", :force => true do |t|
+    t.string   "size"
+    t.string   "version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "providers", :force => true do |t|
+    t.string   "name"
+    t.string   "intro"
+    t.string   "logo_path"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
