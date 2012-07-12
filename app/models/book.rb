@@ -14,10 +14,24 @@ class Book < ActiveRecord::Base
   end       
   
   def author
-    if author_id
-      Author.where(id:author_id).first.name
+    if author_id.nil?
+      return 'Miss'
+    end    
+    if res = Author.where(id:author_id).first
+      res.name
     else
       'Miss'
-    end          
+    end
+  end
+  
+  def book_collection
+    if book_collection_id.nil?
+      return "Doesn't belong to any"
+    end
+    if res = BookCollection.where(id:book_collection_id).first
+      res.title
+    else
+      "Doesn't belong to any"
+    end  
   end
 end

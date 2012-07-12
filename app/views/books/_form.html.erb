@@ -10,7 +10,12 @@
       </ul>
     </div>
   <% end %>
-
+  
+  <% bcollection = [] %>
+  <% BookCollection.all.each do |bc| %>
+  <%	bcollection<<[bc.title, bc.id] %>
+  <% end %>
+  	
   <div class="field">
     <%= f.label :title %> (*) <br />
     <%= f.text_field :title %>
@@ -33,7 +38,7 @@
   </div>
   <div class="field">
     <%= f.label :book_collection_id %><br />
-    <%= f.number_field :book_collection_id %>
+    <%= f.select :book_collection_id, bcollection%>
   </div>
   <div class="field">
     <%= f.label :publication_year %><br />
