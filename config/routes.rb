@@ -1,4 +1,6 @@
 SunServer::Application.routes.draw do
+  resources :books
+
   resources :book_collections
 
   # The priority is based upon order of creation:

@@ -11,7 +11,7 @@ class CreateBooks < ActiveRecord::Migration
       t.string :publisher
       t.string :cover_m_path
       t.string :cover_s_path
-      t.integer :provider_id      
+      t.integer :provider_id
 
       t.timestamps
     end
