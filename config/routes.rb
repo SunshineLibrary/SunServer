@@ -1,4 +1,6 @@
 SunServer::Application.routes.draw do
+  resources :tags
+
   resources :authors
 
   resources :books

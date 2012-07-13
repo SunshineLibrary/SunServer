@@ -1,9 +1,10 @@
-<h1>Listing authors</h1>
+<h1>作者列表</h1>
 
 <table border="1" cellspacing="0" cellpadding="3"> 
   <tr>
     <th>Name</th>
-    <th>Intro</th>
+    <th>Nationality</th>
+    <th>Intro</th>    
     <th></th>
     <th></th>
     <th></th>
@@ -12,6 +13,7 @@
 <% @authors.each do |author| %>
   <tr>
     <td><%= author.name %></td>
+    <td><%= author.nationality%></td>
     <td><%= author.intro %></td>
     <td><%= link_to 'Show', author %></td>
     <td><%= link_to 'Edit', edit_author_path(author) %></td>

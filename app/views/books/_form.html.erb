@@ -11,21 +11,26 @@
     </div>
   <% end %>
   
-  <% bcollection = [] %>
+  <% bcollection = [["自动创建", -1]] %>
   <% BookCollection.all.each do |bc| %>
   <%	bcollection<<[bc.title, bc.id] %>
   <% end %>
   	
   <div class="field">
-    <%= f.label :title %> (*) <br />
-    <%= f.text_field :title %>
+  	<p>
+		书名 (*) <span class="required"></span>
+	    <%= f.text_field :title %>
+    </p>
   </div>
   <div class="field">
-    <%= f.label :author %> (*)<br />
-    <%= f.text_field :author %>
+  	<p>
+		作者 (*) <span class="required"></span>
+	    <%= f.text_field :author %>
+   	</p>
   </div>
+    
   <div class="field">
-    <%= f.label :intro %><br />
+  	简介<br />
     <%= f.text_area :intro %>
   </div>
   <div class="field">
@@ -37,7 +42,9 @@
     <%= f.text_field :file_path %>
   </div>
   <div class="field">
-    <%= f.label :book_collection_id %><br />
+	书籍集合
+	<%= link_to '手动创建', new_book_collection_path%>
+	<br />
     <%= f.select :book_collection_id, bcollection%>
   </div>
   <div class="field">
@@ -56,9 +63,15 @@
     <%= f.label :cover_s_path %><br />
     <%= f.text_field :cover_s_path %>
   </div>
+  
+  <% pcollection = []%>
+  <% Provider.all.each do |provider|%>
+  <% 	pcollection << [provider.name, provider.id]%>
+  <% end%>
+  
   <div class="field">
     <%= f.label :provider_id %><br />
-    <%= f.number_field :provider_id %>
+    <%= f.select :provider_id, pcollection %>
   </div>
   <div class="actions">
     <%= f.submit %>
