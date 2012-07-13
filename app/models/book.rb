@@ -1,4 +1,7 @@
 class Book < ActiveRecord::Base
+  attr_accessible :epub_file
+  has_attached_file :epub_file
+  
   belongs_to :provider
   belongs_to :book_collection
   belongs_to :author  
@@ -51,13 +54,13 @@ class Book < ActiveRecord::Base
   end
   
   def book_collection_id= bc_id
-    if bc_id == "-1"
+    if bc_id == "-1"    
       self.build_book_collection title:self.title, intro:self.intro
     else
-      @book_collection_id = bc_id
+      super(bc_id)            
     end
-  end
-  
+  end  
+    
   def provider
     if provider_id.nil?
       return 'Miss'

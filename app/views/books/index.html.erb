@@ -1,11 +1,13 @@
 <h1>Listing books</h1>
+<p id="notice"><%= notice %></p>
 
 <table border="1" cellspacing="0" cellpadding="3">
   <tr>
     <th>Title</th>
     <th>Author</th>         
-    <th>Intro</th>  
-    <th>Book collection</th>    
+    <th>Book collection</th>
+    <th>Uploaded?</th>
+    <th>Intro</th>         
     <th></th>
     <th></th>
     <th></th>
@@ -14,9 +16,10 @@
 <% @books.each do |book| %>
   <tr>
     <td><%= book.title %></td>
-    <td><%= book.author %></td>    
-    <td><%= book.intro %></td>
-    <td><%= book.book_collection%></td>    
+    <td><%= book.author %></td>
+    <td><%= book.book_collection%></td>  
+    <td><%= book.epub_file? %></td>    
+    <td><%= book.intro %></td>      
     <td><%= link_to 'Show', book %></td>
     <td><%= link_to 'Edit', edit_book_path(book) %></td>
     <td><%= link_to 'Destroy', book, confirm: 'Are you sure?', method: :delete %></td>

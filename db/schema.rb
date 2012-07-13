@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120713040635) do
+ActiveRecord::Schema.define(:version => 20120713140746) do
 
   create_table "apis", :force => true do |t|
     t.string   "table_name"
@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(:version => 20120713040635) do
     t.integer  "author_id"
     t.string   "intro"
     t.string   "ISBN"
-    t.string   "file_path"
     t.integer  "book_collection_id"
     t.integer  "publication_year"
     t.string   "publisher"
@@ -75,6 +74,10 @@ ActiveRecord::Schema.define(:version => 20120713040635) do
     t.integer  "provider_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "epub_file_file_name"
+    t.string   "epub_file_content_type"
+    t.integer  "epub_file_file_size"
+    t.datetime "epub_file_updated_at"
   end
 
   create_table "books_tags", :force => true do |t|

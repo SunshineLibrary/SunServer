@@ -1,0 +1,130 @@
+Ruby notes
+
+Range
+	0..2 [0, 1, 2]
+	0...2 [0, 1]
+
+Array
+	array = []
+	array[0]
+	(0..2).to_a
+	array.fetch(999, "Not found!")
+	array.values_at(0,1,2)
+	array<<12
+	array.push(12,3)
+	array.pop
+	array.shift 去掉第一个元素
+	array.delete_at(4)
+	array.delete(4) { "Wrong!" } #删除失败返回值	
+	
+Hash
+	hash = {}
+	hash = {key => value, key1 => value1}
+	new_hash = Hash.new("not here!") #default failure value
+	hash.has_key?('key')
+	hash.has_value?('value')
+	hash.empty?			.clear			.delete
+	
+RegEx 
+	mystring =~ /\sstring\s/ #Get position
+
+Methods
+	def my_func(x)
+		puts x
+	end
+
+Block
+	myarray = %w{one two three} # myarray = ["one", "two", "three"]
+	
+	#Proc, 类似于lambda算子
+	def make_show_name(show)
+		Proc.new {|host| show + " with " + host}
+	end
+	
+	#lambda算子
+	myproc = lambda {|x| puts "blur: #{x}"}
+	myproc.call(10)
+	
+	#yield
+	def yieldme
+		print "1."
+		yield		#<-- 把后面的block插入到这里
+		print "3."
+	end
+	yieldme { print "2." }
+
+Class
+	class Boogeyman
+		def initialize #constructor
+			puts "Yes, master?"
+		end
+	end
+	monster1 = Boogeyman.new
+
+	class Boogeyman #自动往类里面添加东东
+		attr_reader :scare_factor, :hiding place
+		attr_writer  :scare_factor, :hiding place
+		
+		private	#默认public
+			def phone_home(message)
+				@message = message #attribute，每个实体都有一个
+				@@lastmessage = message #class variable，shared
+				puts message
+			end
+			
+		MY_BOSS = "Mr. Nima" #class 常量
+		
+		def Boogeyman.latest_monster	#静态函数成员
+			puts @@lastmessage
+		end
+	end
+
+Control flow
+	if 
+	elsif
+	else
+	end
+	
+	puts "nima" if 10>9
+
+	case the_tao
+		when 666: puts "666"
+		when 137
+			puts "137"
+		else
+			puts "nima"
+	end
+	
+	enlightment = 10
+	case 
+		when enlightment > 10
+			puts "10"
+		when enlightment < 5
+			puts "5"
+		else
+			puts "nima"
+	end
+	
+	while x<10
+	end
+	
+	until x>=10
+	end
+	
+	my_ints = [1,2,3]
+	for i in my_ints
+		puts i
+	end
+	
+	##Statement Modifiers
+	self.bang_head while self.conscious == true
+	
+	while (x<10)
+		....
+		break if x>5
+		##next 相当于C++中continue
+	end
+	
+42.121.65.247:29418
+
+

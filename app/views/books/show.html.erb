@@ -21,8 +21,8 @@
 </p>
 
 <p>
-  <b>File path:</b>
-  <%= @book.file_path %>
+  <b>File:</b>
+  <%= @book.epub_file_file_name if @book.epub_file? %>
 </p>
 
 <p>
