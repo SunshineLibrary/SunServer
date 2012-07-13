@@ -1,5 +1,4 @@
-class Book < ActiveRecord::Base
-  attr_accessible :epub_file
+class Book < ActiveRecord::Base  
   has_attached_file :epub_file
   
   belongs_to :provider
