@@ -1,0 +1,9 @@
+iPad	64-20-0C-84-E4-B5	192.168.3.100	01:43:41
+2	mendlin-PC	9C-B7-0D-20-0D-8A	192.168.3.102	01:30:44
+3	logicalmars-PC	00-25-22-2D-B8-14	192.168.3.101	01:08:2
+
+ssid : mendlin
+netp : microsoftresearchasia
+
+user : linmeng
+pass : linmeng

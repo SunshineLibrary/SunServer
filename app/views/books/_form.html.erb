@@ -1,4 +1,3 @@
-<!--, :html => { :multipart => true } -->
 <%= form_for @book do |f| %>
   <% if @book.errors.any? %>
     <div id="error_explanation">
@@ -65,11 +64,27 @@
   </div>
   <div class="field">
 	封面（中）
-    <%= f.text_field :cover_m_path %>
+	
+	<%if @book.cover_m? %>
+	<%=	"(已上传:#{@book.cover_m_file_name})"%>
+	<%else%>
+	<%=	"(未上传)"%>
+	<%end%>
+	
+	<br />
+    <%= f.file_field :cover_m %>
   </div>
   <div class="field">
  	封面（小）
-    <%= f.text_field :cover_s_path %>
+ 	
+ 	<%if @book.cover_s? %>
+	<%=	"(已上传:#{@book.cover_s_file_name})"%>
+	<%else%>
+	<%=	"(未上传)"%>
+	<%end%>
+	
+ 	<br />
+    <%= f.file_field :cover_s %>
   </div>
   
   <% pcollection = []%>
@@ -81,6 +96,14 @@
 	内容供应商<br />
     <%= f.select :provider_id, pcollection %>
   </div>
+  
+  <div class="field">
+  	<% Tag.all.each do |tag|%>
+  		<%= check_box_tag 'tag_ids[]', tag.id%>
+  		<%= tag.name%>
+  	<% end%>
+  </div>  
+  
   <div class="actions">
     <%= f.submit %>
   </div>

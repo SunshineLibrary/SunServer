@@ -1,5 +1,7 @@
 class Book < ActiveRecord::Base  
   has_attached_file :epub_file
+  has_attached_file :cover_m
+  has_attached_file :cover_s  
   
   belongs_to :provider
   belongs_to :book_collection
@@ -69,5 +71,10 @@ class Book < ActiveRecord::Base
     else
       'Miss'
     end
+  end
+  
+  def update_tags new_tag_ids
+    self.tag_ids = new_tag_ids.map{|t| t.to_i}
+    save
   end
 end

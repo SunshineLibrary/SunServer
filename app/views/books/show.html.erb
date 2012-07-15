@@ -42,12 +42,12 @@
 
 <p>
   <b>Cover m path:</b>
-  <%= @book.cover_m_path %>
+  <%= @book.cover_m_file_name%>
 </p>
 
 <p>
   <b>Cover s path:</b>
-  <%= @book.cover_s_path %>
+  <%= @book.cover_s_file_name %>
 </p>
 
 <p>
@@ -55,6 +55,11 @@
   <%= @book.provider %>
 </p>
 
+<p>
+	<b>Tag:</b>
+	<%= @book.tags.map{|tag| tag.name}.inspect%>
+</p>
+<br/>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120713140746) do
+ActiveRecord::Schema.define(:version => 20120714153349) do
 
   create_table "apis", :force => true do |t|
     t.string   "table_name"
@@ -69,8 +69,6 @@ ActiveRecord::Schema.define(:version => 20120713140746) do
     t.integer  "book_collection_id"
     t.integer  "publication_year"
     t.string   "publisher"
-    t.string   "cover_m_path"
-    t.string   "cover_s_path"
     t.integer  "provider_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -78,6 +76,14 @@ ActiveRecord::Schema.define(:version => 20120713140746) do
     t.string   "epub_file_content_type"
     t.integer  "epub_file_file_size"
     t.datetime "epub_file_updated_at"
+    t.string   "cover_m_file_name"
+    t.string   "cover_m_content_type"
+    t.integer  "cover_m_file_size"
+    t.datetime "cover_m_updated_at"
+    t.string   "cover_s_file_name"
+    t.string   "cover_s_content_type"
+    t.integer  "cover_s_file_size"
+    t.datetime "cover_s_updated_at"
   end
 
   create_table "books_tags", :force => true do |t|
@@ -106,7 +112,7 @@ ActiveRecord::Schema.define(:version => 20120713140746) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
+    t.string   "tag_type"
   end
 
 end

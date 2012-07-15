@@ -1,13 +1,12 @@
-<h1>Listing books</h1>
+<h1>书籍列表</h1>
 <p id="notice"><%= notice %></p>
 
 <table border="1" cellspacing="0" cellpadding="3">
   <tr>
-    <th>Title</th>
-    <th>Author</th>         
-    <th>Book collection</th>
-    <th>Uploaded?</th>
-    <th>Intro</th>         
+    <th>题目</th>
+    <th>作者</th>         
+    <th>合集</th>
+    <th>已上传？</th>        
     <th></th>
     <th></th>
     <th></th>
@@ -17,9 +16,12 @@
   <tr>
     <td><%= book.title %></td>
     <td><%= book.author %></td>
-    <td><%= book.book_collection%></td>      
-    <td><%= book.epub_file? %></td>    
-    <td><%= book.intro %></td>      
+    <td><%= book.book_collection%></td>
+    <% unless book.epub_file? %>
+    <td style="background:#FA5858"><%= book.epub_file? %></td>
+    <% else%>      
+    <td><%= book.epub_file? %></td>
+    <% end%>
     <td><%= link_to 'Show', book %></td>
     <td><%= link_to 'Edit', edit_book_path(book) %></td>
     <td><%= link_to 'Destroy', book, confirm: 'Are you sure?', method: :delete %></td>

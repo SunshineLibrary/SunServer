@@ -41,7 +41,8 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.create(params[:book])
-
+    @book.update_tags(params[:tag_ids])
+    
     respond_to do |format|
       if @book.save
         format.html {redirect_to books_url, notice:'Book was successfully created.'}
@@ -55,11 +56,11 @@ class BooksController < ApplicationController
 
   # PUT /books/1
   # PUT /books/1.json
-  def update
-    @book = Book.find(params[:id])
-
+  def update    
+    @book = Book.find(params[:id])    
+    
     respond_to do |format|
-      if @book.update_attributes(params[:book])
+      if @book.update_attributes(params[:book]) and @book.update_tags(params[:tag_ids]) 
         format.html {redirect_to books_url, notice: 'Book was successfully updated.'}        
         format.json { head :ok }
       else
