@@ -33,6 +33,7 @@
   	简介<br />
     <%= f.text_area :intro %>
   </div>
+      
   <div class="field">
     ISBN   <br />
     <%= f.text_field :ISBN %>
@@ -42,26 +43,29 @@
 	<%= f.select :book_collection_id, bcollection%>
 	<%= link_to '手动创建', new_book_collection_path%>	
   </div>
-  <div class="field">
-	文件路径    
-	
-	<%if @book.epub_file? %>
-	<%=	"(已上传:#{@book.epub_file_file_name})"%>
-	<%else%>
-	<%=	"(未上传)"%>
-	<%end%>
-	
-	<br />
-    <%= f.file_field :epub_file %>
-  </div>
+  
   <div class="field">
 	出版年份    <br />
     <%= f.number_field :publication_year %>
   </div>
+  
   <div class="field">
 	出版商       <br />
     <%= f.text_field :publisher %>
   </div>
+  
+  <% my_tag_ids = @book.tag_ids%>
+  <% Tag.type_list.each do |type|%>
+  	<div class="field">
+	  	<%= type%>
+	  	<br/>  
+	  	<% Tag.where(tag_type: type).each do |tag|%>
+	  		<%= check_box_tag 'tag_ids[]', tag.id, my_tag_ids.include?(tag.id)%>
+	  		<%= tag.name%>
+	  	<% end%>  	  	
+  	</div>
+  <% end%>
+  
   <div class="field">
 	封面（中）
 	
@@ -87,6 +91,19 @@
     <%= f.file_field :cover_s %>
   </div>
   
+  <div class="field">
+	epub文件路径    
+	
+	<%if @book.epub_file? %>
+	<%=	"(已上传:#{@book.epub_file_file_name})"%>
+	<%else%>
+	<%=	"(未上传)"%>
+	<%end%>
+	
+	<br />
+    <%= f.file_field :epub_file %>
+  </div>
+  
   <% pcollection = []%>
   <% Provider.all.each do |provider|%>
   <% 	pcollection << [provider.name, provider.id]%>
@@ -95,14 +112,7 @@
   <div class="field">
 	内容供应商<br />
     <%= f.select :provider_id, pcollection %>
-  </div>
-  
-  <div class="field">
-  	<% Tag.all.each do |tag|%>
-  		<%= check_box_tag 'tag_ids[]', tag.id%>
-  		<%= tag.name%>
-  	<% end%>
-  </div>  
+  </div> 
   
   <div class="actions">
     <%= f.submit %>

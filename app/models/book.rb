@@ -74,7 +74,10 @@ class Book < ActiveRecord::Base
   end
   
   def update_tags new_tag_ids
-    self.tag_ids = new_tag_ids.map{|t| t.to_i}
-    save
+    if not new_tag_ids.nil?
+      self.tag_ids = new_tag_ids.map{|t| t.to_i}
+      save
+    end
+    true
   end
 end

@@ -24,6 +24,7 @@ class BooksController < ApplicationController
   # GET /books/new
   # GET /books/new.json
   def new
+    debugger
     @book = Book.new
 
     respond_to do |format|
