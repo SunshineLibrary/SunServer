@@ -15,6 +15,9 @@ gem 'devise'
 gem 'will_paginate'
 gem 'calendar_helper'
 gem 'geocoder'
+ 
+gem 'activerecord-jdbc-adapter'
+gem 'jdbc-sqlite3'
 
 # Gems used only for assets and not required
 # in production environments by default.
