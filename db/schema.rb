@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20120714153349) do
     t.datetime "updated_at"
   end
 
-  create_table "apks_machine_types", :force => true do |t|
+  create_table "apks_machine_types", :force => true, :id => false  do |t|
     t.integer  "apk_id"
     t.integer  "machine_type_id"
     t.datetime "created_at"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(:version => 20120714153349) do
     t.datetime "updated_at"
   end
 
-  create_table "book_collections_tags", :force => true do |t|
+  create_table "book_collections_tags", :force => true, :id => false  do |t|
     t.integer  "book_collection_id"
     t.integer  "tag_id"
     t.datetime "created_at"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20120714153349) do
     t.datetime "cover_s_updated_at"
   end
 
-  create_table "books_tags", :force => true do |t|
+  create_table "books_tags", :force => true, :id => false  do |t|
     t.integer  "book_id"
     t.integer  "tag_id"
     t.datetime "created_at"
