@@ -6,3 +6,5 @@ tmp/
 .rvmrc
 .DS_STORE
 test/
+public/assets
+public/system
