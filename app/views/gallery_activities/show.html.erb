@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @gallery_activity.name %>
+</p>
+
+<p>
+  <b>Activity:</b>
+  <%= @gallery_activity.activity_id %>
+</p>
+
+<p>
+  <b>Provider:</b>
+  <%= @gallery_activity.provider_id %>
+</p>
+
+<p>
+  <b>File path:</b>
+  <%= @gallery_activity.file_path %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @gallery_activity.description %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @gallery_activity.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_gallery_activity_path(@gallery_activity) %> |
+<%= link_to 'Back', gallery_activities_path %>

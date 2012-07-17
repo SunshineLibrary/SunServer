@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @audio_activity.name %>
+</p>
+
+<p>
+  <b>Activity:</b>
+  <%= @audio_activity.activity_id %>
+</p>
+
+<p>
+  <b>Provider:</b>
+  <%= @audio_activity.provider_id %>
+</p>
+
+<p>
+  <b>File path:</b>
+  <%= @audio_activity.file_path %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @audio_activity.notes %>
+</p>
+
+<p>
+  <b>Duration:</b>
+  <%= @audio_activity.duration %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @audio_activity.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_audio_activity_path(@audio_activity) %> |
+<%= link_to 'Back', audio_activities_path %>

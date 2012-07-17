@@ -1,0 +1,33 @@
+<h1>Listing quiz_activities</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Activity</th>
+    <th>Provider</th>
+    <th>File path</th>
+    <th>Size</th>
+    <th>Difficulty</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @quiz_activities.each do |quiz_activity| %>
+  <tr>
+    <td><%= quiz_activity.name %></td>
+    <td><%= quiz_activity.activity_id %></td>
+    <td><%= quiz_activity.provider_id %></td>
+    <td><%= quiz_activity.file_path %></td>
+    <td><%= quiz_activity.size %></td>
+    <td><%= quiz_activity.difficulty %></td>
+    <td><%= link_to 'Show', quiz_activity %></td>
+    <td><%= link_to 'Edit', edit_quiz_activity_path(quiz_activity) %></td>
+    <td><%= link_to 'Destroy', quiz_activity, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Quiz activity', new_quiz_activity_path %>

@@ -1,0 +1,2 @@
+module VideoActivitiesHelper
+end

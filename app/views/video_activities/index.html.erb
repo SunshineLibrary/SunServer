@@ -1,0 +1,35 @@
+<h1>Listing video_activities</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Activity</th>
+    <th>Provider</th>
+    <th>File path</th>
+    <th>Notes</th>
+    <th>Duration</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @video_activities.each do |video_activity| %>
+  <tr>
+    <td><%= video_activity.name %></td>
+    <td><%= video_activity.activity_id %></td>
+    <td><%= video_activity.provider_id %></td>
+    <td><%= video_activity.file_path %></td>
+    <td><%= video_activity.notes %></td>
+    <td><%= video_activity.duration %></td>
+    <td><%= video_activity.description %></td>
+    <td><%= link_to 'Show', video_activity %></td>
+    <td><%= link_to 'Edit', edit_video_activity_path(video_activity) %></td>
+    <td><%= link_to 'Destroy', video_activity, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Video activity', new_video_activity_path %>

@@ -1,0 +1,31 @@
+<h1>Listing text_activities</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Activity</th>
+    <th>Provider</th>
+    <th>File path</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @text_activities.each do |text_activity| %>
+  <tr>
+    <td><%= text_activity.name %></td>
+    <td><%= text_activity.activity_id %></td>
+    <td><%= text_activity.provider_id %></td>
+    <td><%= text_activity.file_path %></td>
+    <td><%= text_activity.description %></td>
+    <td><%= link_to 'Show', text_activity %></td>
+    <td><%= link_to 'Edit', edit_text_activity_path(text_activity) %></td>
+    <td><%= link_to 'Destroy', text_activity, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Text activity', new_text_activity_path %>

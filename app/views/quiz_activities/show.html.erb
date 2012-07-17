@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @quiz_activity.name %>
+</p>
+
+<p>
+  <b>Activity:</b>
+  <%= @quiz_activity.activity_id %>
+</p>
+
+<p>
+  <b>Provider:</b>
+  <%= @quiz_activity.provider_id %>
+</p>
+
+<p>
+  <b>File path:</b>
+  <%= @quiz_activity.file_path %>
+</p>
+
+<p>
+  <b>Size:</b>
+  <%= @quiz_activity.size %>
+</p>
+
+<p>
+  <b>Difficulty:</b>
+  <%= @quiz_activity.difficulty %>
+</p>
+
+
+<%= link_to 'Edit', edit_quiz_activity_path(@quiz_activity) %> |
+<%= link_to 'Back', quiz_activities_path %>
