@@ -16,13 +16,17 @@
 </p>
 
 <p>
+	<b>Difficulty:</b>
+	<%= @book.difficulty%>
+</p>
+<p>
   <b>Isbn:</b>
   <%= @book.ISBN %>
 </p>
 
 <p>
   <b>File:</b>
-  <%= @book.epub_file_file_name if @book.epub_file? %>
+  <%= (link_to "#{@book.epub_file_file_name}", @book.epub_file.url(:original, false)) if @book.epub_file? %>
 </p>
 
 <p>
@@ -42,12 +46,12 @@
 
 <p>
   <b>Cover m path:</b>
-  <%= @book.cover_m_file_name%>
+  <%= (link_to "#{@book.cover_m_file_name}", @book.cover_m.url(:original, false)) if @book.cover_m? %>    
 </p>
 
 <p>
   <b>Cover s path:</b>
-  <%= @book.cover_s_file_name %>
+  <%= (link_to "#{@book.cover_s_file_name}", @book.cover_s.url(:original, false)) if @book.cover_s? %>    
 </p>
 
 <p>

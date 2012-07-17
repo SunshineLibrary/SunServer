@@ -10,8 +10,8 @@
   = @provider.intro
   
 %p 
-  %b Logo_path:
-  = @provider.logo_path
+  %b Logo:
+  = (link_to "#{@provider.logo_file_name}", @provider.logo.url(:original, false)) if @provider.logo?
  
 = link_to 'Edit', edit_provider_path(@provider) 
 |

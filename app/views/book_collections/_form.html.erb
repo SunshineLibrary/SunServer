@@ -12,20 +12,26 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br />
+  	标题<br />
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :intro %><br />
+	简介<br/>
     <%= f.text_area :intro %>
   </div>
+  
   <div class="field">
-    <%= f.label :cover_m_path %><br />
-    <%= f.text_field :cover_m_path %>
+	封面(中)	
+	<%= "(已上传#{@book_collection.cover_m_file_name})" if @book_collection.cover_m?%>
+	<br/>
+    <%= f.file_field :cover_m %>  
   </div>
+  
   <div class="field">
-    <%= f.label :cover_s_path %><br />
-    <%= f.text_field :cover_s_path %>
+	封面(小)
+	<%= "(已上传#{@book_collection.cover_s_file_name})" if @book_collection.cover_s?%>
+	<br/>
+    <%= f.file_field :cover_s %>
   </div>
   <div class="actions">
     <%= f.submit %>

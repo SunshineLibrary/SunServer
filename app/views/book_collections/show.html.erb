@@ -11,13 +11,13 @@
 </p>
 
 <p>
-  <b>Cover m path:</b>
-  <%= @book_collection.cover_m_path %>
+  <b>Cover m:</b>
+  <%= (link_to "#{@book_collection.cover_m_file_name}", @book_collection.cover_m.url(:original, false)) if @book_collection.cover_m? %>
 </p>
 
 <p>
-  <b>Cover s path:</b>
-  <%= @book_collection.cover_s_path %>
+  <b>Cover s:</b>
+  <%= (link_to "#{@book_collection.cover_s_file_name}", @book_collection.cover_s.url(:original, false)) if @book_collection.cover_s? %>  
 </p>
 
 

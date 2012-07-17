@@ -14,21 +14,24 @@
   <% bcollection = [["自动创建", -1]] %>
   <% BookCollection.all.each do |bc| %>
   <%	bcollection<<[bc.title, bc.id] %>
-  <% end %>
-  	
+  <% end %>  
+  	  	
   <div class="field">
   	<p>
 		书名 (*)
 	    <%= f.text_field :title %>
     </p>
-  </div>
+  </div> 
+  
   <div class="field">
   	<p>
 		作者 (*)
 	    <%= f.text_field :author %>
+	    <br/>
+		**不存在的作者会自动新建，请确保拼写正确。<br/>
    	</p>
   </div>
-    
+  
   <div class="field">
   	简介<br />
     <%= f.text_area :intro %>
@@ -39,9 +42,10 @@
     <%= f.text_field :ISBN %>
   </div>
   <div class="field">
-	书籍集合  <br/>
+	书籍集合  (**书籍合集可以根据书的名字自动创建，书籍录入完成后可以去合集页面修改名称和简介）
+	<br/>
 	<%= f.select :book_collection_id, bcollection%>
-	<%= link_to '手动创建', new_book_collection_path%>	
+	<%= link_to '手动创建', new_book_collection_path%>
   </div>
   
   <div class="field">
@@ -65,6 +69,11 @@
 	  	<% end%>  	  	
   	</div>
   <% end%>
+  
+  <div class="field">
+  	难度 <br/>
+  	<%= f.text_field :difficulty%>  	
+  </div>
   
   <div class="field">
 	封面（中）

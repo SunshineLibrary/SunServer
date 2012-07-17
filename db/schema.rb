@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120713160951) do
+ActiveRecord::Schema.define(:version => 20120717054806) do
 
   create_table "apis", :force => true do |t|
     t.string   "table_name"
@@ -48,10 +48,16 @@ ActiveRecord::Schema.define(:version => 20120713160951) do
   create_table "book_collections", :force => true do |t|
     t.string   "title"
     t.string   "intro"
-    t.string   "cover_m_path"
-    t.string   "cover_s_path"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cover_m_file_name"
+    t.string   "cover_m_content_type"
+    t.integer  "cover_m_file_size"
+    t.datetime "cover_m_updated_at"
+    t.string   "cover_s_file_name"
+    t.string   "cover_s_content_type"
+    t.integer  "cover_s_file_size"
+    t.datetime "cover_s_updated_at"
   end
 
   create_table "book_collections_tags", :id => false, :force => true do |t|
@@ -84,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20120713160951) do
     t.string   "cover_s_content_type"
     t.integer  "cover_s_file_size"
     t.datetime "cover_s_updated_at"
+    t.integer  "difficulty"
   end
 
   create_table "books_tags", :id => false, :force => true do |t|
@@ -103,9 +110,12 @@ ActiveRecord::Schema.define(:version => 20120713160951) do
   create_table "providers", :force => true do |t|
     t.string   "name"
     t.string   "intro"
-    t.string   "logo_path"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   create_table "tags", :force => true do |t|
