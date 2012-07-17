@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120714153349) do
+ActiveRecord::Schema.define(:version => 20120713160951) do
 
   create_table "apis", :force => true do |t|
     t.string   "table_name"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20120714153349) do
     t.datetime "updated_at"
   end
 
-  create_table "apks_machine_types", :force => true, :id => false  do |t|
+  create_table "apks_machine_types", :id => false, :force => true do |t|
     t.integer  "apk_id"
     t.integer  "machine_type_id"
     t.datetime "created_at"
@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(:version => 20120714153349) do
   create_table "authors", :force => true do |t|
     t.string   "name"
     t.string   "intro"
+    t.string   "nationality"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "nationality"
   end
 
   create_table "book_collections", :force => true do |t|
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(:version => 20120714153349) do
     t.datetime "updated_at"
   end
 
-  create_table "book_collections_tags", :force => true, :id => false  do |t|
+  create_table "book_collections_tags", :id => false, :force => true do |t|
     t.integer  "book_collection_id"
     t.integer  "tag_id"
     t.datetime "created_at"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20120714153349) do
     t.datetime "cover_s_updated_at"
   end
 
-  create_table "books_tags", :force => true, :id => false  do |t|
+  create_table "books_tags", :id => false, :force => true do |t|
     t.integer  "book_id"
     t.integer  "tag_id"
     t.datetime "created_at"
@@ -110,9 +110,9 @@ ActiveRecord::Schema.define(:version => 20120714153349) do
 
   create_table "tags", :force => true do |t|
     t.string   "name"
+    t.string   "tag_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "tag_type"
   end
 
 end
