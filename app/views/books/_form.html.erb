@@ -95,7 +95,8 @@
 	epub文件路径    
 	
 	<%if @book.epub_file? %>
-	<%=	"(已上传:#{@book.epub_file_file_name})"%>
+	<%=	"(已上传:"%>
+	<%= link_to "#{@book.epub_file_file_name}", @book.epub_file.url(:original, false)%>)
 	<%else%>
 	<%=	"(未上传)"%>
 	<%end%>
