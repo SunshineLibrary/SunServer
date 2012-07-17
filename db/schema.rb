@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717054806) do
+ActiveRecord::Schema.define(:version => 20120717072013) do
+
+  create_table "activities", :force => true do |t|
+    t.string   "type"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "apis", :force => true do |t|
     t.string   "table_name"
@@ -33,6 +40,18 @@ ActiveRecord::Schema.define(:version => 20120717054806) do
   create_table "apks_machine_types", :id => false, :force => true do |t|
     t.integer  "apk_id"
     t.integer  "machine_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "audio_activities", :force => true do |t|
+    t.string   "name"
+    t.integer  "activity_id"
+    t.integer  "provider_id"
+    t.string   "file_path"
+    t.text     "notes"
+    t.integer  "duration"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -100,6 +119,44 @@ ActiveRecord::Schema.define(:version => 20120717054806) do
     t.datetime "updated_at"
   end
 
+  create_table "chapters", :force => true do |t|
+    t.string   "name"
+    t.integer  "course_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "courses", :force => true do |t|
+    t.string   "name"
+    t.string   "editor"
+    t.integer  "subject_id"
+    t.integer  "grade"
+    t.integer  "semester"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gallery_activities", :force => true do |t|
+    t.string   "name"
+    t.integer  "activity_id"
+    t.integer  "provider_id"
+    t.string   "file_path"
+    t.text     "description"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lessons", :force => true do |t|
+    t.string   "name"
+    t.integer  "chapter_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "machine_types", :force => true do |t|
     t.string   "size"
     t.string   "version"
@@ -118,9 +175,56 @@ ActiveRecord::Schema.define(:version => 20120717054806) do
     t.datetime "logo_updated_at"
   end
 
+  create_table "quiz_activities", :force => true do |t|
+    t.string   "name"
+    t.integer  "activity_id"
+    t.integer  "provider_id"
+    t.string   "file_path"
+    t.integer  "size"
+    t.integer  "difficulty"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sections", :force => true do |t|
+    t.string   "name"
+    t.integer  "lesson_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "subjects", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "tag_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "text_activities", :force => true do |t|
+    t.string   "name"
+    t.integer  "activity_id"
+    t.integer  "provider_id"
+    t.string   "file_path"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "video_activities", :force => true do |t|
+    t.string   "name"
+    t.integer  "activity_id"
+    t.integer  "provider_id"
+    t.string   "file_path"
+    t.text     "notes"
+    t.integer  "duration"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

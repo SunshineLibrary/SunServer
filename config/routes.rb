@@ -1,4 +1,26 @@
 SunServer::Application.routes.draw do
+  resources :chapters
+
+  resources :quiz_activities
+
+  resources :video_activities
+
+  resources :audio_activities
+
+  resources :gallery_activities
+
+  resources :text_activities
+
+  resources :activities
+
+  resources :sections
+
+  resources :lessons
+
+  resources :courses
+
+  resources :subjects
+
   resources :tags
 
   resources :authors
