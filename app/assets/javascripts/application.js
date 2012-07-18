@@ -7,3 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+// For Best_in_place
+//= require jquery.purr
+//= require best_in_place
