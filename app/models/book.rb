@@ -85,4 +85,20 @@ class Book < ActiveRecord::Base
     end
     true
   end
+  
+  def Book.sequence_after (timestamp, limit)
+    sorted_sequence = Book.select{|b| b.updated_at.to_i > timestamp}.sort{|a,b| a.updated_at <=> b.updated_at}    
+    
+    if sorted_sequence.count <= limit
+      return sorted_sequence      
+    end    
+    
+    #sorted_sequence is longer than limit, must cut down
+    i = limit
+    while sorted_sequence[i] && sorted_sequence[i].updated_at == sorted_sequence[limit-1].updated_at
+      i = i + 1
+    end        
+    
+    return sorted_sequence[0, i]
+  end
 end
