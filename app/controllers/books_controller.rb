@@ -5,18 +5,11 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    timestamp = params[:timestamp] ? params[:timestamp].to_i : 0
+    limit = params[:limit] ? params[:limit].to_i : DEFAULT_LIMIT
     
-    if params[:timestamp]
-      @books = @books.select{|b| b.updated_at.to_i >= params[:timestamp].to_i}.sort{|a,b| a.updated_at <=> b.updated_at}
-    end    
-    
-    if params[:limit]
-      @books = @books.first(params[:limit].to_i)
-    else
-      @books = @books.first(DEFAULT_LIMIT)
-    end
-     
+    @books = Book.sequence_after(timestamp, limit) 
+         
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @books }

@@ -6,7 +6,8 @@
     <th>题目</th>
     <th>作者</th>         
     <th>合集</th>
-    <th>已上传？</th>        
+    <th>已上传？</th>
+    <th>Updated At</th>        
     <th></th>
     <th></th>
     <th></th>
@@ -22,6 +23,8 @@
     <% else%>      
     <td><%= book.epub_file? %></td>
     <% end%>
+    
+    <td><%= book.updated_at%></td>
     <td><%= link_to 'Show', book %></td>
     <td><%= link_to 'Edit', edit_book_path(book) %></td>
     <td><%= link_to 'Destroy', book, confirm: 'Are you sure?', method: :delete %></td>
