@@ -1,5 +1,10 @@
 class Book < ActiveRecord::Base  
-  has_attached_file :epub_file
+  has_attached_file :epub_file, { 
+    :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
+    :url => "/system/:attachment/:id/:style/:hash.:extension",
+    :hash_secret => "longSecretString"
+  }
+     
   has_attached_file :cover_m
   has_attached_file :cover_s  
   

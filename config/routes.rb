@@ -25,6 +25,8 @@ SunServer::Application.routes.draw do
 
   resources :authors
 
+  match 'books/download/:id' => 'books#download'
+  
   resources :books
 
   resources :book_collections

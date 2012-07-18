@@ -1,15 +1,28 @@
 class BooksController < ApplicationController
+  
+  DEFAULT_LIMIT = 100
+  
   # GET /books
   # GET /books.json
   def index
     @books = Book.all
-
+    
+    if params[:timestamp]
+      @books = @books.select{|b| b.updated_at.to_i >= params[:timestamp].to_i}.sort{|a,b| a.updated_at <=> b.updated_at}
+    end    
+    
+    if params[:limit]
+      @books = @books.first(params[:limit].to_i)
+    else
+      @books = @books.first(DEFAULT_LIMIT)
+    end
+     
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @books }
     end
   end
-
+  
   # GET /books/1
   # GET /books/1.json
   def show
@@ -80,5 +93,12 @@ class BooksController < ApplicationController
       format.html { redirect_to books_url }
       format.json { head :ok }
     end
+  end
+  
+  def download    
+    @book = Book.find(params[:id])    
+    path = @book.epub_file.path
+    
+    send_file(path)
   end
 end
