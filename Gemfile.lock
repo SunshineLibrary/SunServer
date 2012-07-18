@@ -34,6 +34,9 @@ GEM
     archive-tar-minitar (0.5.2)
     arel (2.2.3)
     bcrypt-ruby (3.0.1)
+    best_in_place (1.1.2)
+      jquery-rails
+      rails (~> 3.1)
     builder (3.0.0)
     cocaine (0.2.1)
     coffee-rails (3.1.1)
@@ -174,6 +177,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  best_in_place
   coffee-rails (~> 3.1.0)
   database_cleaner (~> 0.6.7)
   factory_girl_rails

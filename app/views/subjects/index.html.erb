@@ -1,8 +1,8 @@
-<h1>Listing subjects</h1>
+<h1>所有科目</h1>
 
 <table>
   <tr>
-    <th>Name</th>
+    <th>名称</th>
     <th></th>
     <th></th>
     <th></th>
@@ -10,14 +10,13 @@
 
 <% @subjects.each do |subject| %>
   <tr>
-    <td><%= subject.name %></td>
-    <td><%= link_to 'Show', subject %></td>
-    <td><%= link_to 'Edit', edit_subject_path(subject) %></td>
-    <td><%= link_to 'Destroy', subject, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= best_in_place subject, :name, :type => :input %></td>
+    <td><%= link_to '进入', subject %></td>
+    <td><%= link_to '删除', subject, confirm: '确定删除此科目吗？', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Subject', new_subject_path %>
+<%= link_to '创建新科目', new_subject_path %>
