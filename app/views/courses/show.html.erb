@@ -1,35 +1,30 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= best_in_place @course, :name, :type => :input %></h1>
+
 <p>
-  <b>Name:</b>
-  <%= @course.name %>
+  <b>所属科目:</b>
+  <%= @course.subject.name %>
 </p>
 
 <p>
-  <b>Editor:</b>
-  <%= @course.editor %>
+  <b>课程创建者:</b>
+  <%= best_in_place @course, :editor, :type => :input %>
 </p>
 
 <p>
-  <b>Subject:</b>
-  <%= @course.subject_id %>
+  <b>年级:</b>
+  <%= best_in_place @course, :grade, :type => :select, :collection => [[1, "一年级"], [2, "二年级"], [3, "三年级"], [4, "四年级"], [5, "五年级"], [6, "六年级"], [7, "初一"], [8, "初二"], [9, "初三"]] %>
 </p>
 
 <p>
-  <b>Grade:</b>
-  <%= @course.grade %>
+  <b>学期:</b>
+  <%= best_in_place @course, :semester, :type => :select, :collection => [[1, "上学期"], [2, "下学期"], [3, "全学年"]] %>
 </p>
 
 <p>
-  <b>Semester:</b>
-  <%= @course.semester %>
+  <b>概述:</b>
+  <%= best_in_place @course, :description, :type => :textarea %>
 </p>
 
-<p>
-  <b>Description:</b>
-  <%= @course.description %>
-</p>
-
-
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+<%= link_to '返回科目', @course.subject %>

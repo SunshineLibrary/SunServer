@@ -1,10 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @subject.name %>
-</p>
+<h1>科目：<%= @subject.name %></h1>
 
+<h2>课程列表</h2>
 
-<%= link_to 'Edit', edit_subject_path(@subject) %> |
-<%= link_to 'Back', subjects_path %>
+<%= link_to '创建课程', new_course_path(:subject_id => @subject.id) %>
+
+<table>
+  <tr>
+    <th>课程名称</th>
+    <th>课程编辑者</th>
+    <th>年级</th>
+    <th>学期</th>
+    <th>概述</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @subject.courses.each do |c| %>
+  <tr>
+    <td><%= best_in_place c, :name, :type => :input %></td>
+    <td><%= best_in_place c, :editor, :type => :input %></td>
+    <td><%= best_in_place c, :grade, :type => :select, :collection => [[1, "一年级"], [2, "二年级"], [3, "三年级"], [4, "四年级"], [5, "五年级"], [6, "六年级"], [7, "初一"], [8, "初二"], [9, "初三"]] %></td>
+    <td><%= best_in_place c, :semester, :type => :select, :collection => [[1, "上学期"], [2, "下学期"], [3, "全学年"]] %></td>
+    <td><%= best_in_place c, :description, :type => :textarea %></td>
+    <td><%= link_to '进入', c %></td>
+    <td><%= link_to '删除', c, confirm: '确定要删除此课程吗？', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to '返回', subjects_path %>

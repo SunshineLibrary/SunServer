@@ -5,7 +5,7 @@ class CreateCourses < ActiveRecord::Migration
       t.string :editor
       t.integer :subject_id
       t.integer :grade
-      t.integer :semester
+      t.string :semester
       t.text :description
 
       t.timestamps

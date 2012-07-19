@@ -44,5 +44,13 @@ module SunServer
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+        
+    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
+    # Run "rake -D time" for a list of tasks for finding time zone names.
+    config.time_zone = 'Beijing'
+
+    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+    config.i18n.default_locale = :zh_CN
   end
 end
