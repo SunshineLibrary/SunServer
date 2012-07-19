@@ -14,6 +14,7 @@ class SectionsController < ApplicationController
   # GET /sections/1.json
   def show
     @section = Section.find(params[:id])
+    @activities = @section.activities
 
     respond_to do |format|
       format.html # show.html.erb

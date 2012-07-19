@@ -42,12 +42,21 @@ class HtmlActivitiesController < ApplicationController
   def create
     @activity = Activity.new
     @activity.tipe = "html"
+    
+    if(!@activity.save)
+      format.html { redirect_to Section.find_by_id(params[:section_id], notice: 'Could not create new Activity.') }
+      format.json { render json: @activity.errors, status: :unprocessable_entity }
+      return
+    end
+    
     @html_activity = HtmlActivity.new(params[:html_activity])
+    @html_activity.activity_id = @activity.id
+    @activity.sections << Section.where(params[:section_id])
 
     respond_to do |format|
       if (@html_activity.save && @activity.save)
-        format.html { redirect_to @html_activity, notice: 'Html activity was successfully created.' }
-        format.json { render json: @html_activity, status: :created, location: @html_activity }
+        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Html activity was successfully created.' }
+        format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
       else
         format.html { render action: "new" }
         format.json { render json: @html_activity.errors, status: :unprocessable_entity }

@@ -42,12 +42,21 @@ class GalleryActivitiesController < ApplicationController
   def create
     @activity = Activity.new
     @activity.tipe = "gallery"
-    @gallery_activity = GalleryActivity.new(params[:gallery_activity])
 
+    if(!@activity.save)
+      format.html { redirect_to Section.find_by_id(params[:section_id], notice: 'Could not create new Activity.') }
+      format.json { render json: @activity.errors, status: :unprocessable_entity }
+      return
+    end
+      
+    @gallery_activity = GalleryActivity.new(params[:gallery_activity])
+    @gallery_activity.activity_id = @activity.id
+    @activity.sections << Section.where(params[:section_id])
+      
     respond_to do |format|
       if (@gallery_activity.save && @activity.save)
-        format.html { redirect_to @gallery_activity, notice: 'Gallery activity was successfully created.' }
-        format.json { render json: @gallery_activity, status: :created, location: @gallery_activity }
+        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Gallery activity was successfully created.' }
+        format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
       else
         format.html { render action: "new" }
         format.json { render json: @gallery_activity.errors, status: :unprocessable_entity }

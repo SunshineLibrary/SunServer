@@ -42,12 +42,21 @@ class TextActivitiesController < ApplicationController
   def create
     @activity = Activity.new
     @activity.tipe = "text"
+    
+    if(!@activity.save)
+      format.html { redirect_to Section.find_by_id(params[:section_id], notice: 'Could not create new Activity.') }
+      format.json { render json: @activity.errors, status: :unprocessable_entity }
+      return
+    end
+    
     @text_activity = TextActivity.new(params[:text_activity])
+    @text_activity.activity_id = @activity.id
+    @activity.sections << Section.where(params[:section_id])
 
     respond_to do |format|
       if (@text_activity.save && @activity.save)
-        format.html { redirect_to @text_activity, notice: 'Text activity was successfully created.' }
-        format.json { render json: @text_activity, status: :created, location: @text_activity }
+        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Text activity was successfully created.' }
+        format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
       else
         format.html { render action: "new" }
         format.json { render json: @text_activity.errors, status: :unprocessable_entity }
