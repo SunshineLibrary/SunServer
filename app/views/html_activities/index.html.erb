@@ -1,0 +1,31 @@
+<h1>Listing html_activities</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Activity</th>
+    <th>Provider</th>
+    <th>File path</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @html_activities.each do |html_activity| %>
+  <tr>
+    <td><%= html_activity.name %></td>
+    <td><%= html_activity.activity_id %></td>
+    <td><%= html_activity.provider_id %></td>
+    <td><%= html_activity.file_path %></td>
+    <td><%= html_activity.description %></td>
+    <td><%= link_to 'Show', html_activity %></td>
+    <td><%= link_to 'Edit', edit_html_activity_path(html_activity) %></td>
+    <td><%= link_to 'Destroy', html_activity, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Html activity', new_html_activity_path %>

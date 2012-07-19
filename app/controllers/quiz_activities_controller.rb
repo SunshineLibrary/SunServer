@@ -40,10 +40,12 @@ class QuizActivitiesController < ApplicationController
   # POST /quiz_activities
   # POST /quiz_activities.json
   def create
+    @activity = Activity.new
+    @activity.tipe = "quiz"
     @quiz_activity = QuizActivity.new(params[:quiz_activity])
 
     respond_to do |format|
-      if @quiz_activity.save
+      if (@quiz_activity.save && @activity.save)
         format.html { redirect_to @quiz_activity, notice: 'Quiz activity was successfully created.' }
         format.json { render json: @quiz_activity, status: :created, location: @quiz_activity }
       else

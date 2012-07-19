@@ -40,10 +40,12 @@ class AudioActivitiesController < ApplicationController
   # POST /audio_activities
   # POST /audio_activities.json
   def create
+    @activity = Activity.new
+    @activity.tipe = "audio"
     @audio_activity = AudioActivity.new(params[:audio_activity])
 
     respond_to do |format|
-      if @audio_activity.save
+      if (@audio_activity.save && @activity.save)
         format.html { redirect_to @audio_activity, notice: 'Audio activity was successfully created.' }
         format.json { render json: @audio_activity, status: :created, location: @audio_activity }
       else

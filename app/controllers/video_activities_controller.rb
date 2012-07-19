@@ -40,12 +40,18 @@ class VideoActivitiesController < ApplicationController
   # POST /video_activities
   # POST /video_activities.json
   def create
+    @activity = Activity.new
+    @activity.tipe = "video"
+    
+    
     @video_activity = VideoActivity.new(params[:video_activity])
-
+    @video_activity.activity_id = @activity.id
+    @activity.sections << Section.where(params[:section_id])
+      
     respond_to do |format|
-      if @video_activity.save
-        format.html { redirect_to @video_activity, notice: 'Video activity was successfully created.' }
-        format.json { render json: @video_activity, status: :created, location: @video_activity }
+      if (@video_activity.save && @activity.save)
+        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Video activity was successfully created.' }
+        format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: @video_activity }
       else
         format.html { render action: "new" }
         format.json { render json: @video_activity.errors, status: :unprocessable_entity }

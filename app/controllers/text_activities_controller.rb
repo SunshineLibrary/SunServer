@@ -40,10 +40,12 @@ class TextActivitiesController < ApplicationController
   # POST /text_activities
   # POST /text_activities.json
   def create
+    @activity = Activity.new
+    @activity.tipe = "text"
     @text_activity = TextActivity.new(params[:text_activity])
 
     respond_to do |format|
-      if @text_activity.save
+      if (@text_activity.save && @activity.save)
         format.html { redirect_to @text_activity, notice: 'Text activity was successfully created.' }
         format.json { render json: @text_activity, status: :created, location: @text_activity }
       else

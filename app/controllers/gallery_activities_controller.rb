@@ -40,10 +40,12 @@ class GalleryActivitiesController < ApplicationController
   # POST /gallery_activities
   # POST /gallery_activities.json
   def create
+    @activity = Activity.new
+    @activity.tipe = "gallery"
     @gallery_activity = GalleryActivity.new(params[:gallery_activity])
 
     respond_to do |format|
-      if @gallery_activity.save
+      if (@gallery_activity.save && @activity.save)
         format.html { redirect_to @gallery_activity, notice: 'Gallery activity was successfully created.' }
         format.json { render json: @gallery_activity, status: :created, location: @gallery_activity }
       else

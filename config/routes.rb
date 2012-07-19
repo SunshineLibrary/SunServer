@@ -1,4 +1,6 @@
 SunServer::Application.routes.draw do
+  resources :html_activities
+
   resources :chapters
 
   resources :quiz_activities

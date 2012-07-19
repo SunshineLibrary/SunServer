@@ -11,13 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717072013) do
+ActiveRecord::Schema.define(:version => 20120718082636) do
 
   create_table "activities", :force => true do |t|
-    t.string   "type"
+    t.string   "tipe"
     t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "activities_sections", :id => false, :force => true do |t|
+    t.integer "activity_id"
+    t.integer "section_id"
   end
 
   create_table "apis", :force => true do |t|
@@ -145,6 +150,16 @@ ActiveRecord::Schema.define(:version => 20120717072013) do
     t.string   "file_path"
     t.text     "description"
     t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "html_activities", :force => true do |t|
+    t.string   "name"
+    t.integer  "activity_id"
+    t.integer  "provider_id"
+    t.string   "file_path"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
