@@ -1,20 +1,19 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= best_in_place @section, :name, :type => :input %></h1>
+
 <p>
-  <b>Name:</b>
-  <%= @section.name %>
+  <b>所属章节:</b>
+  <%= link_to @section.lesson.name, lesson_path(@section.lesson) %>
 </p>
 
 <p>
-  <b>Lesson:</b>
-  <%= @section.lesson_id %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @section.description %>
+  <b>章节重点笔记:</b>
+  <%= best_in_place @section, :description, :type => :textarea %>
 </p>
 
 
-<%= link_to 'Edit', edit_section_path(@section) %> |
-<%= link_to 'Back', sections_path %>
+
+<br/>
+<br/>
+<br/>

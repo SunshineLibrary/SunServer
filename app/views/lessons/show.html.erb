@@ -1,20 +1,43 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= best_in_place @lesson, :name, :type => :input %></h1>
+
 <p>
-  <b>Name:</b>
-  <%= @lesson.name %>
+  <b>所属课程:</b>
+  <%= link_to @lesson.chapter.course.name, course_path(@lesson.chapter.course) %>
 </p>
 
 <p>
-  <b>Chapter:</b>
-  <%= @lesson.chapter_id %>
+  <b>所属单元:</b>
+  <%= link_to @lesson.chapter.name, chapter_path(@lesson.chapter) %>
 </p>
 
 <p>
-  <b>Description:</b>
-  <%= @lesson.description %>
+  <b>章节概述:</b>
+  <%= best_in_place @lesson, :description, :type => :textarea %>
 </p>
 
+<br/>
+<br/>
+<br/>
 
-<%= link_to 'Edit', edit_lesson_path(@lesson) %> |
-<%= link_to 'Back', lessons_path %>
+<h2>小节列表</h2>
+
+<%= link_to '创建小节', new_section_path(:lesson_id => @lesson.id) %>
+
+<table>
+  <tr>
+    <th>小节名称</th>
+    <th>小节重点笔记</th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+<% @lesson.sections.each do |s| %>
+  <tr>
+    <td><%= best_in_place s, :name, :type => :input %></td>
+    <td><%= best_in_place s, :description, :type => :textarea %></td>
+    <td><%= link_to '进入', s %></td>
+    <td><%= link_to '删除', s, confirm: '确定要删除此小节吗？', method: :delete %></td>
+  </tr>
+<% end %>

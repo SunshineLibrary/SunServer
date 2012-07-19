@@ -4,7 +4,7 @@
 
 <p>
   <b>所属科目:</b>
-  <%= @course.subject.name %>
+  <%= link_to @course.subject.name, subject_path(@course.subject) %>
 </p>
 
 <p>
@@ -27,4 +27,28 @@
   <%= best_in_place @course, :description, :type => :textarea %>
 </p>
 
-<%= link_to '返回科目', @course.subject %>
+
+<br/>
+<br/>
+<br/>
+
+<h2>单元列表</h2>
+
+<%= link_to '创建单元', new_chapter_path(:course_id => @course.id) %>
+
+<table>
+  <tr>
+    <th>单元名称</th>
+    <th>概述</th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+<% @course.chapters.each do |c| %>
+  <tr>
+    <td><%= best_in_place c, :name, :type => :input %></td>
+    <td><%= best_in_place c, :description, :type => :textarea %></td>
+    <td><%= link_to '进入', c %></td>
+    <td><%= link_to '删除', c, confirm: '确定要删除此单元吗？', method: :delete %></td>
+  </tr>
+<% end %>
