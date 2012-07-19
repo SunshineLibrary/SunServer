@@ -42,6 +42,7 @@ class HtmlActivitiesController < ApplicationController
   def create
     @activity = Activity.new
     @activity.tipe = "html"
+    @activity.order = params[:order].to_i+1
     
     if(!@activity.save)
       format.html { redirect_to Section.find_by_id(params[:section_id], notice: 'Could not create new Activity.') }

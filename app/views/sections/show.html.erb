@@ -18,6 +18,7 @@
 <!-- 该sectoin所有activities的列表 -->
 <table>
   <tr>
+    <th>环节ID</th>
     <th>排序</th>
     <th>类型</th>
     <th>名称</th>
@@ -29,6 +30,7 @@
 
 <% @activities.each do |activity| %>
   <tr>
+      <td><%= activity.id %></td>
     <% if(activity.tipe.eql?("video")) %>
       <td><%= activity.order %></td>
       <td>视频</td>
@@ -116,8 +118,8 @@ function showNewActivityForm()
 }
 </script>
 
-<button onclick="showEditForm()">编辑section属性</button>
-<button onclick="showTypeSelect()">添加新的Activity</button>
+<button onclick="showEditForm()">编辑小节属性</button>
+<button onclick="showTypeSelect()">添加新的环节</button>
 
 <div id="editForm" style="display:none">
 <%= render 'form' %>
@@ -142,7 +144,8 @@ function showNewActivityForm()
 
 <div id="newVideoActivityForm" style="display:none">
 <% @video_activity = VideoActivity.new %>
-<%= form_for @video_activity, :url => {:controller => :video_activities, :action => :create, :section_id => @section.id } do |f| %>
+
+<%= form_for @video_activity, :url => {:controller => :video_activities, :action => :create, :section_id => @section.id, :order => @activities.size } do |f| %>
   <% if @video_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@video_activity.errors.count, "error") %> prohibited this video_activity from being saved:</h2>
@@ -155,6 +158,10 @@ function showNewActivityForm()
     </div>
   <% end %>
   
+  <div class="field">
+    <p>排序:</p>
+    <%= f.number_field :activity_id%>
+  </div>
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -187,7 +194,7 @@ function showNewActivityForm()
 
 <div id="newTextActivityForm" style="display:none">
 <% @text_activity = TextActivity.new %>
-<%= form_for @text_activity, :url => {:controller => :text_activities, :action => :create, :section_id => @section.id } do |f| %>
+<%= form_for @text_activity, :url => {:controller => :text_activities, :action => :create, :section_id => @section.id, :order => @activities.size } do |f| %>
   <% if @text_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@text_activity.errors.count, "error") %> prohibited this text_activity from being saved:</h2>
@@ -224,7 +231,7 @@ function showNewActivityForm()
 
 <div id="newGalleryActivityForm" style="display:none">
 <% @gallery_activity = GalleryActivity.new %>
-<%= form_for @gallery_activity, :url => {:controller => :gallery_activities, :action => :create, :section_id => @section.id } do |f| %>
+<%= form_for @gallery_activity, :url => {:controller => :gallery_activities, :action => :create, :section_id => @section.id, :order => @activities.size } do |f| %>
   <% if @gallery_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@gallery_activity.errors.count, "error") %> prohibited this gallery_activity from being saved:</h2>
@@ -265,7 +272,7 @@ function showNewActivityForm()
 
 <div id="newQuizActivityForm" style="display:none">
 <% @quiz_activity = QuizActivity.new %>
-<%= form_for @quiz_activity, :url => {:controller => :quiz_activities, :action => :create, :section_id => @section.id } do |f| %>
+<%= form_for @quiz_activity, :url => {:controller => :quiz_activities, :action => :create, :section_id => @section.id, :order => @activities.size } do |f| %>
   <% if @quiz_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@quiz_activity.errors.count, "error") %> prohibited this quiz_activity from being saved:</h2>
@@ -306,7 +313,7 @@ function showNewActivityForm()
 
 <div id="newAudioActivityForm" style="display:none">
 <% @audio_activity = AudioActivity.new %>
-<%= form_for @audio_activity, :url => {:controller => :audio_activities, :action => :create, :section_id => @section.id } do |f| %>
+<%= form_for @audio_activity, :url => {:controller => :audio_activities, :action => :create, :section_id => @section.id, :order => @activities.size } do |f| %>
   <% if @audio_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@audio_activity.errors.count, "error") %> prohibited this audio_activity from being saved:</h2>
@@ -351,7 +358,7 @@ function showNewActivityForm()
 
 <div id="newHtmlActivityForm" style="display:none">
 <% @html_activity = HtmlActivity.new %>
-<%= form_for @html_activity, :url => {:controller => :html_activities, :action => :create, :section_id => @section.id } do |f| %>
+<%= form_for @html_activity, :url => {:controller => :html_activities, :action => :create, :section_id => @section.id, :order => @activities.size } do |f| %>
   <% if @html_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@html_activity.errors.count, "error") %> prohibited this html_activity from being saved:</h2>

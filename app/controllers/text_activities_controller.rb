@@ -42,7 +42,8 @@ class TextActivitiesController < ApplicationController
   def create
     @activity = Activity.new
     @activity.tipe = "text"
-    
+    @activity.order = params[:order].to_i+1
+      
     if(!@activity.save)
       format.html { redirect_to Section.find_by_id(params[:section_id], notice: 'Could not create new Activity.') }
       format.json { render json: @activity.errors, status: :unprocessable_entity }
