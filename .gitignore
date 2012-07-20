@@ -8,3 +8,4 @@ tmp/
 test/
 public/assets
 public/system
+.metadata/
