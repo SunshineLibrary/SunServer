@@ -91,3 +91,15 @@ Command-line arguments:  -os win32 -ws win32 -arch x86
 
 !ENTRY org.eclipse.core.resources 4 567 2012-07-19 15:12:19.244
 !MESSAGE The project description file (.project) for 'SunServer' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+!SESSION 2012-07-19 22:43:21.677 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_24
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.core.resources 4 567 2012-07-19 22:43:36.198
+!MESSAGE The project description file (.project) for 'SunServer' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+
+!ENTRY org.eclipse.core.jobs 2 2 2012-07-19 22:43:46.414
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: com.aptana.usage.StudioAnalytics$1
