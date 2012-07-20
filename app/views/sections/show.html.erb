@@ -1,74 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>环节名称:</b>
-  <%= @section.name %>
-</p>
-
-<p>
-  <b>属于课程:</b>
-  <%= @section.lesson_id %>
-</p>
-
-<p>
-  <b>描述:</b>
-  <%= @section.description %>
-</p>
-
-<!-- 该sectoin所有activities的列表 -->
-<table>
-  <tr>
-    <th>环节ID</th>
-    <th>排序</th>
-    <th>类型</th>
-    <th>名称</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @activities.each do |activity| %>
-  <tr>
-      <td><%= activity.id %></td>
-    <% if(activity.tipe.eql?("video")) %>
-      <td><%= activity.order %></td>
-      <td>视频</td>
-      <td><%= activity.video_activity.name %></td>
-      <td>描述：<%= activity.video_activity.description %></td>
-    <% elsif(activity.tipe.eql?("text")) %>
-      <td><%= activity.order %></td>
-      <td>文本</td>
-      <td><%= activity.text_activity.name %></td>
-      <td>描述：<%= activity.text_activity.description %></td>
-    <% elsif(activity.tipe.eql?("quiz"))%>
-      <td><%= activity.order %></td>
-      <td>测试</td>
-      <td><%= activity.quiz_activity.name %></td>
-      <td>长度：<%= activity.quiz_activity.size %></td>
-    <% elsif(activity.tipe.eql?("gallery"))%>
-      <td><%= activity.order %></td>
-      <td>图片（集）</td>
-      <td><%= activity.gallery_activity.name %></td>
-      <td>描述：<%= activity.gallery_activity.description %></td>
-    <% elsif(activity.tipe.eql?("audio"))%>
-      <td><%= activity.order %></td>
-      <td>音频</td>
-      <td><%= activity.audio_activity.name %></td>
-      <td>描述：<%= activity.audio_activity.description %></td>
-    <% elsif(activity.tipe.eql?("html"))%>
-      <td><%= activity.order %></td>
-      <td>HTML</td>
-      <td><%= activity.html_activity.name %></td>
-      <td>描述：<%= activity.html_activity.description %></td>
-    <% end %>
-    <td><%= link_to 'Show', activity %></td>
-    <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
-    <td><%= link_to 'Destroy', activity, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
 <script>
 function showEditForm()
 {
@@ -117,7 +48,124 @@ function showNewActivityForm()
   
 }
 </script>
+<p>
+  <b>环节名称:</b>
+  <%= @section.name %>
+</p>
 
+<p>
+  <b>属于课程:</b>
+  <%= @section.lesson_id %>
+</p>
+
+<p>
+  <b>描述:</b>
+  <%= @section.description %>
+</p>
+
+<h3>------------------环节列表------------------</h3>
+<table>
+  <tr>
+    <th>环节ID</th>
+    <th>排序</th>
+    <th>类型</th>
+    <th>名称</th>
+    <th>附件</th>
+    <th>其它</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @activities.each do |activity| %>
+  <tr>
+      <td><%= activity.id %></td>
+    <% if(activity.tipe.eql?("video")) %>
+      <td><%= activity.order %></td>
+      <td>视频</td>
+      <td><%= activity.video_activity.name %></td>
+      <td><% if activity.video_activity.vid_file %>
+      		<%= (link_to "#{activity.video_activity.vid_file_file_name}", activity.video_activity.vid_file.url(:original, false)) %>
+      	  <% else %>
+      	    "无"
+      	  <% end %>
+      </td>
+      <td>描述：<%= activity.video_activity.description %></td>
+    <% elsif(activity.tipe.eql?("text")) %>
+      <td><%= activity.order %></td>
+      <td>文本</td>
+      <td><%= activity.text_activity.name %></td>
+      <td><% if activity.text_activity.txt_file %>
+      		<%= (link_to "#{activity.text_activity.txt_file_file_name}", activity.text_activity.txt_file.url(:original, false)) %>
+      	  <% else %>
+      	    <%= "无"%>
+      	  <% end %>
+      </td>
+      <td>描述：<%= activity.text_activity.description %></td>
+    <% elsif(activity.tipe.eql?("quiz"))%>
+      <td><%= activity.order %></td>
+      <td>测试</td>
+      <td><%= activity.quiz_activity.name %></td>
+	  <td>(暂无)</td>
+      <td>长度：<%= activity.quiz_activity.size %></td>
+    <% elsif(activity.tipe.eql?("gallery"))%>
+      <td><%= activity.order %></td>
+      <td>图片（集）</td>
+      <td><%= activity.gallery_activity.name %></td>
+      <td><% if activity.gallery_activity.img_files %>
+            <%= (link_to "#{activity.gallery_activity.img_files_file_name}", activity.gallery_activity.img_files.url(:original, false)) %>
+      	  <% else %>
+      	    <%= "无"%>
+      	  <% end %>
+      </td>
+      <td>描述：<%= activity.gallery_activity.description %></td>
+    <% elsif(activity.tipe.eql?("audio"))%>
+      <td><%= activity.order %></td>
+      <td>音频</td>
+      <td><%= activity.audio_activity.name %></td>
+      <td><% if activity.audio_activity.aud_file %>
+      		<%= (link_to "#{activity.audio_activity.aud_file_file_name}", activity.audio_activity.aud_file.url(:original, false)) %>
+      	  <% else %>
+      	    <%= "无"%>
+      	  <% end %>
+      </td>
+      <td>描述：<%= activity.audio_activity.description %></td>
+    <% elsif(activity.tipe.eql?("html"))%>
+      <td><%= activity.order %></td>
+      <td>HTML</td>
+      <td><%= activity.html_activity.name %></td>
+      <td><% if activity.html_activity.html_file %>
+      		<%= (link_to "#{activity.html_activity.html_file_file_name}", activity.html_activity.html_file.url(:original, false)) %>
+      	  <% else %>
+      	    <%= "无"%>
+      	  <% end %>
+      </td>
+      <td>描述：<%= activity.html_activity.description %></td>
+    <% end %>
+    <% if activity.tipe.eql?("video")%>
+      <td><%= link_to 'Show', :url => {:controller => :video_activities, :section_id => @section.id } %></td>
+      <td><%= link_to 'Edit', :url => {:controller => :video_activities, :action => :edit, :section_id => @section.id } %></td>
+    <% elsif activity.tipe.eql?("text")%>
+      <td><%= link_to 'Show', activity.text_activity %></td>
+      <td><%= link_to 'Edit', edit_text_activity_path(activity.text_activity) %></td>
+    <% elsif activity.tipe.eql?("quiz")%>
+      <td><%= link_to 'Show', activity.quiz_activity %></td>
+      <td><%= link_to 'Edit', edit_quiz_activity_path(activity.quiz_activity) %></td>
+    <% elsif activity.tipe.eql?("gallery")%>
+      <td><%= link_to 'Show', activity.gallery_activity %></td>
+      <td><%= link_to 'Edit', edit_gallery_activity_path(activity.gallery_activity) %></td>
+    <% elsif activity.tipe.eql?("html")%>
+      <td><%= link_to 'Show', activity.html_activity %></td>
+      <td><%= link_to 'Edit', edit_html_activity_path(activity.html_activity) %></td>
+    <% elsif activity.tipe.eql?("audio")%>
+      <td><%= link_to 'Show', activity.audio_activity %></td>
+      <td><%= link_to 'Edit', edit_audio_activity_path(activity.audio_activity) %></td>
+    <% end %>
+    <td><%= link_to 'Destroy', activity, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+</br>
 <button onclick="showEditForm()">编辑小节属性</button>
 <button onclick="showTypeSelect()">添加新的环节</button>
 
@@ -159,35 +207,41 @@ function showNewActivityForm()
   <% end %>
   
   <div class="field">
+    <p>名称:</p>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
     <p>排序:</p>
     <%= f.number_field :order%>
   </div>
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :provider_id %><br />
+    <p>提供方:</p>
     <%= f.number_field :provider_id %>
   </div>
   <div class="field">
-    <%= f.label :file_path %><br />
-    <%= f.text_field :file_path %>
+	视频附件:
+	<%if @video_activity.vid_file? %>
+	<%=	"(已上传:#{@video_activity.vid_file_file_name})"%>
+	<%else%>
+	<%=	"(未上传)"%>
+	<%end%>
+	<br />
+    <%= f.file_field :vid_file %>
   </div>
   <div class="field">
-    <%= f.label :notes %><br />
+    <p>重点笔记:</p>
     <%= f.text_area :notes %>
   </div>
   <div class="field">
-    <%= f.label :duration %><br />
+    <p>时长:（秒）</p>
     <%= f.number_field :duration %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <p>描述:</p>
     <%= f.text_area :description %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交"%>
   </div>
 <% end %>
 </div>
@@ -208,23 +262,33 @@ function showNewActivityForm()
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <p>名称:</p>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :provider_id %><br />
+    <p>排序:</p>
+    <%= f.number_field :order%>
+  </div>
+  <div class="field">
+    <p>提供方:</p>
     <%= f.number_field :provider_id %>
   </div>
   <div class="field">
-    <%= f.label :file_path %><br />
-    <%= f.text_field :file_path %>
+	附件:
+	<%if @text_activity.txt_file? %>
+	<%=	"(已上传:#{@text_activity.txt_file_file_name})"%>
+	<%else%>
+	<%=	"(未上传)"%>
+	<%end%>
+	<br />
+    <%= f.file_field :txt_file %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <p>描述:</p>
     <%= f.text_area :description %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交"%>
   </div>
 <% end %>
 </div>
@@ -245,27 +309,37 @@ function showNewActivityForm()
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <p>名称:</p>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :provider_id %><br />
+    <p>排序:</p>
+    <%= f.number_field :order%>
+  </div>
+  <div class="field">
+    <p>提供方:</p>
     <%= f.number_field :provider_id %>
   </div>
   <div class="field">
-    <%= f.label :file_path %><br />
-    <%= f.text_field :file_path %>
+	图片集附件:
+	<%if @gallery_activity.img_files? %>
+	<%=	"(已上传:#{@gallery_activity.img_files_file_name})"%>
+	<%else%>
+	<%=	"(未上传)"%>
+	<%end%>
+	<br />
+    <%= f.file_field :img_files %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <p>描述:</p>
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :notes %><br />
+    <p>重点笔记:</p>
     <%= f.text_area :notes %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交"%>
   </div>
 <% end %>
 </div>
@@ -286,27 +360,31 @@ function showNewActivityForm()
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <p>名称:</p>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :provider_id %><br />
+    <p>排序:</p>
+    <%= f.number_field :order%>
+  </div>
+  <div class="field">
+    <p>提供方:</p>
     <%= f.number_field :provider_id %>
   </div>
   <div class="field">
-    <%= f.label :file_path %><br />
+    <p>附件:</p>
     <%= f.text_field :file_path %>
   </div>
   <div class="field">
-    <%= f.label :size %><br />
+    <p>习题数量:</p>
     <%= f.number_field :size %>
   </div>
   <div class="field">
-    <%= f.label :difficulty %><br />
+    <p>难度指数 :</p>
     <%= f.number_field :difficulty %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交"%>
   </div>
 <% end %>
 </div>
@@ -327,31 +405,41 @@ function showNewActivityForm()
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <p>名称:</p>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :provider_id %><br />
+    <p>排序:</p>
+    <%= f.number_field :order%>
+  </div>
+  <div class="field">
+    <p>提供方:</p>
     <%= f.number_field :provider_id %>
   </div>
   <div class="field">
-    <%= f.label :file_path %><br />
-    <%= f.text_field :file_path %>
+	音频附件:
+	<%if @audio_activity.aud_file? %>
+	<%=	"(已上传:#{@audio_activity.aud_file_file_name})"%>
+	<%else%>
+	<%=	"(未上传)"%>
+	<%end%>
+	<br />
+    <%= f.file_field :aud_file %>
   </div>
   <div class="field">
-    <%= f.label :notes %><br />
+    <p>注解笔记:</p>
     <%= f.text_area :notes %>
   </div>
   <div class="field">
-    <%= f.label :duration %><br />
+    <p>时长:（秒）</p>
     <%= f.number_field :duration %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <p>描述:</p>
     <%= f.text_area :description %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交"%>
   </div>
 <% end %>
 </div>
@@ -372,23 +460,33 @@ function showNewActivityForm()
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <p>名称:</p>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :provider_id %><br />
+    <p>排序:</p>
+    <%= f.number_field :order%>
+  </div>
+  <div class="field">
+    <p>提供方:</p>
     <%= f.number_field :provider_id %>
   </div>
   <div class="field">
-    <%= f.label :file_path %><br />
-    <%= f.text_field :file_path %>
+	附件:
+	<%if @html_activity.html_file? %>
+	<%=	"(已上传:#{@html_activity.html_file_file_name})"%>
+	<%else%>
+	<%=	"(未上传)"%>
+	<%end%>
+	<br />
+    <%= f.file_field :html_file %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <p>描述:</p>
     <%= f.text_area :description %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交"%>
   </div>
 <% end %>
 </div>

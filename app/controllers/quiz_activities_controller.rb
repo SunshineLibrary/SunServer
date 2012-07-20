@@ -40,22 +40,12 @@ class QuizActivitiesController < ApplicationController
   # POST /quiz_activities
   # POST /quiz_activities.json
   def create
-    @activity = Activity.new
-    @activity.tipe = "quiz"
-    @activity.order = params[:order].to_i+1
-    
-    if(!@activity.save)
-      format.html { redirect_to Section.find_by_id(params[:section_id], notice: 'Could not create new Activity.') }
-      format.json { render json: @activity.errors, status: :unprocessable_entity }
-      return
-    end
-    
+ 
     @quiz_activity = QuizActivity.new(params[:quiz_activity])
-    @quiz_activity.activity_id = @activity.id
-    @activity.sections << Section.where(params[:section_id])
+    @quiz_activity.activity.sections << Section.where(params[:section_id])
 
     respond_to do |format|
-      if (@quiz_activity.save && @activity.save)
+      if (@quiz_activity.save)
         format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Quiz activity was successfully created.' }
         format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
       else

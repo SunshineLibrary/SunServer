@@ -5,4 +5,5 @@ class Activity < ActiveRecord::Base
   has_one :video_activity, :dependent => :destroy
   has_one :quiz_activity, :dependent => :destroy
   has_one :gallery_activity, :dependent => :destroy
+  has_one :html_activity, :dependent => :destroy
 end

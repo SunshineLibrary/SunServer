@@ -40,22 +40,11 @@ class GalleryActivitiesController < ApplicationController
   # POST /gallery_activities
   # POST /gallery_activities.json
   def create
-    @activity = Activity.new
-    @activity.tipe = "gallery"
-    @activity.order = params[:order].to_i+1
-
-    if(!@activity.save)
-      format.html { redirect_to Section.find_by_id(params[:section_id], notice: 'Could not create new Activity.') }
-      format.json { render json: @activity.errors, status: :unprocessable_entity }
-      return
-    end
-      
     @gallery_activity = GalleryActivity.new(params[:gallery_activity])
-    @gallery_activity.activity_id = @activity.id
-    @activity.sections << Section.where(params[:section_id])
+    @gallery_activity.activity.sections << Section.where(params[:section_id])
       
     respond_to do |format|
-      if (@gallery_activity.save && @activity.save)
+      if (@gallery_activity.save)
         format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Gallery activity was successfully created.' }
         format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
       else
