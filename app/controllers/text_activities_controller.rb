@@ -41,11 +41,12 @@ class TextActivitiesController < ApplicationController
   # POST /text_activities.json
   def create
     @text_activity = TextActivity.new(params[:text_activity])
+    @text_activity.activity.sections << Section.where(params[:section_id])
 
     respond_to do |format|
-      if @text_activity.save
-        format.html { redirect_to @text_activity, notice: 'Text activity was successfully created.' }
-        format.json { render json: @text_activity, status: :created, location: @text_activity }
+      if (@text_activity.save)
+        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Text activity was successfully created.' }
+        format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
       else
         format.html { render action: "new" }
         format.json { render json: @text_activity.errors, status: :unprocessable_entity }

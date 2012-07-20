@@ -1,19 +1,19 @@
-class TextActivity < ActiveRecord::Base
-  has_attached_file :text_file, { 
+class HtmlActivity < ActiveRecord::Base
+  has_attached_file :html_file, { 
       :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
       :url => "/system/:attachment/:id/:style/:hash.:extension",
       :hash_secret => "longSecretString"
     }
     
-  has_attached_file :txt_file
-  
+  has_attached_file :html_file
   belongs_to :activity
+  
   def order= ord
     if self.activity
       self.activity.order = ord
       self.activity.save
     else
-      self.build_activity order:ord, tipe:"text"
+      self.build_activity order:ord, tipe:"html"
     end
   end
   

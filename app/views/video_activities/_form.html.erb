@@ -1,4 +1,4 @@
-<%= form_for(@video_activity) do |f| %>
+<%= form_for @video_activity, :url => {:controller => :video_activities, :action => :update, :section_id => @section_id } do |f| %>
   <% if @video_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@video_activity.errors.count, "error") %> prohibited this video_activity from being saved:</h2>
@@ -10,36 +10,43 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div class="field">
-    <%= f.label :name %><br />
+    <p>名称:</p>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :activity_id %><br />
-    <%= f.number_field :activity_id %>
+    <p>排序:</p>
+    <%= f.number_field :order%>
   </div>
   <div class="field">
-    <%= f.label :provider_id %><br />
+    <p>提供方:</p>
     <%= f.number_field :provider_id %>
   </div>
   <div class="field">
-    <%= f.label :file_path %><br />
-    <%= f.text_field :file_path %>
+	视频附件:
+	<%if @video_activity.vid_file? %>
+	<%=	"(已上传:#{@video_activity.vid_file_file_name})"%>
+	<%else%>
+	<%=	"(未上传)"%>
+	<%end%>
+	<br />
+    <%= f.file_field :vid_file %>
   </div>
   <div class="field">
-    <%= f.label :notes %><br />
+    <p>重点笔记:</p>
     <%= f.text_area :notes %>
   </div>
   <div class="field">
-    <%= f.label :duration %><br />
+    <p>时长:（秒）</p>
     <%= f.number_field :duration %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
+    <p>描述:</p>
     <%= f.text_area :description %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "提交"%>
   </div>
 <% end %>
+</div>

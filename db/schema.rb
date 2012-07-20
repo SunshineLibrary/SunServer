@@ -11,13 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717072013) do
+ActiveRecord::Schema.define(:version => 20120718082636) do
 
   create_table "activities", :force => true do |t|
-    t.string   "type"
+    t.string   "tipe"
     t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "activities_sections", :id => false, :force => true do |t|
+    t.integer "activity_id"
+    t.integer "section_id"
   end
 
   create_table "apis", :force => true do |t|
@@ -54,6 +59,10 @@ ActiveRecord::Schema.define(:version => 20120717072013) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "aud_file_file_name"
+    t.string   "aud_file_content_type"
+    t.integer  "aud_file_file_size"
+    t.datetime "aud_file_updated_at"
   end
 
   create_table "authors", :force => true do |t|
@@ -147,6 +156,24 @@ ActiveRecord::Schema.define(:version => 20120717072013) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "img_files_file_name"
+    t.string   "img_files_content_type"
+    t.integer  "img_files_file_size"
+    t.datetime "img_files_updated_at"
+  end
+
+  create_table "html_activities", :force => true do |t|
+    t.string   "name"
+    t.integer  "activity_id"
+    t.integer  "provider_id"
+    t.string   "file_path"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "html_file_file_name"
+    t.string   "html_file_content_type"
+    t.integer  "html_file_file_size"
+    t.datetime "html_file_updated_at"
   end
 
   create_table "lessons", :force => true do |t|
@@ -215,6 +242,10 @@ ActiveRecord::Schema.define(:version => 20120717072013) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "txt_file_file_name"
+    t.string   "txt_file_content_type"
+    t.integer  "txt_file_file_size"
+    t.datetime "txt_file_updated_at"
   end
 
   create_table "video_activities", :force => true do |t|
@@ -227,6 +258,10 @@ ActiveRecord::Schema.define(:version => 20120717072013) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "vid_file_file_name"
+    t.string   "vid_file_content_type"
+    t.integer  "vid_file_file_size"
+    t.datetime "vid_file_updated_at"
   end
 
 end

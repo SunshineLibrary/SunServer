@@ -14,6 +14,7 @@ class VideoActivitiesController < ApplicationController
   # GET /video_activities/1.json
   def show
     @video_activity = VideoActivity.find(params[:id])
+    @section_id = params[:section_id]
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,17 +36,19 @@ class VideoActivitiesController < ApplicationController
   # GET /video_activities/1/edit
   def edit
     @video_activity = VideoActivity.find(params[:id])
+    @section_id = params[:section_id]
   end
 
   # POST /video_activities
   # POST /video_activities.json
   def create
     @video_activity = VideoActivity.new(params[:video_activity])
-
+    @video_activity.activity.sections << Section.where(params[:section_id])
+      
     respond_to do |format|
-      if @video_activity.save
-        format.html { redirect_to @video_activity, notice: 'Video activity was successfully created.' }
-        format.json { render json: @video_activity, status: :created, location: @video_activity }
+      if (@video_activity.save)
+        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Video activity was successfully created.' }
+        format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
       else
         format.html { render action: "new" }
         format.json { render json: @video_activity.errors, status: :unprocessable_entity }

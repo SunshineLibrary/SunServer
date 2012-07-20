@@ -41,11 +41,12 @@ class AudioActivitiesController < ApplicationController
   # POST /audio_activities.json
   def create
     @audio_activity = AudioActivity.new(params[:audio_activity])
+    @audio_acitivity.activity.sections << Section.where(params[:section_id])
 
     respond_to do |format|
-      if @audio_activity.save
-        format.html { redirect_to @audio_activity, notice: 'Audio activity was successfully created.' }
-        format.json { render json: @audio_activity, status: :created, location: @audio_activity }
+      if (@audio_activity.save)
+        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Audio activity was successfully created.' }
+        format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
       else
         format.html { render action: "new" }
         format.json { render json: @audio_activity.errors, status: :unprocessable_entity }
