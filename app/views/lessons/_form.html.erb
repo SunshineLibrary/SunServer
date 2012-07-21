@@ -12,18 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name, "章节名称" %><br />
     <%= f.text_field :name %>
   </div>
-  <div class="field">
-    <%= f.label :chapter_id %><br />
-    <%= f.number_field :chapter_id %>
+  <div class="field" style="display: none">
+    <%= f.text_field :chapter_id, :value => params[:chapter_id] %>
   </div>
-  <div class="field">
+  <div class="field", "概述">
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :value => "创建" %>
   </div>
 <% end %>

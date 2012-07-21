@@ -1,35 +1,54 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= best_in_place @course, :name, :type => :input %></h1>
+
 <p>
-  <b>Name:</b>
-  <%= @course.name %>
+  <b>所属科目:</b>
+  <%= link_to @course.subject.name, subject_path(@course.subject) %>
 </p>
 
 <p>
-  <b>Editor:</b>
-  <%= @course.editor %>
+  <b>课程创建者:</b>
+  <%= best_in_place @course, :editor, :type => :input %>
 </p>
 
 <p>
-  <b>Subject:</b>
-  <%= @course.subject_id %>
+  <b>年级:</b>
+  <%= best_in_place @course, :grade, :type => :select, :collection => [[1, "一年级"], [2, "二年级"], [3, "三年级"], [4, "四年级"], [5, "五年级"], [6, "六年级"], [7, "初一"], [8, "初二"], [9, "初三"]] %>
 </p>
 
 <p>
-  <b>Grade:</b>
-  <%= @course.grade %>
+  <b>学期:</b>
+  <%= best_in_place @course, :semester, :type => :select, :collection => [[1, "上学期"], [2, "下学期"], [3, "全学年"]] %>
 </p>
 
 <p>
-  <b>Semester:</b>
-  <%= @course.semester %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @course.description %>
+  <b>概述:</b>
+  <%= best_in_place @course, :description, :type => :textarea %>
 </p>
 
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+<br/>
+<br/>
+<br/>
+
+<h2>单元列表</h2>
+
+<%= link_to '创建单元', new_chapter_path(:course_id => @course.id) %>
+
+<table>
+  <tr>
+    <th>单元名称</th>
+    <th>概述</th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+<% @course.chapters.each do |c| %>
+  <tr>
+    <td><%= best_in_place c, :name, :type => :input %></td>
+    <td><%= best_in_place c, :description, :type => :textarea %></td>
+    <td><%= link_to '进入', c %></td>
+    <td><%= link_to '删除', c, confirm: '确定要删除此单元吗？', method: :delete %></td>
+  </tr>
+<% end %>

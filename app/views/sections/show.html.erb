@@ -1,51 +1,61 @@
 <p id="notice">
 	<%= notice %>
 </p>
+<h1><%= best_in_place @section, :name, :type => :input %></h1>
 
-<script>
-	function showEditForm() {
-		document.getElementById("editForm").style.display = "block"
-		document.getElementById("typeSelect").style.display = "none"
-		document.getElementById("newQuizActivityForm").style.display = "none"
-		document.getElementById("newVideoActivityForm").style.display = "none"
-		document.getElementById("newGalleryActivityForm").style.display = "none"
-		document.getElementById("newTextActivityForm").style.display = "none"
-		document.getElementById("newAudioActivityForm").style.display = "none"
-		document.getElementById("newHtmlActivityForm").style.display = "none"
-	}
+<p>
+	<b>所属章节:</b>
+	<%= link_to @section.lesson.name, lesson_path(@section.lesson) %>
+</p>
 
-	function showTypeSelect() {
-		document.getElementById("typeSelect").style.display = "block"
-		document.getElementById("editForm").style.display = "none"
-	}
+<p>
+	<b>章节重点笔记:</b>
+	<%= best_in_place @section, :description, :type => :textarea %>
 
-	function switchView(type) {
-		document.getElementById("newQuizActivityForm").style.display = "none"
-		document.getElementById("newVideoActivityForm").style.display = "none"
-		document.getElementById("newGalleryActivityForm").style.display = "none"
-		document.getElementById("newTextActivityForm").style.display = "none"
-		document.getElementById("newAudioActivityForm").style.display = "none"
-		document.getElementById("newHtmlActivityForm").style.display = "none"
-		if (type == 1)
-			document.getElementById("newTextActivityForm").style.display = "block"
-		else if (type == 2)
-			document.getElementById("newQuizActivityForm").style.display = "block"
-		else if (type == 3)
-			document.getElementById("newVideoActivityForm").style.display = "block"
-		else if (type == 4)
-			document.getElementById("newGalleryActivityForm").style.display = "block"
-		else if (type == 5)
-			document.getElementById("newAudioActivityForm").style.display = "block"
-		else if (type == 6)
-			document.getElementById("newHtmlActivityForm").style.display = "block"
+	<script>
+		function showEditForm() {
+			document.getElementById("editForm").style.display = "block"
+			document.getElementById("typeSelect").style.display = "none"
+			document.getElementById("newQuizActivityForm").style.display = "none"
+			document.getElementById("newVideoActivityForm").style.display = "none"
+			document.getElementById("newGalleryActivityForm").style.display = "none"
+			document.getElementById("newTextActivityForm").style.display = "none"
+			document.getElementById("newAudioActivityForm").style.display = "none"
+			document.getElementById("newHtmlActivityForm").style.display = "none"
+		}
 
-	}
+		function showTypeSelect() {
+			document.getElementById("typeSelect").style.display = "block"
+			document.getElementById("editForm").style.display = "none"
+		}
 
-	function showNewActivityForm() {
-		document.getElementById("newActivityForm").style.display = "block"
+		function switchView(type) {
+			document.getElementById("newQuizActivityForm").style.display = "none"
+			document.getElementById("newVideoActivityForm").style.display = "none"
+			document.getElementById("newGalleryActivityForm").style.display = "none"
+			document.getElementById("newTextActivityForm").style.display = "none"
+			document.getElementById("newAudioActivityForm").style.display = "none"
+			document.getElementById("newHtmlActivityForm").style.display = "none"
+			if (type == 1)
+				document.getElementById("newTextActivityForm").style.display = "block"
+			else if (type == 2)
+				document.getElementById("newQuizActivityForm").style.display = "block"
+			else if (type == 3)
+				document.getElementById("newVideoActivityForm").style.display = "block"
+			else if (type == 4)
+				document.getElementById("newGalleryActivityForm").style.display = "block"
+			else if (type == 5)
+				document.getElementById("newAudioActivityForm").style.display = "block"
+			else if (type == 6)
+				document.getElementById("newHtmlActivityForm").style.display = "block"
 
-	}
-</script>
+		}
+
+		function showNewActivityForm() {
+			document.getElementById("newActivityForm").style.display = "block"
+
+		}
+	</script>
 <p>
 	<b>环节名称:</b>
 	<%= @section.name %>
@@ -564,6 +574,3 @@
 </div>
 
 <%= render 'edge_edit'%>
-
-</br>
-<%= link_to '返回', sections_path %>

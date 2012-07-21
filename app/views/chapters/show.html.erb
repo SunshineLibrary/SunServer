@@ -1,20 +1,39 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= best_in_place @chapter, :name, :type => :input %></h1>
+
 <p>
-  <b>Name:</b>
-  <%= @chapter.name %>
+  <b>所属课程:</b>
+  <%= link_to @chapter.course.name, course_path(@chapter.course) %>
 </p>
 
 <p>
-  <b>Course:</b>
-  <%= @chapter.course_id %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @chapter.description %>
+  <b>概述:</b>
+  <%= best_in_place @chapter, :description, :type => :textarea %>
 </p>
 
 
-<%= link_to 'Edit', edit_chapter_path(@chapter) %> |
-<%= link_to 'Back', chapters_path %>
+<br/>
+<br/>
+<br/>
+
+<h2>章节列表</h2>
+
+<%= link_to '创建章节', new_lesson_path(:chapter_id => @chapter.id) %>
+
+<table>
+  <tr>
+    <th>章节名称</th>
+    <th>概述</th>
+    <th></th>
+    <th></th>
+  </tr>
+  
+<% @chapter.lessons.each do |l| %>
+  <tr>
+    <td><%= best_in_place l, :name, :type => :input %></td>
+    <td><%= best_in_place l, :description, :type => :textarea %></td>
+    <td><%= link_to '进入', l %></td>
+    <td><%= link_to '删除', l, confirm: '确定要删除此章节吗？', method: :delete %></td>
+  </tr>
+<% end %>
