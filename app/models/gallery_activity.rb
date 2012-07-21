@@ -3,9 +3,8 @@ class GalleryActivity < ActiveRecord::Base
       :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
       :url => "/system/:attachment/:id/:style/:hash.:extension",
       :hash_secret => "longSecretString"
-    }
-    
-  has_attached_file :img_files 
+    }    
+   
   belongs_to :activity
   
   def order= ord

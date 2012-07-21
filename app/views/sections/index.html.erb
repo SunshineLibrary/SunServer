@@ -5,8 +5,7 @@
     <th>Name</th>
     <th>Lesson</th>
     <th>Description</th>
-    <th></th>
-    <th></th>
+    <th></th>    
     <th></th>
   </tr>
 
@@ -15,8 +14,7 @@
     <td><%= section.name %></td>
     <td><%= section.lesson_id %></td>
     <td><%= section.description %></td>
-    <td><%= link_to 'Show', section %></td>
-    <td><%= link_to 'Edit', edit_section_path(section) %></td>
+    <td><%= link_to 'Show', section %></td>    
     <td><%= link_to 'Destroy', section, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>

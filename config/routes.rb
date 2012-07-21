@@ -1,4 +1,6 @@
 SunServer::Application.routes.draw do
+  resources :edges
+
   resources :html_activities
 
   resources :chapters

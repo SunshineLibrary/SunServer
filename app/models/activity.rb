@@ -6,4 +6,6 @@ class Activity < ActiveRecord::Base
   has_one :quiz_activity, :dependent => :destroy
   has_one :gallery_activity, :dependent => :destroy
   has_one :html_activity, :dependent => :destroy
+  
+  validates :order, :numericality => { :only_integer => true }  
 end

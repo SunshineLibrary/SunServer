@@ -1,0 +1,41 @@
+<div>
+	<h3>------------------边------------------<h3/>
+	<table border="1" cellspacing="0" cellpadding="3" style = "text-align: center;">
+		<tr>
+			<th>起始环节编号</th>
+			<th>目标环节编号</th>
+			<th>跳转条件</th>
+			<th/>
+			<th/>
+		</tr>
+		<% @section.edges.each do |edge|%>
+		<tr>
+			<td><%= edge.from_id%></td>
+			<td><%= edge.to_id%></td>
+			<td><%= edge.condition%></td>
+			<td><%= link_to 'Edit', edit_edge_path(edge)%> <td><%= link_to 'Destroy', edge, method: :delete%>
+		</tr>
+		<% end %>
+	</table>
+	<div>
+		<br/>		
+		<% @edge = Edge.new%>
+		<%= form_for @edge do |f| %>
+			<div class="field">
+				<%= f.label :from_id %>			
+				<%= f.number_field :from_id, :size => 5%>		
+			
+				<%= f.label :to_id %>				
+				<%= f.number_field :to_id, :size => 5%>		
+			
+				<%= f.label :condition%>				
+				<%= f.text_field :condition, :size => 20%>
+							
+				<%= f.hidden_field :section_id, :value => @section.id%>
+			</div>
+			<div class="actions">
+				<%= f.submit "新建边"%>
+			</div>
+		<% end %>
+	</div>
+</div>

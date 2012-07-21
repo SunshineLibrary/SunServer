@@ -1,11 +1,9 @@
 class TextActivity < ActiveRecord::Base
-  has_attached_file :text_file, { 
+  has_attached_file :txt_file, { 
       :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
       :url => "/system/:attachment/:id/:style/:hash.:extension",
       :hash_secret => "longSecretString"
     }
-    
-  has_attached_file :txt_file
   
   belongs_to :activity
   def order= ord

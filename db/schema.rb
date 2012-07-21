@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120718082636) do
+ActiveRecord::Schema.define(:version => 20120720063150) do
 
   create_table "activities", :force => true do |t|
     t.string   "tipe"
@@ -143,6 +143,15 @@ ActiveRecord::Schema.define(:version => 20120718082636) do
     t.integer  "grade"
     t.integer  "semester"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "edges", :force => true do |t|
+    t.integer  "from_id"
+    t.integer  "to_id"
+    t.integer  "section_id"
+    t.string   "condition"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
