@@ -33,7 +33,7 @@ class TextActivitiesController < ApplicationController
   end
 
   # GET /text_activities/1/edit
-  def edit
+  def edit    
     @text_activity = TextActivity.find(params[:id])
   end
 
@@ -57,11 +57,11 @@ class TextActivitiesController < ApplicationController
   # PUT /text_activities/1
   # PUT /text_activities/1.json
   def update
-    @text_activity = TextActivity.find(params[:id])
-
+    @text_activity = TextActivity.find(params[:id])    
+    
     respond_to do |format|
       if @text_activity.update_attributes(params[:text_activity])
-        format.html { redirect_to @text_activity, notice: 'Text activity was successfully updated.' }
+        format.html { redirect_to Section.find(params[:section_id]), notice: 'Text activity was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

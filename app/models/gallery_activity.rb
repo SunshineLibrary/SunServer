@@ -23,4 +23,12 @@ class GalleryActivity < ActiveRecord::Base
       return
     end
   end
+  
+  def content_file
+    img_files
+  end
+  
+  def content_file_file_name
+    img_files_file_name
+  end
 end

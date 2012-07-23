@@ -1,4 +1,5 @@
 <%= form_for(@audio_activity) do |f| %>
+  <%= hidden_field_tag :section_id, params[:section_id] %>
   <% if @audio_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@audio_activity.errors.count, "error") %> prohibited this audio_activity from being saved:</h2>

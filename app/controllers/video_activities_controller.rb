@@ -12,7 +12,7 @@ class VideoActivitiesController < ApplicationController
 
   # GET /video_activities/1
   # GET /video_activities/1.json
-  def show
+  def show    
     @video_activity = VideoActivity.find(params[:id])
     @section_id = params[:section_id]
 
@@ -34,7 +34,7 @@ class VideoActivitiesController < ApplicationController
   end
 
   # GET /video_activities/1/edit
-  def edit
+  def edit    
     @video_activity = VideoActivity.find(params[:id])
     @section_id = params[:section_id]
   end
@@ -63,7 +63,7 @@ class VideoActivitiesController < ApplicationController
 
     respond_to do |format|
       if @video_activity.update_attributes(params[:video_activity])
-        format.html { redirect_to @video_activity, notice: 'Video activity was successfully updated.' }
+        format.html { redirect_to Section.find(params[:section_id]), notice: 'Video activity was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

@@ -23,4 +23,12 @@ class HtmlActivity < ActiveRecord::Base
       return
     end
   end
+  
+  def content_file
+    html_file
+  end
+  
+  def content_file_file_name
+    html_file_file_name
+  end
 end

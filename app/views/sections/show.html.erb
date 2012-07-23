@@ -3,59 +3,61 @@
 </p>
 <h1><%= best_in_place @section, :name, :type => :input %></h1>
 
+<% if @section.lesson%>
 <p>
 	<b>所属章节:</b>
 	<%= link_to @section.lesson.name, lesson_path(@section.lesson) %>
 </p>
+<% end%>
 
 <p>
 	<b>章节重点笔记:</b>
 	<%= best_in_place @section, :description, :type => :textarea %>
+</p>
+<script>
+	function showEditForm() {
+		document.getElementById("editForm").style.display = "block"
+		document.getElementById("typeSelect").style.display = "none"
+		document.getElementById("newQuizActivityForm").style.display = "none"
+		document.getElementById("newVideoActivityForm").style.display = "none"
+		document.getElementById("newGalleryActivityForm").style.display = "none"
+		document.getElementById("newTextActivityForm").style.display = "none"
+		document.getElementById("newAudioActivityForm").style.display = "none"
+		document.getElementById("newHtmlActivityForm").style.display = "none"
+	}
 
-	<script>
-		function showEditForm() {
-			document.getElementById("editForm").style.display = "block"
-			document.getElementById("typeSelect").style.display = "none"
-			document.getElementById("newQuizActivityForm").style.display = "none"
-			document.getElementById("newVideoActivityForm").style.display = "none"
-			document.getElementById("newGalleryActivityForm").style.display = "none"
-			document.getElementById("newTextActivityForm").style.display = "none"
-			document.getElementById("newAudioActivityForm").style.display = "none"
-			document.getElementById("newHtmlActivityForm").style.display = "none"
-		}
+	function showTypeSelect() {
+		document.getElementById("typeSelect").style.display = "block"
+		document.getElementById("editForm").style.display = "none"
+	}
 
-		function showTypeSelect() {
-			document.getElementById("typeSelect").style.display = "block"
-			document.getElementById("editForm").style.display = "none"
-		}
+	function switchView(type) {
+		document.getElementById("newQuizActivityForm").style.display = "none"
+		document.getElementById("newVideoActivityForm").style.display = "none"
+		document.getElementById("newGalleryActivityForm").style.display = "none"
+		document.getElementById("newTextActivityForm").style.display = "none"
+		document.getElementById("newAudioActivityForm").style.display = "none"
+		document.getElementById("newHtmlActivityForm").style.display = "none"
+		if (type == 1)
+			document.getElementById("newTextActivityForm").style.display = "block"
+		else if (type == 2)
+			document.getElementById("newQuizActivityForm").style.display = "block"
+		else if (type == 3)
+			document.getElementById("newVideoActivityForm").style.display = "block"
+		else if (type == 4)
+			document.getElementById("newGalleryActivityForm").style.display = "block"
+		else if (type == 5)
+			document.getElementById("newAudioActivityForm").style.display = "block"
+		else if (type == 6)
+			document.getElementById("newHtmlActivityForm").style.display = "block"
 
-		function switchView(type) {
-			document.getElementById("newQuizActivityForm").style.display = "none"
-			document.getElementById("newVideoActivityForm").style.display = "none"
-			document.getElementById("newGalleryActivityForm").style.display = "none"
-			document.getElementById("newTextActivityForm").style.display = "none"
-			document.getElementById("newAudioActivityForm").style.display = "none"
-			document.getElementById("newHtmlActivityForm").style.display = "none"
-			if (type == 1)
-				document.getElementById("newTextActivityForm").style.display = "block"
-			else if (type == 2)
-				document.getElementById("newQuizActivityForm").style.display = "block"
-			else if (type == 3)
-				document.getElementById("newVideoActivityForm").style.display = "block"
-			else if (type == 4)
-				document.getElementById("newGalleryActivityForm").style.display = "block"
-			else if (type == 5)
-				document.getElementById("newAudioActivityForm").style.display = "block"
-			else if (type == 6)
-				document.getElementById("newHtmlActivityForm").style.display = "block"
+	}
 
-		}
+	function showNewActivityForm() {
+		document.getElementById("newActivityForm").style.display = "block"
 
-		function showNewActivityForm() {
-			document.getElementById("newActivityForm").style.display = "block"
-
-		}
-	</script>
+	}
+</script>
 <p>
 	<b>环节名称:</b>
 	<%= @section.name %>
@@ -72,15 +74,14 @@
 </p>
 
 <h3>------------------环节列表------------------</h3>
-<table>
+<table border="1" cellspacing="0" cellpadding="3" style = "text-align: center;">
 	<tr>
 		<th>环节ID</th>
 		<th>排序</th>
 		<th>类型</th>
 		<th>名称</th>
 		<th>附件</th>
-		<th>其它</th>
-		<th></th>
+		<th>其它</th>		
 		<th></th>
 		<th></th>
 	</tr>
@@ -88,82 +89,37 @@
 	<% @activities.each do |activity| %>
 	<tr>
 		<td><%= activity.id %></td>
-		<% if(activity.tipe.eql?("video")) %>
-		<td><%= activity.order %></td>
-		<td>视频</td>
-		<td><%= activity.video_activity.name %></td>
-		<td><% if activity.video_activity.vid_file %>
-		<%= (link_to "#{activity.video_activity.vid_file_file_name}", activity.video_activity.vid_file.url(:original, false)) %>
+		<td><%= activity.order%></td>
+		<td><%= activity.type_name%></td>
+		<td><%= activity.sub_activity.name%></td>
+		<% if activity.tipe == "quiz"%>
+			<td>(暂无)</td>
+			<td>长度：<%= activity.quiz_activity.size %></td>
 		<% else %>
-		"无"
-		<% end %> </td>
-		<td>描述：<%= activity.video_activity.description %></td>
-		<% elsif(activity.tipe.eql?("text")) %>
-		<td><%= activity.order %></td>
-		<td>文本</td>
-		<td><%= activity.text_activity.name %></td>
-		<td><% if activity.text_activity.txt_file %>
-		<%= (link_to "#{activity.text_activity.txt_file_file_name}", activity.text_activity.txt_file.url(:original, false)) %>
-		<% else %>
-		<%= "无"%>
-		<% end %> </td>
-		<td>描述：<%= activity.text_activity.description %></td>
-		<% elsif(activity.tipe.eql?("quiz"))%>
-		<td><%= activity.order %></td>
-		<td>测试</td>
-		<td><%= activity.quiz_activity.name %></td>
-		<td>(暂无)</td>
-		<td>长度：<%= activity.quiz_activity.size %></td>
-		<% elsif(activity.tipe.eql?("gallery"))%>
-		<td><%= activity.order %></td>
-		<td>图片（集）</td>
-		<td><%= activity.gallery_activity.name %></td>
-		<td><% if activity.gallery_activity.img_files %>
-		<%= (link_to "#{activity.gallery_activity.img_files_file_name}", activity.gallery_activity.img_files.url(:original, false)) %>
-		<% else %>
-		<%= "无"%>
-		<% end %> </td>
-		<td>描述：<%= activity.gallery_activity.description %></td>
-		<% elsif(activity.tipe.eql?("audio"))%>
-		<td><%= activity.order %></td>
-		<td>音频</td>
-		<td><%= activity.audio_activity.name %></td>
-		<td><% if activity.audio_activity.aud_file %>
-		<%= (link_to "#{activity.audio_activity.aud_file_file_name}", activity.audio_activity.aud_file.url(:original, false)) %>
-		<% else %>
-		<%= "无"%>
-		<% end %> </td>
-		<td>描述：<%= activity.audio_activity.description %></td>
-		<% elsif(activity.tipe.eql?("html"))%>
-		<td><%= activity.order %></td>
-		<td>HTML</td>
-		<td><%= activity.html_activity.name %></td>
-		<td><% if activity.html_activity.html_file %>
-		<%= (link_to "#{activity.html_activity.html_file_file_name}", activity.html_activity.html_file.url(:original, false)) %>
-		<% else %>
-		<%= "无"%>
-		<% end %> </td>
-		<td>描述：<%= activity.html_activity.description %></td>
-		<% end %>
-		<% if activity.tipe.eql?("video")%>
-		<td><%= link_to 'Show', :url => {:controller => :video_activities, :section_id => @section.id } %></td>
-		<td><%= link_to 'Edit', :url => {:controller => :video_activities, :action => :edit, :section_id => @section.id } %></td>
+			<% content_file = activity.sub_activity.content_file%>
+			<% content_file_file_name = activity.sub_activity.content_file_file_name%>
+			<td><% if content_file %>
+				<%= (link_to "#{content_file_file_name}", content_file.url(:original, false)) %>
+				<% else %>
+					"无"
+				<% end %> </td>		
+			<td>描述：<%= activity.sub_activity.description %></td>
+		<% end %>		
+		
+		<% if activity.tipe.eql?("video")%>		
+			<td><%= link_to 'Edit', edit_video_activity_path(activity.video_activity, :section_id => @section.id) %></td>
 		<% elsif activity.tipe.eql?("text")%>
-		<td><%= link_to 'Show', activity.text_activity %></td>
-		<td><%= link_to 'Edit', edit_text_activity_path(activity.text_activity) %></td>
-		<% elsif activity.tipe.eql?("quiz")%>
-		<td><%= link_to 'Show', activity.quiz_activity %></td>
-		<td><%= link_to 'Edit', edit_quiz_activity_path(activity.quiz_activity) %></td>
-		<% elsif activity.tipe.eql?("gallery")%>
-		<td><%= link_to 'Show', activity.gallery_activity %></td>
-		<td><%= link_to 'Edit', edit_gallery_activity_path(activity.gallery_activity) %></td>
-		<% elsif activity.tipe.eql?("html")%>
-		<td><%= link_to 'Show', activity.html_activity %></td>
-		<td><%= link_to 'Edit', edit_html_activity_path(activity.html_activity) %></td>
-		<% elsif activity.tipe.eql?("audio")%>
-		<td><%= link_to 'Show', activity.audio_activity %></td>
-		<td><%= link_to 'Edit', edit_audio_activity_path(activity.audio_activity) %></td>
+			<td><%= link_to 'Edit', edit_text_activity_path(activity.text_activity, :section_id => @section.id) %></td>
+		<% elsif activity.tipe.eql?("quiz")%>		
+			<td><%= link_to 'Edit', edit_quiz_activity_path(activity.quiz_activity, :section_id => @section.id) %></td>
+		<% elsif activity.tipe.eql?("gallery")%>		
+			<td><%= link_to 'Edit', edit_gallery_activity_path(activity.gallery_activity, :section_id => @section.id) %></td>
+		<% elsif activity.tipe.eql?("html")%>		
+			<td><%= link_to 'Edit', edit_html_activity_path(activity.html_activity, :section_id => @section.id) %></td>
+		<% elsif activity.tipe.eql?("audio")%>		
+			<td><%= link_to 'Edit', edit_audio_activity_path(activity.audio_activity, :section_id => @section.id) %></td>
 		<% end %>
+		
 		<td><%= link_to 'Destroy', activity, confirm: 'Are you sure?', method: :delete %></td>
 	</tr>
 	<% end %>

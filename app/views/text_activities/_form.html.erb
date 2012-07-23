@@ -1,4 +1,5 @@
 <%= form_for(@text_activity) do |f| %>
+  <%= hidden_field_tag :section_id, params[:section_id] %>
   <% if @text_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@text_activity.errors.count, "error") %> prohibited this text_activity from being saved:</h2>
@@ -32,6 +33,6 @@
     <%= f.text_area :description %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit%>
   </div>
 <% end %>

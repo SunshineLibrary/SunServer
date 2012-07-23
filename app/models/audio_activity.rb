@@ -23,4 +23,12 @@ class AudioActivity < ActiveRecord::Base
       return
     end
   end
+  
+  def content_file
+    aud_file
+  end
+  
+  def content_file_file_name
+    aud_file_file_name
+  end
 end

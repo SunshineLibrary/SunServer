@@ -1,4 +1,5 @@
 <%= form_for(@gallery_activity) do |f| %>
+  <%= hidden_field_tag :section_id, params[:section_id] %>
   <% if @gallery_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@gallery_activity.errors.count, "error") %> prohibited this gallery_activity from being saved:</h2>

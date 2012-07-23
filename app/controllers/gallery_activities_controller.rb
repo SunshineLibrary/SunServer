@@ -61,7 +61,7 @@ class GalleryActivitiesController < ApplicationController
 
     respond_to do |format|
       if @gallery_activity.update_attributes(params[:gallery_activity])
-        format.html { redirect_to @gallery_activity, notice: 'Gallery activity was successfully updated.' }
+        format.html { redirect_to Section.find(params[:section_id]), notice: 'Gallery activity was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

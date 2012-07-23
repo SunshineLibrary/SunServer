@@ -22,4 +22,12 @@ class TextActivity < ActiveRecord::Base
       return
     end
   end
+  
+  def content_file
+    txt_file
+  end
+  
+  def content_file_file_name
+    txt_file_file_name
+  end
 end

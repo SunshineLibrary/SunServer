@@ -41,7 +41,7 @@ class AudioActivitiesController < ApplicationController
   # POST /audio_activities.json
   def create
     @audio_activity = AudioActivity.new(params[:audio_activity])
-    @audio_acitivity.activity.sections << Section.where(params[:section_id])
+    @audio_activity.activity.sections << Section.where(params[:section_id])
 
     respond_to do |format|
       if (@audio_activity.save)
@@ -61,7 +61,7 @@ class AudioActivitiesController < ApplicationController
 
     respond_to do |format|
       if @audio_activity.update_attributes(params[:audio_activity])
-        format.html { redirect_to @audio_activity, notice: 'Audio activity was successfully updated.' }
+        format.html { redirect_to Section.find(params[:section_id]), notice: 'Audio activity was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

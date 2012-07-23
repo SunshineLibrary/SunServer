@@ -61,7 +61,7 @@ class HtmlActivitiesController < ApplicationController
 
     respond_to do |format|
       if @html_activity.update_attributes(params[:html_activity])
-        format.html { redirect_to @html_activity, notice: 'Html activity was successfully updated.' }
+        format.html { redirect_to Section.find(params[:section_id]), notice: 'Html activity was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

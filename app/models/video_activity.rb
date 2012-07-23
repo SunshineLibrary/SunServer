@@ -22,4 +22,12 @@ class VideoActivity < ActiveRecord::Base
       return
     end
   end
+  
+  def content_file
+    vid_file
+  end
+  
+  def content_file_file_name
+    vid_file_file_name
+  end
 end

@@ -62,7 +62,7 @@ class QuizActivitiesController < ApplicationController
 
     respond_to do |format|
       if @quiz_activity.update_attributes(params[:quiz_activity])
-        format.html { redirect_to @quiz_activity, notice: 'Quiz activity was successfully updated.' }
+        format.html { redirect_to Section.find(params[:section_id]), notice: 'Quiz activity was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

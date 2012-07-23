@@ -1,4 +1,5 @@
 <%= form_for @video_activity, :url => {:controller => :video_activities, :action => :update, :section_id => @section_id } do |f| %>
+  <%= hidden_field_tag :section_id, params[:section_id] %>
   <% if @video_activity.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@video_activity.errors.count, "error") %> prohibited this video_activity from being saved:</h2>
