@@ -1,4 +1,6 @@
 SunServer::Application.routes.draw do
+  match 'subjects/overview/:id'  => 'subjects#overview'
+  
   resources :edges
 
   resources :html_activities

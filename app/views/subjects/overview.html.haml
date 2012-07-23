@@ -1,0 +1,15 @@
+%h3 Subject Overview
+%ul  
+  %li= @subject.name  
+  %ul      
+    -@subject.courses.each do |course|
+      %li= link_to course.name, course_path(course)      
+      %ul
+        -course.chapters.each do |chapter|
+          %li= link_to chapter.name, chapter_path(chapter)          
+          %ul
+            -chapter.lessons.each do |lesson|
+              %li= link_to lesson.name, lesson_path(lesson)              
+              %ul
+                -lesson.sections.each do |section|
+                  %li= link_to section.name, section_path(section)

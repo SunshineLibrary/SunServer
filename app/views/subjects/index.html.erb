@@ -16,6 +16,7 @@
   <tr>
     <td><%= best_in_place subject, :name, :type => :input %></td>
     <td><%= link_to '进入', subject %></td>
+    <td><%= link_to "总览", :controller => "subjects", :action => "overview", :id => subject%>    
     <td><%= link_to '删除', subject, confirm: '确定删除此科目吗？', method: :delete %></td>
   </tr>
 <% end %>

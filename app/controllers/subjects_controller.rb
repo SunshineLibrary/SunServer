@@ -26,6 +26,10 @@ class SubjectsController < ApplicationController
       format.json { render json: @subject }
     end
   end
+  
+  def overview
+    @subject = Subject.find(params[:id])
+  end
 
   def edit
     @subject = Subject.find(params[:id])
