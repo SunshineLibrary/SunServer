@@ -24,7 +24,7 @@ describe EdgesController do
   # Edge. As you add validations to Edge, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    {from_id: 1, to_id: 1}
   end
 
   # This should return the minimal set of values that should be in the session
