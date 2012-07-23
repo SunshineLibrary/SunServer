@@ -1,0 +1,7 @@
+%h3 全部科目总览
+
+= link_to '创建科目', new_subject_path
+
+-Subject.all.each do |subject|
+  -@subject = subject  
+  =render 'overview_subject'

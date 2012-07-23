@@ -30,7 +30,10 @@ class SubjectsController < ApplicationController
   def overview
     @subject = Subject.find(params[:id])
   end
-
+  
+  def all_subject    
+  end
+  
   def edit
     @subject = Subject.find(params[:id])
   end

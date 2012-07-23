@@ -530,3 +530,6 @@
 </div>
 
 <%= render 'edge_edit'%>
+
+<%= link_to '继续添加小节', new_section_path(:lesson_id => @section.lesson_id)%> |
+<%= link_to '返回上一层', lesson_path(@section.lesson_id)%>
