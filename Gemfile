@@ -12,6 +12,7 @@ gem 'jquery-rails'
 gem 'therubyracer'
 gem 'haml'
 gem 'best_in_place'
+gem 'devise' #used for authentication
 
 # Gems used only for assets and not required
 # in production environments by default.

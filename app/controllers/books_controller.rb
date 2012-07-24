@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
   
+  before_filter :authenticate_user!
+  
   DEFAULT_LIMIT = 100
   
   # GET /books

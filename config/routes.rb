@@ -1,4 +1,10 @@
 SunServer::Application.routes.draw do
+  devise_for :users
+
+  resources :video_collections
+
+  resources :videos
+
   match 'subjects/overview/:id'  => 'subjects#overview'
   match 'subjects/all' => 'subjects#all_subject'
   resources :edges
