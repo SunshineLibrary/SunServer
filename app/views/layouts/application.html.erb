@@ -12,11 +12,18 @@
 
 <div id="user_nav">
   <% if user_signed_in? %>
-    <%= current_user.name %>, 欢迎您
-    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+	用户<%= current_user.name %>, 欢迎您
+    <%= link_to "登出", destroy_user_session_path, :method => :delete %>
   <% else %>
-    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+    <%= link_to "注册", new_user_registration_path %> or <%= link_to "登陆用户", new_user_session_path %>
   <% end %>
+  
+  <% if admin_signed_in? %>
+	管理员<%= current_admin.name %>, 欢迎您
+    <%= link_to "登出", destroy_admin_session_path, :method => :delete %>
+  <% else %>
+    <%= link_to "以管理员身份登陆", new_admin_session_path %>
+  <% end %>  
 </div>
 
 <p>	
