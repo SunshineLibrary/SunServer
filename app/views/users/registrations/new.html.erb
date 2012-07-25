@@ -1,0 +1,33 @@
+<h2>注册</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div>姓名<br />
+  <%= f.text_field :name %></div>
+  
+  <div>生日（YYYYMMDD格式）<br />
+  <%= f.text_field :birthday %></div>
+  
+  <div>班级<br/>
+  <%= f.text_field :classroom%></div>
+  
+  <div>学校<br/>
+  <%= f.text_field :school%></div>
+  
+  <% pcollection = [["学生", "Student"], ["老师", "Teacher"], ["访客", "Visitor"]]%>
+  
+  <div>用户类型<br />
+    <%= f.select :user_type, pcollection %>
+  </div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %></div> 
+
+  <div><%= f.submit "注册" %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>

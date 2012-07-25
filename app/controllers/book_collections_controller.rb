@@ -20,10 +20,10 @@ class BookCollectionsController < ApplicationController
       format.json { render json: @book_collection }
     end
   end
-
+  
   # GET /book_collections/new
   # GET /book_collections/new.json
-  def new
+  def new    
     @book_collection = BookCollection.new
 
     respond_to do |format|
@@ -39,7 +39,7 @@ class BookCollectionsController < ApplicationController
 
   # POST /book_collections
   # POST /book_collections.json
-  def create
+  def create    
     @book_collection = BookCollection.new(params[:book_collection])
 
     respond_to do |format|

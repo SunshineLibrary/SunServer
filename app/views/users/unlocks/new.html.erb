@@ -1,0 +1,15 @@
+<h2>Resend unlock instructions</h2>
+
+<%= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div>姓名<br />
+  <%= f.text_field :name %></div>
+  
+  <div>生日（YYYYMMDD格式）<br />
+  <%= f.text_field :birthday %></div>
+
+  <div><%= f.submit "Resend unlock instructions" %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>

@@ -73,7 +73,7 @@ class TagsController < ApplicationController
   # DELETE /tags/1
   # DELETE /tags/1.json
   def destroy
-    @tag = Tag.find(params[:id])
+    @tag = Tag.find(params[:id])    
     @tag.destroy
 
     respond_to do |format|

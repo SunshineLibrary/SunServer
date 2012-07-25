@@ -32,6 +32,7 @@ module SunServer
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :zh_CN
+    # config.i18n.default_locale = :en
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -44,5 +45,25 @@ module SunServer
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+  end  
+end
+
+class ActiveRecord::Base
+  #Correctly override destroy
+  def destroy_without_callbacks
+    unless new_record?
+      self.created_at = Time.at(0)
+      self.save
+    end
+    freeze
   end
+  
+  def destroy
+    self.created_at = Time.at(0)
+    self.save
+  end
+  
+  # def destroyed?
+    # self.created_at == Time.at(0)
+  # end  
 end
