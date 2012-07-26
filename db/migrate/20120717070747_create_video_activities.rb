@@ -4,7 +4,7 @@ class CreateVideoActivities < ActiveRecord::Migration
       t.string :name
       t.integer :activity_id
       t.integer :provider_id
-      t.string :file_path
+      t.has_attached_file :vid_file
       t.text :notes
       t.integer :duration
       t.text :description

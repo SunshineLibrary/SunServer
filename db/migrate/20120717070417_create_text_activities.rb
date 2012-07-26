@@ -4,7 +4,7 @@ class CreateTextActivities < ActiveRecord::Migration
       t.string :name
       t.integer :activity_id
       t.integer :provider_id
-      t.string :file_path
+      t.has_attached_file :txt_file
       t.text :description
 
       t.timestamps

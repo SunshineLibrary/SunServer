@@ -3,7 +3,7 @@ class CreateProviders < ActiveRecord::Migration
     create_table :providers do |t|
       t.string :name
       t.string :intro
-      t.string :logo_path
+      t.has_attached_file :logo
 
       t.timestamps
     end

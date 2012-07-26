@@ -9,6 +9,12 @@ class CreateBooks < ActiveRecord::Migration
       t.integer :publication_year
       t.string :publisher
       t.integer :provider_id
+      t.integer :difficulty
+      t.integer :hotness
+      
+      t.has_attached_file :epub_file
+      t.has_attached_file :cover_m
+      t.has_attached_file :cover_s
 
       t.timestamps
     end

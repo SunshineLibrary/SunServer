@@ -19,6 +19,12 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
 
+      t.string :users, :name
+      t.string :users, :birthday
+      t.string :users, :classroom
+      t.string :users, :school
+      t.string :users, :user_type
+
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at
@@ -32,7 +38,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
       ## Token authenticatable
       # t.string :authentication_token
-
 
       t.timestamps
     end

@@ -4,7 +4,7 @@ class CreateGalleryActivities < ActiveRecord::Migration
       t.string :name
       t.integer :activity_id
       t.integer :provider_id
-      t.string :file_path
+      t.has_attached_file :img_files
       t.text :description
       t.text :notes
 
