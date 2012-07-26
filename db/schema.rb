@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726073508) do
+ActiveRecord::Schema.define(:version => 20120726082954) do
 
   create_table "activities", :force => true do |t|
     t.string   "tipe"
@@ -156,6 +156,15 @@ ActiveRecord::Schema.define(:version => 20120726073508) do
     t.datetime "updated_at"
   end
 
+  create_table "classrooms", :force => true do |t|
+    t.string   "name"
+    t.integer  "school_id"
+    t.integer  "class_of"
+    t.integer  "class_order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "courses", :force => true do |t|
     t.string   "name"
     t.string   "editor"
@@ -252,6 +261,13 @@ ActiveRecord::Schema.define(:version => 20120726073508) do
     t.string   "file_path"
     t.integer  "size"
     t.integer  "difficulty"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "schools", :force => true do |t|
+    t.string   "name"
+    t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

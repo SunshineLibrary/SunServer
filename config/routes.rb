@@ -1,4 +1,8 @@
 SunServer::Application.routes.draw do
+  resources :classrooms
+
+  resources :schools
+
   devise_for :admins
 
   devise_for :users
