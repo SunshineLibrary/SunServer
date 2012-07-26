@@ -1,14 +1,4 @@
-class BooksController < ApplicationController
-  
-  before_filter :authenticate_user!
-  
-# before_filter :verify_is_admin, :only => [:new, :edit, :create, :destroy]
-# 
-# private
-# 
-# def verify_is_admin
-  # (current_user.nil?) ? redirect_to(root_path) : (redirect_to(root_path) unless current_user.admin?)
-# end
+class BooksController < ApplicationController  
   
   DEFAULT_LIMIT = 100
   
@@ -103,5 +93,5 @@ class BooksController < ApplicationController
     path = @book.epub_file.path
     
     send_file(path)
-  end
+  end   
 end

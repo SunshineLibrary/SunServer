@@ -1,5 +1,4 @@
-class SubjectsController < ApplicationController
-  before_filter :authenticate_admin!
+class SubjectsController < ApplicationController  
   
   def index
     @subjects = Subject.all

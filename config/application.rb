@@ -63,7 +63,7 @@ class ActiveRecord::Base
     self.save
   end
   
-  # def destroyed?
-    # self.created_at == Time.at(0)
-  # end  
+  def destroyed?
+    self.created_at == Time.at(0)
+  end  
 end
