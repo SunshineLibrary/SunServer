@@ -11,8 +11,9 @@ gem 'paperclip', '~> 3.0'
 gem 'jquery-rails'
 gem 'therubyracer'
 gem 'haml'
-gem 'best_in_place'
+gem 'best_in_place' # used for in place edition
 gem 'devise' #used for authentication
+gem 'mathjax-rails' # used for rendering math formula
 
 # Gems used only for assets and not required
 # in production environments by default.
