@@ -9,12 +9,13 @@ class ApplicationController < ActionController::Base
   require 'tags_controller'
   require 'subjects_controller'
   require 'providers_controller'
-  
+  require 'authors_controller'
+  require 'lessons_controller'  
     
   private
   def verify_identity_for_new_del
-    @need_admin_auth = [BooksController, TagsController]
-    @need_user_auth = [ProvidersController, SubjectsController] 
+    @need_admin_auth = [SubjectsController, BooksController, TagsController, AuthorsController, ProvidersController, LessonsController]
+    @need_user_auth = [] 
         
     verify_identity        
   end
@@ -22,7 +23,7 @@ class ApplicationController < ActionController::Base
   private
   def verify_identity_for_edit 
     @need_admin_auth = []   
-    @need_user_auth = [BooksController, TagsController, ProvidersController, SubjectsController] 
+    @need_user_auth = [SubjectsController, BooksController, TagsController, AuthorsController, ProvidersController, LessonsController] 
         
     verify_identity        
   end
@@ -39,8 +40,11 @@ class ApplicationController < ActionController::Base
       authenticate_admin! if self.instance_of? admin_auth_class
     end
     
-    @need_user_auth.each do |user_auth_class|
-      authenticate_user! if self.instance_of? user_auth_class
+    #make admin super than user.
+    unless admin_signed_in?
+      @need_user_auth.each do |user_auth_class|
+        authenticate_user! if self.instance_of? user_auth_class
+      end
     end
   end
 end
