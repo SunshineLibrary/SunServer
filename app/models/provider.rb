@@ -4,11 +4,20 @@ class Provider < ActiveRecord::Base
     
   validates :name, :presence =>true
   
-  def self.provider_list
+  def self.list_all
     pccollection = []
     Provider.all.each do |p|
       pccollection << [p.name, p.id]
     end
     pccollection
   end
+  
+  def self.list_all_in_place
+    pccollection = []
+    Provider.all.each do |p|
+      pccollection << [p.id, p.name]
+    end
+    pccollection
+  end
+  
 end

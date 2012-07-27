@@ -6,30 +6,21 @@
 </p>
 
 <p>
-  <b>所属:</b>
-  <%= @quiz_activity.activity_id %>
+  <b>所属小节:</b>
+  <%= link_to @section.name, section_path(@section) %>
 </p>
 
 <p>
-  <b>Provider:</b>
-  <%= @quiz_activity.provider_id %>
+  <b>提供方:</b>
+  <%= best_in_place @quiz_activity, :provider_id, :type => :select, :collection => Provider.list_all_in_place %>
 </p>
 
 <p>
-  <b>File path:</b>
-  <%= @quiz_activity.file_path %>
-</p>
-
-<p>
-  <b>Size:</b>
+  <b>习题数量:</b>
   <%= @quiz_activity.size %>
 </p>
 
-<p>
-  <b>Difficulty:</b>
-  <%= @quiz_activity.difficulty %>
-</p>
+<%= link_to '返回小节', section_path(@section) %>
 
 
-<%= link_to 'Edit', edit_quiz_activity_path(@quiz_activity) %> |
-<%= link_to 'Back', quiz_activities_path %>
+<h2>所有习题列表</h2>
