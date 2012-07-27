@@ -17,13 +17,9 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :activity_id %><br />
-    <%= f.number_field :activity_id %>
-  </div>
-  <div class="field">
-    <%= f.label :provider_id %><br />
-    <%= f.number_field :provider_id %>
-  </div>
+    <%= f.label :provider_id, "提供方" %><br />
+    <%= f.select :provider_id, Provider.provider_list %>
+  </div> 
   <div class="field">
     <%= f.label :file_path %><br />
     <%= f.text_field :file_path %>

@@ -21,9 +21,9 @@
     <%= f.number_field :order%>
   </div>
   <div class="field">
-    <p>提供方:</p>
-    <%= f.number_field :provider_id %>
-  </div>
+    <%= f.label :provider_id, "提供方" %><br />
+    <%= f.select :provider_id, Provider.provider_list %>
+  </div> 
   <div class="field">
 	视频附件:
 	<%if @video_activity.vid_file? %>

@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @quiz_activity.name %>
+  <b>习题环节名称:</b>
+  <%= best_in_place @quiz_activity, :name, :type => :input %>
 </p>
 
 <p>
-  <b>Activity:</b>
+  <b>所属:</b>
   <%= @quiz_activity.activity_id %>
 </p>
 

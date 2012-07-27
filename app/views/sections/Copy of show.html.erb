@@ -3,16 +3,28 @@
 </p>
 <h1><%= best_in_place @section, :name, :type => :input %></h1>
 
+<% if @section.lesson%>
 <p>
 	<b>所属章节:</b>
-	<%= link_to @lesson.name, lesson_path(@lesson) %>
+	<%= link_to @section.lesson.name, lesson_path(@section.lesson) %>
 </p>
+<% end%>
 
 <p>
 	<b>章节重点笔记:</b>
 	<%= best_in_place @section, :description, :type => :textarea %>
 </p>
 <script>
+	function showEditForm() {
+		document.getElementById("editForm").style.display = "block"
+		document.getElementById("typeSelect").style.display = "none"
+		document.getElementById("newQuizActivityForm").style.display = "none"
+		document.getElementById("newVideoActivityForm").style.display = "none"
+		document.getElementById("newGalleryActivityForm").style.display = "none"
+		document.getElementById("newTextActivityForm").style.display = "none"
+		document.getElementById("newAudioActivityForm").style.display = "none"
+		document.getElementById("newHtmlActivityForm").style.display = "none"
+	}
 
 	function showTypeSelect() {
 		document.getElementById("typeSelect").style.display = "block"
@@ -46,7 +58,20 @@
 
 	}
 </script>
+<p>
+	<b>环节名称:</b>
+	<%= @section.name %>
+</p>
 
+<p>
+	<b>属于课程:</b>
+	<%= @section.lesson_id %>
+</p>
+
+<p>
+	<b>描述:</b>
+	<%= @section.description %>
+</p>
 
 <h3>------------------环节列表------------------</h3>
 <table border="1" cellspacing="0" cellpadding="3" style = "text-align: center;">
@@ -100,10 +125,16 @@
 	<% end %>
 </table>
 </br>
-
+<button onclick="showEditForm()">
+	编辑小节属性
+</button>
 <button onclick="showTypeSelect()">
 	添加新的环节
 </button>
+
+<div id="editForm" style="display:none">
+	<%= render 'form' %>
+</div>
 
 <div id="typeSelect" style="display:none">
 	<p>
@@ -313,7 +344,64 @@
 	<% end %>
 </div>
 
-<%= render :partial => "quiz_activities/form", :locals => {:section_id => @section.id, :activity_size => @activities.size} %>
+<div id="newQuizActivityForm" style="display:none">
+	<% @quiz_activity = QuizActivity.new %>
+	<%= form_for @quiz_activity, :url => {:controller => :quiz_activities, :action => :create, :section_id => @section.id, :order => @activities.size } do |f| %>
+	<% if @quiz_activity.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@quiz_activity.errors.count, "error") %> prohibited this quiz_activity from being saved:</h2>
+
+		<ul>
+			<% @quiz_activity.errors.full_messages.each do |msg| %>
+			<li>
+				<%= msg %>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
+
+	<div class="field">
+		<p>
+			名称:
+		</p>
+		<%= f.text_field :name %>
+	</div>
+	<div class="field">
+		<p>
+			排序:
+		</p>
+		<%= f.number_field :order%>
+	</div>
+	<div class="field">
+		<p>
+			提供方:
+		</p>
+		<%= f.number_field :provider_id %>
+	</div>
+	<div class="field">
+		<p>
+			附件:
+		</p>
+		<%= f.text_field :file_path %>
+	</div>
+	<div class="field">
+		<p>
+			习题数量:
+		</p>
+		<%= f.number_field :size %>
+	</div>
+	<div class="field">
+		<p>
+			难度指数 :
+		</p>
+		<%= f.number_field :difficulty %>
+	</div>
+	<div class="actions">
+		<%= f.submit "提交"%>
+	</div>
+	<% end %>
+</div>
 
 <div id="newAudioActivityForm" style="display:none">
 	<% @audio_activity = AudioActivity.new %>

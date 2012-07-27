@@ -5,7 +5,6 @@ class CreateHtmlActivities < ActiveRecord::Migration
       t.integer :activity_id
       t.integer :provider_id
       t.has_attached_file :html_file
-      t.text :description
 
       t.timestamps
     end

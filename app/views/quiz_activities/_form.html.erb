@@ -1,42 +1,33 @@
-<%= form_for(@quiz_activity) do |f| %>
-  <%= hidden_field_tag :section_id, params[:section_id] %>
-  <% if @quiz_activity.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@quiz_activity.errors.count, "error") %> prohibited this quiz_activity from being saved:</h2>
+<div id="newQuizActivityForm" style="display:none">
+  <% @quiz_activity = QuizActivity.new %>
+  <%= form_for @quiz_activity, :url => {:controller => :quiz_activities, :action => :create, :section_id => section_id } do |f| %>
 
-      <ul>
-      <% @quiz_activity.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <% if @quiz_activity.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@quiz_activity.errors.count, "error") %> prohibited this quiz_activity from being saved:</h2>
+  
+        <ul>
+        <% @quiz_activity.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name, "环节名称" %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :provider_id, "提供方" %><br />
+      <%= f.select :provider_id, Provider.provider_list %>
+    </div> 
+    <div class="field" style="display: none">
+      <%= f.label :order %><br />
+      <%= f.text_field :order, :value => activity_size %>
+    </div> 
+    <div class="actions">
+      <%= f.submit %>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :activity_id %><br />
-    <%= f.number_field :activity_id %>
-  </div>
-  <div class="field">
-    <%= f.label :provider_id %><br />
-    <%= f.number_field :provider_id %>
-  </div>
-  <div class="field">
-    <%= f.label :file_path %><br />
-    <%= f.text_field :file_path %>
-  </div>
-  <div class="field">
-    <%= f.label :size %><br />
-    <%= f.number_field :size %>
-  </div>
-  <div class="field">
-    <%= f.label :difficulty %><br />
-    <%= f.number_field :difficulty %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

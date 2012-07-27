@@ -114,14 +114,9 @@
     <%= f.file_field :epub_file %>
   </div>
   
-  <% pcollection = []%>
-  <% Provider.all.each do |provider|%>
-  <% 	pcollection << [provider.name, provider.id]%>
-  <% end%>
-  
   <div class="field">
 	内容供应商<br />
-    <%= f.select :provider_id, pcollection %>
+    <%= f.select :provider_id, Provider.provider_list %>
   </div> 
   
   <div class="actions">

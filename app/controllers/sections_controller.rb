@@ -13,7 +13,8 @@ class SectionsController < ApplicationController
   # GET /sections/1
   # GET /sections/1.json
   def show
-    @section = Section.find(params[:id])
+    @section = Section.find_by_id(params[:id])
+    @lesson = @section.lesson
     @activities = @section.activities.sort_by(&:order) 
 
     respond_to do |format|
