@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120726082954) do
+ActiveRecord::Schema.define(:version => 20120730025440) do
 
   create_table "activities", :force => true do |t|
     t.string   "tipe"
@@ -189,10 +189,6 @@ ActiveRecord::Schema.define(:version => 20120726082954) do
     t.string   "name"
     t.integer  "activity_id"
     t.integer  "provider_id"
-    t.string   "img_files_file_name"
-    t.string   "img_files_content_type"
-    t.integer  "img_files_file_size"
-    t.datetime "img_files_updated_at"
     t.text     "description"
     t.text     "notes"
     t.datetime "created_at"
@@ -207,7 +203,18 @@ ActiveRecord::Schema.define(:version => 20120726082954) do
     t.string   "html_file_content_type"
     t.integer  "html_file_file_size"
     t.datetime "html_file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "images", :force => true do |t|
+    t.integer  "gallery_id"
+    t.integer  "order"
     t.text     "description"
+    t.string   "img_file_file_name"
+    t.string   "img_file_content_type"
+    t.integer  "img_file_file_size"
+    t.datetime "img_file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -258,9 +265,7 @@ ActiveRecord::Schema.define(:version => 20120726082954) do
     t.string   "name"
     t.integer  "activity_id"
     t.integer  "provider_id"
-    t.string   "file_path"
     t.integer  "size"
-    t.integer  "difficulty"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

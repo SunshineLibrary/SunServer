@@ -1,11 +1,6 @@
 class GalleryActivity < ActiveRecord::Base
-  has_attached_file :img_files, { 
-      :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
-      :url => "/system/:attachment/:id/:style/:hash.:extension",
-      :hash_secret => "longSecretString"
-    }    
-   
   belongs_to :activity
+  has_many :images
   
   def order= ord
     if self.activity
