@@ -22,5 +22,20 @@
 
 <%= link_to '返回小节', section_path(@section) %>
 
+<br/>
+<br/>
+<br/>
 
 <h2>所有习题列表</h2>
+
+<%= form_for(@problem) do |f| %>
+  <p>选择习题类型</p>
+  <div class="field">
+    <%= f.radio_button :tipe, 'mc' %> <%= f.label :tipe, "单选题", :value => "mc" %>
+    <%= f.radio_button :tipe, 'fb' %> <%= f.label :tipe, "填空题", :value => "fb" %>
+    <%= f.radio_button :tipe, 'mamc' %> <%= f.label :tipe, "多选题", :value => "mamc" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "添加习题" %>
+  </div>
+<% end %>

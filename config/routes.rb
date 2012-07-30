@@ -20,6 +20,8 @@ SunServer::Application.routes.draw do
   resources :chapters
 
   resources :quiz_activities
+  
+  resources :problems
 
   resources :video_activities
 
