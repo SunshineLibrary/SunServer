@@ -65,5 +65,5 @@ class ActiveRecord::Base
   
   def destroyed?
     self.created_at == Time.at(0)
-  end  
+  end    
 end

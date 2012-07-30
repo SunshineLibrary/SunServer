@@ -20,7 +20,7 @@
     </div>
     <div class="field">
       <%= f.label :provider_id, "提供方" %><br />
-      <%= f.select :provider_id, Provider.provider_list %>
+      <%= f.select :provider_id, Provider.list_all %>
     </div> 
     <div class="field" style="display: none">
       <%= f.label :order %><br />

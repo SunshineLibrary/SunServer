@@ -5,9 +5,8 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <%= mathjax_tag %>
+<!--   mathjax_tag -->
 </head>
-<body style="background: #EEEEEE;">
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
@@ -33,7 +32,8 @@
 	<%= link_to '书籍合集', book_collections_path%> |
 	<%= link_to '作者', authors_path%>|
 	<%= link_to '标签', tags_path%>|
-	<%= link_to '供应商', providers_path%>	
+	<%= link_to '供应商', providers_path%>|	
+	<%= link_to '视频合集', video_collections_path%>
 </p>
 
 <%= yield %>

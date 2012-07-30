@@ -1,4 +1,8 @@
 SunServer::Application.routes.draw do
+  resources :images
+
+  resources :tag_bundles
+
   resources :classrooms
 
   resources :schools
@@ -107,5 +111,5 @@ SunServer::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   
-  mathjax 'mathjax'
+  # mathjax 'mathjax'
 end

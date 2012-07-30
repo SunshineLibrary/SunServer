@@ -44,7 +44,7 @@ class VideosController < ApplicationController
 
     respond_to do |format|
       if @video.save
-        format.html { redirect_to @video, notice: 'Video was successfully created.' }
+        format.html { redirect_to edit_video_collection_url(VideoCollection.find(@video.video_collection_id)), notice: 'Video was successfully created.' }
         format.json { render json: @video, status: :created, location: @video }
       else
         format.html { render action: "new" }
@@ -60,7 +60,7 @@ class VideosController < ApplicationController
 
     respond_to do |format|
       if @video.update_attributes(params[:video])
-        format.html { redirect_to @video, notice: 'Video was successfully updated.' }
+        format.html { redirect_to edit_video_collection_url(@video.video_collection_id), notice: 'Video was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -73,10 +73,11 @@ class VideosController < ApplicationController
   # DELETE /videos/1.json
   def destroy
     @video = Video.find(params[:id])
+    collection_id = @video.video_collection_id;        
     @video.destroy
 
     respond_to do |format|
-      format.html { redirect_to videos_url }
+      format.html { redirect_to edit_video_collection_path(VideoCollection.find(collection_id)) }
       format.json { head :ok }
     end
   end
