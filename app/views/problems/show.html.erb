@@ -1,3 +1,5 @@
+<div id="main" style="width: 1000px">
+
 <p id="notice"><%= notice %></p>
 
 <%= form_for @problem do |f| %>
@@ -5,45 +7,74 @@
     <%= f.label :tipe, "题目类型：" %>
     <span><%= @problem.print_type %></span>
   </div>
-  <div class="field">
-    <%= f.label :body, "题干：" %>
-    <%= f.text_area :body, :value => "\`c/d\`", :id => "problem_body_input" %>
+  
+  <div>
+    <h2>编辑题目</h2>
+    <p>注：直接输入文字，数学公式使用键盘左上角的反引号包含起来（假设反引号为'），例如： 已知 'x/5 = 3'，求x</p>
   </div>
   
-  <div class="preview" >
-    <p id="problem_body_preview"></p>
-    <p>`a/b`</p>
-  </div>
-  
-  
-  <% if @problem.is_mc %>
-    <div class="title">
-      <span>所有选项</span>
+  <div id="problem-body">
+    <div class="field" style="float: left; width: 500px">
+      <%= f.text_area :body, :id => "problem-body-input" %>
     </div>
+    <div class="preview" style="float: left; width: 500px">
+      <span id="problem-body-preview"></span>
+    </div>
+  </div>
   
-    <% @problem.problem_choices.each do |pc| %>
-      <%= f.fields_for :pc do |pcf| %>
-        <div class="field">
-          <%= pcf.label :choice, "序号：" %>
-          <%= pcf.text_field :choice %>
-        </div>
-        <div class="field">
-          <%= pcf.label :body, "选项：" %>
-          <%= pcf.text_field :body %>
-        </div>
-      <% end %>
+  <div id="answer">
+    <%= f.label :answer, "答案：" -%>
+    <%= f.text_field :answer  %>
+  </div>
+  
+  <% if @problem.is_mc or @problem.is_mamc%>
+  <div id="all-choices">
+    <span>所有选项</span>
+    <ol id="choice-list">
+    <%= f.fields_for :problem_choices do |builder| %>
+      <%= render "problem_choice_fields", :f => builder %>
     <% end %>
+    <%= link_to_add_problem_choice "添加选项", f %>
   <% end %>
-
+  <%= submit_tag, "保存" %>
 <% end %>
+</div>
 
-
+<script type="text/x-mathjax-config;executed=true">
+  MathJax.Hub.Config({
+  extensions: ["asciimath2jax.js"],
+  jax: ["input/AsciiMath","output/HTML-CSS"],
+  tex2jax: {inlineMath: [["`","`"]]}
+  });
+</script>
 <%= mathjax_tag :config => 'AM_HTMLorMML-full.js' %>
 
 <script type="text/javascript">
-  $("#problem_body_input").on("keyup", function() {
+  $("#problem-body-input").on("keyup", function() {
     var formulaInput = $(this).val();
-    $('#problem_body_preview').text(formulaInput);
+    $('#problem-body-preview').text(formulaInput);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, $('#problem-body-preview').val]);
   });
+  
+  function bind_preview_to_problem_choice(e) {
+    var formulaInput = $(e).val();
+    var temp = $(e).parent().next().children().first();
+    //alert(temp.html())
+    temp.text(formulaInput);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, temp.val]);
+  };
+  
+  $(".problem_choice_body_field").on("keyup", function() {
+    bind_preview_to_problem_choice(this);
+  });
+  
+  function add_problem_choice_fields(link, content) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_problem_choice", "g")
+    $("#add_problem_choice_link").before(content.replace(regexp, new_id));
+    $(".problem_choice_body_field").on("keyup", function() {
+      bind_preview_to_problem_choice(this);
+    });
+  };
 </script>
 

@@ -27,6 +27,15 @@
 <br/>
 
 <h2>所有习题列表</h2>
+<% @quiz_activity.problems.each do |p| %>
+  <tr>
+    <td><%= p.print_type %></td>
+    <td><%= p.body %></td>
+    <td><%= link_to '进入', c, :quiz_activity_id => @quiz_activity.id %></td>
+    <td><%= link_to '删除', c, confirm: '确定要删除此习题吗？', method: :delete %></td>
+  </tr>
+<% end %>
+
 
 <%= form_for(@problem) do |f| %>
   <p>选择习题类型</p>

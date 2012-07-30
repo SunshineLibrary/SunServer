@@ -1,6 +1,6 @@
 GIT
-  remote: https://github.com/sharespost/mathjax-rails.git
-  revision: 8bc6928b0b38a6bfe3e45bcd35ee9dae0faca7bc
+  remote: git://github.com/ukisami/mathjax-rails.git
+  revision: b82faf51b5ed428276dae2b07b25260d1d123ef6
   specs:
     mathjax-rails (0.0.5)
       railties (~> 3.0)

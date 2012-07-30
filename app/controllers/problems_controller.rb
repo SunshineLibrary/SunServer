@@ -28,10 +28,11 @@ class ProblemsController < ApplicationController
   # PUT /videos/1.json
   def update
     @problem = Problem.find(params[:id])
+    @quiz_activity = QuizActivity.find(params[:quiz_activity_id])
 
     respond_to do |format|
       if @problem.update_attributes(params[:problem])
-        format.html { redirect_to @problem, notice: 'Video was successfully updated.' }
+        format.html { redirect_to @quiz_activity }
         format.json { head :ok }
       else
         format.html { render action: "show" }
@@ -49,6 +50,13 @@ class ProblemsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to videos_url }
       format.json { head :ok }
+    end
+  end
+  
+  
+  def add_choice
+    respond_to do |format|
+      format.js { render :partial => "problem_choice"} 
     end
   end
   
