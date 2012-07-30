@@ -1,8 +1,8 @@
-class CreateQuizActivityProblem < ActiveRecord::Migration
+class CreateActivitiesSections < ActiveRecord::Migration
   def change
-    create_table :quiz_activities_problems, :id => false do |t|
-      t.integer :quiz_activity_id
-      t.integer :problem_id
+    create_table :activities_sections, :id => false do |t|
+      t.integer :activity_id
+      t.integer :section_id
     end
   end
 end

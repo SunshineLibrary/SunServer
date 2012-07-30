@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730025440) do
+ActiveRecord::Schema.define(:version => 20120730213736) do
 
   create_table "activities", :force => true do |t|
     t.string   "tipe"
@@ -245,7 +245,8 @@ ActiveRecord::Schema.define(:version => 20120730025440) do
   create_table "problems", :force => true do |t|
     t.string   "body"
     t.string   "tipe"
-    t.integer  "answer"
+    t.string   "answer"
+    t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -268,6 +269,11 @@ ActiveRecord::Schema.define(:version => 20120730025440) do
     t.integer  "size"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "quiz_activities_problems", :id => false, :force => true do |t|
+    t.integer "quiz_activity_id"
+    t.integer "problem_id"
   end
 
   create_table "schools", :force => true do |t|
