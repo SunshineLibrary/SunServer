@@ -1,0 +1,29 @@
+<%= form_for(@tag_bundle) do |f| %>
+  <% if @tag_bundle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tag_bundle.errors.count, "error") %> prohibited this tag_bundle from being saved:</h2>
+
+      <ul>
+      <% @tag_bundle.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :chapter_id %><br />
+    <%= f.number_field :chapter_id %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :tags %><br />
+    <%= f.text_field :tags %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,19 +1,18 @@
-<h1>Listing video_collections</h1>
+<h1>视频合集</h1>
 
-<table>
+<table border="1" cellspacing="0" cellpadding="3" style = "text-align: center;">
   <tr>
     <th>Title</th>
-    <th>Intro</th>
-    <th></th>
+    <th>Intro</th>    
     <th></th>
     <th></th>
   </tr>
 
 <% @video_collections.each do |video_collection| %>
+  <% next if video_collection.destroyed?%>
   <tr>
     <td><%= video_collection.title %></td>
-    <td><%= video_collection.intro %></td>
-    <td><%= link_to 'Show', video_collection %></td>
+    <td><%= video_collection.intro %></td>    
     <td><%= link_to 'Edit', edit_video_collection_path(video_collection) %></td>
     <td><%= link_to 'Destroy', video_collection, confirm: 'Are you sure?', method: :delete %></td>
   </tr>

@@ -1,30 +1,34 @@
-<%= form_for(@html_activity) do |f| %>
-  <%= hidden_field_tag :section_id, params[:section_id] %>
-  <% if @html_activity.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@html_activity.errors.count, "error") %> prohibited this html_activity from being saved:</h2>
-
-      <ul>
-      <% @html_activity.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :provider_id, "提供方" %><br />
-    <%= f.select :provider_id, Provider.list_all %>
-  </div> 
-  <div class="field">
-    <%= f.label :file_path %><br />
-    <%= f.text_field :file_path %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<div id="newHtmlActivityForm" style="display:none">
+	<% @html_activity = HtmlActivity.new %>
+	<%= form_for @html_activity, :url => {:controller => :html_activities, :action => :create, :section_id => section_id} do |f| %>
+		<div class="field">		
+			<%= f.label :name, "名称:"%> <br/>		
+			<%= f.text_field :name %>
+		</div>		
+		<div class="field">
+	      <%= f.label :order, "排序" %><br />
+	      <%= f.text_field :order, :value => activity_size %>
+	    </div>	    
+		<div class="field">
+	      <%= f.label :provider_id, "供应商" %><br />
+	      <%= f.select :provider_id, Provider.list_all %>
+	    </div>	    	
+		<div class="field">
+			附件:
+			<%if @html_activity.html_file? %>
+			<%= "(已上传:#{@html_activity.html_file_file_name})"%>
+			<%else%>
+			<%= "(未上传)"%>
+			<%end%>
+			<br />
+			<%= f.file_field :html_file %>
+		</div>
+		<div class="field">
+			<%= f.label :description, "描述" %><br />
+			<%= f.text_area :description %>
+		</div>	
+		<div class="actions">
+			<%= f.submit "提交"%>
+		</div>
+	<% end %>
+</div>

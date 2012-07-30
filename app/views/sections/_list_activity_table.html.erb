@@ -1,0 +1,78 @@
+<%= javascript_include_tag params[:controller] %>
+
+<h3>------------------环节列表------------------</h3>
+<table border="1" cellspacing="0" cellpadding="3" style = "text-align: center;">
+	<tr>
+		<th>环节ID</th>
+		<th>排序</th>
+		<th>类型</th>
+		<th>名称</th>
+		<th>附件</th>
+		<th>其它</th>		
+		<th></th>
+		<th></th>
+	</tr>
+
+	<% @activities.each do |activity| %>	
+	<tr>
+		<% next if activity.destroyed?%>
+		<td><%= activity.id %></td>
+		<td><%= activity.order%></td>
+		<td><%= activity.type_name%></td>
+		<td><%= activity.sub_activity.name %></td>
+		<% if activity.tipe == "quiz"%>
+			<td>(暂无)</td>
+			<td>长度：<%= activity.quiz_activity.size %></td>
+		<% else %>
+			<% content_file = activity.sub_activity.content_file%>
+			<% content_file_file_name = activity.sub_activity.content_file_file_name%>
+			<td><% if content_file %>
+				<%= (link_to "#{content_file_file_name}", content_file.url(:original, false)) %>
+				<% else %>
+					"无"
+				<% end %> </td>		
+			<td>描述：<%= activity.sub_activity.description %></td>
+		<% end %>		
+		
+		<% if activity.tipe.eql?("video")%>		
+			<td><%= link_to '进入', edit_video_activity_path(activity.video_activity, :section_id => @section.id) %></td>
+		<% elsif activity.tipe.eql?("text")%>
+			<td><%= link_to '进入', edit_text_activity_path(activity.text_activity, :section_id => @section.id) %></td>
+		<% elsif activity.tipe.eql?("quiz")%>		
+			<td><%= link_to '进入', quiz_activity_path(activity.quiz_activity, :section_id => @section.id) %></td>
+		<% elsif activity.tipe.eql?("gallery")%>		
+			<td><%= link_to '进入', edit_gallery_activity_path(activity.gallery_activity, :section_id => @section.id) %></td>
+		<% elsif activity.tipe.eql?("html")%>		
+			<td><%= link_to '进入', edit_html_activity_path(activity.html_activity, :section_id => @section.id) %></td>
+		<% elsif activity.tipe.eql?("audio")%>		
+			<td><%= link_to '进入', edit_audio_activity_path(activity.audio_activity, :section_id => @section.id) %></td>
+		<% end %>
+		
+		<td><%= link_to '删除', activity, confirm: '确定要删除这个环节吗？', method: :delete %></td>
+	</tr>
+	<% end %>
+</table>
+
+</br>
+
+<button id="typeSelectButton" onclick="TypeSelectBlock.showTypeSelect()">
+	添加新的环节
+</button>
+
+<div id="typeSelect" style="display:none">
+	<p>
+		请选择上传的Activity的种类：
+	</p>
+	<input type="radio" name="typeSelect" id="ts1" value="1" onclick="switchView(1)"/>
+	<label for="ts1"> 文本 </label>
+	<input type="radio" name="typeSelect" id="ts2" value="2" onclick="switchView(2)"/>
+	<label for="ts2"> 习题 </label>
+	<input type="radio" name="typeSelect" id="ts3" value="3" onclick="switchView(3)"/>
+	<label for="ts3"> 视频 </label>
+	<input type="radio" name="typeSelect" id="ts4" value="4" onclick="switchView(4)"/>
+	<label for="ts4"> 图片 </label>
+	<input type="radio" name="typeSelect" id="ts5" value="5" onclick="switchView(5)"/>
+	<label for="ts5"> 音频 </label>
+	<input type="radio" name="typeSelect" id="ts6" value="6" onclick="switchView(6)"/>
+	<label for="ts6"> HTML </label>
+</div>

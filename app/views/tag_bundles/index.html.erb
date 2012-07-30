@@ -1,0 +1,112 @@
+<h1> Sunshine Library Math Labeler</h1>
+<h2>by Henry Shi July 2012</h2>
+<div class="display">
+    <form>
+    <label>Your Name: </label>
+    <input type="text" id="author">
+    <br>
+    <label>Date:</label>
+    <input type="text" id="date">
+    </form>
+</div>
+<div >
+    <form class="controls" name="control">
+        <input type="button" value="Generate File" onClick="processForm()">
+        <input type="button" value="Delete All" onClick="deleteResults()">
+        <input type="button" value="Add Entry" onClick="addEntry()">
+         
+    </form>
+    <div class="display">
+        <label for="numberCount">Number of Entries</label>
+        <input name="numberCount" type="text" id="entryCount" value="0">
+        <input type="button" value="Create Entries" onClick="addMultEntry()">
+        
+    </div>
+
+    <div class="controls">
+<!-- <input type="button" value="Create" onClick="addCategory()"> -->
+   <!--  <a href="index2.html"><input type="button" value="Done" ></a> -->
+
+
+</div>
+
+<div class="category">
+    <div id="category">
+        <label>Category Name</label>
+        <input type="text" id="categoryName">
+        <label>Option Count</label>
+        <input type="text" id="categoryCount">
+        <input type="button" value="Add" onClick="addCatBar()">
+        <input type="button" value="Redo" onClick="deleteCatBar()">
+        <input type="button" value="Done" onClick="createCat()">
+
+
+    </div>
+    <div id="catList">
+    	<% TagBundle.all.each do |tag_bundle|%>
+    		<ul>
+    			<li><%= tag_bundle.name %></li>
+    			<%tag_bundle.tags.split("~~").each do |tag|%>
+    				<li><%= tag%></li>
+    			<%end%>
+    		</ul>    	
+		<% end %>
+    </div>
+</div>
+
+</div>
+ <form id="table" name="all">
+
+</form> 
+
+
+<!-- <form name="sunshine">
+    <label for"name">Name:</label>
+    <input type="text" name="name" >
+    
+    <label for"data">Data:</label>
+    <input type="text" name="data" >
+
+
+    <label for"data">File:</label>
+    <input type="text" name="data">
+    
+    <select name="typeOfWork">
+        <option value="work" selected>work</option>
+        <option value="play">play</option>
+    </select>
+    
+    
+</form> -->
+
+<div id="knowledgeComponents"></div>
+<div class="controls" id="downloadResults"></div>
+<br>
+
+<h1>Listing tag_bundles</h1>
+
+<table>
+  <tr>
+    <th>Chapter</th>
+    <th>Name</th>
+    <th>Tags</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @tag_bundles.each do |tag_bundle| %>
+  <tr>
+    <td><%= tag_bundle.chapter_id %></td>
+    <td><%= tag_bundle.name %></td>
+    <td><%= tag_bundle.tags %></td>
+    <td><%= link_to 'Show', tag_bundle %></td>
+    <td><%= link_to 'Edit', edit_tag_bundle_path(tag_bundle) %></td>
+    <td><%= link_to 'Destroy', tag_bundle, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Tag bundle', new_tag_bundle_path %>

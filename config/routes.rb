@@ -1,5 +1,16 @@
 SunServer::Application.routes.draw do
-  
+  resources :classrooms
+
+  resources :audio_collections
+
+  resources :audios
+
+  resources :images
+
+  resources :tag_bundles
+
+  resources :classrooms
+
   resources :schools
   resources :classrooms
   devise_for :admins
@@ -92,5 +103,5 @@ SunServer::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   
-  mathjax 'mathjax'
+  # mathjax 'mathjax'
 end
