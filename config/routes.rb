@@ -15,14 +15,16 @@ SunServer::Application.routes.draw do
   resources :classrooms
   devise_for :admins
   devise_for :users
-    resources :api
+  resources :api
   resources :providers
 
-  resources :subjects
   match 'subjects/overview/:id'  => 'subjects#overview'
   match 'subjects/all' => 'subjects#all_subject'
+  resources :subjects
+
   resources :courses
   resources :lessons
+  resources :chapters
   resources :sections
   resources :activities
   resources :video_activities
