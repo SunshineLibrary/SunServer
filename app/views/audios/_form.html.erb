@@ -1,0 +1,39 @@
+<%= form_for(@audio) do |f| %>
+  <% if @audio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@audio.errors.count, "error") %> prohibited this audio from being saved:</h2>
+
+      <ul>
+      <% @audio.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :intro %><br />
+    <%= f.text_field :intro %>
+  </div>
+  <div class="field">
+  	<% if defined? audio_collection_id %>
+  		<%= f.hidden_field :audio_collection_id, :value => audio_collection_id%>
+  	<% else %>
+    	<%= f.label :audio_collection_id %><br />
+    	<%= f.number_field :audio_collection_id %>
+	<% end %>
+  </div>
+  <div class="field">
+  	<%= f.label :audio_file%>
+  	<%= "已上传(#{@audio.audio_file_file_name})" if @audio.audio_file?%>
+  	<br/>
+  	<%= f.file_field :audio_file%>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,4 +1,8 @@
 SunServer::Application.routes.draw do
+  resources :audio_collections
+
+  resources :audios
+
   resources :images
 
   resources :tag_bundles

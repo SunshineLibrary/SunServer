@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730025733) do
+ActiveRecord::Schema.define(:version => 20120730061650) do
 
   create_table "activities", :force => true do |t|
     t.string   "tipe"
@@ -83,6 +83,41 @@ ActiveRecord::Schema.define(:version => 20120730025733) do
     t.string   "aud_file_content_type"
     t.integer  "aud_file_file_size"
     t.datetime "aud_file_updated_at"
+  end
+
+  create_table "audio_collections", :force => true do |t|
+    t.string   "title"
+    t.string   "intro"
+    t.string   "cover_m_file_name"
+    t.string   "cover_m_content_type"
+    t.integer  "cover_m_file_size"
+    t.datetime "cover_m_updated_at"
+    t.string   "cover_s_file_name"
+    t.string   "cover_s_content_type"
+    t.integer  "cover_s_file_size"
+    t.datetime "cover_s_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "audios", :force => true do |t|
+    t.string   "title"
+    t.string   "intro"
+    t.integer  "audio_collection_id"
+    t.string   "cover_m_file_name"
+    t.string   "cover_m_content_type"
+    t.integer  "cover_m_file_size"
+    t.datetime "cover_m_updated_at"
+    t.string   "cover_s_file_name"
+    t.string   "cover_s_content_type"
+    t.integer  "cover_s_file_size"
+    t.datetime "cover_s_updated_at"
+    t.string   "audio_file_file_name"
+    t.string   "audio_file_content_type"
+    t.integer  "audio_file_file_size"
+    t.datetime "audio_file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "authors", :force => true do |t|

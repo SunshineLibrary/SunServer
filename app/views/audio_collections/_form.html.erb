@@ -1,10 +1,10 @@
-<%= form_for(@video_collection) do |f| %>
-  <% if @video_collection.errors.any? %>
+<%= form_for(@audio_collection) do |f| %>
+  <% if @audio_collection.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@video_collection.errors.count, "error") %> prohibited this video_collection from being saved:</h2>
+      <h2><%= pluralize(@audio_collection.errors.count, "error") %> prohibited this audio_collection from being saved:</h2>
 
       <ul>
-      <% @video_collection.errors.full_messages.each do |msg| %>
+      <% @audio_collection.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -19,15 +19,17 @@
     <%= f.label :intro %><br />
     <%= f.text_field :intro %>
   </div>
+    
   <div class="field">
   	<%= f.label :cover_m, "封面（中）"%>
-  	<%= "(已上传#{@video_collection.cover_m_file_name})" if @video_collection.cover_m?%>
+  	<%= "(已上传#{@audio_collection.cover_m_file_name})" if @audio_collection.cover_m?%>
   	<br/>
   	<%= f.file_field :cover_m%>
-  </div>  
+  </div>
+  
   <div class="field">
   	<%= f.label :cover_s, "封面（小）"%>
-  	<%= "(已上传#{@video_collection.cover_s_file_name})" if @video_collection.cover_s?%>
+  	<%= "(已上传#{@audio_collection.cover_s_file_name})" if @audio_collection.cover_s?%>
   	<br/>  	
   	<%= f.file_field :cover_s%>
   </div>  

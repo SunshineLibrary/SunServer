@@ -9,6 +9,7 @@
   </tr>
 
 <% @video_collections.each do |video_collection| %>
+  <% next if video_collection.destroyed?%>
   <tr>
     <td><%= video_collection.title %></td>
     <td><%= video_collection.intro %></td>    
