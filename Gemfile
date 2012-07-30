@@ -1,4 +1,4 @@
-# source 'http://rubygems.org'
+#source 'http://rubygems.org'
 source 'http://ruby.taobao.org'
 
 gem 'rails', '3.1.0'
@@ -13,7 +13,7 @@ gem 'therubyracer'
 gem 'haml'
 gem 'best_in_place' # used for in place edition
 gem 'devise' #used for authentication
-#gem 'mathjax-rails' # used for rendering math formula
+gem 'mathjax-rails', :git => 'git://github.com/ukisami/mathjax-rails.git' # used for rendering math formula
 
 # Gems used only for assets and not required
 # in production environments by default.

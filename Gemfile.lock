@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/ukisami/mathjax-rails.git
+  revision: b82faf51b5ed428276dae2b07b25260d1d123ef6
+  specs:
+    mathjax-rails (0.0.5)
+      railties (~> 3.0)
+
 GEM
   remote: http://ruby.taobao.org/
   specs:
@@ -193,6 +200,7 @@ DEPENDENCIES
   guard-rspec (~> 0.4.4)
   haml
   jquery-rails
+  mathjax-rails!
   mysql2
   paperclip (~> 3.0)
   rails (= 3.1.0)

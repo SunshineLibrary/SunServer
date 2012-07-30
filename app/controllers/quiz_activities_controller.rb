@@ -5,6 +5,7 @@ class QuizActivitiesController < ApplicationController
   def show
     @quiz_activity = QuizActivity.find(params[:id])
     @section = Section.find(params[:section_id])
+    @problem = Problem.new #in case user wants to create a new problem through radio button
 
     respond_to do |format|
       format.html
