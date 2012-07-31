@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Chapter:</b>
+  <%= @tag_bundle.chapter_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @tag_bundle.name %>
+</p>
+
+<p>
+  <b>Tags:</b>
+  <%= @tag_bundle.tags %>
+</p>
+
+
+<%= link_to 'Edit', edit_tag_bundle_path(@tag_bundle) %> |
+<%= link_to 'Back', tag_bundles_path %>

@@ -1,53 +1,50 @@
-<%= form_for @video_activity, :url => {:controller => :video_activities, :action => :update, :section_id => @section_id } do |f| %>
-  <%= hidden_field_tag :section_id, params[:section_id] %>
-  <% if @video_activity.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@video_activity.errors.count, "error") %> prohibited this video_activity from being saved:</h2>
+<div id="newVideoActivityForm" style="display:none">
+<% @video_activity = VideoActivity.new %>
 
-      <ul>
-      <% @video_activity.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= form_for @video_activity, :url => {:controller => :video_activities, :action => :create, :section_id => section_id} do |f| %>	
+	<div class="field">		
+		<%= f.label :name, "名称:"%> <br/>		
+		<%= f.text_field :name %>
+	</div>
+	
+	<div class="field">
+      <%= f.label :order, "排序" %><br />
+      <%= f.text_field :order, :value => activity_size %>
     </div>
-  <% end %>
-  
-  <div class="field">
-    <p>名称:</p>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <p>排序:</p>
-    <%= f.number_field :order%>
-  </div>
-  <div class="field">
-    <%= f.label :provider_id, "提供方" %><br />
-    <%= f.select :provider_id, Provider.provider_list %>
-  </div> 
-  <div class="field">
-	视频附件:
-	<%if @video_activity.vid_file? %>
-	<%=	"(已上传:#{@video_activity.vid_file_file_name})"%>
-	<%else%>
-	<%=	"(未上传)"%>
-	<%end%>
-	<br />
-    <%= f.file_field :vid_file %>
-  </div>
-  <div class="field">
-    <p>重点笔记:</p>
-    <%= f.text_area :notes %>
-  </div>
-  <div class="field">
-    <p>时长:（秒）</p>
-    <%= f.number_field :duration %>
-  </div>
-  <div class="field">
-    <p>描述:</p>
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit "提交"%>
-  </div>
+    
+	<div class="field">
+      <%= f.label :provider_id, "供应商" %><br />
+      <%= f.select :provider_id, Provider.list_all %>
+    </div>
+    
+	<div class="field">
+		视频附件:
+		<%if @video_activity.vid_file? %>
+		<%= "(已上传:#{@video_activity.vid_file_file_name})"%>
+		<%else%>
+		<%= "(未上传)"%>
+		<%end%>
+		<br />
+		<%= f.file_field :vid_file %>
+	</div>
+	
+	<div class="field">
+      <%= f.label :notes, "重点笔记" %><br />
+      <%= f.text_area :notes%>
+    </div>
+    
+    <div class="field">
+      <%= f.label :duration, "时长:（秒）" %><br />
+      <%= f.number_field :duration %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :description, "描述:" %><br />
+      <%= f.text_area :description%>
+    </div>
+    
+	<div class="actions">
+		<%= f.submit "提交"%>
+	</div>
 <% end %>
 </div>

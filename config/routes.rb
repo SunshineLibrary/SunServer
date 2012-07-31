@@ -1,53 +1,52 @@
 SunServer::Application.routes.draw do
   resources :classrooms
 
+  resources :audio_collections
+
+  resources :audios
+
+  resources :images
+
+  resources :tag_bundles
+
+  resources :classrooms
+
   resources :schools
-
+  resources :classrooms
   devise_for :admins
-
   devise_for :users
-
-  resources :video_collections
-
-  resources :videos
+  resources :api
+  resources :providers
 
   match 'subjects/overview/:id'  => 'subjects#overview'
   match 'subjects/all' => 'subjects#all_subject'
-  resources :edges
-
-  resources :html_activities
-
-  resources :chapters
-
-  resources :quiz_activities
-
-  resources :video_activities
-
-  resources :audio_activities
-
-  resources :gallery_activities
-
-  resources :text_activities
-
-  resources :activities
-
-  resources :sections
-
-  resources :lessons
-
-  resources :courses
-
   resources :subjects
 
-  resources :tags
-
-  resources :authors
-
-  match 'books/download/:id' => 'books#download'
+  resources :courses
+  resources :lessons
+  resources :chapters
+  resources :sections
+  resources :activities
+  resources :video_activities
+  resources :audio_activities
+  resources :gallery_activities
+  resources :text_activities
+  resources :html_activities
+  resources :quiz_activities
+  resources :edges
+  resources :problems do
+    get 'add_choice', :on => :collection
+  end
   
-  resources :books
-
   resources :book_collections
+  resources :books
+  match 'books/download/:id' => 'books#download'
+  resources :video_collections
+  resources :videos
+  resources :authors
+  resources :tags
+  
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -62,8 +61,7 @@ SunServer::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :api
-  resources :providers
+  
   # Sample resource route with options:
   #   resources :products do
   #     member do
@@ -107,5 +105,5 @@ SunServer::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
   
-#  mathjax 'mathjax'
+  # mathjax 'mathjax'
 end

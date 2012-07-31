@@ -1,4 +1,11 @@
 class GalleryActivity < ActiveRecord::Base
+  #Gallery file disabled 
+  #has_attached_file :img_files, { 
+      # :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
+      # :url => "/system/:attachment/:id/:style/:hash.:extension",
+      # :hash_secret => "longSecretString"
+    # }    
+   
   belongs_to :activity
   has_many :images
   
@@ -20,10 +27,10 @@ class GalleryActivity < ActiveRecord::Base
   end
   
   def content_file
-    img_files
+    nil
   end
   
   def content_file_file_name
-    img_files_file_name
+    nil
   end
 end

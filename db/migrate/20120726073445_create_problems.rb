@@ -3,8 +3,8 @@ class CreateProblems < ActiveRecord::Migration
     create_table :problems do |t|
       t.string :body
       t.string :tipe
-      t.integer :answer
-      
+      t.string :answer
+      t.integer :order
       t.timestamps
     end
   end

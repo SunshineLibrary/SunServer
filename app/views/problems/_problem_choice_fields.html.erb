@@ -1,0 +1,15 @@
+<li>
+  <div>
+    <div class="field">
+      <%= f.label :choice, "序号：" %>
+      <%= f.text_field :choice, :size => 2 -%>
+      <%= f.label :body, "选项：" %>
+      <%= f.text_field :body, :class =>"problem_choice_body_field" %>
+    </div>
+    <div class="field">
+      <span id="problem_choice_preview_span">
+        <%=f.object.body %>
+      </span>
+    </div>
+  </div>
+</li>
