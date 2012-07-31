@@ -174,6 +174,7 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.integer  "cover_s_file_size"
     t.datetime "cover_s_updated_at"
     t.integer  "difficulty"
+    t.integer  "hotness"
   end
 
   create_table "books_tags", :id => false, :force => true do |t|
@@ -205,7 +206,7 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.string   "editor"
     t.integer  "subject_id"
     t.integer  "grade"
-    t.string   "semester"
+    t.integer  "semester"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -287,8 +288,7 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
   create_table "problems", :force => true do |t|
     t.string   "body"
     t.string   "tipe"
-    t.string   "answer"
-    t.integer  "order"
+    t.integer  "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -371,7 +371,6 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -383,9 +382,13 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.string   "classroom"
+    t.string   "school"
+    t.string   "user_type"
+    t.string   "birthday"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "video_activities", :force => true do |t|

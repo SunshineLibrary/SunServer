@@ -16,8 +16,7 @@
 </p>
 
 <%= render 'list_activity_table'%>
-
-<% local_params = {:section_id => @section.id, :activity_size => @activities.size}%>
+<% local_params = {:section_id => @section.id, :activity_size => @activities_listed}%>
 <%= render :partial => "video_activities/form", :locals => local_params %>
 <%= render :partial => "text_activities/form", :locals => local_params %>
 <%= render :partial => "gallery_activities/form", :locals => local_params %>

@@ -13,9 +13,11 @@
 		<th></th>
 	</tr>
 
-	<% @activities.each do |activity| %>	
+	<% @activities_listed = 0%>
+	<% @activities.each do |activity| %>
 	<tr>
 		<% next if activity.destroyed?%>
+		<% @activities_listed = @activities_listed + 1 %>
 		<td><%= activity.id %></td>
 		<td><%= activity.order%></td>
 		<td><%= activity.type_name%></td>
