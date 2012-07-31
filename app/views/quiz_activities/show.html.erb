@@ -27,22 +27,36 @@
 <br/>
 
 <h2>所有习题列表</h2>
+<table>
+  <tr>
+    <th>习题类型</th>
+    <th>习题内容</th>
+    <th></th>
+    <th></th>
+  </tr>
 <% @quiz_activity.problems.each do |p| %>
   <tr>
     <td><%= p.print_type %></td>
     <td><%= p.body %></td>
-    <td><%= link_to '进入', c, :quiz_activity_id => @quiz_activity.id %></td>
-    <td><%= link_to '删除', c, confirm: '确定要删除此习题吗？', method: :delete %></td>
+    <td><%= link_to '进入', problem_path(p, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id) %></td>
+    <td><%= link_to '删除', p, confirm: '确定要删除此习题吗？', method: :delete %></td>
   </tr>
 <% end %>
+</table>
 
-
+<br/>
+<br/>
+  
+<h2>添加习题</h2>
 <%= form_for(@problem) do |f| %>
   <p>选择习题类型</p>
   <div class="field">
     <%= f.radio_button :tipe, 'mc' %> <%= f.label :tipe, "单选题", :value => "mc" %>
     <%= f.radio_button :tipe, 'fb' %> <%= f.label :tipe, "填空题", :value => "fb" %>
     <%= f.radio_button :tipe, 'mamc' %> <%= f.label :tipe, "多选题", :value => "mamc" %>
+  </div>
+  <div style="display: none">
+    <%= text_field_tag :quiz_activity_id, @quiz_activity.id %>
   </div>
   <div class="actions">
     <%= f.submit "添加习题" %>

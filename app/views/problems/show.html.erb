@@ -36,8 +36,13 @@
     <% end %>
     <%= link_to_add_problem_choice "添加选项", f %>
   <% end %>
-  <%= submit_tag, "保存" %>
+  <span style="display: none"><%= text_field_tag :quiz_activity_id, @quiz_activity.id %></span>
+  <span style="display: none"><%= text_field_tag :section_id, @section_id %></span>
+  <%= submit_tag "保存" %>
 <% end %>
+
+<%= link_to "取消", quiz_activity_path(@quiz_activity, :section_id => @section_id)  %>
+
 </div>
 
 <script type="text/x-mathjax-config;executed=true">
@@ -59,7 +64,6 @@
   function bind_preview_to_problem_choice(e) {
     var formulaInput = $(e).val();
     var temp = $(e).parent().next().children().first();
-    //alert(temp.html())
     temp.text(formulaInput);
     MathJax.Hub.Queue(["Typeset", MathJax.Hub, temp.val]);
   };
