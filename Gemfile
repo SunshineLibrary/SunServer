@@ -7,6 +7,9 @@ gem 'rails', '3.1.0'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 #
 
+# Gems used for styling html pages
+gem 'less-rails-bootstrap'
+
 gem 'paperclip', '~> 3.0'
 gem 'jquery-rails'
 gem 'therubyracer'
