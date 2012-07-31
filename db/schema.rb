@@ -73,16 +73,15 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.string   "name"
     t.integer  "activity_id"
     t.integer  "provider_id"
-    t.string   "file_path"
+    t.string   "aud_file_file_name"
+    t.string   "aud_file_content_type"
+    t.integer  "aud_file_file_size"
+    t.datetime "aud_file_updated_at"
     t.text     "notes"
     t.integer  "duration"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "aud_file_file_name"
-    t.string   "aud_file_content_type"
-    t.integer  "aud_file_file_size"
-    t.datetime "aud_file_updated_at"
   end
 
   create_table "audio_collections", :force => true do |t|
@@ -131,8 +130,6 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
   create_table "book_collections", :force => true do |t|
     t.string   "title"
     t.string   "intro"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "cover_m_file_name"
     t.string   "cover_m_content_type"
     t.integer  "cover_m_file_size"
@@ -141,6 +138,8 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.string   "cover_s_content_type"
     t.integer  "cover_s_file_size"
     t.datetime "cover_s_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "book_collections_tags", :id => false, :force => true do |t|
@@ -159,8 +158,8 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.integer  "publication_year"
     t.string   "publisher"
     t.integer  "provider_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "difficulty"
+    t.integer  "hotness"
     t.string   "epub_file_file_name"
     t.string   "epub_file_content_type"
     t.integer  "epub_file_file_size"
@@ -173,8 +172,8 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.string   "cover_s_content_type"
     t.integer  "cover_s_file_size"
     t.datetime "cover_s_updated_at"
-    t.integer  "difficulty"
-    t.integer  "hotness"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "books_tags", :id => false, :force => true do |t|
@@ -206,7 +205,7 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.string   "editor"
     t.integer  "subject_id"
     t.integer  "grade"
-    t.integer  "semester"
+    t.string   "semester"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -225,29 +224,22 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.string   "name"
     t.integer  "activity_id"
     t.integer  "provider_id"
-    t.string   "file_path"
     t.text     "description"
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "img_files_file_name"
-    t.string   "img_files_content_type"
-    t.integer  "img_files_file_size"
-    t.datetime "img_files_updated_at"
   end
 
   create_table "html_activities", :force => true do |t|
     t.string   "name"
     t.integer  "activity_id"
     t.integer  "provider_id"
-    t.string   "file_path"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "html_file_file_name"
     t.string   "html_file_content_type"
     t.integer  "html_file_file_size"
     t.datetime "html_file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "images", :force => true do |t|
@@ -297,21 +289,19 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
   create_table "providers", :force => true do |t|
     t.string   "name"
     t.string   "intro"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "quiz_activities", :force => true do |t|
     t.string   "name"
     t.integer  "activity_id"
     t.integer  "provider_id"
-    t.string   "file_path"
     t.integer  "size"
-    t.integer  "difficulty"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -361,17 +351,17 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.string   "name"
     t.integer  "activity_id"
     t.integer  "provider_id"
-    t.string   "file_path"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "txt_file_file_name"
     t.string   "txt_file_content_type"
     t.integer  "txt_file_file_size"
     t.datetime "txt_file_updated_at"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -381,38 +371,37 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "users"
     t.string   "name"
+    t.string   "birthday"
     t.string   "classroom"
     t.string   "school"
     t.string   "user_type"
-    t.string   "birthday"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "video_activities", :force => true do |t|
     t.string   "name"
     t.integer  "activity_id"
     t.integer  "provider_id"
-    t.string   "file_path"
+    t.string   "vid_file_file_name"
+    t.string   "vid_file_content_type"
+    t.integer  "vid_file_file_size"
+    t.datetime "vid_file_updated_at"
     t.text     "notes"
     t.integer  "duration"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "vid_file_file_name"
-    t.string   "vid_file_content_type"
-    t.integer  "vid_file_file_size"
-    t.datetime "vid_file_updated_at"
   end
 
   create_table "video_collections", :force => true do |t|
     t.string   "title"
     t.string   "intro"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "cover_m_file_name"
     t.string   "cover_m_content_type"
     t.integer  "cover_m_file_size"
@@ -421,14 +410,14 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.string   "cover_s_content_type"
     t.integer  "cover_s_file_size"
     t.datetime "cover_s_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "videos", :force => true do |t|
     t.string   "title"
     t.string   "intro"
     t.integer  "video_collection_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "cover_m_file_name"
     t.string   "cover_m_content_type"
     t.integer  "cover_m_file_size"
@@ -441,6 +430,8 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.string   "video_file_content_type"
     t.integer  "video_file_file_size"
     t.datetime "video_file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

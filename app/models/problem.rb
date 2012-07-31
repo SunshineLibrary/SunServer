@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Problem < ActiveRecord::Base
-  has_many_and_belongs_to :quiz_activities
+  has_and_belongs_to_many :quiz_activities
   has_many :problem_choices
   accepts_nested_attributes_for :problem_choices, :reject_if => lambda { |a| a[:body].blank? }, :allow_destroy => true
   

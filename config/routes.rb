@@ -22,6 +22,7 @@ SunServer::Application.routes.draw do
   match 'subjects/overview/:id'  => 'subjects#overview'
   match 'subjects/all' => 'subjects#all_subject'
   resources :courses
+  resources :chapters
   resources :lessons
   resources :sections
   resources :activities
