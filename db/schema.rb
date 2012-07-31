@@ -280,8 +280,7 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
   create_table "problems", :force => true do |t|
     t.string   "body"
     t.string   "tipe"
-    t.string   "answer"
-    t.integer  "order"
+    t.integer  "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
