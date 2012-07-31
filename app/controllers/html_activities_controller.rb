@@ -41,7 +41,7 @@ class HtmlActivitiesController < ApplicationController
   # POST /html_activities.json
   def create 
     @html_activity = HtmlActivity.new(params[:html_activity])
-    @html_activity.activity.sections << Section.where(params[:section_id])
+    @html_activity.activity.sections << Section.find(params[:section_id])
 
     respond_to do |format|
       if (@html_activity.save)
