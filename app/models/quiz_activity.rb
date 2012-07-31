@@ -1,6 +1,6 @@
 class QuizActivity < ActiveRecord::Base
   belongs_to :activity
-  has_many_and_belongs_to :problems
+  has_and_belongs_to_many :problems
   
   def order= ord
     if self.activity
