@@ -1,49 +1,58 @@
-<div id="main" style="width: 1000px">
-
 <p id="notice"><%= notice %></p>
 
-<%= form_for @problem do |f| %>
-  <div class="field">
-    <%= f.label :tipe, "题目类型：" %>
-    <span><%= @problem.print_type %></span>
+<div class="page-header">
+  <h1>编辑题目</h1>
+  </br>
+  <p><span class="label label-info">提示</span> 直接输入文字，数学公式使用键盘左上角的反引号包含起来（假设反引号为'），例如： 已知 'x/5 = 3'，求x</p>
+</div>
+
+
+<%= form_for @problem, :class => "form-horizontal" do |f| %>
+  <h1 class="label label-inverse"><%= @problem.print_type %></h1>
+  </br>
+  <fieldset>
+  
+  <div id="problem-body" class="control-group">
+    <%= f.text_area :body, :id => "problem-body-input", :class => "span6", :placeholder => "填写问题……", :rows => 6 %>
+  </div>
+  <div class="row control-group">
+    <span id="problem-body-preview" class="well span6"></span>
   </div>
   
-  <div>
-    <h2>编辑题目</h2>
-    <p>注：直接输入文字，数学公式使用键盘左上角的反引号包含起来（假设反引号为'），例如： 已知 'x/5 = 3'，求x</p>
-  </div>
-  
-  <div id="problem-body">
-    <div class="field" style="float: left; width: 500px">
-      <%= f.text_area :body, :id => "problem-body-input" %>
+  <div class="control-group">
+    <div id="answer" class="input-prepend">
+      <span class="add-on">答案</span>
+      <%= f.text_field :answer, :class => "span1" -%>
+      <span class="help-inline">选择题填写选项（不区分大小写），填空题直接填写答案</span>
     </div>
-    <div class="preview" style="float: left; width: 500px">
-      <span id="problem-body-preview"></span>
-    </div>
-  </div>
-  
-  <div id="answer">
-    <%= f.label :answer, "答案：" -%>
-    <%= f.text_field :answer  %>
   </div>
   
   <% if @problem.is_mc or @problem.is_mamc%>
   <div id="all-choices">
-    <span>所有选项</span>
-    <ol id="choice-list">
+    <br/>
+    <div class="page-header">
+      <h3>选择题所有选项</h3>
+    </div>
+    <div id="choice-list">
     <%= f.fields_for :problem_choices do |builder| %>
       <%= render "problem_choice_fields", :f => builder %>
     <% end %>
     <%= link_to_add_problem_choice "添加选项", f %>
+    </div>
   <% end %>
   <span style="display: none"><%= text_field_tag :quiz_activity_id, @quiz_activity.id %></span>
   <span style="display: none"><%= text_field_tag :section_id, @section_id %></span>
-  <%= submit_tag "保存" %>
+  
+  <div class="form-actions">
+    <%= submit_tag "保存", :class => 'btn btn-success' %>
+    <%= link_to "取消", quiz_activity_path(@quiz_activity, :section_id => @section_id), :class => 'btn'  %>
+  </div>
+  
+  </fieldset>
 <% end %>
 
-<%= link_to "取消", quiz_activity_path(@quiz_activity, :section_id => @section_id)  %>
 
-</div>
+
 
 <script type="text/x-mathjax-config;executed=true">
   MathJax.Hub.Config({

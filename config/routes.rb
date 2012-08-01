@@ -1,15 +1,4 @@
 SunServer::Application.routes.draw do
-  resources :classrooms
-
-  resources :audio_collections
-
-  resources :audios
-
-  resources :images
-
-  resources :tag_bundles
-
-  resources :classrooms
 
   resources :schools
   resources :classrooms
@@ -30,19 +19,27 @@ SunServer::Application.routes.draw do
   resources :video_activities
   resources :audio_activities
   resources :gallery_activities
+  resources :images
   resources :text_activities
   resources :html_activities
-  resources :quiz_activities
+  resources :quiz_activities do
+    member do
+       post 'remove_problem'
+    end
+  end
   resources :edges
   resources :problems do
     get 'add_choice', :on => :collection
   end
+  resources :tag_bundles
   
   resources :book_collections
   resources :books
   match 'books/download/:id' => 'books#download'
   resources :video_collections
   resources :videos
+  resources :audio_collections
+  resources :audios
   resources :authors
   resources :tags
   
@@ -106,4 +103,5 @@ SunServer::Application.routes.draw do
   # match ':controller(/:action(/:id(.:format)))'
   
   mathjax 'mathjax'
+  
 end

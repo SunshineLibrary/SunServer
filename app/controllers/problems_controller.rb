@@ -14,6 +14,7 @@ class ProblemsController < ApplicationController
   
   def create
     @problem = Problem.new(params[:problem])
+    @problem.tipe = params[:tipe]
     @quiz_activity = QuizActivity.find_by_id(params[:quiz_activity_id])
     @section_id = params[:section_id]
 
@@ -28,8 +29,7 @@ class ProblemsController < ApplicationController
     end
   end
   
-  # PUT /videos/1
-  # PUT /videos/1.json
+
   def update
     @problem = Problem.find(params[:id])
     @quiz_activity = QuizActivity.find(params[:quiz_activity_id])
@@ -45,15 +45,14 @@ class ProblemsController < ApplicationController
       end
     end
   end
-
-  # DELETE /videos/1
-  # DELETE /videos/1.json
+  
+  
   def destroy
     @problem = Problem.find(params[:id])
     @problem.destroy
 
     respond_to do |format|
-      format.html { redirect_to videos_url }
+      format.html { redirect_to problems_url }
       format.json { head :ok }
     end
   end

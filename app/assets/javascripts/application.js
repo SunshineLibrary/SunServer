@@ -11,3 +11,6 @@
 // For Best_in_place
 //= require jquery.purr
 //= require best_in_place
+
+// For Bootstrap
+//= require twitter/bootstrap

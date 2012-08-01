@@ -5,7 +5,7 @@ module ProblemsHelper
     fields = f.fields_for(:problem_choices, pc, :child_index => "new_problem_choice") do |builder|
       render("problem_choice_fields", :f => builder)
     end
-    link_to_function(name, "add_problem_choice_fields (this, \"#{escape_javascript(fields)}\")", :id => "add_problem_choice_link")
+    link_to_function(name, "add_problem_choice_fields (this, \"#{escape_javascript(fields)}\")", :id => "add_problem_choice_link", :class => "btn btn-primary")
   end
 
 end

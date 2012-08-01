@@ -1,15 +1,21 @@
-<li>
-  <div>
-    <div class="field">
-      <%= f.label :choice, "序号：" %>
-      <%= f.text_field :choice, :size => 2 -%>
-      <%= f.label :body, "选项：" %>
-      <%= f.text_field :body, :class =>"problem_choice_body_field" %>
+<div class="span5">
+<h1 class="label">选项</h1>
+</div>
+<br/>
+<br/>
+  <div id="answer" class="control-group">
+    <div id="choice" class="input-prepend">
+      <span class="add-on">序号</span>
+      <%= f.text_field :choice, :class => "input-mini" %>
     </div>
-    <div class="field">
-      <span id="problem_choice_preview_span">
-        <%=f.object.body %>
-      </span>
+    <div id="body" class="input-prepend">
+      <span class="add-on">选项</span>
+      <%= f.text_area :body, :class => "span5 problem_choice_body_field", :place_holder => "填写选项……", :rows => 2 %>
+    </div>
+    <div class="row">
+      <span id="problem_choice_preview_span" class="well span5"><%=f.object.body %></span>
+    </div>
     </div>
   </div>
-</li>
+  
+ 

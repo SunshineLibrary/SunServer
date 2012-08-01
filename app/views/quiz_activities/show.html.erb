@@ -1,64 +1,88 @@
+
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>习题环节名称:</b>
-  <%= best_in_place @quiz_activity, :name, :type => :input %>
-</p>
+<div class="row">
+  <div class="span5">
+    <h1><%= best_in_place @quiz_activity, :name, :type => :input %></h1>
+  </div>
+  <div class="span2">
+    <%= link_to '返回小节', section_path(@section), :class => "btn" %>
+  </div>
+</div>
 
-<p>
-  <b>所属小节:</b>
-  <%= link_to @section.name, section_path(@section) %>
-</p>
+<div class="row">
+  <div class="span6">
+    <dl class="dl-horizontal">
+      <dt>所属小节</dt>
+      <dd><%= link_to @section.name, section_path(@section) %></dd>
+      <dt>提供方</dt>
+      <dd><%= best_in_place @quiz_activity, :provider_id, :type => :select, :collection => Provider.list_all_in_place %></dd>
+      <dt>习题数量</dt>
+      <dd><%= @quiz_activity.problems.size %></dd>
+    </dl>
+  </div>
+</div>
 
-<p>
-  <b>提供方:</b>
-  <%= best_in_place @quiz_activity, :provider_id, :type => :select, :collection => Provider.list_all_in_place %>
-</p>
-
-<p>
-  <b>习题数量:</b>
-  <%= @quiz_activity.problems.size %>
-</p>
-
-<%= link_to '返回小节', section_path(@section) %>
 
 <br/>
 <br/>
-<br/>
 
-<h2>所有习题列表</h2>
-<table class="table table-striped">
+<div class="row">
+  <h2 class="span2">习题列表</h2>
+  <div class="span10">
+  <%= form_for(@problem) do |f| %>
+    <div class="row">
+      <div class="span3">
+        <div class="btn-group" data-toggle-name="tipe" data-toggle="buttons-radio">
+          <button type="button" value="mc" class="btn" data-toggle="button">单选题</button>
+          <button type="button" value="fb" class="btn" data-toggle="button">填空题</button>
+          <button type="button" value="mamc" class="btn" data-toggle="button">多选题</button>
+        </div>
+        <input type="hidden" name="tipe" value="0" />
+        <span style="display: none"><%= text_field_tag :quiz_activity_id, @quiz_activity.id %>
+      </div>
+      <div class="span1">
+        <%= f.submit "添加习题", :class => "btn btn-success" %>
+      </div>
+    </div>
+    
+  <% end %>
+  </span>
+</div>
+
+<table class="table table-striped span12">
   <tr>
-    <th>习题类型</th>
-    <th>习题内容</th>
-    <th></th>
-    <th></th>
+    <th class="span2">习题类型</th>
+    <th class="span6">习题内容</th>
+    <th class="span2"></th>
+    <th class="span2"></th>
   </tr>
 <% @quiz_activity.problems.each do |p| %>
   <tr>
     <td><%= p.print_type %></td>
     <td><%= p.body %></td>
-    <td><%= link_to '进入', problem_path(p, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id) %></td>
-    <td><%= link_to '删除', p, confirm: '确定要删除此习题吗？', method: :delete %></td>
+    <td><%= link_to_check "查看", problem_path(p, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id) %></td>
+    <td><%= link_to_delete "删除", remove_problem_quiz_activity_path(@quiz_activity, :problem_id => p.id, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id), confirm: '确定要删除此习题吗？', method: :post %></td>
   </tr>
 <% end %>
 </table>
 
-<br/>
-<br/>
   
-<h2>添加习题</h2>
-<%= form_for(@problem) do |f| %>
-  <p>选择习题类型</p>
-  <div class="field">
-    <%= f.radio_button :tipe, 'mc' %> <%= f.label :tipe, "单选题", :value => "mc" %>
-    <%= f.radio_button :tipe, 'fb' %> <%= f.label :tipe, "填空题", :value => "fb" %>
-    <%= f.radio_button :tipe, 'mamc' %> <%= f.label :tipe, "多选题", :value => "mamc" %>
-  </div>
-  <div style="display: none">
-    <%= text_field_tag :quiz_activity_id, @quiz_activity.id %>
-  </div>
-  <div class="actions">
-    <%= f.submit "添加习题" %>
-  </div>
-<% end %>
+<script type="text/javascript">
+  $('div.btn-group[data-toggle-name=*]').each(function(){
+    var group   = $(this);
+    var form    = group.parents('form').eq(0);
+    var name    = group.attr('data-toggle-name');
+    var hidden  = $('input[name="' + name + '"]', form);
+    $('button', group).each(function(){
+      var button = $(this);
+      button.live('click', function(){
+          hidden.val($(this).val());
+      });
+      if(button.val() == hidden.val()) {
+        button.addClass('active');
+      }
+    });
+  });
+</script>

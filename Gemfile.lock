@@ -88,8 +88,6 @@ GEM
     less-rails (2.2.3)
       actionpack (>= 3.1)
       less (~> 2.2.0)
-    less-rails-bootstrap (2.0.13)
-      less-rails (~> 2.2.0)
     libv8 (3.3.10.4)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
@@ -189,6 +187,11 @@ GEM
       polyglot (>= 0.3.1)
     turn (0.9.6)
       ansi
+    twitter-bootstrap-rails (2.1.1)
+      actionpack (>= 3.1)
+      less-rails (~> 2.2.2)
+      railties (>= 3.1)
+      therubyracer (= 0.10.1)
     tzinfo (0.3.33)
     uglifier (1.2.6)
       execjs (>= 0.3.0)
@@ -208,7 +211,6 @@ DEPENDENCIES
   guard-rspec (~> 0.4.4)
   haml
   jquery-rails
-  less-rails-bootstrap
   mathjax-rails!
   mysql2
   paperclip (~> 3.0)
@@ -220,4 +222,5 @@ DEPENDENCIES
   sqlite3
   therubyracer
   turn
+  twitter-bootstrap-rails
   uglifier
