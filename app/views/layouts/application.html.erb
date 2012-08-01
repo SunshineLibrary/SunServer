@@ -9,37 +9,48 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
-<div id="user_nav">
-  <% if user_signed_in? %>
-	用户<%= current_user.name %>, 欢迎您
-    <%= link_to "登出", destroy_user_session_path, :method => :delete %>
-  <% else %>
-    <%= link_to "注册", new_user_registration_path %> or <%= link_to "登陆用户", new_user_session_path %>
-  <% end %>
-  
-  <% if admin_signed_in? %>
-	管理员<%= current_admin.name %>, 欢迎您
-    <%= link_to "登出", destroy_admin_session_path, :method => :delete %>
-  <% else %>
-    <%= link_to "以管理员身份登陆", new_admin_session_path %>
-  <% end %>  
+	
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand"> 阳光书屋</a>
+    <div id="user_nav" class="pull-right">
+	    
+	</div>
+    <div class="container">
+	<ul class="nav">	
+		<li><%= link_to '科目总览', :controller => "/subjects", :action => "all_subject"%></li>
+		<li><%= link_to '书籍', books_path%></li>
+		<li><%= link_to '书籍合集', book_collections_path%></li>
+		<li><%= link_to '作者', authors_path%></li>
+		<li><%= link_to '标签', tags_path%></li>
+		<li><%= link_to '供应商', providers_path%></li>	
+		<li><%= link_to '视频合集', video_collections_path%></li>
+		<li><%= link_to '音频合集', audio_collections_path%></li>
+	</ul>
+	<ul class="nav pull-right">
+		<% if user_signed_in?%>
+		  <li><a>用户<%= current_user.name %>, 欢迎您</a></li>
+		  <li><%= link_to "登出", destroy_user_session_path, :method => :delete %></li>
+	    <% else %>
+	      <% if !(admin_signed_in?) %>
+	      <li><%= link_to "注册", new_user_registration_path %></li>
+	      <li><%= link_to "登陆用户", new_user_session_path %></li>
+	      <% end %>
+	    <% end %>
+	  
+	    <% if admin_signed_in?%>
+		  <li><a>管理员<%= current_admin.name %>, 欢迎您</a></li>
+	      <li><%= link_to "登出", destroy_admin_session_path, :method => :delete %></li>
+	    <% else %>
+	      <% if !(user_signed_in?) %>
+	      <li><%= link_to "以管理员身份登陆", new_admin_session_path %></li>
+	      <% end %>
+	    <% end %>
+	</ul>
+	</div>
+  </div>
 </div>
 
-<p>	
-	<%= link_to '科目总览', :controller => "/subjects", :action => "all_subject"%> |
-	<%= link_to '书籍', books_path%> |
-	<%= link_to '书籍合集', book_collections_path%> |
-	<%= link_to '作者', authors_path%>|
-	<%= link_to '标签', tags_path%>|
-	<%= link_to '供应商', providers_path%>|	
-	<%= link_to '视频合集', video_collections_path%>|
-	<%= link_to '音频合集', audio_collections_path%>|
-</p>
-
 <%= yield %>
-
 </body>
 </html>
