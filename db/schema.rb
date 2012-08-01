@@ -286,6 +286,11 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.datetime "updated_at"
   end
 
+  create_table "problems_quiz_activities", :id => false, :force => true do |t|
+    t.integer "quiz_activity_id"
+    t.integer "problem_id"
+  end
+
   create_table "providers", :force => true do |t|
     t.string   "name"
     t.string   "intro"
@@ -304,11 +309,6 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.integer  "size"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "quiz_activities_problems", :id => false, :force => true do |t|
-    t.integer "quiz_activity_id"
-    t.integer "problem_id"
   end
 
   create_table "schools", :force => true do |t|
