@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
     
   private
   def verify_identity_for_new_del
-    @need_admin_auth = [SubjectsController, BooksController, TagsController, AuthorsController, ProvidersController, LessonsController]
+    #@need_admin_auth = [SubjectsController, BooksController, TagsController, AuthorsController, ProvidersController, LessonsController]
+    @need_admin_auth = []
     @need_user_auth = [] 
         
     verify_identity        
@@ -22,8 +23,9 @@ class ApplicationController < ActionController::Base
   
   private
   def verify_identity_for_edit 
-    @need_admin_auth = []   
-    @need_user_auth = [SubjectsController, BooksController, TagsController, AuthorsController, ProvidersController, LessonsController] 
+    @need_admin_auth = []
+    @need_user_auth = []   
+#    @need_user_auth = [SubjectsController, BooksController, TagsController, AuthorsController, ProvidersController, LessonsController] 
         
     verify_identity        
   end
