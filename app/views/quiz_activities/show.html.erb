@@ -41,6 +41,7 @@
         </div>
         <input type="hidden" name="tipe" value="0" />
         <span style="display: none"><%= text_field_tag :quiz_activity_id, @quiz_activity.id %>
+        <span style="display: none"><%= text_field_tag :section_id, @section.id %>
       </div>
       <div class="span1">
         <%= f.submit "添加习题", :class => "btn btn-success" %>
