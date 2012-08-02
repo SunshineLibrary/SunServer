@@ -29,3 +29,14 @@ subject = Subject.create name: "数学"
     section = lesson.sections.create name: "有理数的四则运算的综合使用"
     section = lesson.sections.create name: "乘方的概念和使用"
     section = lesson.sections.create name: "习题课"
+    
+Provider.create name: "阳光书屋", intro:"神秘组织，不崇拜星辰诸神"
+Provider.create name: "天驱武士团", intro: "铁甲依然在"
+Provider.create name: "辰月教", intro: "星辰与月的旗帜飘扬在九州大地上"
+Provider.create name: "天罗", intro: "我躲在这里，手握着刀丝"
+
+Tag.create name: "小学", tag_type: "对象"
+Tag.create name: "中学", tag_type: "对象"
+Tag.create name: "自然", tag_type: "内容"
+Tag.create name: "历史", tag_type: "内容"
+

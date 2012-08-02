@@ -87,10 +87,14 @@ class Book < ActiveRecord::Base
     true
   end
   
+  def url
+    ""
+  end
+  
   def url= douban_url
     begin
       book_id = douban_url.match(/\/(\d+)\//).captures[0]      
-      resDic = Book.crawl book_id
+      resDic = Book.crawl book_id      
       
       self.title = resDic["标题"]
       self.author = resDic["作者"]
@@ -98,7 +102,6 @@ class Book < ActiveRecord::Base
       self.publication_year = resDic["出版年"]
       self.publisher = resDic["出版社"]   
       self.intro = resDic["内容简介"]
-      
     rescue
       puts "url parsing error"
     end                    
