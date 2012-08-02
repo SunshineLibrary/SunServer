@@ -15,13 +15,13 @@
 	    </div>	    
 		<div class="field">
 			音频附件:
-			<%if @audio_activity.aud_file? %>
-			<%= "(已上传:#{@audio_activity.aud_file_file_name})"%>
+			<%if @audio_activity.content_file? %>
+			<%= "(已上传:#{@audio_activity.content_file_file_name})"%>
 			<%else%>
 			<%= "(未上传)"%>
 			<%end%>
 			<br />
-			<%= f.file_field :aud_file %>
+			<%= f.file_field :content_file %>
 		</div>
 		<div class="field">
 			<%= f.label :notes, "注解笔记" %><br />

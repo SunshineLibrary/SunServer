@@ -15,7 +15,7 @@ class QuizActivitiesController < ApplicationController
   def create
     @quiz_activity = QuizActivity.new(params[:quiz_activity])
     sec = Section.find_by_id(params[:section_id])
-    @quiz_activity.activity.sections << sec
+    @quiz_activity.sections << sec
       
     respond_to do |format|
       if (@quiz_activity.save)

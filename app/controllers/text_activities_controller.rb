@@ -41,7 +41,7 @@ class TextActivitiesController < ApplicationController
   # POST /text_activities.json
   def create
     @text_activity = TextActivity.new(params[:text_activity])
-    @text_activity.activity.sections << Section.find(params[:section_id])
+    @text_activity.sections << Section.find(params[:section_id])
 
     respond_to do |format|
       if (@text_activity.save)

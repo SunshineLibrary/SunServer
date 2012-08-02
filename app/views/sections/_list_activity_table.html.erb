@@ -21,34 +21,23 @@
 		<td><%= activity.id %></td>
 		<td><%= activity.order%></td>
 		<td><%= activity.type_name%></td>
-		<td><%= activity.sub_activity.name %></td>
+		<td><%= activity.name %></td>
 		<% if activity.tipe == "quiz"%>
 			<td>(暂无)</td>
-			<td>长度：<%= activity.quiz_activity.size %></td>
+			<td>长度：<%= activity.quiz_size %></td>
 		<% else %>
-			<% content_file = activity.sub_activity.content_file%>
-			<% content_file_file_name = activity.sub_activity.content_file_file_name%>
+			<% content_file = activity.content_file%>
+			<% content_file_file_name = activity.content_file_file_name%>
 			<td><% if content_file %>
 				<%= (link_to "#{content_file_file_name}", content_file.url(:original, false)) %>
 				<% else %>
 					"无"
 				<% end %> </td>		
-			<td>描述：<%= activity.sub_activity.description %></td>
-		<% end %>		
-		
-		<% if activity.tipe.eql?("video")%>		
-			<td><%= link_to '进入', edit_video_activity_path(activity.video_activity, :section_id => @section.id) %></td>
-		<% elsif activity.tipe.eql?("text")%>
-			<td><%= link_to '进入', edit_text_activity_path(activity.text_activity, :section_id => @section.id) %></td>
-		<% elsif activity.tipe.eql?("quiz")%>		
-			<td><%= link_to '进入', quiz_activity_path(activity.quiz_activity, :section_id => @section.id) %></td>
-		<% elsif activity.tipe.eql?("gallery")%>		
-			<td><%= link_to '进入', edit_gallery_activity_path(activity.gallery_activity, :section_id => @section.id) %></td>
-		<% elsif activity.tipe.eql?("html")%>		
-			<td><%= link_to '进入', edit_html_activity_path(activity.html_activity, :section_id => @section.id) %></td>
-		<% elsif activity.tipe.eql?("audio")%>		
-			<td><%= link_to '进入', edit_audio_activity_path(activity.audio_activity, :section_id => @section.id) %></td>
+			<td>描述：<%= activity.description %></td>
 		<% end %>
+				
+		<% prefix = activity.tipe == "quiz" ? "" : "edit_" %>
+		<td><%= link_to '进入', self.send("#{prefix}#{activity.tipe}_activity_path", activity, :section_id => @section.id) %></td>
 		
 		<td><%= link_to '删除', activity, confirm: '确定要删除这个环节吗？', method: :delete %></td>
 	</tr>

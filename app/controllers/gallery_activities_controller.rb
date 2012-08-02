@@ -41,7 +41,7 @@ class GalleryActivitiesController < ApplicationController
   # POST /gallery_activities.json
   def create
     @gallery_activity = GalleryActivity.new(params[:gallery_activity])
-    @gallery_activity.activity.sections << Section.find(params[:section_id])
+    @gallery_activity.sections << Section.find(params[:section_id])
       
     respond_to do |format|
       if (@gallery_activity.save)

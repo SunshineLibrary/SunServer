@@ -15,13 +15,13 @@
 	    </div>	    	
 		<div class="field">
 			附件:
-			<%if @html_activity.html_file? %>
-			<%= "(已上传:#{@html_activity.html_file_file_name})"%>
+			<%if @html_activity.content_file? %>
+			<%= "(已上传:#{@html_activity.content_file_file_name})"%>
 			<%else%>
 			<%= "(未上传)"%>
 			<%end%>
 			<br />
-			<%= f.file_field :html_file %>
+			<%= f.file_field :content_file %>
 		</div>
 		<div class="actions">
 			<%= f.submit "提交"%>

@@ -11,13 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730213736) do
+ActiveRecord::Schema.define(:version => 20120802092345) do
 
   create_table "activities", :force => true do |t|
     t.string   "tipe"
     t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.integer  "provider_id"
+    t.integer  "quiz_size"
+    t.string   "description"
+    t.string   "notes"
+    t.integer  "duration"
+    t.string   "content_file_file_name"
+    t.string   "content_file_content_type"
+    t.integer  "content_file_file_size"
+    t.datetime "content_file_updated_at"
+    t.string   "type"
   end
 
   create_table "activities_sections", :id => false, :force => true do |t|
@@ -65,21 +76,6 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
   create_table "apks_machine_types", :id => false, :force => true do |t|
     t.integer  "apk_id"
     t.integer  "machine_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "audio_activities", :force => true do |t|
-    t.string   "name"
-    t.integer  "activity_id"
-    t.integer  "provider_id"
-    t.string   "aud_file_file_name"
-    t.string   "aud_file_content_type"
-    t.integer  "aud_file_file_size"
-    t.datetime "aud_file_updated_at"
-    t.text     "notes"
-    t.integer  "duration"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -220,28 +216,6 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.datetime "updated_at"
   end
 
-  create_table "gallery_activities", :force => true do |t|
-    t.string   "name"
-    t.integer  "activity_id"
-    t.integer  "provider_id"
-    t.text     "description"
-    t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "html_activities", :force => true do |t|
-    t.string   "name"
-    t.integer  "activity_id"
-    t.integer  "provider_id"
-    t.string   "html_file_file_name"
-    t.string   "html_file_content_type"
-    t.integer  "html_file_file_size"
-    t.datetime "html_file_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "images", :force => true do |t|
     t.string   "title"
     t.string   "intro"
@@ -302,15 +276,6 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.datetime "updated_at"
   end
 
-  create_table "quiz_activities", :force => true do |t|
-    t.string   "name"
-    t.integer  "activity_id"
-    t.integer  "provider_id"
-    t.integer  "size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "schools", :force => true do |t|
     t.string   "name"
     t.string   "location"
@@ -347,19 +312,6 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
     t.datetime "updated_at"
   end
 
-  create_table "text_activities", :force => true do |t|
-    t.string   "name"
-    t.integer  "activity_id"
-    t.integer  "provider_id"
-    t.string   "txt_file_file_name"
-    t.string   "txt_file_content_type"
-    t.integer  "txt_file_file_size"
-    t.datetime "txt_file_updated_at"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -383,21 +335,6 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "video_activities", :force => true do |t|
-    t.string   "name"
-    t.integer  "activity_id"
-    t.integer  "provider_id"
-    t.string   "vid_file_file_name"
-    t.string   "vid_file_content_type"
-    t.integer  "vid_file_file_size"
-    t.datetime "vid_file_updated_at"
-    t.text     "notes"
-    t.integer  "duration"
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "video_collections", :force => true do |t|
     t.string   "title"
