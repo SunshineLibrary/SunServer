@@ -100,4 +100,41 @@ class Book < ActiveRecord::Base
     end
     return sequence[0, i]
   end
+  
+  def Book.crawl book_id
+    require 'wombat'
+    crawl_res = Wombat.crawl do
+      base_url "http://book.douban.com"
+      path "/subject/#{book_id}"
+      
+      title "xpath=//div[@id='wrapper']//h1"
+      data_block "xpath=//div[@id='info']"      
+    end
+    spliter = ["副标题", "作者", "出版社","页数", "出版年",  "定价", "装帧","丛书","ISBN", "译者"]    
+    
+    s = crawl_res["data_block"]
+    S = s.split(':')
+
+    resDic = {"标题" => crawl_res["title"]}
+    key_str = S[0]
+    for i in 0..S.count-2
+      if i == S.count-2
+        postfix = ""
+      else
+        postfix = Book.findPostfixSpliter(spliter, S[i+1])
+      end
+      val_str = S[i+1][0..(-1 * postfix.length - 1)]
+      resDic[key_str] = val_str.strip
+      key_str = postfix
+    end
+    
+    resDic
+  end    
+  
+  private
+  def Book.findPostfixSpliter(spliter, s)
+    spliter.each do |sr|
+      return sr if s.end_with? sr
+    end
+  end
 end
