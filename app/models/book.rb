@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class Book < ActiveRecord::Base  
   has_attached_file :epub_file, { 
     :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
@@ -113,17 +114,17 @@ class Book < ActiveRecord::Base
     spliter = ["副标题", "作者", "出版社","页数", "出版年",  "定价", "装帧","丛书","ISBN", "译者"]    
     
     s = crawl_res["data_block"]
-    S = s.split(':')
+    s_array = s.split(':')
 
     resDic = {"标题" => crawl_res["title"]}
-    key_str = S[0]
-    for i in 0..S.count-2
-      if i == S.count-2
+    key_str = s_array[0]
+    for i in 0..s_array.count-2
+      if i == s_array.count-2
         postfix = ""
       else
-        postfix = Book.findPostfixSpliter(spliter, S[i+1])
+        postfix = Book.findPostfixSpliter(spliter, s_array[i+1])
       end
-      val_str = S[i+1][0..(-1 * postfix.length - 1)]
+      val_str = s_array[i+1][0..(-1 * postfix.length - 1)]
       resDic[key_str] = val_str.strip
       key_str = postfix
     end
