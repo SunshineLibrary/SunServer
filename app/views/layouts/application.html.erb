@@ -15,8 +15,9 @@
   <%= csrf_meta_tags %>
 </head>
 
+<body>
 
-
+<%= render :partial => 'layouts/bg_script'%>
 
 <div>
   <%=image_tag "sunshine_logo.png" %>
@@ -85,7 +86,6 @@
 </footer>
 
 <%= javascript_include_tag "application" %>
-<%= javascript_include_tag "bubbles" %>
 
 </body>
 </html>
