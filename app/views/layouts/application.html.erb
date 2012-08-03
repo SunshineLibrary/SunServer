@@ -1,66 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>阳光书屋管理界面</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阳光书屋管理界面</title>
 
-  <style>
-    #cvs{
-	position:fixed;
-	bottom:0px;
-	z-index:-100;
-	}
-	#cvs div{
-	margin:0px auto;
-	}
-  </style>
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif]-->
 
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
 </head>
 
 <body>
-    <script type="application/javascript">  
-    /* 
-     * This code searches for all the <script type="application/processing" target="canvasid"> 
-     * in your page and loads each script in the target canvas with the proper id. 
-     * It is useful to smooth the process of adding Processing code in your page and starting 
-     * the Processing.js engine. 
-     */  
-      
-    if (window.addEventListener) {  
-      window.addEventListener("load", function() {  
-        var scripts = document.getElementsByTagName("script");  
-        var canvasArray = Array.prototype.slice.call(document.getElementsByTagName("canvas"));  
-        var canvas;  
-        for (var i = 0, j = 0; i < scripts.length; i++) {  
-          if (scripts[i].type == "application/processing") {  
-            var src = scripts[i].getAttribute("target");  
-            if (src && src.indexOf("#") > -1) {  
-              canvas = document.getElementById(src.substr(src.indexOf("#") + 1));  
-              if (canvas) {  
-                new Processing(canvas, scripts[i].text);  
-                for (var k = 0; k< canvasArray.length; k++)  
-                {  
-                  if (canvasArray[k] === canvas) {  
-                    // remove the canvas from the array so we dont override it in the else  
-                    canvasArray.splice(k,1);  
-                  }  
-                }  
-              }  
-            } else {      
-              if (canvasArray.length >= j) {  
-                new Processing(canvasArray[j], scripts[i].text);            
-              }  
-              j++;  
-            }         
-          }  
-        }  
-      }, false);  
-    }  
-    </script>  
     <script type="application/processing" target="processing-canvas">  
 ParticleSystem ps;
 color g = color(30, 10, 30);
@@ -146,13 +101,17 @@ class Particle{
   <%=image_tag "sunshine_logo.png" %>
 </div>
 
-<div class="navbar">
+<div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-            
-      <a class="brand"> 阳光书屋</a>
       
-      <div class="nav-collapse">
+      <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+      <a class="brand" href="#"> 阳光书屋</a>
+      <div class="container nav-collapse">
       	<ul class="nav">	
       		<li><%= link_to '科目总览', :controller => "/subjects", :action => "all_subject"%></li>
       		<li><%= link_to '书籍', books_path%></li>
@@ -199,7 +158,13 @@ class Particle{
 <canvas id="processing-canvas" style="image-rendering"> </canvas>  
 </div>
 </div>	
-</script>
+
+<footer>
+  <p>&copy; Sunshine Library 2012</p>
+</footer>
+
+<%= javascript_include_tag "application" %>
+<%= javascript_include_tag "bubbles" %>
 
 </body>
 </html>

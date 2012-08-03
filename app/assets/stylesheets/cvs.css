@@ -1,0 +1,8 @@
+  #cvs{
+  position:fixed;
+  bottom:0px;
+  z-index:-100;
+  }
+  #cvs div{
+  margin:0px auto;
+  }
