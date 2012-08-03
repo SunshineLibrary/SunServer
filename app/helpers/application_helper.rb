@@ -2,6 +2,12 @@
 
 module ApplicationHelper
   
+  ########################################
+  #
+  # view generator for buttons with icon
+  #
+  ########################################
+  
   def link_to_check(name, path, options={})
     default_options = { :class => "btn btn-primary" }
     link_to path, options.merge(default_options) do
@@ -43,4 +49,5 @@ module ApplicationHelper
       content_tag(:i, "", :class => "icon-share-alt icon-white") + " " + name
     end
   end
+
 end

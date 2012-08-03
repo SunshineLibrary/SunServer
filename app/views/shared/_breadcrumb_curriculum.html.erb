@@ -1,0 +1,16 @@
+<ul class = "breadcrumb">
+  <li>
+    <%= link_to "总览", subjects_path %>
+    <span class='divider'>/</span>
+  </li>
+  <% li_list = [] %>
+  <% li_list << "<li>" + item.name + "</li>" %>
+  <% item = item.parent %>
+  <% while not item.nil? do %>
+    <% li_list << "<li>" + link_to(item.name, item) + "</li>" + "<span class='divider'>/</span>" %>
+    <% item = item.parent %>
+  <% end %>
+  <% li_list.reverse.each do |li| %>
+    <%= li.html_safe %>
+  <% end %>
+</ul>
