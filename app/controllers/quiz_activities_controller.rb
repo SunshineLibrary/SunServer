@@ -16,7 +16,7 @@ class QuizActivitiesController < ApplicationController
     @quiz_activity = QuizActivity.new(params[:quiz_activity])
     sec = Section.find_by_id(params[:section_id])
     @quiz_activity.activity.sections << sec
-      
+    
     respond_to do |format|
       if (@quiz_activity.save)
         format.html { redirect_to sec, notice: 'Quiz activity was successfully created.' }
