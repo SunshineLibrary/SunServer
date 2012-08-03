@@ -1,0 +1,2 @@
+class TestActivity < Activity
+end

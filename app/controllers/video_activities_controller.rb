@@ -43,7 +43,7 @@ class VideoActivitiesController < ApplicationController
   # POST /video_activities.json
   def create
     @video_activity = VideoActivity.new(params[:video_activity])
-    @video_activity.activity.sections << Section.find(params[:section_id])
+    @video_activity.sections << Section.find(params[:section_id])
       
     respond_to do |format|
       if (@video_activity.save)

@@ -43,5 +43,4 @@ module ApplicationHelper
       content_tag(:i, "", :class => "icon-share-alt icon-white") + " " + name
     end
   end
- 
 end

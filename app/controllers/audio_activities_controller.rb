@@ -41,7 +41,7 @@ class AudioActivitiesController < ApplicationController
   # POST /audio_activities.json
   def create
     @audio_activity = AudioActivity.new(params[:audio_activity])
-    @audio_activity.activity.sections << Section.find(params[:section_id])
+    @audio_activity.sections << Section.find(params[:section_id])
 
     respond_to do |format|
       if (@audio_activity.save)
