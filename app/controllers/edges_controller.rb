@@ -41,6 +41,7 @@ class EdgesController < ApplicationController
   # POST /edges.json
   def create    
     @edge = Edge.new(params[:edge])
+    @edge.save_condition_string(@edge.condition, params[:cond1], params[:cond2])
 
     respond_to do |format|
       if @edge.save
@@ -60,7 +61,7 @@ class EdgesController < ApplicationController
 
     respond_to do |format|
       if @edge.section_id and @edge.update_attributes(params[:edge])
-        format.html {redirect_to Section.find(@edge.section_id)}
+        format.html {redirect_to Section.find_by_id(@edge.section_id)}
         format.json { head :ok }
       else
         format.html { render action: "edit" }

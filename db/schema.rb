@@ -11,29 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120802092345) do
+ActiveRecord::Schema.define(:version => 20120730213736) do
 
   create_table "activities", :force => true do |t|
-    t.string   "tipe"
-    t.integer  "order"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "type"
     t.string   "name"
     t.integer  "provider_id"
-    t.integer  "quiz_size"
-    t.string   "description"
     t.string   "notes"
     t.integer  "duration"
     t.string   "content_file_file_name"
     t.string   "content_file_content_type"
     t.integer  "content_file_file_size"
     t.datetime "content_file_updated_at"
-    t.string   "type"
-  end
-
-  create_table "activities_sections", :id => false, :force => true do |t|
-    t.integer "activity_id"
-    t.integer "section_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "admins", :force => true do |t|
@@ -281,6 +272,12 @@ ActiveRecord::Schema.define(:version => 20120802092345) do
     t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "section_components", :id => false, :force => true do |t|
+    t.integer "section_id"
+    t.integer "activity_id"
+    t.integer "order"
   end
 
   create_table "sections", :force => true do |t|

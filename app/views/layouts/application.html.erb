@@ -17,11 +17,8 @@
 
 <body>
 
-<%= render :partial => 'layouts/bg_script'%>
-
-<div>
-  <%=image_tag "sunshine_logo.png" %>
-</div>
+<%#= render :partial => 'layouts/bg_script'
+%>
 
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
@@ -73,17 +70,18 @@
 
 <div class="container">
 <%= yield %>
+
+<footer class="footer">
+  <p>&copy; Sunshine Library 2012</p>
+</footer>
+
 </div>
 
 <div id="cvs">
 <div>
-<canvas id="processing-canvas" style="image-rendering"> </canvas>  
+<canvas id="processing-canvas" style="image-rendering"> </canvas>
 </div>
 </div>	
-
-<footer>
-  <p>&copy; Sunshine Library 2012</p>
-</footer>
 
 <%= javascript_include_tag "application" %>
 

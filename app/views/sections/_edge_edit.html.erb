@@ -1,43 +1,43 @@
 <!--Pages for edge edition-->
 <!-- Seems working, need test -->
 <div>
-	<h3>------------------边------------------<h3/>
-	<table border="1" cellspacing="0" cellpadding="3" style = "text-align: center;">
+	<h3>跳转条件</h3>
+  <table class="table table-striped">
 		<tr>
-			<th>起始环节编号</th>
-			<th>目标环节编号</th>
+			<th>从</th>
+			<th>至</th>
 			<th>跳转条件</th>
-			<th/>
 			<th/>
 		</tr>
 		<% @section.edges.each do |edge|%>
 		<tr>
-			<td><%= edge.from_id%></td>
-			<td><%= edge.to_id%></td>
-			<td><%= edge.condition%></td>
-			<td><%= link_to 'Edit', edit_edge_path(edge)%> <td><%= link_to 'Destroy', edge, method: :delete%>
+			<td><%= best_in_place edge, :from_id, :type => :select, :collection => @section.activity_list_in_place %></td>
+			<td><%= best_in_place edge, :to_id, :type => :select, :collection => @section.activity_list_in_place %></td>
+			<td><%= best_in_place edge, :condition, :type => :input %></td>
+			<td><%= link_to_delete '删除', edge, confirm: '确定要删除这个跳转吗？', method: :delete%></td>
 		</tr>
 		<% end %>
 	</table>
-	<div>
-		<br/>		
-		<% @edge = Edge.new%>
-		<%= form_for @edge do |f| %>
-			<div class="field">
-				<%= f.label :from_id %>			
-				<%= f.number_field :from_id, :size => 5%>		
-			
-				<%= f.label :to_id %>				
-				<%= f.number_field :to_id, :size => 5%>		
-			
-				<%= f.label :condition%>				
-				<%= f.text_field :condition, :size => 20%>
-							
-				<%= f.hidden_field :section_id, :value => @section.id%>
-			</div>
-			<div class="actions">
-				<%= f.submit "新建边"%>
-			</div>
-		<% end %>
-	</div>
+	
+  <br/>
+	<% @edge = Edge.new%>
+	<%= form_for @edge, :html => {:class => "well form-inline"} do |f| %>
+	   <%= f.label :from_id, "从" %> 
+	   <%= f.select :from_id, @section.activity_list, :class => "input-small", :size => 10  %>
+	   <%= f.label :to_id, "至" %> 
+	   <%= f.select :to_id, @section.activity_list, :class => "input-small", :size => 10  %>
+	   <%= f.text_field :section_id, :value => @section.id, :style => "display: none"  %>
+	   <br/>
+	   <br/>
+	   <%= f.label :condition, "当" %>
+	   <%= f.select :condition, Edge.type_list, :class => "input-small", :size => 10 %>
+	   <label for="edge_cond1"><abbr title = "答对题目最小值" class="initialism">最小值</abbr></label>
+	   <%= text_field_tag :cond1, "", :class => "input-small", :size => 5 %>
+	   <label for="edge_cond2"><abbr title = "答对题目最大值" class="initialism">最大值</abbr></label>
+	   <%= text_field_tag :cond2, "", :class => "input-small", :size => 5 %>
+	   <br/>
+	   <br/>
+	   <%= f.submit "添加跳转", :class => "btn btn-success" %>
+	<% end %>
+	
 </div>
