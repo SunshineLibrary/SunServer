@@ -42,11 +42,8 @@ module ApplicationHelper
       content_tag(:i, "", :class => "icon-plus icon-white") + " " + name
     end
   end
-<<<<<<< HEAD
-
-=======
   
-  def link_to_add(name, path, options={})
+  def link_to_back(name, path, options={})
     default_options = { :class => "btn" }
     link_to path, options.merge(default_options) do
       content_tag(:i, "", :class => "icon-share-alt icon-white") + " " + name
@@ -69,5 +66,4 @@ module ApplicationHelper
       "(未上传)"
     end
   end
->>>>>>> 5ece8fdb6bae80f8f347ee51e581052a7984eabc
 end

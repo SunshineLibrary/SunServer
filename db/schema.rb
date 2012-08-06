@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730213736) do
+ActiveRecord::Schema.define(:version => 20120806061802) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -57,9 +57,11 @@ ActiveRecord::Schema.define(:version => 20120730213736) do
   create_table "apks", :force => true do |t|
     t.string   "version"
     t.string   "name"
-    t.string   "path"
     t.string   "description"
-    t.integer  "permission_level"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
