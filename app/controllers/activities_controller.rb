@@ -80,4 +80,9 @@ class ActivitiesController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+ 
+  def add_form
+    render :partial => "form", :locals => { :type => params[:type], :section_id => params[:section_id] }
+  end
 end

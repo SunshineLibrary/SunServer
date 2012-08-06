@@ -8,6 +8,9 @@ class Problem < ActiveRecord::Base
     #problem_choices.all?(&:save)
   #end
   
+  TYPE_TO_NAME = {"mc" => "单项选择题", "fb" => "填空题", "mamc" => "多项选择题" }
+  
+  
   def is_mc #单选
     return (self.tipe == "mc")
   end
@@ -21,16 +24,7 @@ class Problem < ActiveRecord::Base
   end
   
   def print_type
-    case self.tipe
-      when "mc"
-        "单项选择题"
-      when "fb"
-        "填空题"
-      when "mamc"
-        "多项选择题"
-      else
-        "未知"
-    end
+    TYPE_TO_NAME[self.tipe]
   end
 
 end

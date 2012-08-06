@@ -1,21 +1,11 @@
 class SectionsController < ApplicationController
-  # GET /sections
-  # GET /sections.json
-  def index
-    @sections = Section.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @sections }
-    end
-  end
 
   # GET /sections/1
   # GET /sections/1.json
   def show
     @section = Section.find_by_id(params[:id])
     @lesson = @section.lesson
-    @activities = @section.activities.sort_by(&:order) 
+    @activities = @section.activities
 
     respond_to do |format|
       format.html # show.html.erb

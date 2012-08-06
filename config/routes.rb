@@ -17,7 +17,12 @@ SunServer::Application.routes.draw do
   resources :lessons
   resources :chapters
   resources :sections
-  resources :activities
+  resources :activities do
+    collection do
+      post 'add_form'
+    end
+  end
+  
   resources :video_activities
   resources :audio_activities
   resources :gallery_activities

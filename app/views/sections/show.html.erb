@@ -4,30 +4,38 @@
 	<%= notice %>
 </p>
 
-<h1><%= best_in_place @section, :name, :type => :input %></h1>
+<div class="page-header">
+  <h1>
+    <%= best_in_place @section, :name, :type => :input %>
+    <span class="label">小节</span>
+  </h1>
+</div>
 
-<% if @lesson%>
-	<p>
-		<b>所属章节:</b>
-		<%= link_to @lesson.name, lesson_path(@lesson) %>
-	</p>
-<% end%>
+<dl class="dl-horizontal">
+  <dt>所属章节</dt>
+  <dd><%= link_to @lesson.name, lesson_path(@lesson) %></dd>
+  <dt>重点笔记</dt>
+  <dd><%= best_in_place @section, :description, :type => :textarea %></dd>
+</dl>
 
-<p>
-	<b>章节重点笔记:</b>
-	<%= best_in_place @section, :description, :type => :textarea %>
-</p>
 
 <%= render 'list_activity_table'%>
 <% local_params = {:section_id => @section.id, :activity_size => @activities_listed}%>
-<%= render :partial => "video_activities/form", :locals => local_params %>
-<%= render :partial => "text_activities/form", :locals => local_params %>
-<%= render :partial => "gallery_activities/form", :locals => local_params %>
-<%= render :partial => "quiz_activities/form", :locals => local_params %>
-<%= render :partial => "audio_activities/form", :locals => local_params %>
-<%= render :partial => "html_activities/form", :locals => local_params %>
+<br/>
+<div id="newActivityForm">
+</div>
+
+<br/>
 
 <%= render 'edge_edit'%>
 
-<%= link_to '继续添加小节', new_section_path(:lesson_id => @section.lesson_id)%> |
-<%= link_to '返回上一层', lesson_path(@section.lesson_id)%>
+
+
+<script type="text/javascript">
+  function insertNewActivityForm(type, order) {
+    $("#newActivityForm").hide();
+    $("#newActivityForm").load("../activities/add_form", {type: type, section_id: <%= @section.id %>});
+    $("#newActivityForm").show();
+  };
+</script>
+

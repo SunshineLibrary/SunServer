@@ -1,31 +1,34 @@
 <div id="newGalleryActivityForm" style="display:none">
 	<% @gallery_activity = GalleryActivity.new %>
-	<%= form_for @gallery_activity, :url => {:controller => :gallery_activities, :action => :create, :section_id => section_id } do |f| %>	
-		<div class="field">		
-			<%= f.label :name, "名称:"%> <br/>		
-			<%= f.text_field :name %>
-		</div>		
-		<div class="field">
-	      <%= f.label :order, "排序" %><br />
-	      <%= f.text_field :order, :value => activity_size %>
-	    </div>	    
-		<div class="field">
-	      <%= f.label :provider_id, "供应商" %><br />
-	      <%= f.select :provider_id, Provider.list_all %>
-	    </div>	    
-		<div class="field">
-			图片集附件:(暂缺)		
-		</div>		
-		<div class="field">
-			<%= f.label :description, "描述" %><br />		
-			<%= f.text_area :description %>
-		</div>		
-		<div class="field">
-			<%= f.label :notes, "重点笔记" %><br />
-			<%= f.text_area :notes %>
-		</div>		
-		<div class="actions">
-			<%= f.submit "提交"%>
-		</div>
+	<%= form_for @gallery_activity, :url => {:controller => :gallery_activities, :action => :create, :section_id => section_id }, :html => {:class => "well form-horizontal"} do |f| %>	
+		<fieldset>
+      <div class="control-group">
+        <%= f.label :name, "名称", :class => "control-label" %> 
+        <div class="controls">
+          <%= f.text_field :name, :class => "input-xlarge"%>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :order, "顺序", :class => "control-label" %>
+        <div class="controls">
+          <%= f.text_field :order, :class => "input-xlarge", :value => activity_size %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :provider_id, "提供方", :class => "control-label" %> 
+        <div class="controls">
+          <%= f.select :order, Provider.list_all, :class => "input-xlarge" %>
+        </div>
+      </div>   
+      <div class="control-group">
+        <%= f.label :notes, "重点笔记", :class => "control-label" %> 
+        <div class="controls">
+          <%= f.text_area :notes, :class => "input-xlarge" %> 
+        </div>
+      </div>
+      <div class="for-actions">
+        <%= f.submit "提交", :class => "btn btn-success" %>
+      </div>    
+    </fieldset>
 	<% end %>
 </div>

@@ -42,6 +42,9 @@ module ApplicationHelper
       content_tag(:i, "", :class => "icon-plus icon-white") + " " + name
     end
   end
+<<<<<<< HEAD
+
+=======
   
   def link_to_add(name, path, options={})
     default_options = { :class => "btn" }
@@ -66,4 +69,5 @@ module ApplicationHelper
       "(未上传)"
     end
   end
+>>>>>>> 5ece8fdb6bae80f8f347ee51e581052a7984eabc
 end

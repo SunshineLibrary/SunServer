@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class QuizActivitiesController < ApplicationController
   
   def show
@@ -14,15 +15,14 @@ class QuizActivitiesController < ApplicationController
 
   def create
     @quiz_activity = QuizActivity.new(params[:quiz_activity])
-    sec = Section.find_by_id(params[:section_id])
-    @quiz_activity.sections << sec
-      
+    section = Section.find_by_id(params[:section_id])
     respond_to do |format|
       if (@quiz_activity.save)
-        format.html { redirect_to sec, notice: 'Quiz activity was successfully created.' }
-        format.json { render json: sec, status: :created, location: sec }
+        SectionComponent.create(section_id: section.id, activity_id: @quiz_activity.id, order: section.activities.size)
+        format.html { redirect_to quiz_activity_path(@quiz_activity, :section_id => section.id), notice: '成功创建习题环节' }
+        format.json { render json: @quiz_activity, status: :created, location: section }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to section, notice: '出现错误，请重试' }
         format.json { render json: @quiz_activity.errors, status: :unprocessable_entity }
       end
     end

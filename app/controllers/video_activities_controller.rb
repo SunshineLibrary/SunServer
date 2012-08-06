@@ -1,41 +1,10 @@
+# encoding: UTF-8
+
 class VideoActivitiesController < ApplicationController
-  # GET /video_activities
-  # GET /video_activities.json
-  def index
-    @video_activities = VideoActivity.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @video_activities }
-    end
-  end
-
-  # GET /video_activities/1
-  # GET /video_activities/1.json
-  def show    
-    @video_activity = VideoActivity.find(params[:id])
-    @section_id = params[:section_id]
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @video_activity }
-    end
-  end
-
-  # GET /video_activities/new
-  # GET /video_activities/new.json
-  def new
-    @video_activity = VideoActivity.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @video_activity }
-    end
-  end
 
   # GET /video_activities/1/edit
   def edit    
-    @video_activity = VideoActivity.find(params[:id])
+    @video_activity = VideoActivity.find_by_id(params[:id])
     @section_id = params[:section_id]
   end
 
@@ -43,14 +12,14 @@ class VideoActivitiesController < ApplicationController
   # POST /video_activities.json
   def create
     @video_activity = VideoActivity.new(params[:video_activity])
-    @video_activity.sections << Section.find(params[:section_id])
-      
+    section = Section.find_by_id(params[:section_id])
     respond_to do |format|
       if (@video_activity.save)
-        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Video activity was successfully created.' }
-        format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
+        SectionComponent.create(section_id: section.id, activity_id: @video_activity.id, order: section.activities.size)
+        format.html { redirect_to section, notice: '成功创建视频环节' }
+        format.json { render json: section, status: :created, location: section }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to section, notice: '出现错误，请重试' }
         format.json { render json: @video_activity.errors, status: :unprocessable_entity }
       end
     end
@@ -59,7 +28,7 @@ class VideoActivitiesController < ApplicationController
   # PUT /video_activities/1
   # PUT /video_activities/1.json
   def update
-    @video_activity = VideoActivity.find(params[:id])
+    @video_activity = VideoActivity.find_by_id(params[:id])
 
     respond_to do |format|
       if @video_activity.update_attributes(params[:video_activity])
