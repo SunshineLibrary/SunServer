@@ -61,9 +61,9 @@ module ApplicationHelper
   
   def file_status(file_owner, file_name)
     if file_owner.send("#{file_name}?")
-      link_to "(ÒÑÉÏ´«(#{file_owner.send("#{file_name}_file_name")}))", file_owner.send("#{file_name}").url      
+      link_to "(å·²ä¸Šä¼ (#{file_owner.send("#{file_name}_file_name")}))", file_owner.send("#{file_name}").url      
     else
-      "(Î´ÉÏ´«)"
+      "(æœªä¸Šä¼ )"
     end
   end
 end
