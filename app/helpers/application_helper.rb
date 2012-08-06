@@ -61,7 +61,7 @@ module ApplicationHelper
   
   def file_status(file_owner, file_name)
     if file_owner.send("#{file_name}?")
-      link_to "(已上传(#{file_owner.send("#{file_name}_file_name")}))", file_owner.send("#{file_name}").url      
+      "(已上传(#{file_owner.send("#{file_name}_file_name")}))"      
     else
       "(未上传)"
     end
