@@ -11,6 +11,7 @@
   </tr>
 
 <% @authors.each do |author| %>
+  <% next if author.destroyed?%>
   <tr>
     <td><%= author.name %></td>
     <td><%= author.nationality%></td>

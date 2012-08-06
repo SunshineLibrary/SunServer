@@ -9,10 +9,11 @@
 	<%= form_field :publisher, "出版商", f, :text_field %>
 
 	<div class="control-group">
-		<%=f.label :book_collection_id, "书籍集合  (**书籍合集可以根据书的名字自动创建，书籍录入完成后可以去合集页面修改名称和简介）", :class => "control-label"%>
+		<%=f.label :book_collection_id, "书籍集合", :class => "control-label"%>
 		<div class="controls">
 			<%= f.select :book_collection_id, BookCollection.selection, :class => "span4"%>
-			<%= link_to '手动创建', new_book_collection_path%>
+			<%= link_to '手动创建', new_book_collection_path, :class => "btn btn"%>
+			<span class="help-inline">**书籍合集可以根据书的名字自动创建，书籍录入完成后可以去合集页面修改名称和简介</span>
 		</div>		
 	</div>
 	
@@ -76,7 +77,7 @@
 	</div>	
 	
 	<div class="form-actions">
-		<%= f.submit :class => "btn"%>
+		<%= f.submit :class => "btn btn-success"%>
 	</div>		
 	
 	</fieldset>

@@ -9,6 +9,7 @@ class BookCollection < ActiveRecord::Base
     #used for f.select in views    
     bcollection = [["自动创建", -1]] 
     BookCollection.all.each do |bc| 
+      next if bc.destroyed?
       bcollection<<[bc.title, bc.id] 
     end
     bcollection
