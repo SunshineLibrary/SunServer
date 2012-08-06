@@ -14,7 +14,7 @@ class Book < ActiveRecord::Base
   belongs_to :author  
   has_and_belongs_to_many :tags
   
-  validates :title, :presence =>true  
+  validates :title, :presence =>true
   
   def author= name
     if name == 'Miss'
@@ -53,7 +53,7 @@ class Book < ActiveRecord::Base
     if book_collection_id.nil?
       return "Doesn't belong to any"
     end
-    if res = BookCollection.where(id:book_collection_id).first
+    if res = BookCollection.find(book_collection_id)
       res.title
     else
       "Doesn't belong to any"
@@ -102,6 +102,14 @@ class Book < ActiveRecord::Base
       self.publication_year = resDic["出版年"]
       self.publisher = resDic["出版社"]   
       self.intro = resDic["内容简介"]
+      
+      require 'open-uri'
+      open(resDic["cover_m"]) do |f|
+        self.cover_m = f
+      end
+      open(resDic["cover_s"]) do |f|        
+        self.cover_s = f
+      end
     rescue
       puts "url parsing error"
     end                    
@@ -130,14 +138,18 @@ class Book < ActiveRecord::Base
       
       title "xpath=//div[@id='wrapper']//h1"
       data_block "xpath=//div[@id='info']"
-      info "xpath=//div[@class='related_info']/div[@class='indent']"      
+      info "xpath=//div[@class='related_info']/div[@class='indent']"     
+      
+      cover_m "xpath=//div[@id='mainpic']//@href"
+      cover_s "xpath=//div[@id='mainpic']//@src"
     end
     spliter = ["副标题", "作者", "原作者", "原作名", "出版社","页数", "出版年", "定价", "装帧","丛书","ISBN", "译者"]    
     
     s = crawl_res["data_block"]
     s_array = s.split(':')
 
-    resDic = {"标题" => crawl_res["title"], "内容简介" => crawl_res["info"]}
+    resDic = {"标题" => crawl_res["title"], "内容简介" => crawl_res["info"], "cover_m" => crawl_res["cover_m"], 
+              "cover_s" => crawl_res["cover_s"]}
     key_str = s_array[0]
     for i in 0..s_array.count-2
       if i == s_array.count-2

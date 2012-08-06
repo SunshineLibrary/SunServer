@@ -1,125 +1,82 @@
-<%= form_for @book do |f| %>
-  <% if @book.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
+<%= form_for @book, :html => {:class => "form-horizontal"} do |f| %>
+<fieldset>
+	<legend>编辑图书</legend>	
+	
+	<%= form_field :title, "书名", f, :text_field %>
+	<%= form_field :author, "作者", f, :text_field %>
+	<%= form_field :ISBN, "ISBN", f, :text_field %>
+	<%= form_field :publication_year, "出版年份", f, :text_field %>	
+	<%= form_field :publisher, "出版商", f, :text_field %>
 
-      <ul>
-      <% @book.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
-  <% bcollection = [["自动创建", -1]] %>
-  <% BookCollection.all.each do |bc| %>
-  <%	bcollection<<[bc.title, bc.id] %>
-  <% end %>
-  
-  <div class="field">
-  	<p>
-		书名 (*)
-	    <%= f.text_field :title %>
-    </p>
-  </div> 
-  
-  <div class="field">
-  	<p>
-		作者 (*)
-	    <%= f.text_field :author %>
-	    <br/>
-		**不存在的作者会自动新建，请确保拼写正确。<br/>
-   	</p>
-  </div>
-  
-  <div class="field">
-  	简介<br />
-    <%= f.text_area :intro %>
-  </div>
-      
-  <div class="field">
-    ISBN   <br />
-    <%= f.text_field :ISBN %>
-  </div>
-  <div class="field">
-	书籍集合  (**书籍合集可以根据书的名字自动创建，书籍录入完成后可以去合集页面修改名称和简介）
-	<br/>
-	<%= f.select :book_collection_id, bcollection%>
-	<%= link_to '手动创建', new_book_collection_path%>
-  </div>
-  
-  <div class="field">
-	出版年份    <br />
-    <%= f.number_field :publication_year %>
-  </div>
-  
-  <div class="field">
-	出版商       <br />
-    <%= f.text_field :publisher %>
-  </div>
-  
-  <% my_tag_ids = @book.tag_ids%>
-  <% Tag.type_list.each do |type|%>
-  	<div class="field">
-	  	<%= type%>
-	  	<br/>  
-	  	<% Tag.where(tag_type: type).each do |tag|%>
-	  		<%= check_box_tag 'tag_ids[]', tag.id, my_tag_ids.include?(tag.id)%>
-	  		<%= tag.name%>
-	  	<% end%>  	  	
-  	</div>
-  <% end%>
-  
-  <div class="field">
-  	难度 <br/>
-  	<%= f.text_field :difficulty%>  	
-  </div>
-  
-  <div class="field">
-	封面（中）
+	<div class="control-group">
+		<%=f.label :book_collection_id, "书籍集合  (**书籍合集可以根据书的名字自动创建，书籍录入完成后可以去合集页面修改名称和简介）", :class => "control-label"%>
+		<div class="controls">
+			<%= f.select :book_collection_id, BookCollection.selection, :class => "span4"%>
+			<%= link_to '手动创建', new_book_collection_path%>
+		</div>		
+	</div>
 	
-	<%if @book.cover_m? %>
-	<%=	"(已上传:#{@book.cover_m_file_name})"%>
-	<%else%>
-	<%=	"(未上传)"%>
-	<%end%>
+	<div class="control-group">
+		<%=f.label :provider_id, "内容供应商", :class=> "control-label"%>
+		<div class="controls">
+			<%= f.select :provider_id, Provider.list_all %>			
+		</div>
+	</div>	
+	 
+	<div class="control-group">
+		<%=f.label :intro, "简介", :class=> "control-label"%>
+		<div class="controls">
+			<%= f.text_area :intro, :class=> "span6"%>			
+		</div>
+	</div>
 	
-	<br />
-    <%= f.file_field :cover_m %>
-  </div>
-  <div class="field">
- 	封面（小）
- 	
- 	<%if @book.cover_s? %>
-	<%=	"(已上传:#{@book.cover_s_file_name})"%>
-	<%else%>
-	<%=	"(未上传)"%>
-	<%end%>
+	<% my_tag_ids = @book.tag_ids%>
+	<% Tag.type_list.each do |type|%>
+		<div class="control-group">
+			<label class="control-label">
+				<%=type%>				
+			</label>
+			<div class="controls" id="tag_controls">
+				<% Tag.where(tag_type: type).each do |tag|%>
+				<%= check_box_tag 'tag_ids[]', tag.id, my_tag_ids.include?(tag.id)%>
+				<%= tag.name%>
+				<% end%>
+			</div>
+		</div>	
+	<% end%>	
 	
- 	<br />
-    <%= f.file_field :cover_s %>
-  </div>
-  
-  <div class="field">
-	epub文件路径    
+	<div class="controls">
+		<%= image_tag @book.cover_m.url if @book.cover_m?%>
+	</div>	
 	
-	<%if @book.epub_file? %>
-	<%=	"(已上传:"%>
-	<%= link_to "#{@book.epub_file_file_name}", @book.epub_file.url(:original, false)%>)
-	<%else%>
-	<%=	"(未上传)"%>
-	<%end%>
+	<div class="controls-group">
+		<%= f.label :cover_m, "封面（中）", :class=>"control-label" %>
+		<div class="controls">		
+			<%= f.file_field :cover_m %>			
+		</div>
+	</div>
 	
-	<br />
-    <%= f.file_field :epub_file %>
-  </div>
-  
-  <div class="field">
-	内容供应商<br />
-    <%= f.select :provider_id, Provider.list_all %>
-  </div> 
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<div class="controls">
+		<%= image_tag @book.cover_s.url if @book.cover_s?%>
+	</div>
+	
+	<div class="controls-group">
+		<%= f.label :cover_s, "封面（小）" , :class=>"control-label" %>
+		<div class="controls">		
+			<%= f.file_field :cover_s %>			
+		</div>
+	</div>	
+	
+	<div class="controls-group">
+		<%= f.label :epub_file, "epub文件路径" + file_status(@book, :epub_file), :class=>"control-label" %>
+		<div class="controls">		
+			<%= f.file_field :epub_file %>
+		</div>
+	</div>	
+	
+	<div class="form-actions">
+		<%= f.submit :class => "btn"%>
+	</div>		
+	
+	</fieldset>
 <% end %>
