@@ -1,3 +1,5 @@
+<%= render :partial => "shared/breadcrumb_curriculum", :locals => { :item => @lesson } %>
+
 <p id="notice"><%= notice %></p>
 
 <h1><%= best_in_place @lesson, :name, :type => :input %></h1>

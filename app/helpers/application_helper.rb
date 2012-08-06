@@ -2,6 +2,12 @@
 
 module ApplicationHelper
   
+  ########################################
+  #
+  # view generator for buttons with icon
+  #
+  ########################################
+  
   def link_to_check(name, path, options={})
     default_options = { :class => "btn btn-primary" }
     link_to path, options.merge(default_options) do
@@ -55,9 +61,9 @@ module ApplicationHelper
   
   def file_status(file_owner, file_name)
     if file_owner.send("#{file_name}?")
-      link_to "(å·²ä¸Šä¼ (#{file_owner.send("#{file_name}_file_name")}))", file_owner.send("#{file_name}").url      
+      link_to "(ÒÑÉÏ´«(#{file_owner.send("#{file_name}_file_name")}))", file_owner.send("#{file_name}").url      
     else
-      "(æœªä¸Šä¼ )"
+      "(Î´ÉÏ´«)"
     end
   end
 end
