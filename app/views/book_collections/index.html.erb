@@ -10,6 +10,7 @@
   </tr>
 
 <% @book_collections.each do |book_collection| %>
+  <%next if book_collection.destroyed?%>
   <tr>
     <td><%= book_collection.title %></td>
     <td><%= book_collection.intro %></td>    

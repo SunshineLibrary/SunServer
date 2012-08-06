@@ -9,6 +9,7 @@
     %th/
    
   - @providers.each do |provider|
+    - next if provider.destroyed?
     %tr
       %td= provider.name
       %td= provider.intro      

@@ -1,6 +1,9 @@
 <h1>书籍列表</h1>
 <p id="notice"><%= notice %></p>
 
+<%@book = Book.new %>
+<%= render 'urlform'%>
+
 <table class="table table-striped">
   <tr>
     <th>题目</th>
@@ -14,6 +17,7 @@
   </tr>
 
 <% @books.each do |book| %>
+  <% next if book.destroyed?%>
   <tr>
     <td><%= book.title %></td>
     <td><%= book.author %></td>
@@ -32,6 +36,8 @@
 <% end %>
 </table>
 
-<br />
+<div class="well">
+	<%= link_to '创建图书', new_book_path, :class => "btn btn-success" %>
+</div>
 
-<%= link_to 'New Book', new_book_path %>
+<br />

@@ -1,12 +1,12 @@
 class BooksController < ApplicationController  
   
-  DEFAULT_LIMIT = 100
+  DEFAULT_LIMIT_ = 100
   
   # GET /books
   # GET /books.json
   def index
     timestamp = params[:timestamp] ? params[:timestamp].to_i : 0
-    limit = params[:limit] ? params[:limit].to_i : DEFAULT_LIMIT
+    limit = params[:limit] ? params[:limit].to_i : DEFAULT_LIMIT_
     
     @books = Book.sequence_after(timestamp, limit) 
          
@@ -47,11 +47,17 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.create(params[:book])
-    @book.update_tags(params[:tag_ids])
+    @book.update_tags(params[:tag_ids])    
+    
+    if params["book"].include? "url"   
+      go_url = edit_book_url @book
+    else
+      go_url = books_url
+    end
     
     respond_to do |format|
       if @book.save
-        format.html {redirect_to books_url, notice:'Book was successfully created.'}
+        format.html { redirect_to go_url, notice:'Book created successfully'}
         format.json { render json: @book, status: :created, location: @book }
       else
         format.html { render action: "new" }
