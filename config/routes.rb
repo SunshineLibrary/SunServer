@@ -1,5 +1,7 @@
 SunServer::Application.routes.draw do
 
+  resources :apks
+
   resources :schools
   resources :classrooms
   devise_for :admins

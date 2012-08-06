@@ -1,0 +1,33 @@
+<%= form_for(@apk, :html => {:class => "form-horizontal"}) do |f| %>
+  <fieldset>
+  <% if @apk.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@apk.errors.count, "error") %> prohibited this apk from being saved:</h2>
+
+      <ul>
+      <% @apk.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :file, "Apk文件", :class => "control-label" %>
+    <div class="controls">    
+    	<%= f.file_field :file %>    	 
+	</div>
+  </div>
+  
+  <div class="control-group">
+  	<%= f.label :description, "描述", :class => "control-label" %>
+  	<div class="controls">
+  		<%= f.text_field :description%>
+  	</div>
+  </div>
+  
+  <div class="form-actions">
+	<%= f.submit :class => "btn btn-success"%>
+  </div>
+  </fieldset>
+<% end %>

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Version:</b>
+  <%= @apk.version %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @apk.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @apk.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_apk_path(@apk) %> |
+<%= link_to 'Back', apks_path %>

@@ -3,10 +3,9 @@ class CreateApks < ActiveRecord::Migration
     create_table :apks do |t|
       t.string :version
       t.string :name
-      t.string :path
       t.string :description
-      t.integer :permission_level
-
+      t.has_attached_file :file 
+      
       t.timestamps
     end
   end
