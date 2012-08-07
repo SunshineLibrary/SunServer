@@ -1,14 +1,9 @@
-class BooksController < ApplicationController  
-  
-  DEFAULT_LIMIT_ = 100
-  
+class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    timestamp = params[:timestamp] ? params[:timestamp].to_i : 0
-    limit = params[:limit] ? params[:limit].to_i : DEFAULT_LIMIT_
-    
-    @books = Book.sequence_after(timestamp, limit) 
+    timestamp, limit = ApiModelHelper.parse_params(params)
+    @books = ApiModelHelper.sequence_after(Book, timestamp, limit)    
          
     respond_to do |format|
       format.html # index.html.erb

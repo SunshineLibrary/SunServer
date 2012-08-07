@@ -1,4 +1,5 @@
 #encoding: UTF-8
+
 class Book < ActiveRecord::Base
   has_attached_file :epub_file, {
     :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
@@ -114,23 +115,8 @@ class Book < ActiveRecord::Base
       puts "url parsing error"
     end
   end
-
-  def Book.sequence_after (timestamp, limit)
-    sorted_sequence = Book.select{|b| b.updated_at.to_i > timestamp}.sort{|a,b| a.updated_at <=> b.updated_at}
-    return Book.cut(sorted_sequence, limit)
-  end
-
-  def Book.cut (sequence, limit)
-    return sequence if sequence.count <= limit
-    #sequence is longer than limit, must cut down
-    i = limit
-    while sequence[i] && sequence[i].updated_at == sequence[limit-1].updated_at
-      i = i + 1
-    end
-    return sequence[0, i]
-  end
-
-  def Book.crawl book_id
+  
+  def self.crawl book_id
     require 'wombat'
     crawl_res = Wombat.crawl do
       base_url "http://book.douban.com"
