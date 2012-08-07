@@ -23,17 +23,17 @@ subject = Subject.create name: "数学"
           section.activities << gallery
 
           quiz = QuizActivity.create type: "QuizActivity", name: "小测验1"
-            problem = Problem.create tipe: "mc", answer: "D", body: "<p>`1+1`等于几？<p>"
+            problem = quiz.problems.create tipe: "mc", answer: "D", body: "<p>`1+1`等于几？<p>"
               problem.problem_choices.create choice: "A", body: "你"
               problem.problem_choices.create choice: "B", body: "妹"
               problem.problem_choices.create choice: "C", body: "啊"
               problem.problem_choices.create choice: "D", body: "2"
-            problem = Problem.create tipe: "fb", answer: "10的20次方", body: "<p>`10^20`怎么念？<p>"
-            problem = Problem.create tipe: "fb", answer: "42", body: <<BODY
+            problem = quiz.problems.create tipe: "fb", answer: "10的20次方", body: "<p>`10^20`怎么念？<p>"
+            problem = quiz.problems.create tipe: "fb", answer: "42", body: <<BODY
 <p>When `a != 0`, there are two solutions to `ax^2 + bx + c = 0` and they are</p>
 <p style="text-align:center">`x = (-b +- sqrt(b^2-4ac))/(2a) .`</p>
 BODY
-            problem = Problem.create tipe: "fb", answer: "-1", body: <<BODY
+            problem = quiz.problems.create tipe: "fb", answer: "-1", body: <<BODY
 <p>数轴上的点A、B分别表示数字`-3`和`1`，点C是AB的中点，则点C所表示的数是？<p>
 BODY
           section.activities << quiz
