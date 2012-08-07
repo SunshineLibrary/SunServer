@@ -4,6 +4,8 @@ class Problem < ActiveRecord::Base
   has_many :problem_choices
   accepts_nested_attributes_for :problem_choices, :reject_if => lambda { |a| a[:body].blank? }, :allow_destroy => true
 
+  has_attached_file :image
+
   #def save
     #problem_choices.all?(&:save)
   #end
