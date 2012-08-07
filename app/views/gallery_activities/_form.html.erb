@@ -9,15 +9,15 @@
         </div>
       </div>
       <div class="control-group">
-        <%= f.label :order, "顺序", :class => "control-label" %>
+        <%= f.label :seq, "顺序", :class => "control-label" %>
         <div class="controls">
-          <%= f.text_field :order, :class => "input-xlarge", :value => activity_size %>
+          <%= f.text_field :seq, :class => "input-xlarge", :value => activity_size %>
         </div>
       </div>
       <div class="control-group">
         <%= f.label :provider_id, "提供方", :class => "control-label" %> 
         <div class="controls">
-          <%= f.select :order, Provider.list_all, :class => "input-xlarge" %>
+          <%= f.select :provider_id, Provider.list_all, :class => "input-xlarge" %>
         </div>
       </div>   
       <div class="control-group">

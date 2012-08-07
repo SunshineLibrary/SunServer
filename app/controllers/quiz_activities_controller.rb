@@ -18,7 +18,7 @@ class QuizActivitiesController < ApplicationController
     section = Section.find_by_id(params[:section_id])
     respond_to do |format|
       if (@quiz_activity.save)
-        SectionComponent.create(section_id: section.id, activity_id: @quiz_activity.id, order: section.activities.size + 1)
+        SectionComponent.create(section_id: section.id, activity_id: @quiz_activity.id, seq: section.activities.size + 1)
         format.html { redirect_to quiz_activity_path(@quiz_activity, :section_id => section.id), notice: '成功创建习题环节' }
         format.json { render json: @quiz_activity, status: :created, location: section }
       else

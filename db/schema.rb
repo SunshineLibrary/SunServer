@@ -266,7 +266,7 @@ ActiveRecord::Schema.define(:version => 20120806061802) do
   create_table "quiz_components", :force => true do |t|
     t.integer  "quiz_activity_id"
     t.integer  "problem_id"
-    t.integer  "order"
+    t.integer  "seq"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -281,7 +281,7 @@ ActiveRecord::Schema.define(:version => 20120806061802) do
   create_table "section_components", :force => true do |t|
     t.integer  "section_id"
     t.integer  "activity_id"
-    t.integer  "order"
+    t.integer  "seq"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

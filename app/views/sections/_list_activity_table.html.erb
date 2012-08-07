@@ -18,7 +18,7 @@
 	<% @activities.each do |a| %>
 	<tr>
 		<% next if a.destroyed?%>
-		<td><%= best_in_place @section.get_section_component(a), :order, :type => :input %></td>
+		<td><%= best_in_place @section.get_section_component(a), :seq, :type => :input %></td>
 		<td><span class="label"><%= a.type_name%></span></td>
 		<td><%= a.name %></td>
 		<% prefix = (a.tipe == "quiz") ? "" : "edit_" %>
