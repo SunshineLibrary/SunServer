@@ -44,7 +44,7 @@
 
 <% @quiz_activity.problems.each do |p| %>
   <tr>
-    <td><%= best_in_place @quiz_activity.get_quiz_component(p), :order, :type => :input %></td>
+    <td><%= best_in_place @quiz_activity.get_quiz_component(p), :seq, :type => :input %></td>
     <td><span class="label label-inverse"><%= p.print_type %></span></td>
     <td><%= p.body %></td>
     <td><%= link_to_check "查看", problem_path(p, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id) %></td>

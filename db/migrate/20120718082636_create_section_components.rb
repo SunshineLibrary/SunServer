@@ -3,7 +3,7 @@ class CreateSectionComponents < ActiveRecord::Migration
     create_table :section_components do |t|
       t.integer :section_id
       t.integer :activity_id
-      t.integer :order
+      t.integer :seq
       
       t.timestamps
     end

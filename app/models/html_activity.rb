@@ -1,2 +1,2 @@
-class HtmlActivity < Activity
+class HtmlActivity < Activity  
 end

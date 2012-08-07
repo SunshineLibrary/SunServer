@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class TextActivitiesController < ApplicationController
   # GET /text_activities
   # GET /text_activities.json
@@ -41,11 +42,12 @@ class TextActivitiesController < ApplicationController
   # POST /text_activities.json
   def create
     @text_activity = TextActivity.new(params[:text_activity])
-    @text_activity.sections << Section.find(params[:section_id])
+    section = Section.find_by_id(params[:section_id])
 
     respond_to do |format|
       if (@text_activity.save)
-        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Text activity was successfully created.' }
+        SectionComponent.create(section_id: section.id, activity_id: @text_activity.id, seq: section.activities.size)
+        format.html { redirect_to edit_text_activity_path(@text_activity, :section_id => section.id), notice: '成功创建环节' }
         format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
       else
         format.html { render action: "new" }
@@ -57,11 +59,15 @@ class TextActivitiesController < ApplicationController
   # PUT /text_activities/1
   # PUT /text_activities/1.json
   def update
-    @text_activity = TextActivity.find(params[:id])    
+    @text_activity = TextActivity.find_by_id(params[:id])    
+    
+    attr = params[:text_activity]
+    section_id = attr[:section_id]
+    attr.delete(:section_id) 
     
     respond_to do |format|
-      if @text_activity.update_attributes(params[:text_activity])
-        format.html { redirect_to Section.find(params[:section_id]), notice: 'Text activity was successfully updated.' }
+      if @text_activity.update_attributes(attr)
+        format.html { redirect_to Section.find(section_id), notice: 'Text activity was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -77,7 +83,7 @@ class TextActivitiesController < ApplicationController
     @text_activity.destroy
 
     respond_to do |format|
-      format.html { redirect_to text_activities_url }
+      format.html { redirect_to :back }
       format.json { head :ok }
     end
   end

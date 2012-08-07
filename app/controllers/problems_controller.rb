@@ -27,7 +27,7 @@ class ProblemsController < ApplicationController
     @section_id = params[:section_id]
     respond_to do |format|
       if (@problem.save)
-        QuizComponent.create(quiz_activity_id: @quiz_activity.id, problem_id: @problem.id, order: @quiz_activity.problems.size + 1)
+        QuizComponent.create(quiz_activity_id: @quiz_activity.id, problem_id: @problem.id, seq: @quiz_activity.problems.size + 1)
         format.html { redirect_to problem_path(@problem, :quiz_activity_id => @quiz_activity.id, :section_id => @section_id) }
         format.json { render json: @problem, status: :created, location: @problem }
       else
