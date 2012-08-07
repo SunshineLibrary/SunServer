@@ -16,7 +16,7 @@ class VideoActivitiesController < ApplicationController
     respond_to do |format|
       if (@video_activity.save)
         SectionComponent.create(section_id: section.id, activity_id: @video_activity.id, seq: section.activities.size)
-        format.html { redirect_to edit_video_activity_path(@video_activity), notice: '成功创建视频环节，请上传视频文件' }
+        format.html { redirect_to edit_video_activity_path(@video_activity, :section_id => section.id), notice: '成功创建视频环节，请上传视频文件' }
         format.json { render json: section, status: :created, location: section }
       else
         format.html { redirect_to section, notice: '出现错误，请重试' }
@@ -27,12 +27,16 @@ class VideoActivitiesController < ApplicationController
 
   # PUT /video_activities/1
   # PUT /video_activities/1.json
-  def update
+  def update    
     @video_activity = VideoActivity.find_by_id(params[:id])
-
+    
+    attr = params[:video_activity]
+    section_id = attr[:section_id]
+    attr.delete(:section_id)    
+    
     respond_to do |format|
-      if @video_activity.update_attributes(params[:video_activity])
-        format.html { redirect_to Section.find(params[:section_id]), notice: 'Video activity was successfully updated.' }
+      if @video_activity.update_attributes(attr)
+        format.html { redirect_to Section.find_by_id(section_id), notice: 'Video activity was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -48,7 +52,7 @@ class VideoActivitiesController < ApplicationController
     @video_activity.destroy
 
     respond_to do |format|
-      format.html { redirect_to video_activities_url }
+      format.html { redirect_to :back }
       format.json { head :ok }
     end
   end

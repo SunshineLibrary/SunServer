@@ -5,8 +5,9 @@
   </h1>
 </div>
 
-<%= form_for @video_activity, :method => :post, :url => video_activities_path(:section_id => @section_id), :html => {:class => "form-horizontal"} do |f| %>
+<%= form_for @video_activity, :html => {:class => "form-horizontal"} do |f| %>
   <fieldset>
+  	<%= f.hidden_field :section_id, :value => params[:section_id]%>
     <div class="control-group">
       <%= f.label :provider_id, "提供者", :class => "control-label" %>
       <div class="controls">
@@ -34,7 +35,7 @@
     <div class="control-group">
       <%= f.label :notes, "重点笔记", :class => "control-label" %>
       <div class="controls">
-        <%= f.number_field :notes, :class => "input-xlarge", :rows => 4%>
+        <%= f.text_area :notes, :class => "input-xlarge", :rows => 4%>
         <span class="help-inline">需要学生重点记忆的知识点</span>
       </div>
     </div>
