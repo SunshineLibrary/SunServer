@@ -9,7 +9,7 @@ class Activity < ActiveRecord::Base
       :hash_secret => "longSecretString"
     }  
 
-  TYPE_TO_NAME = {"video" => "视频", "text"=>"文字", "quiz"=>"习题", "gallery"=>"图集", "audio"=> "音频", "html"=> "网页"}
+  TYPE_TO_NAME = {"video" => "视频", "quiz"=>"习题", "html"=> "网页", "text"=>"文字", "gallery"=>"图集", "audio"=> "音频" }
 
   def self.type_to_name(t)
     TYPE_TO_NAME[t]

@@ -4,8 +4,6 @@ class Edge < ActiveRecord::Base
   belongs_to :from, :class_name => "Activity"
   belongs_to :to, :class_name => "Activity"
   
-  #validates :from_id, :numericality => { :only_integer => true }
-  #validates :to_id, :numericality => { :only_integer => true }
   validates :section_id, :presence => true   
   
   TYPE_TO_NAME = {"CorrectCount" => "答对一定数量的题目时"}

@@ -16,7 +16,7 @@ class VideoActivitiesController < ApplicationController
     respond_to do |format|
       if (@video_activity.save)
         SectionComponent.create(section_id: section.id, activity_id: @video_activity.id, order: section.activities.size)
-        format.html { redirect_to section, notice: '成功创建视频环节' }
+        format.html { redirect_to edit_video_activity_path(@video_activity), notice: '成功创建视频环节，请上传视频文件' }
         format.json { render json: section, status: :created, location: section }
       else
         format.html { redirect_to section, notice: '出现错误，请重试' }

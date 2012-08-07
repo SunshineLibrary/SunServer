@@ -4,7 +4,7 @@ class CreateProblems < ActiveRecord::Migration
       t.string :body
       t.string :tipe
       t.string :answer
-      t.integer :order
+
       t.timestamps
     end
   end

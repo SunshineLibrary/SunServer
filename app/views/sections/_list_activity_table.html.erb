@@ -8,19 +8,17 @@
   
 <table class="table table-striped">
 	<tr>
-		<th class="span1">序号</th>
+		<th class="span1"><abbr title="单击后输入数字以改变顺序，刷新后重新排序" class="initialism">顺序</abbr></th>
 		<th class="span1">类型</th>
-		<th class="span6">名称</th>
-		<th class="span2"></th>
-		<th class="span2"></th>
+		<th class="span8">名称</th>
+		<th class="span1"></th>
+		<th class="span1"></th>
 	</tr>
 
-  <% order = 0 %>
 	<% @activities.each do |a| %>
 	<tr>
 		<% next if a.destroyed?%>
-		<% order = order + 1 %>
-		<td><%= order %></td>
+		<td><%= best_in_place @section.get_section_component(a), :order, :type => :input %></td>
 		<td><span class="label"><%= a.type_name%></span></td>
 		<td><%= a.name %></td>
 		<% prefix = (a.tipe == "quiz") ? "" : "edit_" %>

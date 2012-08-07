@@ -2,40 +2,52 @@
 
 <p id="notice"><%= notice %></p>
 
-<h1><%= best_in_place @chapter, :name, :type => :input %></h1>
+<div class="page-header">
+  <h1>
+    <%= best_in_place @chapter, :name, :type => :input %>
+    <span class="label"><%= Chapter.zh_name %></span>
+  </h1>
+</div>
 
-<p>
-  <b>所属课程:</b>
-  <%= link_to @chapter.course.name, course_path(@chapter.course) %>
-</p>
+<div class="row">
+  <div class="span6">
+    <dl class="dl-horizontal">
+      <dt>所属课程</dt>
+      <dd><%= link_to @course.name, course_path(@course) %></dd>
+      <dt>单元概述</dt>
+      <dd><%= best_in_place @chapter, :description, :type => :textarea %></span></dd>
+    </dl>
+  </div>
+</div>
 
-<p>
-  <b>概述:</b>
-  <%= best_in_place @chapter, :description, :type => :textarea %>
-</p>
-
+<div class="row">
+  <div class="span2">
+    <%= link_to_back '返回课程', course_path(@course) %>
+  </div>
+</div>
 
 <br/>
 <br/>
 <br/>
 
-<h2>章节列表</h2>
-
-<%= link_to '创建章节', new_lesson_path(:chapter_id => @chapter.id) %>
+<h3>章节列表</h3>
 
 <table class="table table-striped">
   <tr>
-    <th>章节名称</th>
-    <th>概述</th>
-    <th></th>
-    <th></th>
+    <th class="span3">名称</th>
+    <th class="span7">概述</th>
+    <th class="span1"></th>
+    <th class="span1"></th>
   </tr>
   
 <% @chapter.lessons.each do |l| %>
   <tr>
     <td><%= best_in_place l, :name, :type => :input %></td>
     <td><%= best_in_place l, :description, :type => :textarea %></td>
-    <td><%= link_to '进入', l %></td>
-    <td><%= link_to '删除', l, confirm: '确定要删除此章节吗？', method: :delete %></td>
+    <td><%= link_to_check '查看', l %></td>
+    <td><%= link_to_delete '删除', l, confirm: '确定要删除此章节吗？', method: :delete %></td>
   </tr>
 <% end %>
+</table>
+
+<%= link_to_add '创建章节', new_lesson_path(:chapter_id => @chapter.id) %>

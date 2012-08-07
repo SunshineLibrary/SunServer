@@ -1,0 +1,2 @@
+module SectionComponentsHelper
+end
