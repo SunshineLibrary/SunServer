@@ -1,21 +1,21 @@
 class BooksController < ApplicationController  
-  
+
   DEFAULT_LIMIT_ = 100
-  
+
   # GET /books
   # GET /books.json
   def index
     timestamp = params[:timestamp] ? params[:timestamp].to_i : 0
     limit = params[:limit] ? params[:limit].to_i : DEFAULT_LIMIT_
-    
-    @books = Book.sequence_after(timestamp, limit) 
-         
+
+    @books = Book.sequence_after(timestamp, limit)
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @books }
     end
   end
-  
+
   # GET /books/1
   # GET /books/1.json
   def show
@@ -48,13 +48,13 @@ class BooksController < ApplicationController
   def create
     @book = Book.create(params[:book])
     @book.update_tags(params[:tag_ids])    
-    
+
     if params["book"].include? "url"   
       go_url = edit_book_url @book
     else
       go_url = books_url
     end
-    
+
     respond_to do |format|
       if @book.save
         format.html { redirect_to go_url, notice:'Book created successfully'}
@@ -70,7 +70,7 @@ class BooksController < ApplicationController
   # PUT /books/1.json
   def update    
     @book = Book.find(params[:id])    
-    
+
     respond_to do |format|
       if @book.update_attributes(params[:book]) and @book.update_tags(params[:tag_ids]) 
         format.html {redirect_to books_url, notice: 'Book was successfully updated.'}        
@@ -93,11 +93,11 @@ class BooksController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   def download    
     @book = Book.find(params[:id])    
     path = @book.epub_file.path
-    
+
     send_file(path)
   end   
 end
