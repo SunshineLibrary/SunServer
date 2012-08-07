@@ -1,17 +1,25 @@
 class ProblemsController < ApplicationController
+  def index
+    #TODO: need to update according to update time
+    @problems = Problem.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @problems }
+    end
+  end
 
   def show
     @problem = Problem.find(params[:id])
     @quiz_activity = QuizActivity.find_by_id(params[:quiz_activity_id])
     @section_id = params[:section_id]
-    
+
     respond_to do |format|
       format.html
       format.json { render json: @problem }
     end
   end
-  
-  
+
   def create
     @problem = Problem.new(params[:problem])
     @problem.tipe = params[:tipe]
@@ -19,7 +27,7 @@ class ProblemsController < ApplicationController
     @section_id = params[:section_id]
 
     respond_to do |format|
-      if @quiz_activity.problems << @problem  
+      if @quiz_activity.problems << @problem
         format.html { redirect_to problem_path(@problem, :quiz_activity_id => @quiz_activity.id, :section_id => @section_id) }
         format.json { render json: @problem, status: :created, location: @problem }
       else
@@ -28,7 +36,6 @@ class ProblemsController < ApplicationController
       end
     end
   end
-  
 
   def update
     @problem = Problem.find(params[:id])
@@ -45,8 +52,7 @@ class ProblemsController < ApplicationController
       end
     end
   end
-  
-  
+
   def destroy
     @problem = Problem.find(params[:id])
     @problem.destroy
@@ -56,12 +62,11 @@ class ProblemsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
-  
+
   def add_choice
     respond_to do |format|
-      format.js { render :partial => "problem_choice"} 
+      format.js { render :partial => "problem_choice"}
     end
   end
-  
+
 end
