@@ -9,3 +9,5 @@ test/
 public/assets
 public/system
 .metadata/
+Vagrantfile
+.vagrant
