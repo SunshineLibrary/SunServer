@@ -18,13 +18,23 @@
   <dd><%= best_in_place @section, :description, :type => :textarea %></dd>
 </dl>
 
+<div class="row">
+  <div class="span2">
+    <%= link_to_back '返回章节', lesson_path(@lesson) %>
+  </div>
+</div>
+
+<br/>
+<br/>
+<br/>
 
 <%= render 'list_activity_table'%>
-<% local_params = {:section_id => @section.id, :activity_size => @activities_listed}%>
 <br/>
 <div id="newActivityForm">
 </div>
 
+<br/>
+<br/>
 <br/>
 
 <%= render 'edge_edit'%>

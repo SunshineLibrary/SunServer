@@ -1,15 +1,22 @@
+# encoding: UTF-8
 class Section < ActiveRecord::Base
   belongs_to :lesson
   has_many :edges
   has_many :section_components, :uniq => true
   has_many :activities, :through => :section_components, :order => "'section_components.order'"
 
+  ZN_NAME = "小节"
+
+  def self.zh_name
+    ZN_NAME
+  end
+
   def parent
     self.lesson
   end
 
-  def set_order(activity, order)
-    ActivitiesSections.find_by_activity_and_section(activity.id, self.id).order = order
+  def get_section_component(activity)
+    SectionComponent.where("section_id = '#{self.id}' AND activity_id = '#{activity.id}'").first
   end
 
   def activity_list

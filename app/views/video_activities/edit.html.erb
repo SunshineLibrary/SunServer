@@ -1,7 +1,7 @@
 <div class="page-header">
   <h1>
     <%= best_in_place @video_activity, :name, :type => :input %>
-    <span class="label">视频</span>
+    <span class="label"><%= Activity.type_to_name('video') %></span>
   </h1>
 </div>
 

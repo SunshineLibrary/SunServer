@@ -1,14 +1,10 @@
-
-
 <p id="notice"><%= notice %></p>
 
-<div class="row">
-  <div class="span5">
-    <h1><%= best_in_place @quiz_activity, :name, :type => :input %></h1>
-  </div>
-  <div class="span2">
-    <%= link_to '返回小节', section_path(@section), :class => "btn" %>
-  </div>
+<div class="page-header">
+  <h1>
+    <%= best_in_place @quiz_activity, :name, :type => :input %>
+    <span class="label"><%= Activity.type_to_name('quiz') %></span>
+  </h1>
 </div>
 
 <div class="row">
@@ -19,55 +15,57 @@
       <dt>提供方</dt>
       <dd><%= best_in_place @quiz_activity, :provider_id, :type => :select, :collection => Provider.list_all_in_place %></dd>
       <dt>习题数量</dt>
-      <dd><%= @quiz_activity.problems.size %></dd>
+      <dd><span class="badge"><%= @quiz_activity.problems.size %></span></dd>
     </dl>
   </div>
 </div>
 
+<div class="row">
+  <div class="span2">
+    <%= link_to_back '返回小节', section_path(@section) %>
+  </div>
+</div>
 
 <br/>
 <br/>
 
 <div class="row">
-  <h2 class="span2">习题列表</h2>
-  <div class="span10">
-  <%= form_for(@problem) do |f| %>
-    <div class="row">
-      <div class="span3">
-        <div class="btn-group" data-toggle-name="tipe" data-toggle="buttons-radio">
-          <button type="button" value="mc" class="btn" data-toggle="button">单选题</button>
-          <button type="button" value="fb" class="btn" data-toggle="button">填空题</button>
-          <button type="button" value="mamc" class="btn" data-toggle="button">多选题</button>
-        </div>
-        <input type="hidden" name="tipe" value="0" />
-        <span style="display: none"><%= text_field_tag :quiz_activity_id, @quiz_activity.id %>
-        <span style="display: none"><%= text_field_tag :section_id, @section.id %>
-      </div>
-      <div class="span1">
-        <%= f.submit "添加习题", :class => "btn btn-success" %>
-      </div>
-    </div>
-    
-  <% end %>
-  </span>
+  <h3 class="span2">习题列表</h3>
 </div>
 
-<table class="table table-striped span12">
+<table class="table table-striped">
   <tr>
-    <th class="span2">习题类型</th>
-    <th class="span6">习题内容</th>
-    <th class="span2"></th>
-    <th class="span2"></th>
+    <th class="span1"><abbr title="单击后输入数字以改变顺序，刷新后重新排序" class="initialism">顺序</abbr></th>
+    <th class="span1">类型</th>
+    <th class="span8">内容</th>
+    <th class="span1"></th>
+    <th class="span1"></th>
   </tr>
+
 <% @quiz_activity.problems.each do |p| %>
   <tr>
-    <td><%= p.print_type %></td>
+    <td><%= best_in_place @quiz_activity.get_quiz_component(p), :order, :type => :input %></td>
+    <td><span class="label label-inverse"><%= p.print_type %></span></td>
     <td><%= p.body %></td>
     <td><%= link_to_check "查看", problem_path(p, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id) %></td>
     <td><%= link_to_delete "删除", remove_problem_quiz_activity_path(@quiz_activity, :problem_id => p.id, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id), confirm: '确定要删除此习题吗？', method: :post %></td>
   </tr>
 <% end %>
 </table>
+
+  <%= form_for @problem, :html => {:class => "well form-inline"} do |f| %>
+        <%=f.label :tipe, "选择习题类型" %>
+        <div class="btn-group" data-toggle-name="tipe" data-toggle="buttons-radio">
+          <% Problem::TYPE_TO_NAME.each do |t| %>
+            <button type="button" value=<%= t.first %> class="btn" data-toggle="button"><%= t.second %></button>
+          <% end %>
+        </div>
+        <input type="hidden" name="tipe" value="0" />
+        <span style="display: none"><%= text_field_tag :quiz_activity_id, @quiz_activity.id %></span>
+        <span style="display: none"><%= text_field_tag :section_id, @section.id %></span>
+        <br/>
+        <%= f.submit "添加习题", :class => "btn btn-success" %>
+  <% end %>
 
   
 <script type="text/javascript">

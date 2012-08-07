@@ -248,14 +248,8 @@ ActiveRecord::Schema.define(:version => 20120806061802) do
     t.string   "body"
     t.string   "tipe"
     t.string   "answer"
-    t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "problems_quiz_activities", :id => false, :force => true do |t|
-    t.integer "quiz_activity_id"
-    t.integer "problem_id"
   end
 
   create_table "providers", :force => true do |t|
@@ -269,6 +263,14 @@ ActiveRecord::Schema.define(:version => 20120806061802) do
     t.datetime "updated_at"
   end
 
+  create_table "quiz_components", :force => true do |t|
+    t.integer  "quiz_activity_id"
+    t.integer  "problem_id"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "schools", :force => true do |t|
     t.string   "name"
     t.string   "location"
@@ -276,10 +278,12 @@ ActiveRecord::Schema.define(:version => 20120806061802) do
     t.datetime "updated_at"
   end
 
-  create_table "section_components", :id => false, :force => true do |t|
-    t.integer "section_id"
-    t.integer "activity_id"
-    t.integer "order"
+  create_table "section_components", :force => true do |t|
+    t.integer  "section_id"
+    t.integer  "activity_id"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sections", :force => true do |t|
@@ -298,8 +302,8 @@ ActiveRecord::Schema.define(:version => 20120806061802) do
 
   create_table "tag_bundles", :force => true do |t|
     t.integer  "chapter_id"
-    t.string   "name"
-    t.string   "tags"
+    t.string   "bundle_type"
+    t.string   "tags_string"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

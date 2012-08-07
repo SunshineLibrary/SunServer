@@ -22,6 +22,7 @@ SunServer::Application.routes.draw do
       post 'add_form'
     end
   end
+  resources :section_components
   
   resources :video_activities
   resources :audio_activities
@@ -34,6 +35,7 @@ SunServer::Application.routes.draw do
        post 'remove_problem'
     end
   end
+  resources :quiz_components
   resources :edges
   resources :problems do
     get 'add_choice', :on => :collection

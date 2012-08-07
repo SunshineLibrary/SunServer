@@ -1,0 +1,2 @@
+module QuizComponentsHelper
+end

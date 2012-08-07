@@ -14,6 +14,7 @@ class ChaptersController < ApplicationController
   # GET /chapters/1.json
   def show
     @chapter = Chapter.find(params[:id])
+    @course = @chapter.course
 
     respond_to do |format|
       format.html # show.html.erb
