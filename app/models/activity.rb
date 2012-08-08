@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # encoding: UTF-8
 class Activity < ActiveRecord::Base
 
