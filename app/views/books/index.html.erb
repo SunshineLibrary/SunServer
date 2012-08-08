@@ -2,7 +2,10 @@
 <p id="notice"><%= notice %></p>
 
 <%@book = Book.new %>
-<%= render 'urlform'%>
+<div class="well">
+	<%= render 'urlform'%>
+	<%= link_to '手动创建图书', new_book_path, :class => "btn btn-success" %>	
+</div>
 
 <table class="table table-striped">
   <tr>
@@ -35,9 +38,5 @@
   </tr>
 <% end %>
 </table>
-
-<div class="well">
-	<%= link_to '创建图书', new_book_path, :class => "btn btn-success" %>
-</div>
 
 <br />
