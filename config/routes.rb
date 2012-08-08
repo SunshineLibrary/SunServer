@@ -45,7 +45,6 @@ SunServer::Application.routes.draw do
 
   resources :book_collections
   resources :books
-  match 'books/download/:id' => 'books#download'
   resources :video_collections
   resources :videos
   resources :audio_collections
@@ -53,6 +52,7 @@ SunServer::Application.routes.draw do
   resources :authors
   resources :tags
 
+  match 'download/:action/:id', controller: "Download"
 
 
   # The priority is based upon order of creation:
