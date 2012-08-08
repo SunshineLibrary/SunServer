@@ -6,7 +6,7 @@ class BooksController < ApplicationController
     @books = ApiModelHelper.sequence_after(Book, timestamp, limit)    
          
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { @books = Book.all }# index.html.erb
       format.json { render json: @books }
     end
   end

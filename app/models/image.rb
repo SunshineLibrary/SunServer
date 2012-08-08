@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
   has_attached_file :image_file, {
-    :style => { thumb: "180x135#" },
+    :styles => { thumb: "180x135#" },
     :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
     :url => "/system/:attachment/:id/:style/:hash.:extension",
     :hash_secret => "longSecretString"
