@@ -2,7 +2,7 @@
 class Course < ActiveRecord::Base
   belongs_to :subject
   belongs_to :provider
-  has_many :chapters
+  has_many :chapters, :conditions  => "chapters.created_at > '#{Time.at(0)}'"
   
   SEMESTER_TO_NAME = { 1 => "上学期", 2 => "下学期", 3 => "全学年" }
   

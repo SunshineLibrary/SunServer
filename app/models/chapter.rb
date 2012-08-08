@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class Chapter < ActiveRecord::Base
   belongs_to :course
-  has_many :lessons
+  has_many :lessons, :conditions  => "lessons.created_at > '#{Time.at(0)}'"
   
   ZN_NAME = "单元"
   

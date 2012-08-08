@@ -77,7 +77,7 @@ class ChaptersController < ApplicationController
     @chapter.destroy
 
     respond_to do |format|
-      format.html { redirect_to chapters_url }
+      format.html { redirect_to :back }
       format.json { head :ok }
     end
   end

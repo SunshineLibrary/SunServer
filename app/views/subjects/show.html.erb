@@ -9,23 +9,27 @@
   </h1>
 </div>
 
-<br/>
-<br/>
-<br/>
+<div class="row">
+  <div class="span2">
+    <%= link_to_back '返回所有科目', subjects_path %>
+  </div>
+</div>
+
+<br />
+<br />
+<br />
 
 <h3>课程列表</h3>
 
-<%= link_to '创建课程', new_course_path(:subject_id => @subject.id) %>
-
-<table>
+<table class="table table-striped">
   <tr>
     <th class="span2">名称</th>
     <th class="span1">创建者</th>
     <th class="span1">适用年级</th>
     <th class="span1">适用学期</th>
-    <th class="span5">概述</th>
-    <th class="span1"></th>
-    <th class="span1"></th>
+    <th class="span3">概述</th>
+    <th class="span2"></th>
+    <th class="span2"></th>
   </tr>
 
 <% @subject.courses.each do |c| %>
@@ -33,7 +37,7 @@
     <td><%= best_in_place c, :name, :type => :input %></td>
     <td><%= best_in_place c, :editor, :type => :input %></td>
     <td><%= best_in_place c, :grade, :type => :select, :collection => Classroom.all_grades_in_place %></td>
-    <td><%= best_in_place c, :semester, :type => :select, :collection => Classroom.all_semesters_in_place %></td>
+    <td><%= best_in_place c, :semester, :type => :select, :collection => Course.all_semesters_in_place %></td>
     <td><%= best_in_place c, :description, :type => :textarea %></td>
     <td><%= link_to_check '查看', c %></td>
     <td><%= link_to_delete '删除', c, confirm: '确定要删除此课程吗？', method: :delete %></td>
@@ -41,4 +45,4 @@
 <% end %>
 </table>
 
-<%= link_to '返回', subjects_path %>
+<%= link_to_add '创建课程', new_course_path(:subject_id => @subject.id) %>

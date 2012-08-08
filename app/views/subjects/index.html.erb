@@ -1,23 +1,30 @@
-<h1>所有科目</h1>
+<p id="notice"><%= notice %></p>
 
-<br/>
-<%= link_to '创建科目', new_subject_path %>
-<br/>
-<br/>
+<div class="page-header">
+  <h1>
+            科目总揽
+    <small>所有科目</small>  
+  </h1>
+</div>
+
 
 <table class="table table-striped">
   <tr>
-    <th>名称</th>
-    <th></th>
-    <th></th>
+    <th class="span2">名称</th>
+    <th class="span6"></th>
+    <th class="span2"></th>
+    <th class="span2"></th>
   </tr>
 
 <% @subjects.each do |subject| %>
+  <% next if subject.destroyed? %>
   <tr>
     <td><%= best_in_place subject, :name, :type => :input %></td>
-    <td><%= link_to '进入', subject %></td>
-    <td><%= link_to "总览", :controller => "subjects", :action => "overview", :id => subject%>    
-    <td><%= link_to '删除', subject, confirm: '确定删除此科目吗？', method: :delete %></td>
+    <td><%= link_to_check "总体结构", :controller => "subjects", :action => "overview", :id => subject%>  
+    <td><%= link_to_check '查看', subject %></td>
+    <td><%= link_to_delete '删除', subject, confirm: '确定删除此科目吗？', method: :delete %></td>
   </tr>
 <% end %>
 </table>
+
+<%= link_to_add '创建科目', new_subject_path %>
