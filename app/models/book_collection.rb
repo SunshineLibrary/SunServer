@@ -18,8 +18,15 @@ class BookCollection < ActiveRecord::Base
 
   def as_json(options ={})
     json = super(options)
-    json[:author] = books.first.author
-    json[:publisher] = books.first.provider
+    
+    if books.count > 0
+      json[:author] = books.first.author
+      json[:publisher] = books.first.provider
+    else
+      json[:author] = "Miss"
+      json[:publisher] = "Miss"
+    end
+    
     json
   end
 end
