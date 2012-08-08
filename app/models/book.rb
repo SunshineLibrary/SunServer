@@ -5,10 +5,15 @@ class Book < ActiveRecord::Base
     :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
     :url => "/system/:attachment/:id/:style/:hash.:extension",
     :hash_secret => "longSecretString"
-  }
+  }  
 
-  has_attached_file :cover_m
-  has_attached_file :cover_s
+  has_attached_file :cover_m, 
+    :styles => {      
+      :normal => "309x432"}
+  
+  has_attached_file :cover_s, 
+    :styles => {
+      :normal => "103x144#"}
 
   belongs_to :provider
   belongs_to :book_collection

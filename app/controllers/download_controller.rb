@@ -10,6 +10,12 @@ class DownloadController <  ApplicationController
     @path = book.cover_m.url
     download_path
   end
+  
+  def apks
+    apk = Apk.find(params[:id])
+    @path = apk.file.url
+    download_path
+  end
 
   def activities
     activity = Activity.find(params[:id])

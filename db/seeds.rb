@@ -97,3 +97,15 @@ collection = BookCollection.create title: "哈利·波特与凤凰社", intro: i
   collection.tags << (Tag.create name: "魔法")
   collection.tags << (Tag.create name: "英国")
   collection.tags << (Tag.create name: "魔幻小说", tag_type: "theme")
+  
+apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "alarming.apk")), description: "尊贵的小闹钟"
+apk.parse_info
+
+apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "Bluetooth.apk")), description: "尊贵的蓝牙"
+apk.parse_info
+
+apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "BookMark.apk")), description: "尊贵的书签"
+apk.parse_info
+
+apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "Browser.apk")), description: "尊贵的浏览器"
+apk.parse_info
