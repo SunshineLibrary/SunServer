@@ -2,10 +2,11 @@ class AuthorsController < ApplicationController
   # GET /authors
   # GET /authors.json
   def index
-    @authors = Author.all
-
+    timestamp, limit = ApiModelHelper.parse_params(params)
+    @authors = ApiModelHelper.sequence_after(Author, timestamp, limit)
+    
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { @authors = Author.all }# index.html.erb
       format.json { render json: @authors }
     end
   end

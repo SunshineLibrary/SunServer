@@ -2,10 +2,11 @@ class BookCollectionsController < ApplicationController
   # GET /book_collections
   # GET /book_collections.json
   def index
-    @book_collections = BookCollection.all
+    timestamp, limit = ApiModelHelper.parse_params(params)
+    @book_collections= ApiModelHelper.sequence_after(BookCollection, timestamp, limit)
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { @book_collections = BookCollection.all }# index.html.erb
       format.json { render json: @book_collections }
     end
   end
