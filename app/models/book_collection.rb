@@ -15,4 +15,11 @@ class BookCollection < ActiveRecord::Base
     end
     bcollection
   end
+
+  def as_json(options ={})
+    json = super(options)
+    json[:author] = books.first.author
+    json[:publisher] = books.first.provider
+    json
+  end
 end
