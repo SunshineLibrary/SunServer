@@ -19,6 +19,17 @@
     <span id="problem-body-preview" class="well span6"></span>
   </div>
   
+  <div class="controls">
+    <%= image_tag @problem.image.url if @problem.image? %>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :image, "附图 (例如几何图形)", :class=>"control-label" %>
+    <div class="controls">    
+      <%= f.file_field :image, :class => "input-xlarge" %>      
+    </div>
+  </div>
+  
   <div class="control-group">
     <div id="answer" class="input-prepend">
       <span class="add-on">答案</span>

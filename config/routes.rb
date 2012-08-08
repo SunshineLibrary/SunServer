@@ -23,7 +23,7 @@ SunServer::Application.routes.draw do
     end
   end
   resources :section_components
-  
+
   resources :video_activities
   resources :audio_activities
   resources :gallery_activities
@@ -32,7 +32,7 @@ SunServer::Application.routes.draw do
   resources :html_activities
   resources :quiz_activities do
     member do
-       post 'remove_problem'
+      post 'remove_problem'
     end
   end
   resources :quiz_components
@@ -41,17 +41,18 @@ SunServer::Application.routes.draw do
     get 'add_choice', :on => :collection
   end
   resources :tag_bundles
-  
+  resources :problem_choices
+
   resources :book_collections
   resources :books
-  match 'books/download/:id' => 'books#download'
   resources :video_collections
   resources :videos
   resources :audio_collections
   resources :audios
   resources :authors
   resources :tags
-  
+
+  match 'download/:action/:id', controller: "Download"
 
 
   # The priority is based upon order of creation:
@@ -67,7 +68,7 @@ SunServer::Application.routes.draw do
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  
+
   # Sample resource route with options:
   #   resources :products do
   #     member do
@@ -110,7 +111,7 @@ SunServer::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
-  
+
   mathjax 'mathjax'
-  
+
 end

@@ -30,4 +30,7 @@ SunServer::Application.configure do
   
   # Used for gem 'devise', authentication 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  Paperclip.options[:command_path] = "/usr/bin/"
 end
+

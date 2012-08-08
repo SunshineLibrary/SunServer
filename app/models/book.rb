@@ -151,6 +151,12 @@ class Book < ActiveRecord::Base
     resDic
   end
 
+  def as_json(options = {})
+    json = super(options)
+    json[:author] = author
+    json
+  end
+
   private
   def Book.findPostfixSpliter(spliter, s)
     spliter.each do |sr|

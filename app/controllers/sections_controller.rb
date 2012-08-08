@@ -1,5 +1,14 @@
 class SectionsController < ApplicationController
 
+  def index
+    @sections = Section.all
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @sections }
+    end
+  end
+
   # GET /sections/1
   # GET /sections/1.json
   def show
