@@ -254,6 +254,10 @@ ActiveRecord::Schema.define(:version => 20120808023929) do
     t.string   "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "providers", :force => true do |t|

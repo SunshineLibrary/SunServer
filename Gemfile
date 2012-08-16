@@ -8,7 +8,7 @@ gem 'rails', '3.1.0'
 #
 
 # Gems used for styling html pages
-gem 'paperclip', '~> 3.0'
+gem 'paperclip'
 gem 'jquery-rails'
 gem 'therubyracer'
 gem 'haml'
