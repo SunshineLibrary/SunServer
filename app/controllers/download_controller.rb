@@ -11,6 +11,16 @@ class DownloadController <  ApplicationController
     download_path
   end
   
+  def book_collections_thumb
+    book_collection = BookCollection.find(params[:id])
+    @path = nil
+    if book_collection.books.count > 0
+      book = book_collection.books.first
+      @path = book.cover_m.url
+    end
+    download_path
+  end
+  
   def apks
     apk = Apk.find(params[:id])
     @path = apk.file.url
