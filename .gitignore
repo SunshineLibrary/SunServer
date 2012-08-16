@@ -11,3 +11,4 @@ public/system
 .metadata/
 Vagrantfile
 .vagrant
+/config/database.yml

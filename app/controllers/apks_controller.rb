@@ -82,4 +82,9 @@ class ApksController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  #POST /apks/update
+  def update
+    package_string = params[:packages]
+  end
 end

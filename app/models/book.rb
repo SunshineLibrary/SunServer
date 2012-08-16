@@ -168,4 +168,8 @@ class Book < ActiveRecord::Base
       return sr if s.end_with? sr
     end
   end
+  
+  def Book.sequence_after(timestamp, limit)
+    return ApiModelHelper.sequence_after(Book, timestamp, limit)
+  end
 end
