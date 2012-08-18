@@ -10,8 +10,8 @@ class Video < ActiveRecord::Base
   validates :title, :presence => true
   
   def video_collection
-    if video_collection_id and VideoCollection.find(video_collection_id)
-      VideoCollection.find(video_collection_id).title
+    if video_collection_id and VideoCollection.find_by_id(video_collection_id)
+      VideoCollection.find_by_id(video_collection_id).title
     else
       "No collection yet"
     end      

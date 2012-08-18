@@ -59,7 +59,7 @@ class Book < ActiveRecord::Base
     if book_collection_id.nil?
       return "Doesn't belong to any"
     end
-    if res = BookCollection.find(book_collection_id)
+    if res = BookCollection.find_by_id(book_collection_id)
       res.title
     else
       "Doesn't belong to any"
@@ -78,7 +78,7 @@ class Book < ActiveRecord::Base
     if provider_id.nil?
       return 'Miss'
     end
-    if res = Provider.find(provider_id)
+    if res = Provider.find_by_id(provider_id)
       res.name
     else
       'Miss'
