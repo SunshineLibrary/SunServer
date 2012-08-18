@@ -8,6 +8,7 @@
 <table class="table table-striped">
   <tr>
     <th>Version</th>
+    <th>Code</th>
     <th>Name</th>
     <th>Description</th>
     <th></th>
@@ -18,6 +19,7 @@
 <% @apks.each do |apk| %>
   <%next if apk.destroyed?%>
   <tr>
+    <td><%= apk.version_name %></td>
     <td><%= apk.version %></td>
     <td><%= apk.name %></td>
     <td><%= apk.description %></td>

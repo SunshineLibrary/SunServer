@@ -1,9 +1,11 @@
 class ApksController < ApplicationController
+  protect_from_forgery :except => :get_updates
+
   # GET /apks
   # GET /apks.json
   def index
     timestamp, limit = ApiModelHelper.parse_params(params)
-    @apks = ApiModelHelper.sequence_after(Apk, timestamp, limit)    
+    @apks = ApiModelHelper.sequence_after(Apk, timestamp, limit)
 
     respond_to do |format|
       format.html { @apks = Apk.all }# index.html.erb
@@ -82,9 +84,21 @@ class ApksController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   #POST /apks/update
-  def update
-    package_string = params[:packages]
+  def get_updates
+    latest = Apk.latest
+    pkgs_json = JSON(params[:packages])
+    pending = []
+    installed = {}
+    pkgs_json.each do |pkg_json|
+      installed[pkg_json["name"]] = pkg_json["version"]
+    end
+    latest.each do |package|
+      if installed[package.name].to_i < package.version
+        pending << package
+      end
+    end
+    render json: pending
   end
 end

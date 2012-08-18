@@ -1,7 +1,10 @@
 SunServer::Application.routes.draw do
 
-  match 'apks/update' => 'apks#update', :via => :post
-  resources :apks
+  resources :apks do
+    collection do
+      post 'get_updates'
+    end
+  end
 
   resources :schools
   resources :classrooms
