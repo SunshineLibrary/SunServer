@@ -31,14 +31,15 @@
 		</div>
 	</div>
 	
-	<% my_tag_ids = @book.tag_ids%>
+	<% my_tag_ids = @book.tag_ids%>	
 	<% Tag.type_list.each do |type|%>
 		<div class="control-group">
 			<label class="control-label">
+				<%="无类型" if type.nil? %>
 				<%=type%>				
-			</label>
+			</label>			
 			<div class="controls" id="tag_controls">
-				<% Tag.where(tag_type: type).each do |tag|%>
+				<% Tag.valid_tags(type).each do |tag|%>
 				<%= check_box_tag 'tag_ids[]', tag.id, my_tag_ids.include?(tag.id)%>
 				<%= tag.name%>
 				<% end%>

@@ -9,6 +9,7 @@
   </tr>
 
 <% @tags.each do |tag| %>
+  <% next if tag.destroyed?%>
   <tr>
     <td><%= tag.name %></td>
     <td><%= tag.tag_type%></td>
