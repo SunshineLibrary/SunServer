@@ -4,7 +4,7 @@ class BooksController < ApplicationController
   def index
     timestamp, limit = ApiModelHelper.parse_params(params)
     @books = ApiModelHelper.sequence_after(Book, timestamp, limit)    
-         
+
     respond_to do |format|
       format.html { @books = Book.all }# index.html.erb
       format.json { render json: @books }

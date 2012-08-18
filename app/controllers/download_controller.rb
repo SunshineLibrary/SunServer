@@ -10,7 +10,7 @@ class DownloadController <  ApplicationController
     @path = book.cover_m.url
     download_path
   end
-  
+
   def book_collections_thumb
     book_collection = BookCollection.find(params[:id])
     @path = nil
@@ -20,7 +20,7 @@ class DownloadController <  ApplicationController
     end
     download_path
   end
-  
+
   def apks
     apk = Apk.find(params[:id])
     @path = apk.file.url

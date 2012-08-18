@@ -3,7 +3,7 @@
 class VideoActivitiesController < ApplicationController
 
   # GET /video_activities/1/edit
-  def edit    
+  def edit
     @video_activity = VideoActivity.find_by_id(params[:id])
     @section_id = params[:section_id]
   end
@@ -27,13 +27,13 @@ class VideoActivitiesController < ApplicationController
 
   # PUT /video_activities/1
   # PUT /video_activities/1.json
-  def update    
+  def update
     @video_activity = VideoActivity.find_by_id(params[:id])
-    
+
     attr = params[:video_activity]
     section_id = attr[:section_id]
-    attr.delete(:section_id)    
-    
+    attr.delete(:section_id)
+
     respond_to do |format|
       if @video_activity.update_attributes(attr)
         format.html { redirect_to Section.find_by_id(section_id), notice: 'Video activity was successfully updated.' }
