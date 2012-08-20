@@ -4,20 +4,31 @@ class DownloadController <  ApplicationController
     @path = book.epub_file.url
     download_path
   end
-
+  
+  DEFAULT_BOOKS_THUMB = "\default\default_books_thumb.jpg"
+  
   def books_thumb
     book = Book.find(params[:id])
-    @path = book.cover_m.url
+    if book.cover_m? 
+      @path = book.cover_m.url
+    else
+      @path = DEFAULT_BOOKS_THUMB
+    end
+                  
     download_path
   end
 
   def book_collections_thumb
     book_collection = BookCollection.find(params[:id])
-    @path = nil
+    @path = DEFAULT_BOOKS_THUMB
+    
     if book_collection.books.count > 0
       book = book_collection.books.first
-      @path = book.cover_m.url
+      if book.cover_m? 
+        @path = book.cover_m.url      
+      end
     end
+    
     download_path
   end
 
