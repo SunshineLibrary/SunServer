@@ -5,7 +5,7 @@ class DownloadController <  ApplicationController
     download_path
   end
   
-  DEFAULT_BOOKS_THUMB = "\default\default_books_thumb.jpg"
+  DEFAULT_BOOKS_THUMB = "/default/default_books_thumb.jpg"
   
   def books_thumb
     book = Book.find(params[:id])
