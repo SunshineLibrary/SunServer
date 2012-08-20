@@ -6,7 +6,7 @@ class DownloadController <  ApplicationController
   end
   
   DEFAULT_BOOKS_THUMB = "/default/default_books_thumb.jpg"
-  DEFAULT_ACTIVITIES_THUMB = "/default/default_activities_thumb.jpg"
+  DEFAULT_ACTIVITIES_THUMB = "/default/default_activities_thumb.png"
   
   def books_thumb
     book = Book.find(params[:id])
