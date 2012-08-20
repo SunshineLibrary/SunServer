@@ -6,6 +6,7 @@ class DownloadController <  ApplicationController
   end
   
   DEFAULT_BOOKS_THUMB = "/default/default_books_thumb.jpg"
+  DEFAULT_ACTIVITIES_THUMB = "/default/default_activities_thumb.jpg"
   
   def books_thumb
     book = Book.find(params[:id])
@@ -46,7 +47,12 @@ class DownloadController <  ApplicationController
 
   def activities_thumb
     activity = Activity.find(params[:id])
-    @path = activity.thumbnail.url
+    if activity.thumbnail?
+      @path = activity.thumbnail.url
+    else
+      @path = DEFAULT_ACTIVITIES_THUMB
+    end
+    
     download_path
   end
 
