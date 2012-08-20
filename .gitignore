@@ -13,3 +13,4 @@ public/system
 Vagrantfile
 .vagrant
 /config/database.yml
+/db/files/video2.mp4

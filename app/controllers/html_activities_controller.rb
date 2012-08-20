@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class HtmlActivitiesController < ApplicationController
   # GET /html_activities
   # GET /html_activities.json
@@ -41,11 +42,12 @@ class HtmlActivitiesController < ApplicationController
   # POST /html_activities.json
   def create 
     @html_activity = HtmlActivity.new(params[:html_activity])
-    @html_activity.sections << Section.find(params[:section_id])
+    section = Section.find_by_id(params[:section_id])
 
     respond_to do |format|
       if (@html_activity.save)
-        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Html activity was successfully created.' }
+        SectionComponent.create(section_id: section.id, activity_id: @html_activity.id, seq: section.activities.size)
+        format.html { redirect_to edit_html_activity_path(@html_activity, :section_id => section.id), notice: '成功创建环节' }
         format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
       else
         format.html { render action: "new" }
@@ -58,10 +60,14 @@ class HtmlActivitiesController < ApplicationController
   # PUT /html_activities/1.json
   def update
     @html_activity = HtmlActivity.find(params[:id])
+    
+    attr = params[:html_activity]
+    section_id = attr[:section_id]
+    attr.delete(:section_id) 
 
     respond_to do |format|
       if @html_activity.update_attributes(params[:html_activity])
-        format.html { redirect_to Section.find(params[:section_id]), notice: 'Html activity was successfully updated.' }
+        format.html { redirect_to Section.find(section_id), notice: 'Html activity was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -77,7 +83,7 @@ class HtmlActivitiesController < ApplicationController
     @html_activity.destroy
 
     respond_to do |format|
-      format.html { redirect_to html_activities_url }
+      format.html { redirect_to :back }
       format.json { head :ok }
     end
   end
