@@ -6,11 +6,33 @@ SunServer::Application.routes.draw do
     end
   end
 
+  resources :api do
+    collection do
+      get 'courses'
+      get 'chapters'
+      get 'lessons'
+      get 'sections'
+
+      get 'activites'
+      get 'gallery_images'
+      get 'quiz_components'
+      get 'section_components'
+      get 'problems'
+      get 'problem_choices'
+
+      get 'authors'
+      get 'books'
+      get 'book_collections'
+      get 'tags'
+      get 'books_tags'
+      get 'book_collections_tags'
+    end
+  end
+
   resources :schools
   resources :classrooms
   devise_for :admins
   devise_for :users
-  resources :api
   resources :providers
 
   match 'subjects/overview/:id'  => 'subjects#overview'

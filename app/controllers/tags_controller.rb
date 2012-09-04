@@ -2,11 +2,10 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
-    timestamp, limit = ApiModelHelper.parse_params(params)
-    @tags = ApiModelHelper.sequence_after(Tag, timestamp, limit)    
+    @tags = Tag.all
 
     respond_to do |format|
-      format.html { @tags = Tag.all }# index.html.erb
+      format.html # index.html.erb
       format.json { render json: @tags }
     end
   end

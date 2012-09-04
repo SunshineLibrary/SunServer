@@ -4,11 +4,10 @@ class ApksController < ApplicationController
   # GET /apks
   # GET /apks.json
   def index
-    timestamp, limit = ApiModelHelper.parse_params(params)
-    @apks = ApiModelHelper.sequence_after(Apk, timestamp, limit)
+    @apks = Apk.all
 
     respond_to do |format|
-      format.html { @apks = Apk.all }# index.html.erb
+      format.html # index.html.erb
       format.json { render json: @apks }
     end
   end

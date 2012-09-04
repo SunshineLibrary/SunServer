@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120816084349) do
+ActiveRecord::Schema.define(:version => 20120904083034) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -50,13 +50,6 @@ ActiveRecord::Schema.define(:version => 20120816084349) do
 
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
-
-  create_table "apis", :force => true do |t|
-    t.string   "table_name"
-    t.string   "api_path"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "apks", :force => true do |t|
     t.string   "name"
