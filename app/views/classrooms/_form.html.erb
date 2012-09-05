@@ -1,4 +1,4 @@
-<%= form_for(@classroom) do |f| %>
+<%= form_for @classroom, :html => {:class => "form-horizontal"} do |f| %>
   <% if @classroom.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@classroom.errors.count, "error") %> prohibited this classroom from being saved:</h2>
@@ -11,19 +11,32 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :school_id %><br />
-    <%= f.number_field :school_id %>
-  </div>
-  <div class="field">
-    <%= f.label :class_of %><br />
-    <%= f.number_field :class_of %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <fieldset>
+    <div class="control-group">
+      <%= f.label :school_id, "学校", :class => "control-label" %> 
+      <div class="controls">
+        <% if current_admin.is_global %>
+          <%= f.select :school_id, School.list_all, :selected => @school.id, :html => {:class => "input-xlarge"} %>
+        <% else %>
+          <%= f.select :school_id, [[current_admin.school.name, current_admin.school.id]], :class => "input-xlarge"%>
+        <% end %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :class_of, "年级", :class => "control-label" %> 
+      <div class="controls">
+        <%= f.select :class_of, Classroom.all_grades, :class => "input-xlarge"%>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :class_order, "班级", :class => "control-label" %> 
+      <div class="controls">
+        <%= f.select :class_order, Classroom.all_orders, :class => "input-xlarge"%>
+      </div>
+    </div>
+    <div class="form-actions">
+      <%= f.submit "创建", :class => "btn btn-primary" %>
+    </div>
+  </fieldset>
+
 <% end %>

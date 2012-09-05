@@ -1,35 +1,122 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @gallery_activity.name %>
-</p>
+<div class="page-header">
+  <h1>相册
+    <%= best_in_place @gallery_activity, :name, :type => :input %>
+    <span class="label"><%= Activity.type_to_name('gallery') %></span>
+  </h1>
+</div>
 
-<p>
-  <b>Activity:</b>
-  <%= @gallery_activity.activity_id %>
-</p>
+<p><span class="label label-info">提示</span> 暂时不支持调整图片顺序</p>
 
-<p>
-  <b>Provider:</b>
-  <%= @gallery_activity.provider_id %>
-</p>
+<%= form_for @gallery_activity, :class => "form-horizontal" do |f| %>
+  <fieldset>
+  
+  <div id="all-images">
+    <br/>
+    <div class="page-header">
+      <h3>图片列表</h3>
+    </div>
+    <div id="image-list">
+    <%= f.fields_for :images do |builder| %>
+      <%= render "image_fields", :f => builder %>
+    <% end %>
+    <%= link_to_add_problem_choice "添加图片", f %>
+    </div>
+  <% end %>
+  <span style="display: none"><%= text_field_tag :quiz_activity_id, @quiz_activity.id %></span>
+  <span style="display: none"><%= text_field_tag :section_id, @section_id %></span>
+  
+  <div class="form-actions">
+    <%= submit_tag "保存", :class => 'btn btn-primary' %>
+    <%= link_to "取消", quiz_activity_path(@quiz_activity, :section_id => @section_id), :class => 'btn'  %>
+  </div>
+  
+  
+  
+  
+  <div class="controls">
+    <%= image_tag @problem.image.url if @problem.image? %>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :image, "附图 (例如几何图形)", :class=>"control-label" %>
+    <div class="controls">    
+      <%= f.file_field :image, :class => "input-xlarge" %>      
+    </div>
+  </div>
+  
+  
+  
+  <div class="control-group">
+    <div id="answer" class="input-prepend">
+      <span class="add-on">答案</span>
+      <%= f.text_field :answer, :class => "span1" -%>
+      <span class="help-inline">选择题填写选项（不区分大小写），填空题直接填写答案</span>
+    </div>
+  </div>
+  
+  <% if @problem.is_mc or @problem.is_mamc %>
+  <div id="all-choices">
+    <br/>
+    <div class="page-header">
+      <h3>选择题所有选项</h3>
+    </div>
+    <div id="choice-list">
+    <%= f.fields_for :problem_choices do |builder| %>
+      <%= render "problem_choice_fields", :f => builder %>
+    <% end %>
+    <%= link_to_add_problem_choice "添加选项", f %>
+    </div>
+  <% end %>
+  <span style="display: none"><%= text_field_tag :quiz_activity_id, @quiz_activity.id %></span>
+  <span style="display: none"><%= text_field_tag :section_id, @section_id %></span>
+  
+  <div class="form-actions">
+    <%= submit_tag "保存", :class => 'btn btn-primary' %>
+    <%= link_to "取消", quiz_activity_path(@quiz_activity, :section_id => @section_id), :class => 'btn'  %>
+  </div>
+  
+  </fieldset>
+<% end %>
 
-<p>
-  <b>File path:</b>
-  <%= @gallery_activity.file_path %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @gallery_activity.description %>
-</p>
-
-<p>
-  <b>Notes:</b>
-  <%= @gallery_activity.notes %>
-</p>
 
 
-<%= link_to 'Edit', edit_gallery_activity_path(@gallery_activity) %> |
-<%= link_to 'Back', gallery_activities_path %>
+
+<script type="text/x-mathjax-config;executed=true">
+  MathJax.Hub.Config({
+  extensions: ["asciimath2jax.js"],
+  jax: ["input/AsciiMath","output/HTML-CSS"],
+  tex2jax: {inlineMath: [["`","`"]]}
+  });
+</script>
+<%= mathjax_tag :config => 'AM_HTMLorMML-full.js' %>
+
+<script type="text/javascript">
+  $("#problem-body-input").on("keyup", function() {
+    var formulaInput = $(this).val();
+    $('#problem-body-preview').text(formulaInput);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, $('#problem-body-preview').val]);
+  });
+  
+  function bind_preview_to_problem_choice(e) {
+    var formulaInput = $(e).val();
+    var temp = $(e).parent().next().children().first();
+    temp.text(formulaInput);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, temp.val]);
+  };
+  
+  $(".problem_choice_body_field").on("keyup", function() {
+    bind_preview_to_problem_choice(this);
+  });
+  
+  function add_problem_choice_fields(link, content) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("new_problem_choice", "g")
+    $("#add_problem_choice_link").before(content.replace(regexp, new_id));
+    $(".problem_choice_body_field").on("keyup", function() {
+      bind_preview_to_problem_choice(this);
+    });
+  };
+</script>
+

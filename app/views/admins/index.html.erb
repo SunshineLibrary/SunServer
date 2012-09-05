@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<div class="page-header">
+  <h1>管理员列表</h1>
+</div>
+
+<table class="table table-striped">
+  <tr>
+    <th class="span3">姓名</th>
+    <th class="span3">学校</th>
+    <th class="span1">是否可以跨学校？</th>
+    <th class="span1">是否能够管理其它老师？</th>
+    <th class="span1">是否是超级管理员？</th>
+    <th class="span3"></th>
+  </tr>
+  
+<% @admins.each do |a| %>
+  <tr>
+    <td><%=a.name %></td>
+    <td><%=a.school.name %></td>
+    <td><%=a.print_permission(:is_global) %></td>
+    <td><%=a.print_permission(:is_manager) %></td>
+    <td><%=a.print_permission(:is_super) %></td>
+    <td><%= link_to_check '查看', c %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to_add '添加管理员', new_admin_path(:school_id => @school.id) %>

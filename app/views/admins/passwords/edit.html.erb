@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h1>修改密码</h1>
+</div>
+
+<%= form_for @admin, :action => :update_password, :html => {:class => "form-horizontal"} do |f| %>
+
+  <fieldset>
+    <div class="control-group">
+      <%= f.label :password, "新密码", :class => "control-label" %> 
+      <div class="controls">
+        <%= f.password_field :password, :class => "input-xlarge"%>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :password_confirmation, "请再输入一次", :class => "control-label" %> 
+      <div class="controls">
+        <%= f.password_field :password_confirmation, :class => "input-xlarge"%>
+        <%= f.submit "确认修改", :class => "btn btn-primary" %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

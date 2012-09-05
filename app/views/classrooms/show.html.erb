@@ -1,20 +1,49 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @classroom.name %>
-</p>
+<div class="page-header">
+  <h1>
+    <%=@classroom.class_name %>
+    <span class="label"><%= Classroom.zh_name %></span>
+  </h1>
+</div>
 
-<p>
-  <b>School:</b>
-  <%= @classroom.school_id %>
-</p>
+<div class="row">
+  <div class="span6">
+    <dl class="dl-horizontal">
+      <dt>系统编号</dt>
+      <dd><%= @classroom.id %></dd>
+      <dt>所属学校</dt>
+      <dd><%= @classroom.school.name %></dd>
+      <dt>年级</dt>
+      <dd><%= @classroom.grade_name %></dd>
+      <dt>班级</dt>
+      <dd><%= @classroom.order_name %></dd>
+    </dl>
+  </div>
+</div>
 
-<p>
-  <b>Class of:</b>
-  <%= @classroom.class_of %>
-</p>
+<br/>
+<br/>
+<br/>
 
+<h3>学生列表</h3>
 
-<%= link_to 'Edit', edit_classroom_path(@classroom) %> |
-<%= link_to 'Back', classrooms_path %>
+<table class="table table-striped">
+  <tr>
+    <th class="span4">姓名</th>
+    <th class="span4">生日</th>
+    <th class="span2"></th>
+    <th class="span2"></th>
+  </tr>
+  
+<% @classroom.users.each do |u| %>
+  <tr>
+    <td><%= u.name %></td>
+    <td><%= u.birthday %></td>
+    <td><%= link_to_check '查看', u %></td>
+    <td><%= link_to_delete '删除', u, confirm: '确定要删除此学生吗？', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to_add '添加学生', new_user_path(:classroom_id => @classroom.id) %>

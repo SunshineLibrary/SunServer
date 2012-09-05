@@ -1,4 +1,5 @@
-<%= form_for(@school) do |f| %>
+<%= form_for @school, :html => {:class => "form-horizontal"} do |f| %>
+
   <% if @school.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@school.errors.count, "error") %> prohibited this school from being saved:</h2>
@@ -11,15 +12,23 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :location %><br />
-    <%= f.text_field :location %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <fieldset>
+    <div class="control-group">
+      <%= f.label :name, "名称", :class => "control-label" %> 
+      <div class="controls">
+        <%= f.text_field :name, :class => "input-xlarge"%>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :location, "地址", :class => "control-label" %> 
+      <div class="controls">
+        <%= f.text_field :location, :class => "input-xlarge"%>
+      </div>
+    </div>
+    <div class="form-actions">
+      <%= f.submit "创建", :class => "btn btn-primary" %>
+    </div>
+  </fieldset>
+  
 <% end %>
+

@@ -1,14 +1,5 @@
+# encoding: UTF-8
 class ClassroomsController < ApplicationController
-  # GET /classrooms
-  # GET /classrooms.json
-  def index
-    @classrooms = Classroom.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @classrooms }
-    end
-  end
 
   # GET /classrooms/1
   # GET /classrooms/1.json
@@ -25,6 +16,7 @@ class ClassroomsController < ApplicationController
   # GET /classrooms/new.json
   def new
     @classroom = Classroom.new
+    @school = School.find_by_id(params[:school_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,11 +32,12 @@ class ClassroomsController < ApplicationController
   # POST /classrooms
   # POST /classrooms.json
   def create
+    Classroom.prepare_params(params[:classroom])
     @classroom = Classroom.new(params[:classroom])
 
     respond_to do |format|
       if @classroom.save
-        format.html { redirect_to @classroom, notice: 'Classroom was successfully created.' }
+        format.html { redirect_to @classroom, notice: '成功创建班级' }
         format.json { render json: @classroom, status: :created, location: @classroom }
       else
         format.html { render action: "new" }
@@ -57,10 +50,11 @@ class ClassroomsController < ApplicationController
   # PUT /classrooms/1.json
   def update
     @classroom = Classroom.find(params[:id])
+    Classroom.prepare_params(params[:classroom])
 
     respond_to do |format|
       if @classroom.update_attributes(params[:classroom])
-        format.html { redirect_to @classroom, notice: 'Classroom was successfully updated.' }
+        format.html { redirect_to @classroom, notice: '已更新班级信息' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -72,11 +66,12 @@ class ClassroomsController < ApplicationController
   # DELETE /classrooms/1
   # DELETE /classrooms/1.json
   def destroy
-    @classroom = Classroom.find(params[:id])
+    @school = School.find_by_id(params[:school_id])
+    @classroom = Classroom.find_by_id(params[:id])
     @classroom.destroy
 
     respond_to do |format|
-      format.html { redirect_to classrooms_url }
+      format.html { redirect_to school_path(@school) }
       format.json { head :ok }
     end
   end

@@ -34,35 +34,48 @@
       <div class="container nav-collapse">
       	<ul class="nav">	
       		<li><%= link_to '科目总览', :controller => "/subjects", :action => "all_subject"%></li>
-      		<li><%= link_to '书籍', books_path%></li>
-      		<li><%= link_to '书籍合集', book_collections_path%></li>
-      		<li><%= link_to '作者', authors_path%></li>
-      		<li><%= link_to '标签', tags_path%></li>
-      		<li><%= link_to '供应商', providers_path%></li>	
-      		<li><%= link_to '视频合集', video_collections_path%></li>
-      		<li><%= link_to '音频合集', audio_collections_path%></li>
-      		<li><%= link_to 'APK', apks_path%></li>
+      		<li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">课外资源<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to '书籍', books_path%></li>
+              <li><%= link_to '书籍合集', book_collections_path%></li>
+              <li><%= link_to '作者', authors_path%></li>
+              <li class="divider"></li>
+              <li><%= link_to '视频合集', video_collections_path%></li>
+              <li class="divider"></li>
+              <li><%= link_to '音频合集', audio_collections_path%></li>
+              <li class="divider"></li>
+              <li><%= link_to '标签', tags_path%></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">其它<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to '提供者', providers_path%></li>
+            </ul>
+          </li>
+
+      		<% if admin_signed_in? and current_admin.is_super %>
+        		<li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">管理选项<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to '用户列表', users_path %></li>
+                <li><%= link_to '管理员列表', admins_path %></li>
+                <li><%= link_to '学校列表', schools_path%></li>
+                <li><%= link_to 'APK列表', apks_path%></li>
+              </ul>
+            </li>
+      		<% end %>
       	</ul>
       	
       	<ul class="nav pull-right">
-      		<% if user_signed_in?%>
-      		  <li><a>用户<%= current_user.name %>, 欢迎您</a></li>
-      		  <li><%= link_to "登出", destroy_user_session_path, :method => :delete %></li>
-      	    <% else %>
-      	      <% if !(admin_signed_in?) %>
-      	      <li><%= link_to "注册", new_user_registration_path %></li>
-      	      <li><%= link_to "登陆用户", new_user_session_path %></li>
-      	      <% end %>
-      	    <% end %>
-      	  
-      	    <% if admin_signed_in?%>
-      		  <li><a>管理员<%= current_admin.name %>, 欢迎您</a></li>
-      	      <li><%= link_to "登出", destroy_admin_session_path, :method => :delete %></li>
-      	    <% else %>
-      	      <% if !(user_signed_in?) %>
-      	      <li><%= link_to "以管理员身份登陆", new_admin_session_path %></li>
-      	      <% end %>
-      	    <% end %>
+          <% if admin_signed_in? %>
+            <li><%= link_to current_admin.name, current_admin %></li>
+            <li><%= link_to "登出", destroy_admin_session_path, :method => :delete %></li>
+          <% else %>
+            <li><%= link_to "登录", new_admin_session_path %></li>
+            <li><%= link_to "注册", new_admin_registration_path %></li>
+      	  <% end %>
       	</ul>
       </div>
       

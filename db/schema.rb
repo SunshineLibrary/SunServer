@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904083034) do
+ActiveRecord::Schema.define(:version => 20120904153459) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -32,10 +32,9 @@ ActiveRecord::Schema.define(:version => 20120904083034) do
   end
 
   create_table "admins", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "name"
-    t.string   "organization"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -46,10 +45,16 @@ ActiveRecord::Schema.define(:version => 20120904083034) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "username",               :default => "",    :null => false
+    t.integer  "school_id"
+    t.integer  "admin_type",             :default => 1
+    t.boolean  "is_global",              :default => false, :null => false
+    t.boolean  "is_manager",             :default => false, :null => false
+    t.boolean  "is_super",               :default => false, :null => false
   end
 
-  add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
+  add_index "admins", ["username"], :name => "index_admins_on_username", :unique => true
 
   create_table "apks", :force => true do |t|
     t.string   "name"
@@ -248,6 +253,10 @@ ActiveRecord::Schema.define(:version => 20120904083034) do
     t.string   "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "providers", :force => true do |t|

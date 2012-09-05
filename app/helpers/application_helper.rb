@@ -16,7 +16,7 @@ module ApplicationHelper
   end
   
   def link_to_edit(name, path, options={})
-    default_options = { :class => "btn btn-primary" }
+    default_options = { :class => "btn btn-info" }
     link_to path, options.merge(default_options) do
       content_tag(:i, "", :class => "icon-pencil icon-white") + " " + name
     end

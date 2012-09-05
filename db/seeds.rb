@@ -109,3 +109,6 @@ apk.parse_info
 
 apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "Browser.apk")), description: "尊贵的浏览器"
 apk.parse_info
+
+MachineType.create size: "800*480", version: "7寸晓书"
+MachineType.create size: "1024*768", version: "8寸晓书"

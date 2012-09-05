@@ -32,7 +32,15 @@ SunServer::Application.routes.draw do
   resources :schools
   resources :classrooms
   devise_for :admins
-  devise_for :users
+  scope "/super" do
+    resources :admins do
+      member do
+        get 'change_password'
+      end
+    end
+  end
+  resources :users
+  resources :api
   resources :providers
 
   match 'subjects/overview/:id'  => 'subjects#overview'

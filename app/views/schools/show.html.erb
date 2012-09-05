@@ -1,15 +1,45 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @school.name %>
-</p>
+<div class="page-header">
+  <h1>
+    <%=@school.name %>
+    <span class="label"><%= School.zh_name %></span>
+  </h1>
+</div>
 
-<p>
-  <b>Location:</b>
-  <%= @school.location %>
-</p>
+<div class="row">
+  <div class="span6">
+    <dl class="dl-horizontal">
+      <dt>地址</dt>
+      <dd><%= @school.location %></dd>
+      <dt>班级数量</dt>
+      <dd><%= @school.classrooms.count %></dd>
+    </dl>
+  </div>
+</div>
 
+<br/>
+<br/>
+<br/>
 
-<%= link_to 'Edit', edit_school_path(@school) %> |
-<%= link_to 'Back', schools_path %>
+<h3>班级列表</h3>
+
+<table class="table table-striped">
+  <tr>
+    <th class="span4">年级</th>
+    <th class="span4">班级</th>
+    <th class="span2"></th>
+    <th class="span2"></th>
+  </tr>
+  
+<% @school.classrooms.each do |c| %>
+  <tr>
+    <td><%= c.grade_name %></td>
+    <td><%= c.order_name %></td>
+    <td><%= link_to_check '查看', c %></td>
+    <td><%= link_to_delete '删除', c, confirm: '确定要删除此班级吗？', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to_add '创建班级', new_classroom_path(:school_id => @school.id) %>

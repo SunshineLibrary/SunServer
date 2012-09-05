@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<div class="page-header">
+  <h1>
+    <%= @admin.name %>的个人信息
+    <span class="label"><%= Admin.zh_name %></span>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <dl class="dl-horizontal">
+      <dt>用户名</dt>
+      <dd><%= @admin.username %></dd>
+      <dt>姓名</dt>
+      <dd><%= @admin.name %></dd>
+      <dt>所属学校</dt>
+      <dd><%= @admin.school.name %></dd>
+    </dl>
+  </div>
+</div>
+
+<%= link_to_check '修改信息', edit_admin_path(@admin) %>
+
+<%= link_to_edit '修改密码', :action => :change_password, :id => @admin %>
+
+

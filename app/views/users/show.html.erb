@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<div class="page-header">
+  <h1>
+    <%=@user.name %>
+    <span class="label"><%= User.zh_name %></span>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="span6">
+    <dl class="dl-horizontal">
+      <dt>学校</dt>
+      <dd><%= @user.school.name %></dd>
+      <dt>班级</dt>
+      <dd><%= @user.classroom.class_name %></dd>
+      <dt>生日</dt>
+      <dd><%= @user.birthday %></dd>
+      <dt>用户类型</dt>
+      <dd><%= @user.print_type %></dd>
+    </dl>
+  </div>
+</div>
+
+<br/>
+
+<h3>正在使用的晓书</h3>
+<div class="row">
+  <div class="span6">
+  <% if @machine.nil? %>
+    <div>目前没有使用任何晓书</div>
+  <% else %>
+    <dl class="dl-horizontal">
+      <dt>ID</dt>
+      <dd><%= link_to @machine, @machine.unique_id %></dd>
+      <dt>类型</dt>
+      <dd><%= @machine.machine_type.version %></dd>
+    </dl>
+  <% end %>
+  </div>
+</div>
+
+<br/>
+
+<h3>晓书历史登录记录</h3>
+<table class="table table-striped">
+  <tr>
+    <th class="span3">登录日期</th>
+    <th class="span5">晓书ID</th>
+    <th class="span4">登出时间</th>
+  </tr>
+  
+<% @user.machine_signins.each do |ms| %>
+  <tr>
+    <td><%= ms.created_at %></td>
+    <td><%= ms.machine_unique_id %></td>
+    <td><%= ms.signed_out_at %></td>
+  </tr>
+<% end %>
+</table>

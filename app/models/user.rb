@@ -1,11 +1,21 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable,
-         :authentication_keys => [:name, :birthday]         
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :password, :password_confirmation, :remember_me, :name, :birthday, :class, :school, :user_type
+  has_many :machine_sign_ups, :order => "machine_sign_ups.created_at DESC"
+  has_many :machines, :through => :machine_signins, :source => :machine
+  
+  ZN_NAME = "用户"
+    
+  TYPE_TO_NAME = { "student" => "学生", "teacher" => "教师", "staff" => "工作人员" }
+  
+  def self.zh_name
+    ZN_NAME
+  end
+  
+  def print_type
+    TYPE_TO_NAME[self.user_type]
+  end
+  
+  def machine
+    self.machines.first
+  end
+  
 end
