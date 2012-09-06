@@ -12,6 +12,14 @@
   
   <fieldset>
     <div class="control-group">
+      <%= f.label :user_type, "", :class => "control-label" %> 
+      <div class="controls">
+        <%= f.select :class_of, Classroom.all_grades, :class => "input-xlarge"%>
+      </div>
+    </div>
+    
+    
+    <div class="control-group">
       <%= f.label :school_id, "学校", :class => "control-label" %> 
       <div class="controls">
         <% if current_admin.is_global %>

@@ -3,6 +3,7 @@ class School < ActiveRecord::Base
   has_many :classrooms, :conditions  => "classrooms.created_at > '#{Time.at(0)}'"
   has_many :admins, :conditions  => "admins.created_at > '#{Time.at(0)}'"
   has_many :users, :conditions  => "users.created_at > '#{Time.at(0)}'"
+  has_many :school_level_users, :source => :user, :conditions => "NOT users.user_type = 'student'"
   
   ZN_NAME = "学校"
   

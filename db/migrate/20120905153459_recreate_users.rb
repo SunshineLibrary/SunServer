@@ -3,7 +3,7 @@ class RecreateUsers < ActiveRecord::Migration
     drop_table :users
     create_table :users do |t|
       t.string :users, :name
-      t.string :users, :birthday
+      t.date :users, :birthday
       t.integer :users, :classroom_id
       t.integer :users, :school_id
       t.string :users, :user_type

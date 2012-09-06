@@ -18,4 +18,12 @@ class User < ActiveRecord::Base
     self.machines.first
   end
   
+  def self.all_types
+    collection = []
+    TYPE_TO_NAME.each do |t|
+      collection << [t.second, t.first]
+    end
+    collection
+  end
+  
 end

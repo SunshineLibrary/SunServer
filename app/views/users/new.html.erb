@@ -1,5 +1,44 @@
-<h1>New user</h1>
+<p id="notice"><%= notice %></p>
 
-<%= render 'form' %>
+<div class="page-header">
+  <h1>创建新<%=@user.print_type %>用户</h1>
+</div>
 
-<%= link_to 'Back', users_path %>
+<%= form_for @user, :html => {:class => "form-horizontal"} do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <fieldset>
+    <%=hidden_text_field :user_type, @user.user_type %>
+    <% if @user.user_type = "student" %>
+      <%=hidden_text_field :class_id, @user.classroom_id %>
+    <% else if @user.user_type = "teacher" %>
+      <%=hidden_text_field :school_id, @user.school_id %>
+    <% end %>
+    <div class="control-group">
+      <%= f.label :name, "姓名", :class => "control-label" %> 
+      <div class="controls">
+        <%= f.text_field :name, :class => "input-xlarge"%>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :birthday, "生日", :class => "control-label" %> 
+      <div class="controls">
+        <%= f.text_field :birthday, :class => "input-xlarge"%>
+        <span class="help-inline">请按照这样的格式填写“1985.8.15”</span>
+      </div>
+    </div>
+    <div class="form-actions">
+      <%= f.submit "添加", :class => "btn btn-primary" %>
+      <%= link_to "取消", :class => "btn" %>
+    </div>
+  </fieldset>
+<% end %>
