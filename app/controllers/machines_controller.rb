@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class MachinesController < ApplicationController
 
   def index
