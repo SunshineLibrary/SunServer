@@ -1,0 +1,20 @@
+%p#notice= notice
+.page-header
+  %h1
+    科目总揽
+    %small 所有科目
+%table.table.table-striped
+  %tr
+    %th.span2 名称
+    %th.span6
+    %th.span2
+    %th.span2
+  - @subjects.each do |subject|
+    - next if subject.destroyed?
+    %tr
+      %td= best_in_place subject, :name, :type => :input
+      %td
+        = link_to_check "总体结构", :controller => "subjects", :action => "overview", :id => subject
+        %td= link_to_check '查看', subject
+        %td= link_to_delete '删除', subject, confirm: '确定删除此科目吗？', method: :delete
+= link_to_add '创建科目', new_subject_path

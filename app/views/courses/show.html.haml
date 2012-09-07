@@ -1,0 +1,38 @@
+= render :partial => "shared/breadcrumb_curriculum", :locals => { :item => @course }
+%p#notice= notice
+.page-header
+  %h1
+    = @course.name
+    %span.label= Course.zh_name
+.row
+  .span6
+    %dl.dl-horizontal
+      %dt 所属科目
+      %dd= link_to @subject.name, subject_path(@subject)
+      %dt 适用年级
+      %dd= @course.print_grade
+      %dt 适用学期
+      %dd= @course.print_semester
+      %dt 课程类型
+      %dd= @course.print_course_type
+      %dt 课程概述
+      %dd= @course.description
+    = link_to_edit '修改信息', edit_course_path(@course)
+    = link_to_back '返回科目', subject_path(@subject)
+%br/
+%br/
+%br/
+%h3 单元列表
+%table.table.table-striped
+  %tr
+    %th.span3 名称
+    %th.span5 概述
+    %th.span2
+    %th.span2
+  - @course.chapters.each do |c|
+    %tr
+      %td= best_in_place c, :name, :type => :input
+      %td= best_in_place c, :description, :type => :textarea
+      %td= link_to_check '查看', c
+      %td= link_to_delete '删除', c, confirm: '确定要删除此单元吗？', method: :delete
+= link_to_add '创建单元', new_chapter_path(:course_id => @course.id)

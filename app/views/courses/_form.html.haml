@@ -1,0 +1,37 @@
+= form_for @course, :html => {:class => "form-horizontal"} do |f|
+  - if @course.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@course.errors.count, "error")
+        prohibited this course from being saved:
+      %ul
+        - @course.errors.full_messages.each do |msg|
+          %li= msg
+  %fieldset
+    .control-group
+      = f.label :name, "课程名称", :class => "control-label"
+      .controls
+        = f.text_field :name, :class => "input-xlarge"
+    .control-group
+      = f.label :course_type, "课程类型", :class => "control-label"
+      .controls
+        = f.select :course_type, Course.all_types, :class => "input-xlarge"
+    = f.hidden_field :subject_id, :value => params[:subject_id]
+    .control-group
+      = f.label :grade, "年级", :class => "control-label"
+      .controls
+        = f.select :grade, Classroom.all_grades, :class => "input-xlarge"
+    .control-group
+      = f.label :semester, "年级", :class => "control-label"
+      .controls
+        = f.select :semester, Course.all_semesters, :class => "input-xlarge"
+    .control-group
+      = f.label :description, "描述", :class => "control-label"
+      .controls
+        = f.text_area :description, :class => "input-xlarge"
+    .form-actions
+      = f.submit :value => "创建", :class => "btn btn-primary"
+      - if params[:action] == 'new'
+        = link_to '取消', subject_path(params[:subject_id]), :class => "btn"
+      - elsif params[:action] == 'edit'
+        = link_to '取消', @course, :class => "btn"

@@ -9,7 +9,7 @@ class AdminsController < ApplicationController
     if current_admin.is_global
       @admins = Admin.all
     else
-      @admins = current.school.admins
+      @admins = current_admin.school.admins
     end
     
     respond_to do |format|

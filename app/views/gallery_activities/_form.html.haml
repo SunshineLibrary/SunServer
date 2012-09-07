@@ -1,0 +1,22 @@
+#newGalleryActivityForm{:style => "display:none"}
+  - @gallery_activity = GalleryActivity.new
+  = form_for @gallery_activity, :url => {:controller => :gallery_activities, :action => :create, :section_id => section_id }, :html => {:class => "well form-horizontal"} do |f|
+    %fieldset
+      .control-group
+        = f.label :name, "名称", :class => "control-label"
+        .controls
+          = f.text_field :name, :class => "input-xlarge"
+      .control-group
+        = f.label :seq, "顺序", :class => "control-label"
+        .controls
+          = f.text_field :seq, :class => "input-xlarge", :value => activity_size
+      .control-group
+        = f.label :provider_id, "提供方", :class => "control-label"
+        .controls
+          = f.select :provider_id, Provider.list_all, :class => "input-xlarge"
+      .control-group
+        = f.label :notes, "重点笔记", :class => "control-label"
+        .controls
+          = f.text_area :notes, :class => "input-xlarge"
+      .for-actions
+        = f.submit "提交", :class => "btn btn-success"

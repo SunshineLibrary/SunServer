@@ -112,3 +112,8 @@ apk.parse_info
 
 MachineType.create size: "800*480", version: "7寸晓书"
 MachineType.create size: "1024*768", version: "8寸晓书"
+
+School.create name: "四坝九年制学校", location: "甘肃省武威市四坝镇"
+School.create name: "和寨九年制学校", location: "甘肃省武威市永昌镇"
+School.create name: "贺家中学", location: "湖南省衡阳市衡山县贺家乡"
+School.create name: "贺家中心完小", location: "湖南省衡阳市衡山县贺家乡"

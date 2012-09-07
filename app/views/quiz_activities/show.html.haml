@@ -1,0 +1,64 @@
+%p#notice= notice
+.page-header
+  %h1
+    = best_in_place @quiz_activity, :name, :type => :input
+    %span.label= Activity.type_to_name('quiz')
+.row
+  .span6
+    %dl.dl-horizontal
+      %dt 所属小节
+      %dd= link_to @section.name, section_path(@section)
+      %dt 提供方
+      %dd= best_in_place @quiz_activity, :provider_id, :type => :select, :collection => Provider.list_all_in_place
+      %dt 习题数量
+      %dd
+        %span.badge= @quiz_activity.problems.size
+.row
+  .span2
+    = link_to_back '返回小节', section_path(@section)
+%br/
+%br/
+.row
+  %h3.span2 习题列表
+%table.table.table-striped
+  %tr
+    %th.span1
+      %abbr.initialism{:title => "单击后输入数字以改变顺序，刷新后重新排序"} 顺序
+    %th.span1 类型
+    %th.span8 内容
+    %th.span1
+    %th.span1
+  - @quiz_activity.problems.each do |p|
+    %tr
+      %td= best_in_place @quiz_activity.get_quiz_component(p), :seq, :type => :input
+      %td
+        %span.label.label-inverse= p.print_type
+      %td= p.body
+      %td= link_to_check "查看", problem_path(p, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id)
+      %td= link_to_delete "删除", remove_problem_quiz_activity_path(@quiz_activity, :problem_id => p.id, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id), confirm: '确定要删除此习题吗？', method: :post
+= form_for @problem, :html => {:class => "well form-inline"} do |f|
+  = f.label :tipe, "选择习题类型"
+  .btn-group{"data-toggle" => "buttons-radio", "data-toggle-name" => "tipe"}
+    - Problem::TYPE_TO_NAME.each do |t|
+      <button type="button" value=#{t.first} class="btn" data-toggle="button">#{t.second}
+  %input{:name => "tipe", :type => "hidden", :value => "0"}/
+  %span{:style => "display: none"}= text_field_tag :quiz_activity_id, @quiz_activity.id
+  %span{:style => "display: none"}= text_field_tag :section_id, @section.id
+  %br/
+  = f.submit "添加习题", :class => "btn btn-success"
+:javascript
+  $('div.btn-group[data-toggle-name=*]').each(function(){
+    var group   = $(this);
+    var form    = group.parents('form').eq(0);
+    var name    = group.attr('data-toggle-name');
+    var hidden  = $('input[name="' + name + '"]', form);
+    $('button', group).each(function(){
+      var button = $(this);
+      button.live('click', function(){
+          hidden.val($(this).val());
+      });
+      if(button.val() == hidden.val()) {
+        button.addClass('active');
+      }
+    });
+  });

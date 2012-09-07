@@ -1,0 +1,44 @@
+%p#notice= notice
+%p
+  %b 书名:
+  = @book.title
+%p
+  %b Author:
+  = @book.author
+%p
+  %b Intro:
+  = @book.intro
+%p
+  %b Difficulty:
+  = @book.difficulty
+%p
+  %b Isbn:
+  = @book.ISBN
+%p
+  %b File:
+  = (link_to "#{@book.epub_file_file_name}", @book.epub_file.url(:original, false)) if @book.epub_file?
+%p
+  %b Book collection:
+  = @book.book_collection
+%p
+  %b Publication year:
+  = @book.publication_year
+%p
+  %b Publisher:
+  = @book.publisher
+%p
+  %b Cover m path:
+  = (link_to "#{@book.cover_m_file_name}", @book.cover_m.url(:original, false)) if @book.cover_m?
+%p
+  %b Cover s path:
+  = (link_to "#{@book.cover_s_file_name}", @book.cover_s.url(:original, false)) if @book.cover_s?
+%p
+  %b Provider:
+  = @book.provider
+%p
+  %b Tag:
+  = @book.tags.map{|tag| tag.name}.inspect
+%br/
+= link_to 'Edit', edit_book_path(@book)
+|
+\#{link_to 'Back', books_path}

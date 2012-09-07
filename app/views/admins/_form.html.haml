@@ -1,0 +1,43 @@
+= form_for @admin, :html => {:class => "form-horizontal"} do |f|
+  - if @admin.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@admin.errors.count, "error")
+        prohibited this admin from being saved:
+      %ul
+        - @admin.errors.full_messages.each do |msg|
+          %li= msg
+  %fieldset
+    .control-group
+      = f.label :username, "用户名", :class => "control-label"
+      .controls
+        - if current_admin.is_manager
+          = f.text_field :username, :class => "input-xlarge"
+        - else
+          = @admin.username
+    .control-group
+      = f.label :name, "姓名", :class => "control-label"
+      .controls
+        = f.text_field :name, :class => "input-xlarge"
+    .control-group
+      = f.label :school_id, "学校", :class => "control-label"
+      .controls
+        - if current_admin.is_global
+          = f.select :school_id, School.list_all, :class => "input-xlarge"
+        - else
+          = f.select :school_id, [[current_admin.school.name, current_admin.school.id]], :class => "input-xlarge"
+    - if current_admin.is_super
+      .control-group
+        = f.label :is_global, "是否可以跨学校？", :class => "control-label"
+        .controls
+          = f.check_box :is_global, :class => "input-xlarge"
+      .control-group
+        = f.label :is_manager, "是否能够管理其它老师？", :class => "control-label"
+        .controls
+          = f.check_box :is_manager, :class => "input-xlarge"
+      .control-group
+        = f.label :is_super, "是否是超级管理员？", :class => "control-label"
+        .controls
+          = f.check_box :is_super, :class => "input-xlarge"
+    .form-actions
+      = f.submit "确定", :class => "btn btn-primary"

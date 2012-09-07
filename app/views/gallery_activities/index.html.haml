@@ -1,0 +1,25 @@
+%h1 Listing gallery_activities
+%table.table.table-striped
+  %tr
+    %th Name
+    %th Activity
+    %th Provider
+    %th File path
+    %th Description
+    %th Notes
+    %th
+    %th
+    %th
+  - @gallery_activities.each do |gallery_activity|
+    %tr
+      %td= gallery_activity.name
+      %td= gallery_activity.activity_id
+      %td= gallery_activity.provider_id
+      %td= gallery_activity.file_path
+      %td= gallery_activity.description
+      %td= gallery_activity.notes
+      %td= link_to 'Show', gallery_activity
+      %td= link_to 'Edit', edit_gallery_activity_path(gallery_activity)
+      %td= link_to 'Destroy', gallery_activity, confirm: 'Are you sure?', method: :delete
+%br/
+= link_to 'New Gallery activity', new_gallery_activity_path

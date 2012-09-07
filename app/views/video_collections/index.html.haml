@@ -1,0 +1,16 @@
+%h1 视频合集
+%table.table.table-striped
+  %tr
+    %th Title
+    %th Intro
+    %th
+    %th
+  - @video_collections.each do |video_collection|
+    - next if video_collection.destroyed?
+    %tr
+      %td= video_collection.title
+      %td= video_collection.intro
+      %td= link_to 'Edit', edit_video_collection_path(video_collection)
+      %td= link_to 'Destroy', video_collection, confirm: 'Are you sure?', method: :delete
+%br/
+= link_to 'New Video collection', new_video_collection_path

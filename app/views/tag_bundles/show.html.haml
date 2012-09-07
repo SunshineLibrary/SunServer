@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %b Chapter:
+  = @tag_bundle.chapter_id
+%p
+  %b Name:
+  = @tag_bundle.name
+%p
+  %b Tags:
+  = @tag_bundle.tags
+= link_to 'Edit', edit_tag_bundle_path(@tag_bundle)
+|
+\#{link_to 'Back', tag_bundles_path}

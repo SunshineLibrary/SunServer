@@ -1,0 +1,31 @@
+= form_for(@audio) do |f|
+  - if @audio.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@audio.errors.count, "error")
+        prohibited this audio from being saved:
+      %ul
+        - @audio.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :title
+    %br/
+    = f.text_field :title
+  .field
+    = f.label :intro
+    %br/
+    = f.text_field :intro
+  .field
+    - if defined? audio_collection_id
+      = f.hidden_field :audio_collection_id, :value => audio_collection_id
+    - else
+      = f.label :audio_collection_id
+      %br/
+      = f.number_field :audio_collection_id
+  .field
+    = f.label :audio_file
+    = "已上传(#{@audio.audio_file_file_name})" if @audio.audio_file?
+    %br/
+    = f.file_field :audio_file
+  .actions
+    = f.submit

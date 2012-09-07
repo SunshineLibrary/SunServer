@@ -1,0 +1,31 @@
+= render :partial => "shared/breadcrumb_curriculum", :locals => { :item => @section }
+%p#notice
+  = notice
+.page-header
+  %h1
+    = best_in_place @section, :name, :type => :input
+    %span.label 小节
+%dl.dl-horizontal
+  %dt 所属章节
+  %dd= link_to @lesson.name, lesson_path(@lesson)
+  %dt 重点笔记
+  %dd= best_in_place @section, :description, :type => :textarea
+.row
+  .span2
+    = link_to_back '返回章节', lesson_path(@lesson)
+%br/
+%br/
+%br/
+= render 'list_activity_table'
+%br/
+#newActivityForm
+%br/
+%br/
+%br/
+= render 'edge_edit'
+:javascript
+  function insertNewActivityForm(type, order) {
+    $("#newActivityForm").hide();
+    $("#newActivityForm").load("../activities/add_form", {type: type, section_id:  @section.id });
+    $("#newActivityForm").show();
+  };

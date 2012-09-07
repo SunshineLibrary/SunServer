@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %b From:
+  = @edge.from_id
+%p
+  %b To:
+  = @edge.to_id
+%p
+  %b Section:
+  = @edge.section_id
+%p
+  %b Condition:
+  = @edge.condition
+= link_to 'Edit', edit_edge_path(@edge)
+|
+\#{link_to 'Back', edges_path}

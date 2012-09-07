@@ -1,0 +1,25 @@
+%p#notice= notice
+%p
+  %b Name:
+  = @audio_activity.name
+%p
+  %b Activity:
+  = @audio_activity.activity_id
+%p
+  %b Provider:
+  = @audio_activity.provider_id
+%p
+  %b File path:
+  = @audio_activity.file_path
+%p
+  %b Notes:
+  = @audio_activity.notes
+%p
+  %b Duration:
+  = @audio_activity.duration
+%p
+  %b Description:
+  = @audio_activity.description
+= link_to 'Edit', edit_audio_activity_path(@audio_activity)
+|
+\#{link_to 'Back', audio_activities_path}

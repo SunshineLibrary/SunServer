@@ -1,0 +1,25 @@
+#newQuizActivityForm{:style => "display:none"}
+  - @quiz_activity = QuizActivity.new
+  = form_for @quiz_activity, :url => {:controller => :quiz_activities, :action => :create, :section_id => section_id } do |f|
+    - if @quiz_activity.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@quiz_activity.errors.count, "error")
+          prohibited this quiz_activity from being saved:
+        %ul
+          - @quiz_activity.errors.full_messages.each do |msg|
+            %li= msg
+    .field
+      = f.label :name, "环节名称"
+      %br/
+      = f.text_field :name
+    .field
+      = f.label :provider_id, "提供方"
+      %br/
+      = f.select :provider_id, Provider.list_all
+    .field{:style => "display: none"}
+      = f.label :seq
+      %br/
+      = f.text_field :seq, :value => activity_size
+    .actions
+      = f.submit

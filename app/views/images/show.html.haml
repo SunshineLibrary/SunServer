@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %b Title:
+  = @image.title
+%p
+  %b Intro:
+  = @image.intro
+%p
+  %b Gallery activity:
+  = @image.gallery_activity_id
+= link_to 'Edit', edit_image_path(@image)
+|
+\#{link_to 'Back', images_path}

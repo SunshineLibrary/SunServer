@@ -1,0 +1,33 @@
+%p#notice= notice
+.page-header
+  %h1
+    = @classroom.class_name
+    %span.label= Classroom.zh_name
+.row
+  .span6
+    %dl.dl-horizontal
+      %dt 系统编号
+      %dd= @classroom.id
+      %dt 所属学校
+      %dd= @classroom.school.name
+      %dt 年级
+      %dd= @classroom.grade_name
+      %dt 班级
+      %dd= @classroom.order_name
+%br/
+%br/
+%br/
+%h3 学生列表
+%table.table.table-striped
+  %tr
+    %th.span4 姓名
+    %th.span4 生日
+    %th.span2
+    %th.span2
+  - @classroom.users.each do |u|
+    %tr
+      %td= u.name
+      %td= u.birthday
+      %td= link_to_check '查看', u
+      %td= link_to_delete '删除', u, confirm: '确定要删除此学生吗？', method: :delete
+= link_to_add '添加学生', new_user_path(:classroom_id => @classroom.id, :user_type => "student")

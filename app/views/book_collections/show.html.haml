@@ -1,0 +1,17 @@
+%p#notice= notice
+%p
+  %b Title:
+  = @book_collection.title
+%p
+  %b Intro:
+  = @book_collection.intro
+%p
+  %b Cover m:
+  = (link_to "#{@book_collection.cover_m_file_name}", @book_collection.cover_m.url(:original, false)) if @book_collection.cover_m?
+%p
+  %b Cover s:
+  = (link_to "#{@book_collection.cover_s_file_name}", @book_collection.cover_s.url(:original, false)) if @book_collection.cover_s?
+= link_to 'Edit', edit_book_collection_path(@book_collection)
+|
+\#{link_to 'New', new_book_collection_path} |
+\#{link_to 'Back', book_collections_path}

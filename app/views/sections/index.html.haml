@@ -1,0 +1,18 @@
+%h1 Listing sections
+%input.btn.primary{:type => "button", :value => "Click me"}
+  %table.table.table-striped
+    %tr
+      %th Name
+      %th Lesson
+      %th Description
+      %th
+      %th
+    - @sections.each do |section|
+      %tr
+        %td= section.name
+        %td= section.lesson_id
+        %td= section.description
+        %td= link_to 'Show', section
+        %td= link_to 'Destroy', section, confirm: 'Are you sure?', method: :delete
+  %br/
+  = link_to 'New Section', new_section_path

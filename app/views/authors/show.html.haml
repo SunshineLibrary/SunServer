@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %b 姓名：
+  = @author.name
+%p
+  %b 国籍：
+  = @author.nationality
+%p
+  %b 简介：
+  = @author.intro
+= link_to 'Edit', edit_author_path(@author)
+|
+\#{link_to 'Back', authors_path}

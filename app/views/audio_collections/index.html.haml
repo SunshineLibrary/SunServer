@@ -1,0 +1,17 @@
+%h1 音频合集
+%table{:border => "1", :cellpadding => "3", :cellspacing => "0", :style => "text-align: center;"}
+  %tr
+    %th Title
+    %th Intro
+    %th
+    %th
+  - @audio_collections.each do |audio_collection|
+    - next if audio_collection.destroyed?
+    123
+    %tr
+      %td= audio_collection.title
+      %td= audio_collection.intro
+      %td= link_to 'Edit', edit_audio_collection_path(audio_collection)
+      %td= link_to 'Destroy', audio_collection, confirm: 'Are you sure?', method: :delete
+%br/
+= link_to 'New Audio collection', new_audio_collection_path

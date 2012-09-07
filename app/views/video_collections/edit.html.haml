@@ -1,0 +1,23 @@
+%h1 Editing video_collection
+= render 'form'
+%table{:border => "1", :cellpadding => "3", :cellspacing => "0", :style => "text-align: center;"}
+  %tr
+    %th 标题
+    %th 简介
+    %th 上传文件
+    %th
+    %th
+  - @video_collection.videos.each do |video|
+    - unless video.destroyed?
+      %tr
+        %td= video.title
+        %td= video.intro
+        %td= video.video_file_file_name if video.video_file?
+        %th= link_to "编辑", edit_video_path(video)
+        %th= link_to "删除", video, confirm: 'Are you sure?', method: :delete
+%h1 New Video
+- @video = Video.new
+= render :partial => 'videos/form', :locals => {:video_collection_id => @video_collection.id}
+= link_to 'Show', @video_collection
+|
+\#{link_to 'Back', video_collections_path}

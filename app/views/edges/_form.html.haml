@@ -1,0 +1,26 @@
+= form_for(@edge) do |f|
+  - if @edge.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@edge.errors.count, "error")
+        prohibited this edge from being saved:
+      %ul
+        - @edge.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :from_id
+    %br/
+    = f.number_field :from_id
+  .field
+    = f.label :to_id
+    %br/
+    = f.number_field :to_id
+  .field
+    = f.label :condition
+    %br/
+    = f.text_field :condition
+  .field
+    Section:
+    \#{@edge.section_id}
+  .actions
+    = f.submit

@@ -1,0 +1,78 @@
+%h1 Sunshine Library Math Labeler
+%h2 by Henry Shi July 2012
+.display
+  %form
+    %label Your Name:
+    %input#author{:type => "text"}
+      %br
+        %label Date:
+        %input#date{:type => "text"}
+%div
+  %form.controls{:name => "control"}
+    %input{:onClick => "processForm()", :type => "button", :value => "Generate File"}
+      %input{:onClick => "deleteResults()", :type => "button", :value => "Delete All"}
+        %input{:onClick => "addEntry()", :type => "button", :value => "Add Entry"}
+  .display
+    %label{:for => "numberCount"} Number of Entries
+    %input#entryCount{:name => "numberCount", :type => "text", :value => "0"}
+      %input{:onClick => "addMultEntry()", :type => "button", :value => "Create Entries"}
+  .controls
+    / <input type="button" value="Create" onClick="addCategory()">
+    / <a href="index2.html"><input type="button" value="Done" ></a>
+  .category
+    #category
+      %label Category Name
+      %input#categoryName{:type => "text"}
+        %label Option Count
+        %input#categoryCount{:type => "text"}
+          %input{:onClick => "addCatBar()", :type => "button", :value => "Add"}
+            %input{:onClick => "deleteCatBar()", :type => "button", :value => "Redo"}
+              %input{:onClick => "createCat()", :type => "button", :value => "Done"}
+    #catList
+      - TagBundle.all.each do |tag_bundle|
+        %ul
+          %li= tag_bundle.name
+          - tag_bundle.tags.split("~~").each do |tag|
+            %li= tag
+%form#table{:name => "all"}
+/
+  <form name="sunshine">
+  <label for"name">Name:</label>
+  <input type="text" name="name" >
+  
+  <label for"data">Data:</label>
+  <input type="text" name="data" >
+  
+  
+  <label for"data">File:</label>
+  <input type="text" name="data">
+  
+  <select name="typeOfWork">
+  <option value="work" selected>work</option>
+  <option value="play">play</option>
+  </select>
+  
+  
+  </form>
+#knowledgeComponents
+#downloadResults.controls
+%br
+  %h1 Listing tag_bundles
+  %table
+    %tr
+      %th Chapter
+      %th Name
+      %th Tags
+      %th
+      %th
+      %th
+    - @tag_bundles.each do |tag_bundle|
+      %tr
+        %td= tag_bundle.chapter_id
+        %td= tag_bundle.name
+        %td= tag_bundle.tags
+        %td= link_to 'Show', tag_bundle
+        %td= link_to 'Edit', edit_tag_bundle_path(tag_bundle)
+        %td= link_to 'Destroy', tag_bundle, confirm: 'Are you sure?', method: :delete
+  %br/
+  = link_to 'New Tag bundle', new_tag_bundle_path

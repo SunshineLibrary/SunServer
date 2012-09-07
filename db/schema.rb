@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120904153459) do
+ActiveRecord::Schema.define(:version => 20120907153459) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(:version => 20120904153459) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "course_type"
   end
 
   create_table "edges", :force => true do |t|
@@ -232,9 +233,30 @@ ActiveRecord::Schema.define(:version => 20120904153459) do
     t.datetime "updated_at"
   end
 
+  create_table "machine_signins", :force => true do |t|
+    t.integer  "machine_id",                   :null => false
+    t.integer  "user_id",                      :null => false
+    t.integer  "is_valid",      :default => 0, :null => false
+    t.string   "access_token"
+    t.datetime "signed_out_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "machine_signins", ["access_token"], :name => "index_machine_signins_on_access_token", :unique => true
+  add_index "machine_signins", ["machine_id", "user_id"], :name => "index_machine_signins_on_machine_id_and_user_id", :unique => true
+
   create_table "machine_types", :force => true do |t|
     t.string   "size"
     t.string   "version"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "machines", :force => true do |t|
+    t.string   "unique_id",                          :null => false
+    t.string   "machine_type_id",                    :null => false
+    t.boolean  "is_locked",       :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -323,28 +345,17 @@ ActiveRecord::Schema.define(:version => 20120904153459) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
     t.string   "users"
     t.string   "name"
-    t.string   "birthday"
-    t.string   "classroom"
-    t.string   "school"
+    t.date     "birthday"
+    t.integer  "classroom_id"
+    t.integer  "school_id"
     t.string   "user_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["name", "birthday", "classroom_id"], :name => "index_users_on_name_and_birthday_and_classroom_id", :unique => true
 
   create_table "video_collections", :force => true do |t|
     t.string   "title"

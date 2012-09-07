@@ -1,0 +1,40 @@
+%p#notice= notice
+.page-header
+  %h1
+    = @user.name
+    %span.label= User.zh_name
+.row
+  .span6
+    %dl.dl-horizontal
+      %dt 学校
+      %dd= @user.school.name
+      %dt 班级
+      %dd= @user.classroom.class_name
+      %dt 生日
+      %dd= @user.birthday
+      %dt 用户类型
+      %dd= @user.print_type
+%br/
+%h3 正在使用的晓书
+.row
+  .span6
+    - if @machine.nil?
+      %div 目前没有使用任何晓书
+    - else
+      %dl.dl-horizontal
+        %dt ID
+        %dd= link_to @machine, @machine.unique_id
+        %dt 类型
+        %dd= @machine.machine_type.version
+%br/
+%h3 晓书历史登录记录
+%table.table.table-striped
+  %tr
+    %th.span3 登录日期
+    %th.span5 晓书ID
+    %th.span4 登出时间
+  - @user.machine_signins.each do |ms|
+    %tr
+      %td= ms.created_at
+      %td= ms.machine_unique_id
+      %td= ms.signed_out_at

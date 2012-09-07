@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %b Version:
+  = @apk.version_name
+%p
+  %b Code:
+  = @apk.version
+%p
+  %b Name:
+  = @apk.name
+%p
+  %b Description:
+  = @apk.description
+= link_to 'Edit', edit_apk_path(@apk)
+|
+\#{link_to 'Back', apks_path}

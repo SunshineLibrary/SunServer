@@ -1,0 +1,23 @@
+%h1 Editing audio_collection
+= render 'form'
+%table{:border => "1", :cellpadding => "3", :cellspacing => "0", :style => "text-align: center;"}
+  %tr
+    %th 标题
+    %th 简介
+    %th 上传文件
+    %th
+    %th
+  - @audio_collection.audios.each do |audio|
+    - unless audio.destroyed?
+      %tr
+        %td= audio.title
+        %td= audio.intro
+        %td= audio.audio_file_file_name if audio.audio_file?
+        %th= link_to "编辑", edit_audio_path(audio)
+        %th= link_to "删除", audio, confirm: 'Are you sure?', method: :delete
+%h1 New Audio
+- @audio = Audio.new
+= render :partial => 'audios/form', :locals => {:audio_collection_id => @audio_collection.id}
+= link_to 'Show', @audio_collection
+|
+\#{link_to 'Back', audio_collections_path}

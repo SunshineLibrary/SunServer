@@ -1,0 +1,33 @@
+#newAudioActivityForm{:style => "display:none"}
+  - @audio_activity = AudioActivity.new
+  = form_for @audio_activity, :url => {:controller => :audio_activities, :action => :create, :section_id => section_id } do |f|
+    .field
+      = f.label :name, "名称:"
+      %br/
+      = f.text_field :name
+    .field
+      = f.label :seq, "排序"
+      %br/
+      = f.text_field :seq, :value => activity_size
+    .field
+      = f.label :provider_id, "供应商"
+      %br/
+      = f.select :provider_id, Provider.list_all
+    .field
+      音频附件:
+      - if @audio_activity.content_file?
+        = "(已上传:#{@audio_activity.content_file_file_name})"
+      - else
+        = "(未上传)"
+      %br/
+      = f.file_field :content_file
+    .field
+      = f.label :notes, "注解笔记"
+      %br/
+      = f.text_area :notes
+    .field
+      = f.label :duration, "时长（秒）"
+      %br/
+      = f.number_field :duration
+    .actions
+      = f.submit "提交"

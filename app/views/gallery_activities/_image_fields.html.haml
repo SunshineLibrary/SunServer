@@ -1,0 +1,13 @@
+.span5
+  %h1.label 选项
+%br/
+%br/
+#answer.control-group
+  #choice.input-prepend
+    %span.add-on 序号
+    = f.text_field :choice, :class => "input-mini"
+  #body.input-prepend
+    %span.add-on 选项
+    = f.text_area :body, :class => "span5 problem_choice_body_field", :place_holder => "填写选项……", :rows => 2
+  .row
+    %span#problem_choice_preview_span.well.span5= f.object.body

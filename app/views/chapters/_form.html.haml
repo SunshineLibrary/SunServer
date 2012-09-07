@@ -1,0 +1,21 @@
+= form_for(@chapter) do |f|
+  - if @chapter.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@chapter.errors.count, "error")
+        prohibited this chapter from being saved:
+      %ul
+        - @chapter.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :name, "单元名称"
+    %br/
+    = f.text_field :name
+  .field{:style => "display: none"}
+    = f.text_field :course_id, :value => params[:course_id]
+  .field
+    = f.label :description, "概述"
+    %br/
+    = f.text_area :description
+  .actions
+    = f.submit :value => "创建"

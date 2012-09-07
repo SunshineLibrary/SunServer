@@ -1,0 +1,19 @@
+%h1 Listing audios
+%table
+  %tr
+    %th Title
+    %th Intro
+    %th Audio collection
+    %th
+    %th
+    %th
+  - @audios.each do |audio|
+    %tr
+      %td= audio.title
+      %td= audio.intro
+      %td= audio.audio_collection_id
+      %td= link_to 'Show', audio
+      %td= link_to 'Edit', edit_audio_path(audio)
+      %td= link_to 'Destroy', audio, confirm: 'Are you sure?', method: :delete
+%br/
+= link_to 'New Audio', new_audio_path

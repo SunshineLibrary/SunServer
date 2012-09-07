@@ -1,0 +1,37 @@
+/ Pages for edge edition
+/ Seems working, need test
+%div
+  %h3 跳转条件
+  %table.table.table-striped
+    %tr
+      %th.span2 从
+      %th.span2 至
+      %th.span6 跳转条件
+      %th.span2
+    - @section.edges.each do |edge|
+      %tr
+        %td= best_in_place edge, :from_id, :type => :select, :collection => @section.activity_list_in_place
+        %td= best_in_place edge, :to_id, :type => :select, :collection => @section.activity_list_in_place
+        %td= best_in_place edge, :condition, :type => :input
+        %td= link_to_delete '删除', edge, confirm: '确定要删除这个跳转吗？', method: :delete
+  %br/
+  - @edge = Edge.new
+  = form_for @edge, :html => {:class => "well form-inline"} do |f|
+    = f.label :from_id, "从"
+    = f.select :from_id, @section.activity_list, :class => "input-small", :size => 10
+    = f.label :to_id, "至"
+    = f.select :to_id, @section.activity_list, :class => "input-small", :size => 10
+    = f.text_field :section_id, :value => @section.id, :style => "display: none"
+    %br/
+    %br/
+    = f.label :condition, "当"
+    = f.select :condition, Edge.type_list, :class => "input-small", :size => 10
+    %label{:for => "edge_cond1"}
+      %abbr.initialism{:title => "答对题目最小值"} 最小值
+    = text_field_tag :cond1, "", :class => "input-small", :size => 5
+    %label{:for => "edge_cond2"}
+      %abbr.initialism{:title => "答对题目最大值"} 最大值
+    = text_field_tag :cond2, "", :class => "input-small", :size => 5
+    %br/
+    %br/
+    = f.submit "添加跳转", :class => "btn btn-success"

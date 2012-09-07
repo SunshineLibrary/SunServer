@@ -1,5 +1,9 @@
+#encoding: UTF-8
+
 class User < ActiveRecord::Base
-  has_many :machine_sign_ups, :order => "machine_sign_ups.created_at DESC"
+  belongs_to :school
+  belongs_to :classroom
+  has_many :machine_signins, :order => "machine_signins.created_at DESC"
   has_many :machines, :through => :machine_signins, :source => :machine
   
   ZN_NAME = "用户"

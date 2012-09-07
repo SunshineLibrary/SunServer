@@ -1,0 +1,24 @@
+%legend Apk 列表
+%div
+  - @apk = Apk.new
+  = render 'form'
+%table.table.table-striped
+  %tr
+    %th Version
+    %th Code
+    %th Name
+    %th Description
+    %th
+    %th
+    %th
+  - @apks.each do |apk|
+    - next if apk.destroyed?
+    %tr
+      %td= apk.version_name
+      %td= apk.version
+      %td= apk.name
+      %td= apk.description
+      %td= link_to 'Show', apk
+      %td= link_to 'Edit', edit_apk_path(apk)
+      %td= link_to 'Destroy', apk, confirm: 'Are you sure?', method: :delete
+%br/

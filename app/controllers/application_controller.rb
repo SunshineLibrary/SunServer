@@ -7,19 +7,21 @@ class ApplicationController < ActionController::Base
   
   before_filter :admin_signed_in_required
   
-  require 'books_controller'
-  require 'tags_controller'
-  require 'subjects_controller'
-  require 'providers_controller'
-  require 'authors_controller'
-  require 'lessons_controller'  
-  
   private
   def admin_signed_in_required
-    unless admin_signed_in? || params[:controller] == 'devise/sessions'
-      redirect_to new_admin_session_path
+    if not admin_signed_in?
+      unless params[:controller] == 'devise/sessions' or params[:controller] == 'devise/registrations'
+        redirect_to new_admin_session_path
+      end 
     end
   end
+    
+  #require 'books_controller'
+  #require 'tags_controller'
+  #require 'subjects_controller'
+  #require 'providers_controller'
+  #require 'authors_controller'
+  #require 'lessons_controller'
     
   # private
   # def verify_identity_for_new_del

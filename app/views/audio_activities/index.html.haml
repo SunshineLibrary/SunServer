@@ -1,0 +1,27 @@
+%h1 Listing audio_activities
+%table.table.talbe-striped
+  %tr
+    %th Name
+    %th Activity
+    %th Provider
+    %th File path
+    %th Notes
+    %th Duration
+    %th Description
+    %th
+    %th
+    %th
+  - @audio_activities.each do |audio_activity|
+    %tr
+      %td= audio_activity.name
+      %td= audio_activity.activity_id
+      %td= audio_activity.provider_id
+      %td= audio_activity.file_path
+      %td= audio_activity.notes
+      %td= audio_activity.duration
+      %td= audio_activity.description
+      %td= link_to 'Show', audio_activity
+      %td= link_to 'Edit', edit_audio_activity_path(audio_activity)
+      %td= link_to 'Destroy', audio_activity, confirm: 'Are you sure?', method: :delete
+%br/
+= link_to 'New Audio activity', new_audio_activity_path

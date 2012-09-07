@@ -1,0 +1,21 @@
+%h1 Listing edges
+%table.table.table-striped
+  %tr
+    %th From
+    %th To
+    %th Section
+    %th Condition
+    %th
+    %th
+    %th
+  - @edges.each do |edge|
+    %tr
+      %td= edge.from_id
+      %td= edge.to_id
+      %td= edge.section_id
+      %td= edge.condition
+      %td= link_to 'Show', edge
+      %td= link_to 'Edit', edit_edge_path(edge)
+      %td= link_to 'Destroy', edge, confirm: 'Are you sure?', method: :delete
+%br/
+= link_to 'New Edge', new_edge_path

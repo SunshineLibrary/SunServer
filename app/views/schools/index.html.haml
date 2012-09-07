@@ -1,0 +1,16 @@
+%p#notice= notice
+.page-header
+  %h1 所有学校
+%table.table.table-striped
+  %tr
+    %th.span3 名称
+    %th.span5 地址
+    %th.span2
+    %th.span2
+  - @schools.each do |s|
+    %tr
+      %td= best_in_place s, :name, :type => :input
+      %td= best_in_place s, :location, :type => :textarea
+      %td= link_to_check '查看', s
+      %td= link_to_delete '删除', s, confirm: '确定要删除此单元吗？', method: :delete
+= link_to_add '创建学校', new_school_path

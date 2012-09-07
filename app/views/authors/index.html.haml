@@ -1,0 +1,20 @@
+%h1 作者列表
+%table.table.table-striped
+  %tr
+    %th 姓名
+    %th 国籍
+    %th 简介
+    %th
+    %th
+    %th
+  - @authors.each do |author|
+    - next if author.destroyed?
+    %tr
+      %td= author.name
+      %td= author.nationality
+      %td= author.intro
+      %td= link_to 'Show', author
+      %td= link_to 'Edit', edit_author_path(author)
+      %td= link_to 'Destroy', author, confirm: 'Are you sure?', method: :delete
+%br/
+= link_to 'New Author', new_author_path

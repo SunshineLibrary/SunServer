@@ -1,0 +1,10 @@
+%p#notice= notice
+%p
+  %b Title:
+  = @video_collection.title
+%p
+  %b Intro:
+  = @video_collection.intro
+= link_to 'Edit', edit_video_collection_path(@video_collection)
+|
+\#{link_to 'Back', video_collections_path}

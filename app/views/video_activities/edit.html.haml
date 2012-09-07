@@ -1,0 +1,32 @@
+.page-header
+  %h1
+    = best_in_place @video_activity, :name, :type => :input
+    %span.label= Activity.type_to_name('video')
+= form_for @video_activity, :html => {:class => "form-horizontal"} do |f|
+  %fieldset
+    = f.hidden_field :section_id, :value => params[:section_id]
+    .control-group
+      = f.label :provider_id, "提供者", :class => "control-label"
+      .controls
+        = f.select :provider_id, Provider.list_all, :class => "input-xlarge"
+    .control-group
+      = f.label :content_file, "视频文件", :class => "control-label"
+      .controls
+        - if @video_activity.content_file?
+          = "(已上传:#{@video_activity.content_file_file_name})"
+        - else
+          = "(未上传)"
+        %br/
+        = f.file_field :content_file, :class => "input-xlarge"
+    .control-group
+      = f.label :duration, "时长（秒）", :class => "control-label"
+      .controls
+        = f.number_field :duration, :class => "input-xlarge"
+    .control-group
+      = f.label :notes, "重点笔记", :class => "control-label"
+      .controls
+        = f.text_area :notes, :class => "input-xlarge", :rows => 4
+        %span.help-inline 需要学生重点记忆的知识点
+    .form-actions
+      = f.submit "保存", :class => "btn btn-primary"
+      = link_to "取消", section_path(@section_id), :class => "btn"

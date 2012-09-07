@@ -1,0 +1,18 @@
+%p#notice= notice
+.page-header
+  %h1 所有机器
+  %span.label= @machines.count
+%table.table.table-striped
+  %tr
+    %th.span5 ID
+    %th.span2 类型
+    %th.span2 用户
+    %th.span1 已锁？
+    %th.span2
+  - @machines.each do |m|
+    %tr
+      %td= m.unique_id
+      %td= m.machine_type.name
+      %td= m.user.name if not m.user.nil?
+      %td= m.is_locked
+      %td= link_to_check '查看', m

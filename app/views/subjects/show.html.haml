@@ -1,0 +1,30 @@
+= render :partial => "shared/breadcrumb_curriculum", :locals => { :item => @subject }
+%p#notice= notice
+.page-header
+  %h1
+    = best_in_place @subject, :name, :type => :input
+    %span.label= Subject.zh_name
+.row
+  .span2
+    = link_to_back '返回所有科目', subjects_path
+%br/
+%br/
+%br/
+%h3 课程列表
+%table.table.table-striped
+  %tr
+    %th.span2 名称
+    %th.span1 适用年级
+    %th.span1 适用学期
+    %th.span1 课程类型
+    %th.span5 概述
+    %th.span2
+  - @subject.courses.each do |s|
+    %tr
+      %td= s.name
+      %td= s.print_grade
+      %td= s.print_semester
+      %td= s.print_course_type
+      %td= s.description
+      %td= link_to_check '查看', s
+= link_to_add '创建课程', new_course_path(:subject_id => @subject.id)

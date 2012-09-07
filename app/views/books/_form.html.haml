@@ -1,0 +1,51 @@
+= form_for @book, :html => {:class => "form-horizontal"} do |f|
+  %fieldset
+    %legend 编辑图书
+    = form_field :title, "书名", f, :text_field
+    = form_field :author, "作者", f, :text_field
+    = form_field :ISBN, "ISBN", f, :text_field
+    = form_field :publication_year, "出版年份", f, :text_field
+    = form_field :publisher, "出版商", f, :text_field
+    .control-group
+      = f.label :book_collection_id, "书籍集合", :class => "control-label"
+      .controls
+        = f.select :book_collection_id, BookCollection.selection, :class => "span4"
+        = link_to '手动创建', new_book_collection_path, :class => "btn btn"
+        %span.help-inline **书籍合集可以根据书的名字自动创建，书籍录入完成后可以去合集页面修改名称和简介
+    .control-group
+      = f.label :provider_id, "内容供应商", :class=> "control-label"
+      .controls
+        = f.select :provider_id, Provider.list_all
+    .control-group
+      = f.label :intro, "简介", :class=> "control-label"
+      .controls
+        = f.text_area :intro, :class=> "span6"
+    - my_tag_ids = @book.tag_ids
+    - Tag.type_list.each do |type|
+      .control-group
+        %label.control-label
+          = "无类型" if type.nil?
+          = type
+        #tag_controls.controls
+          - Tag.valid_tags(type).each do |tag|
+            = check_box_tag 'tag_ids[]', tag.id, my_tag_ids.include?(tag.id)
+            = tag.name
+    .controls
+      = image_tag @book.cover_m.url if @book.cover_m?
+    .controls-group
+      = f.label :cover_m, "封面（中）", :class=>"control-label"
+      .controls
+        = f.file_field :cover_m
+    .controls
+      = image_tag @book.cover_s.url if @book.cover_s?
+    .controls-group
+      = f.label :cover_s, "封面（小）" , :class=>"control-label"
+      .controls
+        = f.file_field :cover_s
+    .controls-group
+      = f.label :epub_file, "epub文件路径", :class=>"control-label"
+      .controls
+        = f.file_field :epub_file
+        = file_status(@book, :epub_file)
+    .form-actions
+      = f.submit :class => "btn btn-success"

@@ -1,0 +1,23 @@
+%h1 Listing html_activities
+%table.table.table-striped
+  %tr
+    %th Name
+    %th Activity
+    %th Provider
+    %th File path
+    %th Description
+    %th
+    %th
+    %th
+  - @html_activities.each do |html_activity|
+    %tr
+      %td= html_activity.name
+      %td= html_activity.activity_id
+      %td= html_activity.provider_id
+      %td= html_activity.file_path
+      %td= html_activity.description
+      %td= link_to 'Show', html_activity
+      %td= link_to 'Edit', edit_html_activity_path(html_activity)
+      %td= link_to 'Destroy', html_activity, confirm: 'Are you sure?', method: :delete
+%br/
+= link_to 'New Html activity', new_html_activity_path

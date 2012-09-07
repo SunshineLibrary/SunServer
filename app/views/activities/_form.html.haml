@@ -1,0 +1,23 @@
+#newActivityForm
+  %h3
+    添加#{Activity.type_to_name(type)}
+  - @activity = eval(type.capitalize + "Activity.new")
+  = form_for @activity, :url => {:controller => type + "_activities", :action => :create, :section_id => section_id }, :html => {:class => "well form-horizontal"} do |f|
+    %fieldset
+      .control-group
+        = f.label :name, "名称", :class => "control-label"
+        .controls
+          = f.text_field :name, :class => "input-xlarge"
+      .control-group
+        = f.label :provider_id, "提供方", :class => "control-label"
+        .controls
+          = f.select :provider_id, Provider.list_all, :class => "input-xlarge"
+      - if not type == 'quiz'
+        .control-group
+          = f.label :notes, "重点笔记", :class => "control-label"
+          .controls
+            = f.text_area :notes, :class => "input-xlarge", :rows => 4
+            %span.help-inline 需要学生重点记忆的知识点
+      .for-actions
+        = f.submit "提交", :class => "btn btn-primary"
+        = link_to_function "取消", "$('#newActivityForm').hide();", :class => "btn"

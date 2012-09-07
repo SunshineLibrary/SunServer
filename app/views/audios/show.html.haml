@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %b Title:
+  = @audio.title
+%p
+  %b Intro:
+  = @audio.intro
+%p
+  %b Audio collection:
+  = @audio.audio_collection_id
+= link_to 'Edit', edit_audio_path(@audio)
+|
+\#{link_to 'Back', audios_path}

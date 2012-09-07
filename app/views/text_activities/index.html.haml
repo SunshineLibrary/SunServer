@@ -1,0 +1,23 @@
+%h1 Listing text_activities
+%table.table.table-striped
+  %tr
+    %th Name
+    %th Activity
+    %th Provider
+    %th File path
+    %th Description
+    %th
+    %th
+    %th
+  - @text_activities.each do |text_activity|
+    %tr
+      %td= text_activity.name
+      %td= text_activity.activity_id
+      %td= text_activity.provider_id
+      %td= text_activity.file_path
+      %td= text_activity.description
+      %td= link_to 'Show', text_activity
+      %td= link_to 'Edit', edit_text_activity_path(text_activity)
+      %td= link_to 'Destroy', text_activity, confirm: 'Are you sure?', method: :delete
+%br/
+= link_to 'New Text activity', new_text_activity_path

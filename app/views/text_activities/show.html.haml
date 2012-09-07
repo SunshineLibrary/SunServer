@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %b Name:
+  = @text_activity.name
+%p
+  %b Activity:
+  = @text_activity.activity_id
+%p
+  %b Provider:
+  = @text_activity.provider_id
+%p
+  %b File path:
+  = @text_activity.file_path
+%p
+  %b Description:
+  = @text_activity.description
+= link_to 'Edit', edit_text_activity_path(@text_activity)
+|
+\#{link_to 'Back', text_activities_path}
