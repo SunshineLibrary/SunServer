@@ -8,8 +8,9 @@
     %dl.dl-horizontal
       %dt 学校
       %dd= @user.school.name
-      %dt 班级
-      %dd= @user.classroom.class_name
+      - if @user.is_student
+        %dt 班级
+        %dd= @user.classroom.class_name
       %dt 生日
       %dd= @user.birthday
       %dt 用户类型

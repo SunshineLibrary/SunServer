@@ -30,4 +30,16 @@ class User < ActiveRecord::Base
     collection
   end
   
+  def is_teacher
+    self.user_type == "teacher"
+  end
+  
+  def is_student
+    self.user_type == "student"
+  end
+  
+  def is_staff
+    self.user_type == "staff"
+  end
+  
 end
