@@ -113,7 +113,10 @@ apk.parse_info
 MachineType.create size: "800*480", version: "7寸晓书"
 MachineType.create size: "1024*768", version: "8寸晓书"
 
+School.create name: "阳光书屋", location: "北京市海淀区苏州街"
 School.create name: "四坝九年制学校", location: "甘肃省武威市四坝镇"
 School.create name: "和寨九年制学校", location: "甘肃省武威市永昌镇"
 School.create name: "贺家中学", location: "湖南省衡阳市衡山县贺家乡"
 School.create name: "贺家中心完小", location: "湖南省衡阳市衡山县贺家乡"
+
+Admin.create username: "admin", name: "书王",  encrypted_password: "$2a$10$sx/HYIizHHYKpph6wN1dOuAIPCE/deJv3SKVMirt2f8ETkuj4KRkC",school_id: 1, is_global: true, is_manager: true, is_super: true

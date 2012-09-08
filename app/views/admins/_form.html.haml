@@ -13,6 +13,7 @@
       .controls
         - if current_admin.is_manager
           = f.text_field :username, :class => "input-xlarge"
+          %span.help-inline 请按照格式：学校简称_姓.名，例如 “4b_yuan.huanwen”
         - else
           = @admin.username
     .control-group
@@ -30,7 +31,7 @@
       .control-group
         = f.label :is_global, "是否可以跨学校？", :class => "control-label"
         .controls
-          = f.check_box :is_global, :class => "input-xlarge"
+          = f.check_box :is_global, {:class => "input-xlarge"}
       .control-group
         = f.label :is_manager, "是否能够管理其它老师？", :class => "control-label"
         .controls

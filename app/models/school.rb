@@ -12,12 +12,12 @@ class School < ActiveRecord::Base
   end
   
   def self.list_all
-    pccollection = []
-    School.all.each do |p|
-      next if p.destroyed?
-      pccollection << [p.name, p.id]
+    collection = []
+    School.all.each do |s|
+      next if s.destroyed?
+      collection << [s.name, s.id]
     end
-    pccollection
+    collection
   end
   
   def school_level_users

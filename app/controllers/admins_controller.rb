@@ -19,7 +19,7 @@ class AdminsController < ApplicationController
   end
 
   def show
-    @admin = Admin.find(params[:id])
+    @admin = Admin.find_by_id(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -42,10 +42,10 @@ class AdminsController < ApplicationController
 
   def create
     @admin = Admin.new(params[:admin])
-
+    @admin.encrypted_password = "$2a$10$sx/HYIizHHYKpph6wN1dOuAIPCE/deJv3SKVMirt2f8ETkuj4KRkC" # xiaoshu as default password
     respond_to do |format|
       if @admin.save
-        format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
+        format.html { redirect_to @admin, notice: '成功创建管理员' }
         format.json { render json: @admin, status: :created, location: @admin }
       else
         format.html { render action: "new" }
@@ -59,7 +59,7 @@ class AdminsController < ApplicationController
 
     respond_to do |format|
       if @admin.update_attributes(params[:admin])
-        format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
+        format.html { redirect_to @admin, notice: '信息已更新' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
