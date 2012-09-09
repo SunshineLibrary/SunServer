@@ -36,7 +36,7 @@ class VideoActivitiesController < ApplicationController
 
     respond_to do |format|
       if @video_activity.update_attributes(attr)
-        format.html { redirect_to Section.find_by_id(section_id), notice: 'Video activity was successfully updated.' }
+        format.html { redirect_to Section.find_by_id(section_id), notice: '信息已更新' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

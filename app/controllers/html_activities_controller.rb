@@ -1,41 +1,10 @@
 #encoding: UTF-8
 class HtmlActivitiesController < ApplicationController
-  # GET /html_activities
-  # GET /html_activities.json
-  def index
-    @html_activities = HtmlActivity.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @html_activities }
-    end
-  end
-
-  # GET /html_activities/1
-  # GET /html_activities/1.json
-  def show
-    @html_activity = HtmlActivity.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @html_activity }
-    end
-  end
-
-  # GET /html_activities/new
-  # GET /html_activities/new.json
-  def new
-    @html_activity = HtmlActivity.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @html_activity }
-    end
-  end
 
   # GET /html_activities/1/edit
   def edit
-    @html_activity = HtmlActivity.find(params[:id])
+    @html_activity = HtmlActivity.find_by_id(params[:id])
+    @section_id = params[:section_id]
   end
 
   # POST /html_activities
@@ -43,14 +12,13 @@ class HtmlActivitiesController < ApplicationController
   def create 
     @html_activity = HtmlActivity.new(params[:html_activity])
     section = Section.find_by_id(params[:section_id])
-
     respond_to do |format|
       if (@html_activity.save)
-        SectionComponent.create(section_id: section.id, activity_id: @html_activity.id, seq: section.activities.size)
-        format.html { redirect_to edit_html_activity_path(@html_activity, :section_id => section.id), notice: '成功创建环节' }
-        format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
+        SectionComponent.create(section_id: section.id, activity_id: @html_activity.id, seq: section.activities.size + 1)
+        format.html { redirect_to edit_html_activity_path(@html_activity, :section_id => section.id), notice: '成功创建网页环节，请上传网页压缩包' }
+        format.json { render json: section, status: :created, location: section }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to section, notice: '出现错误，请重试' }
         format.json { render json: @html_activity.errors, status: :unprocessable_entity }
       end
     end
@@ -67,7 +35,7 @@ class HtmlActivitiesController < ApplicationController
 
     respond_to do |format|
       if @html_activity.update_attributes(params[:html_activity])
-        format.html { redirect_to Section.find(section_id), notice: 'Html activity was successfully updated.' }
+        format.html { redirect_to Section.find(section_id), notice: '信息已更新' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

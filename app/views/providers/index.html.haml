@@ -1,4 +1,9 @@
-%h1 供应商列表
+%p#notice= notice
+.page-header
+  %h1
+    所有提供方
+  %br/
+  = link_to_add '添加提供方', new_provider_path
 
 %table(class="table table-striped")
   %tr
@@ -11,10 +16,9 @@
   - @providers.each do |provider|
     - next if provider.destroyed?
     %tr
-      %td= provider.name
-      %td= provider.intro      
-      %td= link_to 'Show', provider
-      %td= link_to 'Edit', edit_provider_path(provider)
-      %td= link_to 'Destory', provider, :confirm => "Are you sure?", :method => :delete                                      
+      %td.span3= best_in_place provider, :name, :type => :input
+      %td.span5= best_in_place provider, :intro, :type => :textarea    
+      %td.span2= link_to_check '查看', provider
+      %td.span2= link_to_delete '删除', provider, :confirm => "确定要删除吗？", :method => :delete                                      
 %br/
-= link_to 'New Provider', new_provider_path
+

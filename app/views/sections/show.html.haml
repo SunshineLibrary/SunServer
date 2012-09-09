@@ -24,8 +24,8 @@
 %br/
 = render 'edge_edit'
 :javascript
-  function insertNewActivityForm(type, order) {
+  function insertNewActivityForm(type) {
     $("#newActivityForm").hide();
-    $("#newActivityForm").load("../activities/add_form", {type: type, section_id:  @section.id });
+    $("#newActivityForm").load("../activities/add_form", {type: type, section_id:  #{@section.id} });
     $("#newActivityForm").show();
   };
