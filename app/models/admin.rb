@@ -3,7 +3,7 @@ class Admin < ActiveRecord::Base
   
   devise :database_authenticatable,
          :rememberable, :trackable, 
-         :authentication_keys => [:username]
+         :authentication_keys => [:username, :school_id]
          
   belongs_to :school
   

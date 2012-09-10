@@ -95,6 +95,10 @@ zh-CN:
       month: 月
       second: 秒
       year: 年
+    formats:
+      default: ! '%Y年%b%d日 %A %H:%M:%S %Z'
+      long: ! '%Y年%b%d日 %H:%M'
+      short: ! '%b%d日 %H:%M'
   errors: &errors
     format: ! '%{attribute} %{message}'
     messages:

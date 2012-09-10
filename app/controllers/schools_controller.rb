@@ -80,4 +80,12 @@ class SchoolsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  # for json request
+  def get_all
+    schools = School.all
+    respond_to do |format|
+      format.json { render json: schools.as_json(:only => [:id, :name])}
+    end
+  end
 end

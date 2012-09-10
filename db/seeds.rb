@@ -63,7 +63,7 @@ BODY
     section = lesson.sections.create name: "乘方的概念和使用"
     section = lesson.sections.create name: "习题课"
 
-Provider.create name: "阳光书屋", intro:"神秘组织，不崇拜星辰诸神"
+provider = Provider.create name: "阳光书屋", intro:"神秘组织，不崇拜星辰诸神"
 Provider.create name: "天驱武士团", intro: "铁甲依然在"
 Provider.create name: "辰月教", intro: "星辰与月的旗帜飘扬在九州大地上"
 Provider.create name: "天罗", intro: "我躲在这里，手握着刀丝"
@@ -83,14 +83,13 @@ intro = <<DESC
 DESC
 
 author = Author.create name: "J.K 罗琳"
-provider = Provider.create name: "阳光书屋"
 
 collection = BookCollection.create title: "哈利·波特与凤凰社", intro: intro
-  book = collection.books.create title: "哈利·波特与凤凰社1", intro: intro, author: author
-  book = collection.books.create title: "哈利·波特与凤凰社2", intro: intro, author: author, provider: provider
-  book = collection.books.create title: "哈利·波特与凤凰社3", intro: intro, author: author, provider: provider
-  book = collection.books.create title: "哈利·波特与凤凰社4", intro: intro, author: author, provider: provider
-  book = collection.books.create title: "哈利·波特与凤凰社5", intro: intro, author: author, provider: provider
+  book = collection.books.create title: "哈利·波特与凤凰社1", intro: intro, author: author, provider_id: provider.id
+  book = collection.books.create title: "哈利·波特与凤凰社2", intro: intro, author: author, provider_id: provider.id
+  book = collection.books.create title: "哈利·波特与凤凰社3", intro: intro, author: author, provider_id: provider.id
+  book = collection.books.create title: "哈利·波特与凤凰社4", intro: intro, author: author, provider_id: provider.id
+  book = collection.books.create title: "哈利·波特与凤凰社5", intro: intro, author: author, provider_id: provider.id
 
   collection.tags << (Tag.create name: "哈利·波特")
   collection.tags << (Tag.create name: "J.K 罗琳")
@@ -110,8 +109,8 @@ apk.parse_info
 apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "Browser.apk")), description: "尊贵的浏览器"
 apk.parse_info
 
-MachineType.create size: "800*480", version: "7寸晓书"
-MachineType.create size: "1024*768", version: "8寸晓书"
+MachineType.create name: "7寸晓书", size: "800*480", android_version: "2.2"
+MachineType.create name: "8寸晓书", size: "1024*768", android_version: "4.0.3"
 
 School.create name: "阳光书屋", location: "北京市海淀区苏州街"
 School.create name: "四坝九年制学校", location: "甘肃省武威市四坝镇"
@@ -119,4 +118,9 @@ School.create name: "和寨九年制学校", location: "甘肃省武威市永昌
 School.create name: "贺家中学", location: "湖南省衡阳市衡山县贺家乡"
 School.create name: "贺家中心完小", location: "湖南省衡阳市衡山县贺家乡"
 
-Admin.create username: "admin", name: "书王",  encrypted_password: "$2a$10$sx/HYIizHHYKpph6wN1dOuAIPCE/deJv3SKVMirt2f8ETkuj4KRkC",school_id: 1, is_global: true, is_manager: true, is_super: true
+Classroom.create school_id: 2, class_of: 2018, class_order: 4
+
+User.create name: "杨同学", birthday: "1987-12-22", school_id: 2, classroom_id: 1, user_type: "student"
+User.create name: "杨老师", birthday: "1987-12-22", school_id: 2, user_type: "teacher"
+
+Admin.create username: "admin", name: "管理员先生",  encrypted_password: "$2a$10$sx/HYIizHHYKpph6wN1dOuAIPCE/deJv3SKVMirt2f8ETkuj4KRkC",school_id: 1, is_global: true, is_manager: true, is_super: true

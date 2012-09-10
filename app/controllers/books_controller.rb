@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class BooksController < ApplicationController
   # GET /books
   # GET /books.json
@@ -51,7 +52,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to go_url, notice:'Book created successfully'}
+        format.html { redirect_to go_url, notice:'成功创建图书'}
         format.json { render json: @book, status: :created, location: @book }
       else
         format.html { render action: "new" }
@@ -67,7 +68,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.update_attributes(params[:book]) and @book.update_tags(params[:tag_ids])
-        format.html {redirect_to books_url, notice: 'Book was successfully updated.'}
+        format.html {redirect_to books_url, notice: '信息已更新'}
         format.json { head :ok }
       else
         format.html { render action: "edit" }

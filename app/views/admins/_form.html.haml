@@ -13,7 +13,7 @@
       .controls
         - if current_admin.is_manager
           = f.text_field :username, :class => "input-xlarge"
-          %span.help-inline 请按照格式：学校简称_姓.名，例如 “4b_yuan.huanwen”
+          %span.help-inline 请按照格式：姓.名，例如 “yuan.huanwen”
         - else
           = @admin.username
     .control-group

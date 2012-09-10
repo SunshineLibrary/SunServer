@@ -29,7 +29,11 @@ SunServer::Application.routes.draw do
     end
   end
 
-  resources :schools
+  resources :schools do
+    collection do
+      get 'get_all'
+    end
+  end
   resources :classrooms
   devise_for :admins
   scope "/super" do
@@ -40,13 +44,19 @@ SunServer::Application.routes.draw do
     end
   end
   resources :users
-  resources :api
   resources :providers
+  resources :machines do
+    collection do
+      get 'sign_in'
+    end
+    member do
+      post 'sign_out'
+    end
+  end
 
   match 'subjects/overview/:id'  => 'subjects#overview'
   match 'subjects/all' => 'subjects#all_subject'
   resources :subjects
-
   resources :courses
   resources :lessons
   resources :chapters
@@ -57,7 +67,6 @@ SunServer::Application.routes.draw do
     end
   end
   resources :section_components
-
   resources :video_activities
   resources :audio_activities
   resources :gallery_activities
@@ -87,7 +96,6 @@ SunServer::Application.routes.draw do
   resources :tags
 
   match 'download/:action/:id', controller: "Download"
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

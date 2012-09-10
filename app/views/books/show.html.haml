@@ -1,44 +1,34 @@
 %p#notice= notice
-%p
-  %b 书名:
-  = @book.title
-%p
-  %b Author:
-  = @book.author
-%p
-  %b Intro:
-  = @book.intro
-%p
-  %b Difficulty:
-  = @book.difficulty
-%p
-  %b Isbn:
-  = @book.ISBN
-%p
-  %b File:
-  = (link_to "#{@book.epub_file_file_name}", @book.epub_file.url(:original, false)) if @book.epub_file?
-%p
-  %b Book collection:
-  = @book.book_collection
-%p
-  %b Publication year:
-  = @book.publication_year
-%p
-  %b Publisher:
-  = @book.publisher
-%p
-  %b Cover m path:
-  = (link_to "#{@book.cover_m_file_name}", @book.cover_m.url(:original, false)) if @book.cover_m?
-%p
-  %b Cover s path:
-  = (link_to "#{@book.cover_s_file_name}", @book.cover_s.url(:original, false)) if @book.cover_s?
-%p
-  %b Provider:
-  = @book.provider
-%p
-  %b Tag:
-  = @book.tags.map{|tag| tag.name}.inspect
+.page-header
+  %h1
+    = @book.title
+    %span.label= Book.zh_name
+.row
+  .span8
+    %dl.dl-horizontal
+      %dt 所属集合
+      %dd= @book.book_collection
+      %dt 作者
+      %dd= @book.author
+      %dt ISBN
+      %dd= @book.ISBN
+      %dt 出版社
+      %dd= @book.publisher
+      %dt 出版年份
+      %dd= @book.publication_year
+      %dt 提供方
+      %dd= @book.provider
+      %dt 简介
+      %dd= @book.intro
+      %dt 标签
+      %dd= @book.tags.map{|tag| tag.name}.inspect
+      %dt 文件
+      %dd= link_to @book.epub_file_file_name, @book.epub_file.url(:original, false) if @book.epub_file?
+      %dt 封面图片（小）
+      %dd= link_to @book.cover_s_file_name, @book.cover_s.url(:original, false) if @book.cover_s?
+      %dt 封面图片（中）
+      %dd= link_to @book.cover_m_file_name, @book.cover_m.url(:original, false) if @book.cover_m?
+
 %br/
-= link_to 'Edit', edit_book_path(@book)
-|
-\#{link_to 'Back', books_path}
+= link_to_edit '编辑', edit_book_path(@book)
+= link_to_back '返回', books_path

@@ -1,4 +1,10 @@
+%p#notice= notice
+.page-header
+  %h1
+    修改图书信息
+    %span.label= Book.zh_name
+
 = render 'form'
-= link_to 'Show', @book
-|
-\#{link_to 'Back', books_path}
+
+= link_to_back '取消', @book
+= link_to_delete '删除这本书', @book, confirm: '确定要删除这本书吗？', method: :delete

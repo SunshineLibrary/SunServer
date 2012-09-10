@@ -4,6 +4,10 @@
   = devise_error_messages!
   %fieldset
     .control-group
+      = f.label :school_id, "学校", :class => "control-label"
+      .controls
+        = f.select :school_id, School.list_all, :class => "input-xlarge"
+    .control-group
       = f.label :username, "用户名", :class => "control-label"
       .controls
         = f.text_field :username, :class => "input-xlarge"

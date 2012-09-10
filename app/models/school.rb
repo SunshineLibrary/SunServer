@@ -21,14 +21,14 @@ class School < ActiveRecord::Base
   end
   
   def school_level_users
-    User.find(:all, :conditions => "school_id = #{self.id} AND NOT users.user_type = 'student'")
+    self.users.where("users.user_type <> 'student'").all
   end
   
   def teachers
-    User.find(:all, :conditions => "school_id = #{self.id} AND users.user_type = 'teacher'")
+    self.users.where("users.user_type = 'teacher'").all
   end
   
   def students
-    User.find(:all, :conditions => "school_id = #{self.id} AND users.user_type = 'student'")
+    self.users.where("users.user_type = 'student'").all
   end
 end

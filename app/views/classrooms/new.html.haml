@@ -1,3 +1,7 @@
-%h1 创建班级
+%p#notice= notice
+.page-header
+  %h1
+    添加班级
+    %span.label= Classroom.zh_name
 = render 'form'
 = link_to '取消', school_path(@school)

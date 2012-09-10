@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120907153459) do
+ActiveRecord::Schema.define(:version => 20120910233462) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(:version => 20120907153459) do
   end
 
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
-  add_index "admins", ["username"], :name => "index_admins_on_username", :unique => true
+  add_index "admins", ["username", "school_id"], :name => "index_admins_on_username_and_school_id", :unique => true
 
   create_table "apks", :force => true do |t|
     t.string   "name"
@@ -234,9 +234,9 @@ ActiveRecord::Schema.define(:version => 20120907153459) do
   end
 
   create_table "machine_signins", :force => true do |t|
-    t.integer  "machine_id",                   :null => false
-    t.integer  "user_id",                      :null => false
-    t.integer  "is_valid",      :default => 0, :null => false
+    t.integer  "machine_id",                      :null => false
+    t.integer  "user_id",                         :null => false
+    t.boolean  "is_valid",      :default => true, :null => false
     t.string   "access_token"
     t.datetime "signed_out_at"
     t.datetime "created_at"
@@ -244,13 +244,14 @@ ActiveRecord::Schema.define(:version => 20120907153459) do
   end
 
   add_index "machine_signins", ["access_token"], :name => "index_machine_signins_on_access_token", :unique => true
-  add_index "machine_signins", ["machine_id", "user_id"], :name => "index_machine_signins_on_machine_id_and_user_id", :unique => true
+  add_index "machine_signins", ["machine_id", "user_id"], :name => "index_machine_signins_on_machine_id_and_user_id"
 
   create_table "machine_types", :force => true do |t|
     t.string   "size"
-    t.string   "version"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.string   "android_version"
   end
 
   create_table "machines", :force => true do |t|
@@ -343,6 +344,18 @@ ActiveRecord::Schema.define(:version => 20120907153459) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "user_records", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "item_type",  :null => false
+    t.string   "field1"
+    t.string   "field2"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_records", ["user_id", "item_id", "item_type"], :name => "index_user_records_on_user_id_and_item_id_and_item_type", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "users"

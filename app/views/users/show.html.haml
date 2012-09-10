@@ -24,18 +24,20 @@
     - else
       %dl.dl-horizontal
         %dt ID
-        %dd= link_to @machine, @machine.unique_id
+        %dd= link_to @machine.unique_id, @machine
         %dt 类型
-        %dd= @machine.machine_type.version
+        %dd= @machine.machine_type.name
+        %dt
+        %dd= link_to_machine_sign_out @machine, @user
 %br/
 %h3 晓书历史登录记录
 %table.table.table-striped
   %tr
-    %th.span3 登录日期
+    %th.span3 登录时间
     %th.span5 晓书ID
     %th.span4 登出时间
   - @user.machine_signins.each do |ms|
     %tr
-      %td= ms.created_at
-      %td= ms.machine_unique_id
-      %td= ms.signed_out_at
+      %td= ms.created_at.to_formatted_s(:zh_long) if ms.created_at
+      %td= ms.machine.unique_id
+      %td= ms.signed_out_at.to_formatted_s(:zh_long) if ms.signed_out_at

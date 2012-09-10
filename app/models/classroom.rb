@@ -17,7 +17,15 @@ class Classroom < ActiveRecord::Base
   end
   
   def grade_name
-    GRADE_TO_NAME[9 - (self.class_of - Classroom.current_school_year_end_in)]
+    GRADE_TO_NAME[Classroom.class_of_to_grade(self.class_of)]
+  end
+  
+  def self.grade_to_class_of(grade)
+    (9 - grade.to_i) + Classroom.current_school_year_end_in
+  end
+  
+  def self.class_of_to_grade(class_of)
+    9 - (class_of.to_i - Classroom.current_school_year_end_in)
   end
 
   def order_name

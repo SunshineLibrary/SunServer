@@ -1,19 +1,21 @@
-%h1 书籍列表
 %p#notice= notice
+.page-header
+  %h1
+    所有图书
+
 - @book = Book.new
 .well
   = render 'urlform'
   = link_to '手动创建图书', new_book_path, :class => "btn btn-success"
 %table.table.table-striped
   %tr
-    %th 题目
-    %th 作者
-    %th 合集
-    %th 已上传？
-    %th Updated At
-    %th
-    %th
-    %th
+    %th.span2 书名
+    %th.span1 作者
+    %th.span2 所属合集
+    %th.span1 已上传？
+    %th.span2 最近修改时间
+    %th.span2
+    %th.span2
   - @books.each do |book|
     - next if book.destroyed?
     %tr
@@ -25,7 +27,6 @@
       - else
         %td= book.epub_file?
       %td= book.updated_at
-      %td= link_to 'Show', book
-      %td= link_to 'Edit', edit_book_path(book)
-      %td= link_to 'Destroy', book, confirm: 'Are you sure?', method: :delete
+      %td= link_to_check '查看', book
+      %td= link_to_delete '删除', book, confirm: '确定要删除吗？', method: :delete
 %br/

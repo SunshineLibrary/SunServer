@@ -7,6 +7,5 @@ class ChangeEverythingOnAdmins < ActiveRecord::Migration
       t.integer :admin_type, :default => 1
     end
     add_index :admins, :username, :unique => true
-    remove_index :admins, :email
   end
 end

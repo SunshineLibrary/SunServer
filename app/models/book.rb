@@ -22,6 +22,12 @@ class Book < ActiveRecord::Base
 
   validates :title, :presence =>true
 
+  ZN_NAME = "图书"
+
+  def self.zh_name
+    ZN_NAME
+  end
+
   def author= name
     if name == 'Miss'
       return
