@@ -60,7 +60,7 @@
   - @school.admins.each do |a|
     %tr
       %td= a.name
-      %td= a.username
+      %td= best_in_place a, :username, :type => :input
       %td= a.last_sign_in_at
       %td= link_to_check '查看', a
 = link_to_add '添加管理员', new_admin_path(:school_id => @school.id)
