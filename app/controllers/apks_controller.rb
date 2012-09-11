@@ -1,5 +1,6 @@
 class ApksController < ApplicationController
   protect_from_forgery :except => :get_updates
+  skip_before_filter :admin_signed_in_required, :only => :get_updates
 
   # GET /apks
   # GET /apks.json
