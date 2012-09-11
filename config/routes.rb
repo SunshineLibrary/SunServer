@@ -13,7 +13,7 @@ SunServer::Application.routes.draw do
       get 'lessons'
       get 'sections'
 
-      get 'activites'
+      get 'activities'
       get 'gallery_images'
       get 'quiz_components'
       get 'section_components'
