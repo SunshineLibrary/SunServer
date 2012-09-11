@@ -1,6 +1,7 @@
 class ApiController < ApplicationController
   respond_to :json
   before_filter :get_params
+  skip_before_filter :admin_signed_in_required
 
   def ApiController.define_api_method(name, klass)
     method = lambda { handle_api_request(klass) }

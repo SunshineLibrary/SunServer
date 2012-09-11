@@ -1,13 +1,15 @@
 class DownloadController <  ApplicationController
+  skip_before_filter :admin_signin_required
+
   def books
     book = Book.find(params[:id])
     @path = book.epub_file.url
     download_path
   end
-  
+
   DEFAULT_BOOKS_THUMB = "/default/default_books_thumb.jpg"
   DEFAULT_ACTIVITIES_THUMB = "/default/default_activities_thumb.png"
-  
+
   def books_thumb
     book = Book.find(params[:id])
     if book.cover_m? 
@@ -15,21 +17,21 @@ class DownloadController <  ApplicationController
     else
       @path = DEFAULT_BOOKS_THUMB
     end
-                  
+
     download_path
   end
 
   def book_collections_thumb
     book_collection = BookCollection.find(params[:id])
     @path = DEFAULT_BOOKS_THUMB
-    
+
     if book_collection.books.count > 0
       book = book_collection.books.first
-      if book.cover_m? 
-        @path = book.cover_m.url      
+      if book.cover_m?
+        @path = book.cover_m.url
       end
     end
-    
+
     download_path
   end
 
@@ -52,7 +54,7 @@ class DownloadController <  ApplicationController
     else
       @path = DEFAULT_ACTIVITIES_THUMB
     end
-    
+
     download_path
   end
 
