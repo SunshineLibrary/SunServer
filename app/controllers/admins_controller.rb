@@ -1,10 +1,8 @@
 # encoding: UTF-8
 class AdminsController < ApplicationController
 
-  before_filter :self_required,               :only => [:change_password, :update_password]
-  before_filter :manager_or_self_required,    :only => [:show, :edit, :update]
-  before_filter :school_permission_required,  :only => [:show, :edit, :update]
-  before_filter :manager_required,            :only => [:index, :new, :create, :destroy]
+  before_filter :school_manager_or_self_required,        :only => [:show, :edit, :update, :change_password, :update_password]
+  before_filter :school_management_permission_required,  :only => [:index, :new, :create, :destroy]
 
   def index
     if current_admin.is_global
@@ -97,36 +95,27 @@ class AdminsController < ApplicationController
   end
   
     
-  private
-  def self_required # only for self
-    unless Admin.find_by_id(params[:id]) == current_admin
-      flash[:error] = "对不起，您没有权限进行此操作"
-      redirect_to root_url
-    end
-  end
-  
-  private
-  def manager_required # only for manager
-    unless current_admin.is_manager
-      flash[:error] = "对不起，您没有权限进行此操作"
-      redirect_to root_url
-    end
-  end
-  
-  private # only for manager admin or oneself
-  def manager_or_self_required
-    unless current_admin.is_manager or Admin.find_by_id(params[:id]) == current_admin
+  private # only for manager admin (global or of that school) or oneself
+  def school_manager_or_self_required
+    target_admin = Admin.find_by_id(params[:id])
+    unless target_admin == current_admin or test_school_management_permission(target_admin)
       flash[:error] = "对不起，您没有权限进行此操作"
       redirect_to root_url
     end
   end
   
   private # only for global admin or admin of the current school
-  def school_permission_required
-    unless current_admin.is_global or Admin.find_by_id(params[:id]).school == current_admin.school
+  def school_management_permission_required
+    target_admin = Admin.find_by_id(params[:id])
+    unless test_school_management_permission(target_admin)
       flash[:error] = "对不起，您没有权限进行此操作"
       redirect_to root_url
     end
+  end
+  
+  private
+  def test_school_management_permission(target_admin)
+    current_admin.is_manager and (current_admin.is_global or target_admin.school == current_admin.school)
   end
   
 end
