@@ -1,9 +1,10 @@
 # encoding: UTF-8
 class AdminsController < ApplicationController
 
-  before_filter :manager_required, :except => [:show, :edit, :update]
-  before_filter :manager_or_self_required, :only => [:show, :edit, :update, :destroy]
-  before_filter :school_permission_required, :only => [:show, :edit, :update, :destroy]
+  before_filter :self_required,               :only => [:change_password, :update_password]
+  before_filter :manager_or_self_required,    :only => [:show, :edit, :update]
+  before_filter :school_permission_required,  :only => [:show, :edit, :update]
+  before_filter :manager_required,            :only => [:index, :new, :create, :destroy]
 
   def index
     if current_admin.is_global
@@ -96,6 +97,14 @@ class AdminsController < ApplicationController
   end
   
     
+  private
+  def self_required # only for self
+    unless Admin.find_by_id(params[:id]) == current_admin
+      flash[:error] = "对不起，您没有权限进行此操作"
+      redirect_to root_url
+    end
+  end
+  
   private
   def manager_required # only for manager
     unless current_admin.is_manager
