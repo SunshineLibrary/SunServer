@@ -1,5 +1,5 @@
 class DownloadController <  ApplicationController
-  skip_before_filter :admin_signin_required
+  skip_before_filter :admin_signed_in_required
 
   def books
     book = Book.find(params[:id])
