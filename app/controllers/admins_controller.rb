@@ -47,7 +47,7 @@ class AdminsController < ApplicationController
     @admin.encrypted_password = "$2a$10$sx/HYIizHHYKpph6wN1dOuAIPCE/deJv3SKVMirt2f8ETkuj4KRkC" # xiaoshu as default password
     respond_to do |format|
       if @admin.save
-        format.html { rediect_to @admin, notice: '成功创建管理员' }
+        format.html { redirect_to @admin, notice: '成功创建管理员' }
         format.json { render json: @admin, status: :created, location: @admin }
       else
         format.html { render action: "new" }

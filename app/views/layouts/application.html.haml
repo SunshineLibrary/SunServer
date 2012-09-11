@@ -65,6 +65,16 @@
               - else
                 %li= link_to "登录", new_admin_session_path
     .container
+      - if flash[:notice]
+        .alert.alert-success
+          %button.close{"data-dismiss" => "alert", :type => "button"} ×
+          %strong> 好消息！
+          = flash[:notice]
+      - if flash[:error]
+        .alert.alert-error
+          %button.close{"data-dismiss" => "alert", :type => "button"} ×
+          %strong> 出错啦！
+          = flash[:error]
       = yield
     %footer.footer
       .container

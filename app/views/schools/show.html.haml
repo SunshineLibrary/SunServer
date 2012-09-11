@@ -1,4 +1,3 @@
-%p#notice= notice
 .page-header
   %h1
     = @school.name
@@ -16,7 +15,7 @@
       %dd= @school.teachers.count
 %br/
 %br/
-%br/
+
 %h3 班级列表
 %table.table.table-striped
   %tr
@@ -30,9 +29,10 @@
       %td= c.order_name
       %td= link_to_check '查看', c
       %td= link_to_delete '删除', c, confirm: '确定要删除此班级吗？', method: :delete
-= link_to_add '创建班级', new_classroom_path(:school_id => @school.id)
+= link_to_add '创建班级', new_classroom_path(:school_id => @school.id) if current_admin.is_manager
 %br/
 %br/
+
 %h3 教师晓书用户列表
 %table.table.table-striped
   %tr
@@ -46,10 +46,10 @@
       %td= u.print_type
       %td= link_to_check '查看', u
       %td= link_to_delete '删除', u, confirm: '确定要删除此用户吗？', method: :delete
-= link_to_add '添加教师', new_user_path(:school_id => @school.id, :user_type => "teacher")
+= link_to_add '添加教师', new_user_path(:school_id => @school.id, :user_type => "teacher") if current_admin.is_manager
 %br/
 %br/
-%br/
+
 %h3 管理员用户列表
 %table.table.table-striped
   %tr
@@ -61,6 +61,7 @@
     %tr
       %td= a.name
       %td= a.username
-      %td= a.last_sign_in_at
+      %td= a.last_sign_in_at.to_formatted_s(:zh_long) if a.last_sign_in_at
       %td= link_to_check '查看', a
-= link_to_add '添加管理员', new_admin_path(:school_id => @school.id)
+      
+= link_to_add '添加管理员', new_admin_path(:school_id => @school.id) if current_admin.is_manager
