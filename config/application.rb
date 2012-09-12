@@ -60,6 +60,7 @@ class ActiveRecord::Base
   
   def destroy
     self.created_at = Time.at(0)
+    self.updated_at = Time.now
     self.save
   end
   
