@@ -2,7 +2,7 @@
 class Section < ActiveRecord::Base
   belongs_to :lesson
   has_many :edges
-  has_many :section_components, :uniq => true
+  has_many :section_components, :uniq => true, :dependent => :destroy
   has_many :activities, :through => :section_components, :source => :activity, :order => "section_components.seq", :conditions  => "activities.created_at > '#{Time.at(0)}'"
 
   ZN_NAME = "小节"
