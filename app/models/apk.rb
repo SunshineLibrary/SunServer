@@ -1,7 +1,7 @@
 class Apk < ActiveRecord::Base
 
   scope :latest, lambda { select('apks.id, apks.name, apks.version').
-    joins('inner join (select name, max(version) as version from apks group by name) as a on apks.name = a.name and apks.version = a.version') }
+    joins('inner join (select name, max(version) as version from apks where created_at > 0 group by name) as a on apks.name = a.name and apks.version = a.version') }
 
   has_attached_file :file
 
