@@ -1,15 +1,18 @@
-%p
-  %b Version:
-  = @apk.version_name
-%p
-  %b Code:
-  = @apk.version
-%p
-  %b Name:
-  = @apk.name
-%p
-  %b Description:
-  = @apk.description
-= link_to 'Edit', edit_apk_path(@apk)
-|
-\#{link_to 'Back', apks_path}
+.page-header
+  %h1
+    = @apk.description
+    %span.label= Apk.zh_name
+
+.row
+  .span6
+    %dl.dl-horizontal
+      %dt 文件名
+      %dd= @apk.name
+      %dt 版本号
+      %dd= @apk.version_name
+      %dt 更新序号
+      %dd= @apk.version
+
+
+= link_to_edit '修改信息', edit_apk_path(@apk)
+= link_to_back '返回', apks_path

@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class ApksController < ApplicationController
   protect_from_forgery :except => :get_updates
   skip_before_filter :admin_signed_in_required, :only => :get_updates
@@ -61,11 +62,12 @@ class ApksController < ApplicationController
   # PUT /apks/1.json
   def update
     @apk = Apk.find(params[:id])
-    @apk.parse_info
-
+    
     respond_to do |format|
       if @apk.update_attributes(params[:apk])
-        format.html { redirect_to @apk, notice: 'Apk was successfully updated.' }
+        @apk.parse_info
+        @apk.save
+        format.html { redirect_to @apk, notice: '成功更新安装包' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

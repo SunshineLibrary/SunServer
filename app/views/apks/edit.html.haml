@@ -1,5 +1,24 @@
-%h1 Editing apk
-= render 'form'
-= link_to 'Show', @apk
-|
-\#{link_to 'Back', apks_path}
+%h1 修改软件信息
+= form_for(@apk, :html => {:class => "form-horizontal"}) do |f|
+  %fieldset
+    - if @apk.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@apk.errors.count, "error")
+          prohibited this apk from being saved:
+        %ul
+          - @apk.errors.full_messages.each do |msg|
+            %li= msg
+    .control-group
+      = f.label :file, ".apk文件", :class => "control-label"
+      .controls
+        = f.file_field :file
+    .control-group
+      = f.label :description, "名称", :class => "control-label"
+      .controls
+        = f.text_field :description
+    .form-actions
+      = f.submit "更新", :class => "btn btn-success"
+
+= link_to_back '取消', apks_path
+= link_to_delete '删除', @apk, confirm: '确定要删除吗？', method: :delete

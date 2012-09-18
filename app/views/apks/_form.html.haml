@@ -9,12 +9,12 @@
           - @apk.errors.full_messages.each do |msg|
             %li= msg
     .control-group
-      = f.label :file, "Apk文件", :class => "control-label"
+      = f.label :file, ".apk文件", :class => "control-label"
       .controls
         = f.file_field :file
     .control-group
-      = f.label :description, "描述", :class => "control-label"
+      = f.label :description, "名称", :class => "control-label"
       .controls
         = f.text_field :description
     .form-actions
-      = f.submit :class => "btn btn-success"
+      = f.submit "添加软件", :class => "btn btn-success"
