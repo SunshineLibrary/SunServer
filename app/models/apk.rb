@@ -12,7 +12,7 @@ class Apk < ActiveRecord::Base
     self.version = res.match(/versionCode=\"([^\"]*)\"/).captures[0].to_i
     self.name = res.match(/package=\"([^\"]*)\"/).captures[0]
 
-    self.save
+    #self.save
     # self.description = self.file.path
   end
 end
