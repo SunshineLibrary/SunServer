@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class Lesson < ActiveRecord::Base
   belongs_to :chapter
-  has_many :sections, :conditions  => "sections.created_at > '#{Time.at(0)}'"
+  has_many :sections, :dependent => :destroy, :conditions  => "sections.created_at > '#{Time.at(0)}'"
   
   ZN_NAME = "章节"
   
