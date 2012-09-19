@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class ApksController < ApplicationController
   protect_from_forgery :except => :get_updates
   skip_before_filter :admin_signed_in_required, :only => :get_updates
@@ -44,11 +45,11 @@ class ApksController < ApplicationController
   # POST /apks.json
   def create
     @apk = Apk.new(params[:apk])
+    @apk.parse_info
 
     respond_to do |format|
       if @apk.save
-        @apk.parse_info
-        format.html { redirect_to apks_url, notice: 'Apk was successfully created.' }
+        format.html { redirect_to apks_url, notice: '成功上传安装包' }
         format.json { render json: @apk, status: :created, location: @apk }
       else
         format.html { render action: "new" }
@@ -61,10 +62,12 @@ class ApksController < ApplicationController
   # PUT /apks/1.json
   def update
     @apk = Apk.find(params[:id])
-
+    
     respond_to do |format|
       if @apk.update_attributes(params[:apk])
-        format.html { redirect_to @apk, notice: 'Apk was successfully updated.' }
+        @apk.parse_info
+        @apk.save
+        format.html { redirect_to @apk, notice: '成功更新安装包' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

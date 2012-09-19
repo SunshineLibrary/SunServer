@@ -99,15 +99,19 @@ collection = BookCollection.create title: "哈利·波特与凤凰社", intro: i
   
 apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "alarming.apk")), description: "尊贵的小闹钟"
 apk.parse_info
+apk.save
 
 apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "Bluetooth.apk")), description: "尊贵的蓝牙"
 apk.parse_info
+apk.save
 
 apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "BookMark.apk")), description: "尊贵的书签"
 apk.parse_info
+apk.save
 
 apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "Browser.apk")), description: "尊贵的浏览器"
 apk.parse_info
+apk.save
 
 MachineType.create name: "7寸晓书", size: "800*480", android_version: "2.2"
 MachineType.create name: "8寸晓书", size: "1024*768", android_version: "4.0.3"
