@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Subject < ActiveRecord::Base
-  has_many :courses
+  has_many :courses, :dependent => :destroy, :conditions  => "courses.created_at > '#{Time.at(0)}'"
   
   ZN_NAME = "科目"
     
