@@ -88,4 +88,14 @@ class SchoolsController < ApplicationController
       format.json { render json: schools.as_json(:only => [:id, :name])}
     end
   end
+  
+  def my_school
+    @school = current_admin.school
+    
+    respond_to do |format|
+      format.html { redirect_to @school }
+      format.json { render json: @school }
+    end
+  end
+  
 end

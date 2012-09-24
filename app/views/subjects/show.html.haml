@@ -1,11 +1,12 @@
 = render :partial => "shared/breadcrumb_curriculum", :locals => { :item => @subject }
 .page-header
   %h1
-    = best_in_place @subject, :name, :type => :input
+    = @subject.name
     %span.label= Subject.zh_name
-.row
-  .span2
-    = link_to_back '返回所有科目', subjects_path
+
+= link_to_edit '修改科目信息', edit_subject_path(@subject)
+= link_to_back '返回所有科目', subjects_path
+
 %br/
 %br/
 %br/
