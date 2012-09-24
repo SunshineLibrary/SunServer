@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120910233462) do
+ActiveRecord::Schema.define(:version => 20120924080322) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -194,10 +194,9 @@ ActiveRecord::Schema.define(:version => 20120910233462) do
 
   create_table "courses", :force => true do |t|
     t.string   "name"
-    t.string   "editor"
     t.integer  "subject_id"
     t.integer  "grade"
-    t.string   "semester"
+    t.integer  "semester",    :limit => 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -358,7 +357,6 @@ ActiveRecord::Schema.define(:version => 20120910233462) do
   add_index "user_records", ["user_id", "item_id", "item_type"], :name => "index_user_records_on_user_id_and_item_id_and_item_type", :unique => true
 
   create_table "users", :force => true do |t|
-    t.string   "users"
     t.string   "name"
     t.date     "birthday"
     t.integer  "classroom_id"

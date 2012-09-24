@@ -9,11 +9,12 @@
       %dt 所属课程
       %dd= link_to @course.name, course_path(@course)
       %dt 单元概述
-      %dd
-        = best_in_place @chapter, :description, :type => :textarea
-.row
-  .span2
+      %dd= @chapter.description
+
+    = link_to_edit '修改信息', edit_chapter_path(@chapter)
     = link_to_back '返回课程', course_path(@course)
+    
+    
 %br/
 %br/
 %br/
@@ -21,13 +22,10 @@
 %table.table.table-striped
   %tr
     %th.span3 名称
-    %th.span5 概述
-    %th.span2
-    %th.span2
+    %th.span9 概述
   - @chapter.lessons.each do |l|
     %tr
-      %td= best_in_place l, :name, :type => :input
-      %td= best_in_place l, :description, :type => :textarea
-      %td= link_to_check '查看', l
-      %td= link_to_delete '删除', l, confirm: '确定要删除此章节吗？', method: :delete
+      %td= link_to l.name, l
+      %td= l.description
+      
 = link_to_add '创建章节', new_lesson_path(:chapter_id => @chapter.id)

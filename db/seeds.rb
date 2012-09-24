@@ -9,7 +9,7 @@
 
 
 subject = Subject.create name: "数学"
-  course = subject.courses.create name: "初一数学(上)"
+  course = subject.courses.create name: "初一数学(上)", grade: 7, semester: 1
     chapter = course.chapters.create name: "第一单元：有理数"
       lesson = chapter.lessons.create name: "第一课：有理数的概念及概念性工具"
         section = lesson.sections.create name: "负数的概念",

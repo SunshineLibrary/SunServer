@@ -16,14 +16,13 @@
     %th.span1 适用年级
     %th.span1 适用学期
     %th.span1 课程类型
-    %th.span5 概述
-    %th.span2
+    %th.span7 概述
   - @subject.courses.each do |s|
     %tr
-      %td= s.name
+      %td= link_to s.name, s
       %td= s.print_grade
       %td= s.print_semester
       %td= s.print_course_type
       %td= s.description
-      %td= link_to_check '查看', s
+      
 = link_to_add '创建课程', new_course_path(:subject_id => @subject.id)

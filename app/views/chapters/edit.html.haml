@@ -1,0 +1,6 @@
+.page-header
+  %h1 编辑单元
+
+= render 'form'
+
+= link_to_delete '删除单元', @chapter, confirm: '确定要删除此单元吗？', method: :delete

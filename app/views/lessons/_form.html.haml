@@ -1,21 +1,27 @@
-= form_for(@lesson) do |f|
+= form_for @lesson, :html => {:class => "form-horizontal"} do |f|
   - if @lesson.errors.any?
     #error_explanation
       %h2
         = pluralize(@lesson.errors.count, "error")
-        prohibited this lesson from being saved:
+        prohibited this chapter from being saved:
       %ul
         - @lesson.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label :name, "章节名称"
-    %br/
-    = f.text_field :name
-  .field{:style => "display: none"}
-    = f.text_field :chapter_id, :value => params[:chapter_id]
-  <div class="field", "概述">
-  \#{f.label :description}
-  %br/
-  = f.text_area :description
-  .actions
-    = f.submit :value => "创建"
+  %fieldset
+    .control-group
+      = f.label :name, "章节名称", :class => "control-label"
+      .controls
+        = f.text_field :name, :class => "input-xlarge"
+    - if params[:action] == 'new'
+      = f.hidden_field :chapter_id, :value => params[:chapter_id]
+    .control-group
+      = f.label :description, "描述", :class => "control-label"
+      .controls
+        = f.text_area :description, :class => "input-xlarge"
+    .form-actions
+      = f.submit :value => "确定", :class => "btn btn-primary"
+      - if params[:action] == 'new'
+        = link_to '取消', @lesson.parent, :class => "btn"
+      - elsif params[:action] == 'edit'
+        = link_to '取消', @lesson, :class => "btn"
+

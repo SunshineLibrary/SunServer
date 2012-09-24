@@ -1,3 +1,5 @@
+#encoding: UTF-8
+
 class ChaptersController < ApplicationController
   # GET /chapters
   # GET /chapters.json
@@ -45,7 +47,7 @@ class ChaptersController < ApplicationController
 
     respond_to do |format|
       if @chapter.save
-        format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
+        format.html { redirect_to @chapter, notice: '成功创建单元' }
         format.json { render json: @chapter, status: :created, location: @chapter }
       else
         format.html { render action: "new" }
@@ -61,7 +63,7 @@ class ChaptersController < ApplicationController
 
     respond_to do |format|
       if @chapter.update_attributes(params[:chapter])
-        format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
+        format.html { redirect_to @chapter, notice: '已更新单元信息' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

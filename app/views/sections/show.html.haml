@@ -1,18 +1,18 @@
 = render :partial => "shared/breadcrumb_curriculum", :locals => { :item => @section }
-%p#notice
-  = notice
+
 .page-header
   %h1
-    = best_in_place @section, :name, :type => :input
-    %span.label 小节
+    = @section.name
+    %span.label= Section.zh_name
 %dl.dl-horizontal
   %dt 所属章节
   %dd= link_to @lesson.name, lesson_path(@lesson)
   %dt 重点笔记
-  %dd= best_in_place @section, :description, :type => :textarea
-.row
-  .span2
-    = link_to_back '返回章节', lesson_path(@lesson)
+  %dd= @section.description
+  
+= link_to_edit '修改信息', edit_section_path(@section)
+= link_to_back '返回章节', lesson_path(@lesson)
+
 %br/
 %br/
 %br/

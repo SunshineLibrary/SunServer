@@ -28,6 +28,21 @@ class QuizActivitiesController < ApplicationController
     end
   end
 
+  def update
+    @quiz_activity = QuizActivity.find_by_id(params[:id])
+    attr = params[:quiz_activity]
+
+    respond_to do |format|
+      if @quiz_activity.update_attributes(attr)
+        format.html { redirect_to Section.find_by_id(section_id), notice: '信息已更新' }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @video_activity.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   def destroy
     @quiz_activity = QuizActivity.find(params[:id])
