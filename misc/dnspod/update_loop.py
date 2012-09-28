@@ -47,39 +47,35 @@ def getip():
         log(e)
         return None
 
-IP_FILE_PATH = "/var/local/dnspod/ip.txt"
-def fetch_current_saved_ip():
-    saved_ip = None
-    try:
-        ipFile = open(IP_FILE_PATH, "r")
-        saved_ip = ipFile.readline()
-        log("Found ip file, found current saved ip:", current_ip)
-    except Exception, e:
-        log("No ip file found, defaulting current saved ip to None")
-    return saved_ip
-
-def save_current_ip(ip)
-    try:
-        ipFile = open(IP_FILE_PATH, "w")
-        ipFile.write(ip)
-        ipFile.close()
-        log("Wrote new ip to ip file:", current_ip)
-    except Exception, e:
-        log("Could not open ip file for writing")
+def main_loop():
+    current_ip = None
+    while True:
+        log("Looking up current IP...")
+        ip = getip()
+        if ip == None:
+            log("IP Not Found")
+        else:
+            log("IP Found: ", ip)
+            if current_ip != ip:
+                log("Updating new IP...")
+                if ddns(ip):
+                    log("IP updated")
+                    current_ip = ip
+        sys.stdout.flush()
+        time.sleep(60)
 
 
 if __name__ == '__main__':
-    current_ip = fetch_current_saved_ip("/var/local/dnspod/ip.txt")
-
-    log("Looking up current IP...")
-    ip = getip()
-    if ip == None:
-        log("IP Not Found")
+    pid = os.fork()
+    if pid:
+        log("Received Child process id:", pid)
+        try:
+            pidFile = open("/var/local/dnspod/update_loop.pid", "w")
+            pidFile.write(str(pid))
+            pidFile.close
+        except Exception, e:
+            log("Could not open PID file for writing")
+        log('Shutting down parent process')
     else:
-        log("IP Found: ", ip)
-        if current_ip != ip:
-            log("Updating new IP...")
-            if ddns(ip):
-                log("IP updated")
-                current_ip = ip
-                save_crreunt_ip(ip)
+        log('Starting child process')
+        main_loop()
