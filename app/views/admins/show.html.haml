@@ -11,7 +11,7 @@
       %dt 姓名
       %dd= @admin.name
       %dt 所属学校
-      %dd= @admin.school.name
+      %dd= link_to @admin.school.name, @admin.school
       
 = link_to_check '修改信息', edit_admin_path(@admin)
 = link_to_edit '修改密码', :action => :change_password, :id => @admin
