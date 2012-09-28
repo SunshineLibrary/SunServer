@@ -5,7 +5,7 @@ SunServer::Application.routes.draw do
       post 'get_updates'
     end
   end
-
+  resources :machine_types
   resources :api do
     collection do
       get 'courses'
@@ -43,7 +43,12 @@ SunServer::Application.routes.draw do
       end
     end
   end
-  resources :users
+  resources :users do
+    collection do
+      get 'batch_new'
+      post 'batch_create'
+    end
+  end
   resources :providers
   resources :machines do
     collection do

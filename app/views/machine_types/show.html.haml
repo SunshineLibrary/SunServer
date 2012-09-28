@@ -1,0 +1,15 @@
+.page-header
+  %h1
+    = @machine_type.name
+    %span.label= MachineType.zh_name
+
+.row
+  .span6
+    %dl.dl-horizontal
+      %dt 屏幕尺寸
+      %dd= @machine_type.size
+      %dt Android版本
+      %dd= @machine_type.android_version
+
+= link_to_edit '修改信息', edit_machine_type_path(@machine_type)
+= link_to_back '返回', machine_types_path

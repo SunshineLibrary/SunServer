@@ -24,7 +24,7 @@
       = f.label :birthday, "生日", :class => "control-label"
       .controls
         = f.text_field :birthday, :class => "input-xlarge"
-        %span.help-inline 请按照这样的格式填写“1985.8.15”
+        %span.help-inline 请按照这样的格式填写“1995-8-15”，如果只知道月份不知道是哪天，请统一使用1号，比如学生生日是1995年7月，则输入“1995-7-1”
     .form-actions
       = f.submit "创建", :class => "btn btn-primary"
-      = link_to "取消", school_path(params[:school_id]), :class => "btn"
+      = link_to "取消", classroom_path(params[:classroom_id]), :class => "btn"

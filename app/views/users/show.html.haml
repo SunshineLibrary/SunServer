@@ -6,14 +6,16 @@
   .span6
     %dl.dl-horizontal
       %dt 学校
-      %dd= @user.school.name
+      %dd= link_to @user.school.name, @user.school
       - if @user.is_student
         %dt 班级
-        %dd= @user.classroom.class_name
+        %dd= link_to @user.classroom.class_name, @user.classroom
       %dt 生日
       %dd= @user.birthday
-      %dt 用户类型
+      %dt 类型
       %dd= @user.print_type
+  = link_to_edit "修改信息", edit_user_path(@user)
+
 %br/
 %h3 正在使用的晓书
 .row

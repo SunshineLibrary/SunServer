@@ -5,6 +5,8 @@
 .row
   .span6
     %dl.dl-horizontal
+      %dt 学校编号
+      %dd= @school.id
       %dt 学校地址
       %dd= @school.location
       %dt 班级数量
@@ -12,7 +14,7 @@
       %dt 教师数量
       %dd= @school.school_level_users.count
       %dt 学生数量
-      %dd= @school.teachers.count
+      %dd= @school.students.count
 %br/
 %br/
 
@@ -33,16 +35,14 @@
     %br/
     %table.table.table-striped
       %tr
-        %th.span4 年级
-        %th.span4 班级
-        %th.span2
-        %th.span2
+        %th 编号
+        %th 名称
+        %th
       - @school.classrooms.each do |c|
         %tr
-          %td= c.grade_name
-          %td= c.order_name
-          %td= link_to_check '查看', c
-          %td= link_to_delete '删除', c, confirm: '确定要删除此班级吗？', method: :delete
+          %td= c.id
+          %td= link_to c.class_name, c
+          %td= link_to_edit '修改信息', edit_classroom_path(c)
     
   #teacher-user-list.tab-pane
     %h3 

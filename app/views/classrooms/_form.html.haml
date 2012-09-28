@@ -12,7 +12,7 @@
       = f.label :school_id, "学校", :class => "control-label"
       .controls
         - if current_admin.is_global
-          = f.select :school_id, School.list_all, :selected => @school.id, :html => {:class => "input-xlarge"}
+          = f.select :school_id, School.list_all, :selected => @classroom.school.id, :html => {:class => "input-xlarge"}
         - else
           = f.select :school_id, [[current_admin.school.name, current_admin.school.id]], :class => "input-xlarge"
     .control-group
