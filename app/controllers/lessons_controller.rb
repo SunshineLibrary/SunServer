@@ -1,3 +1,5 @@
+#encoding: UTF-8
+
 class LessonsController < ApplicationController
   # GET /lessons
   # GET /lessons.json
@@ -44,7 +46,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully created.' }
+        format.html { redirect_to @lesson, notice: '成功创建章节' }
         format.json { render json: @lesson, status: :created, location: @lesson }
       else
         format.html { render action: "new" }
@@ -60,7 +62,7 @@ class LessonsController < ApplicationController
 
     respond_to do |format|
       if @lesson.update_attributes(params[:lesson])
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+        format.html { redirect_to @lesson, notice: '已修改章节信息' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

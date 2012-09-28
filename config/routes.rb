@@ -55,7 +55,6 @@ SunServer::Application.routes.draw do
   end
 
   match 'subjects/overview/:id'  => 'subjects#overview'
-  match 'subjects/all' => 'subjects#all_subject'
   resources :subjects
   resources :courses
   resources :lessons
@@ -146,7 +145,7 @@ SunServer::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'books#index'
+  root :to => 'schools#my_school'
 
   # See how all your routes lay out with "rake routes"
 

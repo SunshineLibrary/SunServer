@@ -1,0 +1,6 @@
+.page-header
+  %h1 编辑小节
+
+= render 'form'
+
+= link_to_delete '删除小节', @section, confirm: '确定要删除此小节吗？', method: :delete

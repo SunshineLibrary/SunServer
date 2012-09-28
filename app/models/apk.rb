@@ -15,13 +15,15 @@ class Apk < ActiveRecord::Base
   end
 
   def parse_info
-    res = `java -jar app/models/APKParser.jar #{file.path}`
+    res = `java -jar app/models/APKParser.jar #{self.file.path}`
 
-    self.version_name = res.match(/versionName=\"([^\"]*)\"/).captures[0]
-    self.version = res.match(/versionCode=\"([^\"]*)\"/).captures[0].to_i
-    self.name = res.match(/package=\"([^\"]*)\"/).captures[0]
-
-    #self.save
-    # self.description = self.file.path
+    version_name_string = res.match(/versionName=\"([^\"]*)\"/)
+    version_string = res.match(/versionCode=\"([^\"]*)\"/)
+    name_string = res.match(/package=\"([^\"]*)\"/)
+    
+    self.version_name = version_name_string.captures[0] if version_name_string
+    self.version = version_string.captures[0].to_i if version_string
+    self.name = name_string.captures[0] if name_string
+    
   end
 end

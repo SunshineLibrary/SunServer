@@ -25,13 +25,10 @@
 %table.table.table-striped
   %tr
     %th.span3 名称
-    %th.span5 概述
-    %th.span2
-    %th.span2
+    %th.span9 概述
   - @course.chapters.each do |c|
     %tr
-      %td= best_in_place c, :name, :type => :input
-      %td= best_in_place c, :description, :type => :textarea
-      %td= link_to_check '查看', c
-      %td= link_to_delete '删除', c, confirm: '确定要删除此单元吗？', method: :delete
+      %td= link_to c.name, c
+      %td= c.description
+      
 = link_to_add '创建单元', new_chapter_path(:course_id => @course.id)
