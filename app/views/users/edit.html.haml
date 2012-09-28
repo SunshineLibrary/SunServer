@@ -1,5 +1,29 @@
-%h1 Editing user
-= render 'form'
-= link_to 'Show', @user
-|
-\#{link_to 'Back', users_path}
+.page-header
+  %h1 修改用户信息
+
+= form_for @user, :html => {:class => "form-horizontal"} do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@user.errors.count, "error")
+        prohibited this user from being saved:
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+  %fieldset
+    .control-group
+      = f.label :name, "姓名", :class => "control-label"
+      .controls
+        = f.text_field :name, :class => "input-xlarge"
+    .control-group
+      = f.label :birthday, "生日", :class => "control-label"
+      .controls
+        = f.text_field :birthday, :class => "input-xlarge"      
+    - if @user.user_type == "student"
+      .control-group
+        = f.label :classroom_id, "班级", :class => "control-label"
+        .controls
+          = f.select :classroom_id, @user.school.list_all_classrooms, :class => "input-xlarge"
+    .form-actions
+      = f.submit "更新", :class => "btn btn-primary"
+      = link_to '取消', @user, :class => "btn"

@@ -8,7 +8,7 @@
       %dt 系统编号
       %dd= @classroom.id
       %dt 所属学校
-      %dd= @classroom.school.name
+      %dd= link_to @classroom.school.name, @classroom.school
       %dt 年级
       %dd= @classroom.grade_name
       %dt 班级
@@ -29,4 +29,5 @@
       %td= u.birthday
       %td= link_to_check '查看', u
       %td= link_to_delete '删除', u, confirm: '确定要删除此学生吗？', method: :delete
+      
 = link_to_add '添加学生', new_user_path(:classroom_id => @classroom.id, :user_type => "student")

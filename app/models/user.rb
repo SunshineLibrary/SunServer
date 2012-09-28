@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :user_records
   has_many :read_books, :through => :user_records, :source => :item, :source_type => 'Book'
 
+  validate :birthday_is_date?, :known_type?
+
   ZN_NAME = "用户"
     
   TYPE_TO_NAME = { "student" => "学生", "teacher" => "教师", "staff" => "工作人员" }
@@ -60,6 +62,20 @@ class User < ActiveRecord::Base
       user = User.where(school_id: school.id, user_type: user_type, name: name, birthday: birthday).first
     end
     user
+  end
+  
+  private
+  def birthday_is_date?
+    if !self.birthday.is_a?(Date)
+      errors.add(:birthday, '请按照格式输入日期') 
+    end
+  end
+  
+  private
+  def known_type?
+    if !TYPE_TO_NAME.has_key?(self.user_type)
+      errors.add(:user_type, '用户类型不正确！') 
+    end
   end
   
 end

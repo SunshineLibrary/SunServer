@@ -51,6 +51,7 @@
                   %ul.dropdown-menu
                     %li= link_to '学校列表', schools_path
                     %li= link_to '软件列表', apks_path
+                    %li= link_to '批量创建用户', {:controller => 'users', :action => 'batch_new'}
               - if admin_signed_in?
                 %li.dropdown
                   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}

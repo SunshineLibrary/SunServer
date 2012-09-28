@@ -20,6 +20,15 @@ class School < ActiveRecord::Base
     collection
   end
   
+  def list_all_classrooms
+    collection = []
+    self.classrooms.each do |c|
+      next if c.destroyed?
+      collection << [c.class_name, c.id]
+    end
+    collection
+  end
+  
   def school_level_users
     self.users.where("users.user_type <> 'student'").all
   end

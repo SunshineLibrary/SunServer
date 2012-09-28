@@ -37,7 +37,7 @@ class ClassroomsController < ApplicationController
 
     respond_to do |format|
       if @classroom.save
-        format.html { redirect_to @classroom, notice: '成功创建班级' }
+        format.html { redirect_to @classroom.school, notice: '成功创建班级' }
         format.json { render json: @classroom, status: :created, location: @classroom }
       else
         format.html { render action: "new" }

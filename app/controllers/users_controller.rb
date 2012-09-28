@@ -1,5 +1,7 @@
 #encoding: UTF-8
 
+require 'csv'
+
 class UsersController < ApplicationController
 
   include MachinesHelper
@@ -50,11 +52,11 @@ class UsersController < ApplicationController
       classroom = Classroom.find_by_id(@user.classroom_id)
       @user.school_id = classroom.school.id
     end
-    @user.birthday = @user.birthday.to_date
+    #@user.birthday = @user.birthday.to_date
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: '成功创建用户' }
+        format.html { redirect_to classroom, notice: '成功创建用户' }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
@@ -102,5 +104,29 @@ class UsersController < ApplicationController
     end
   end
   
+  # for batch create users
+  def batch_new
+  end
+
+  def batch_create
+    f = params[:csv].read
+    rows = CSV.parse(f)
+    rows = rows[1..-1] # skip header line
+    n = 0
+    rows.each do |row|
+      u = User.new
+      u.name = row[0].force_encoding('UTF-8')
+      u.birthday = row[1]
+      u.classroom_id = row[2]
+      u.school_id = row[3]
+      u.user_type = row[4]
+      n = n + 1 if u.save
+    end
+    respond_to do |format|
+      format.html { redirect_to({:action => 'batch_new'}, :notice => "成功添加#{n}位学生") }
+      format.json { head :ok }
+    end
+  end
+
   
 end
