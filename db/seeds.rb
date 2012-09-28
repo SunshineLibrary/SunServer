@@ -122,9 +122,11 @@ School.create name: "和寨九年制学校", location: "甘肃省武威市永昌
 School.create name: "贺家中学", location: "湖南省衡阳市衡山县贺家乡"
 School.create name: "贺家中心完小", location: "湖南省衡阳市衡山县贺家乡"
 
-Classroom.create school_id: 2, class_of: 2018, class_order: 4
+Classroom.create school_id: 2, class_of: 2015, class_order: 1
+Classroom.create school_id: 2, class_of: 2015, class_order: 2
+Classroom.create school_id: 2, class_of: 2015, class_order: 3
 
-User.create name: "杨同学", birthday: "1987-12-22", school_id: 2, classroom_id: 1, user_type: "student"
-User.create name: "杨老师", birthday: "1987-12-22", school_id: 2, user_type: "teacher"
+User.create name: "杨同学", birthday: "1995-6-1", school_id: 2, classroom_id: 1, user_type: "student"
+User.create name: "杨老师", birthday: "1970-12-22", school_id: 2, user_type: "teacher"
 
-Admin.create username: "admin", name: "管理员先生",  encrypted_password: "$2a$10$sx/HYIizHHYKpph6wN1dOuAIPCE/deJv3SKVMirt2f8ETkuj4KRkC",school_id: 1, is_global: true, is_manager: true, is_super: true
+Admin.create username: "admin", name: "管理员",  encrypted_password: "$2a$10$sx/HYIizHHYKpph6wN1dOuAIPCE/deJv3SKVMirt2f8ETkuj4KRkC",school_id: 1, is_global: true, is_manager: true, is_super: true

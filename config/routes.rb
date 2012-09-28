@@ -5,7 +5,7 @@ SunServer::Application.routes.draw do
       post 'get_updates'
     end
   end
-
+  resources :machine_types
   resources :api do
     collection do
       get 'courses'

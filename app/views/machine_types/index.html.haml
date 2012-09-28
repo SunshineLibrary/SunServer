@@ -1,0 +1,16 @@
+.page-header
+  %h1 机器类型列表
+
+%table.table.table-striped
+  %tr
+    %th 型号
+    %th 屏幕尺寸
+    %th Android版本
+  - @machine_types.each do |mt|
+    - next if mt.destroyed?
+    %tr
+      %td= link_to mt.name, mt
+      %td= mt.size
+      %td= mt.android_version
+      
+= link_to_add '添加机器类型', new_machine_type_path

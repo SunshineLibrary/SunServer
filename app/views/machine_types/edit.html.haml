@@ -1,0 +1,7 @@
+.page-header
+  %h1 修改机器类型
+  
+= render 'form'
+
+= link_to_back '取消', @machine_type
+= link_to_delete '删除', @machine_type, confirm: '确定要删除吗？', method: :delete

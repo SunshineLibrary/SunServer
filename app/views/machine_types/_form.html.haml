@@ -1,0 +1,24 @@
+= form_for(@machine_type, :html => {:class => "form-horizontal"}) do |f|
+  %fieldset
+    - if @machine_type.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@machine_type.errors.count, "error")
+          prohibited this apk from being saved:
+        %ul
+          - @machine_type.errors.full_messages.each do |msg|
+            %li= msg
+    .control-group
+      = f.label :name, "型号", :class => "control-label"
+      .controls
+        = f.text_field :name
+    .control-group
+      = f.label :size, "屏幕尺寸", :class => "control-label"
+      .controls
+        = f.text_field :size
+    .control-group
+      = f.label :android_version, "Android版本", :class => "control-label"
+      .controls
+        = f.text_field :android_version
+    .form-actions
+      = f.submit "确定", :class => "btn btn-success"
