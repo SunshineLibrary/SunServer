@@ -47,18 +47,20 @@ def getip():
         log(e)
         return None
 
-IP_FILE_PATH = "/var/local/dnspod/ip.txt"
+DIR = os.path.dirname(os.path.abspath(__file__))
+IP_FILE_PATH = os.path.join(DIR, "ip.txt")
 def fetch_current_saved_ip():
     saved_ip = None
     try:
         ipFile = open(IP_FILE_PATH, "r")
         saved_ip = ipFile.readline()
-        log("Found ip file, found current saved ip:", current_ip)
+        log("Found ip file, found current saved ip:", saved_ip)
+        ipFile.close()
     except Exception, e:
-        log("No ip file found, defaulting current saved ip to None")
+        log("No ip file found, defaulting current saved ip to None", e)
     return saved_ip
 
-def save_current_ip(ip)
+def save_current_ip(ip):
     try:
         ipFile = open(IP_FILE_PATH, "w")
         ipFile.write(ip)
@@ -69,7 +71,7 @@ def save_current_ip(ip)
 
 
 if __name__ == '__main__':
-    current_ip = fetch_current_saved_ip("/var/local/dnspod/ip.txt")
+    current_ip = fetch_current_saved_ip()
 
     log("Looking up current IP...")
     ip = getip()
@@ -82,4 +84,4 @@ if __name__ == '__main__':
             if ddns(ip):
                 log("IP updated")
                 current_ip = ip
-                save_crreunt_ip(ip)
+                save_current_ip(ip)
