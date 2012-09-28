@@ -4,4 +4,4 @@
     %span.label= Classroom.zh_name
 = render 'form'
 = link_to_back '取消', @classroom
-
+= link_to_delete '删除班级', @classroom, confirm: '确定要删除此班级吗？', method: :delete
