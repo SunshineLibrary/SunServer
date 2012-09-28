@@ -16,8 +16,8 @@ def timestamp():
 class ApiRequest(object):
 
     base_params = dict(
-            login_email="ukisami@gmail.com",
-            login_password="sslgongy1",
+            login_email="",
+            login_password="",
             format="json"
             )
     headers = {
