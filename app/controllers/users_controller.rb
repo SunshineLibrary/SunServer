@@ -85,10 +85,16 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     @user = User.find(params[:id])
+    back_url = nil
+    if @user.is_student
+        back_url = @user.classroom
+    else
+        back_url = @user.school
+    end
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url }
+      format.html { redirect_to back_url }
       format.json { head :ok }
     end
   end
@@ -96,7 +102,7 @@ class UsersController < ApplicationController
   # for SunBook
   def sign_in
     @user = User.find(params[:id])
-    @user.destroy
+    @user.hard_destroy
 
     respond_to do |format|
       format.html { redirect_to users_url }
