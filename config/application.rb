@@ -58,9 +58,6 @@ class ActiveRecord::Base
     freeze
   end
   
-  alias_method :destroy, :hard_destroy
-  alias_method :destroyed?, :hard_destroyed?
-  
   def destroy
     self.created_at = Time.at(0)
     self.updated_at = Time.now
