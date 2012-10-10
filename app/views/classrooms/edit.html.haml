@@ -2,6 +2,34 @@
   %h1
     修改班级信息
     %span.label= Classroom.zh_name
-= render 'form'
-= link_to_back '取消', @classroom
+
+= form_for @classroom, :html => {:class => "form-horizontal"} do |f|
+  - if @classroom.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@classroom.errors.count, "error")
+        prohibited this classroom from being saved:
+      %ul
+        - @classroom.errors.full_messages.each do |msg|
+          %li= msg
+  %fieldset
+    .control-group
+      = f.label :school_id, "学校", :class => "control-label"
+      .controls
+        - if current_admin.is_global
+          = f.select :school_id, School.list_all, :selected => @classroom.school.id, :html => {:class => "input-xlarge"}
+        - else
+          = f.select :school_id, [[current_admin.school.name, current_admin.school.id]], :class => "input-xlarge"
+    .control-group
+      = f.label :class_of, "年级", :class => "control-label"
+      .controls
+        = f.select :class_of, Classroom.all_grades, :class => "input-xlarge"
+    .control-group
+      = f.label :class_order, "班级", :class => "control-label"
+      .controls
+        = f.select :class_order, Classroom.all_orders, :class => "input-xlarge"
+    .form-actions
+      = f.submit "确定", :class => "btn btn-primary"
+      = link_to '取消', @classroom, :class => "btn"
+
 = link_to_delete '删除班级', @classroom, confirm: '确定要删除此班级吗？', method: :delete
