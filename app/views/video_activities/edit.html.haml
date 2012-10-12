@@ -13,9 +13,10 @@
       = f.label :content_file, "视频文件", :class => "control-label"
       .controls
         - if @video_activity.content_file?
-          = "(已上传:#{@video_activity.content_file_file_name})"
+          = "已上传（#{@video_activity.content_file_file_size / 1000000} MB）: "
+          =link_to @video_activity.content_file_file_name, @video_activity.content_file.url
         - else
-          = "(未上传)"
+          = "还未上传"
         %br/
         = f.file_field :content_file, :class => "input-xlarge"
     .control-group
