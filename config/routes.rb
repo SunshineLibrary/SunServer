@@ -1,5 +1,7 @@
 SunServer::Application.routes.draw do
 
+  resources :pdf_activities
+
   resources :apks do
     collection do
       post 'get_updates'
