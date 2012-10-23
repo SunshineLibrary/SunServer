@@ -1,0 +1,35 @@
+.page-header
+  %h1
+    = best_in_place @pdf_activity, :name, :type => :input
+    %span.label= Activity.type_to_name('pdf')
+= form_for @pdf_activity, :html => {:class => "form-horizontal"} do |f|
+  %fieldset
+    = f.hidden_field :section_id, :value => params[:section_id]
+    .control-group
+      = f.label :provider_id, "提供者", :class => "control-label"
+      .controls
+        = f.select :provider_id, Provider.list_all, :class => "input-xlarge"
+    .control-group
+      = f.label :content_file, "PDF文件", :class => "control-label"
+      .controls
+        - if @pdf_activity.content_file?
+          = "已上传（#{@pdf_activity.content_file_file_size / 1000} KB）: "
+          =link_to @pdf_activity.content_file_file_name, @pdf_activity.content_file.url
+          =link_to "7寸", @pdf_activity.modified_file1.url if @pdf_activity.modified_file1?
+          =link_to "8寸", @pdf_activity.modified_file2.url if @pdf_activity.modified_file2?
+        - else
+          = "还未上传"
+        %br/
+        = f.file_field :content_file, :class => "input-xlarge"
+    .control-group
+      = f.label :notes, "重点笔记", :class => "control-label"
+      .controls
+        = f.text_area :notes, :class => "input-xlarge", :rows => 4
+        %span.help-inline 需要学生重点记忆的知识点
+    .control-group
+      .controls
+        = "(PDF转换过程可能较慢，请耐心等待)"
+    .form-actions
+      = f.submit "保存", :class => "btn btn-primary"
+      = link_to "取消", section_path(@section_id), :class => "btn"
+

@@ -17,3 +17,5 @@ Vagrantfile
 /db/files/video2.mp4
 .pydevproject
 ToHaml.rb
+/sun_server.sublime-project
+/sun_server.sublime-workspace

@@ -15,6 +15,9 @@ class Activity < ActiveRecord::Base
     :hash_secret => "longSecretString"
   }
 
+  has_attached_file :modified_file1
+  has_attached_file :modified_file2
+
   TYPE_TO_NAME = {"video" => "视频", "quiz"=>"习题", "html" => "网页", "text" => "文本", "pdf" => "PDF"}
   TYPE_TO_INT =  {"TextActivity" => 0, "AudioActivity" => 1, "VideoActivity" => 2, "GalleryActivity" => 3,
                   "QuizActivity" => 4, "HtmlActivity" => 5, "PdfActivity" => 6}

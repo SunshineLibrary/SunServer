@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121012134742) do
+ActiveRecord::Schema.define(:version => 20121023215001) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -29,6 +29,14 @@ ActiveRecord::Schema.define(:version => 20121012134742) do
     t.string   "thumbnail_content_type"
     t.integer  "thumbnail_file_size"
     t.datetime "thumbnail_updated_at"
+    t.string   "modified_file1_file_name"
+    t.string   "modified_file1_content_type"
+    t.integer  "modified_file1_file_size"
+    t.datetime "modified_file1_updated_at"
+    t.string   "modified_file2_file_name"
+    t.string   "modified_file2_content_type"
+    t.integer  "modified_file2_file_size"
+    t.datetime "modified_file2_updated_at"
   end
 
   create_table "admins", :force => true do |t|
