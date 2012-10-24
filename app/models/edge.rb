@@ -3,11 +3,11 @@ class Edge < ActiveRecord::Base
   belongs_to :section
   belongs_to :from, :class_name => "Activity"
   belongs_to :to, :class_name => "Activity"
-  
-  validates :section_id, :presence => true   
-  
+
+  validates :section_id, :presence => true
+
   TYPE_TO_NAME = {"CorrectCount" => "答对一定数量的题目时"}
-  
+
   def self.type_list
     collection = []
     TYPE_TO_NAME.each do |t|
@@ -15,7 +15,7 @@ class Edge < ActiveRecord::Base
     end
     collection
   end
-  
+
   def save_condition_string(condition_type, cond1, cond2)
     self.condition = Edge.generate_condition_string(condition_type, cond1, cond2)
   end

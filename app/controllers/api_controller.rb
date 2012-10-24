@@ -14,6 +14,7 @@ class ApiController < ApplicationController
   define_api_method("sections", Section)
 
   define_api_method("activities", Activity)
+  define_api_method("edges", Edge)
   define_api_method("gallery_images", Image)
   define_api_method("quiz_components", QuizComponent)
   define_api_method("section_components", SectionComponent)
