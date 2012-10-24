@@ -16,6 +16,7 @@ SunServer::Application.routes.draw do
       get 'sections'
 
       get 'activities'
+      get 'edges'
       get 'gallery_images'
       get 'quiz_components'
       get 'section_components'
