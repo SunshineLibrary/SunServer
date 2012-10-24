@@ -49,7 +49,7 @@ class Activity < ActiveRecord::Base
   # for PDF
   ###
   def is_pdf
-    "pdf" == self.type
+    "pdf" == self.tipe
   end
   
   def get_pdf_file(machine_type)
