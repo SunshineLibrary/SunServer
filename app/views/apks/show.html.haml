@@ -12,6 +12,8 @@
       %dd= @apk.version_name
       %dt 更新序号
       %dd= @apk.version
+      %dt 状态
+      %dd= @apk.print_status
 
 
 = link_to_edit '修改信息', edit_apk_path(@apk)

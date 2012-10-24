@@ -44,4 +44,17 @@ class Activity < ActiveRecord::Base
     json[:activity_type] = activity_type
     return json
   end
+  
+  ###
+  # for PDF
+  ###
+  def is_pdf
+    "pdf" == self.type
+  end
+  
+  def get_pdf_file(machine_type)
+    #TODO distinguish 7 and 8 inches, for now 7 by default
+    activity.modified_file1.url
+  end
+  
 end

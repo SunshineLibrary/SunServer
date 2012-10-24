@@ -8,12 +8,26 @@ class Apk < ActiveRecord::Base
 
   has_attached_file :file
 
+  TYPE_TO_NAME = { "release" => "发布", "test" => "测试"}
+
   ZN_NAME = "软件"
   
   def self.zh_name
     ZN_NAME
   end
-
+  
+  def print_status
+    TYPE_TO_NAME[self.status]
+  end
+  
+  def self.list_all_status
+    collection = []
+    TYPE_TO_NAME.each do |t|
+      collection << [t.second, t.first]
+    end
+    collection
+  end
+  
   def parse_info
     res = `java -jar app/models/APKParser.jar #{self.file.path}`
 
@@ -24,6 +38,22 @@ class Apk < ActiveRecord::Base
     self.version_name = version_name_string.captures[0] if version_name_string
     self.version = version_string.captures[0].to_i if version_string
     self.name = name_string.captures[0] if name_string
-    
   end
+  
+  def is_release
+    "release" == self.status
+  end
+  
+  def set_release
+    self.status = "release"
+  end
+  
+  def is_test
+    "test" == self.status 
+  end
+  
+  def set_test
+    self.status = "test"
+  end
+  
 end
