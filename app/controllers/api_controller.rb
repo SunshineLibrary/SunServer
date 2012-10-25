@@ -8,6 +8,7 @@ class ApiController < ApplicationController
     define_method(name, method)
   end
 
+  define_api_method("subjects", Subject)
   define_api_method("courses", Course)
   define_api_method("chapters", Chapter)
   define_api_method("lessons", Lesson)
