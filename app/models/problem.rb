@@ -11,7 +11,7 @@ class Problem < ActiveRecord::Base
     #problem_choices.all?(&:save)
   #end
 
-  TYPE_TO_NAME = {"mc" => "单项选择题", "fb" => "填空题", "mamc" => "多项选择题" }
+  TYPE_TO_NAME = {"mc" => "单选题", "fb" => "填空题", "mamc" => "多选题" }
   TYPE_TO_INT = {"fb" => 0, "mc" => 1, "mamc" => 2}
 
   def is_mc #单选

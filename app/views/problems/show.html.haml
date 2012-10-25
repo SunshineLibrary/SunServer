@@ -19,16 +19,16 @@
     .control-group
       #answer.input-prepend
         %span.add-on 答案
-        = if @problem.is_mc
+        - if @problem.is_mc
           = f.text_field :answer, :class => "span1"
           %span.help-inline 直接填写选项（不区分大小写）
-        = if @problem.is_mamc
+        - if @problem.is_mamc
           = text_field_tag :answer1, @answers[0], :class => "span1"
           = text_field_tag :answer2, @answers[1], :class => "span1"
           = text_field_tag :answer3, @answers[2], :class => "span1"
           = text_field_tag :answer4, @answers[3], :class => "span1"
           %span.help-inline 可以填写多个答案选项（不区分大小写）
-        = if @problem.is_fb
+        - if @problem.is_fb
           = f.text_field :answer, :class => "span5"
           %span.help-inline 直接填写答案
     - if @problem.is_mc or @problem.is_mamc
