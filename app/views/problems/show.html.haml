@@ -19,8 +19,18 @@
     .control-group
       #answer.input-prepend
         %span.add-on 答案
-        = f.text_field :answer, :class => "span1"
-        %span.help-inline 选择题填写选项（不区分大小写），填空题直接填写答案
+        = if @problem.is_mc
+          = f.text_field :answer, :class => "span1"
+          %span.help-inline 直接填写选项（不区分大小写）
+        = if @problem.is_mamc
+          = text_field_tag :answer1, @answers[0], :class => "span1"
+          = text_field_tag :answer2, @answers[1], :class => "span1"
+          = text_field_tag :answer3, @answers[2], :class => "span1"
+          = text_field_tag :answer4, @answers[3], :class => "span1"
+          %span.help-inline 可以填写多个答案选项（不区分大小写）
+        = if @problem.is_fb
+          = f.text_field :answer, :class => "span5"
+          %span.help-inline 直接填写答案
     - if @problem.is_mc or @problem.is_mamc
       #all-choices
         %br/
@@ -35,6 +45,7 @@
     .form-actions
       = submit_tag "保存", :class => 'btn btn-primary'
       = link_to "取消", quiz_activity_path(@quiz_activity, :section_id => @section_id), :class => 'btn'
+      
 %script{:type => "text/x-mathjax-config;executed=true"}
   MathJax.Hub.Config({
   extensions: ["asciimath2jax.js"],
