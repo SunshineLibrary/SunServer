@@ -8,12 +8,14 @@ class ApiController < ApplicationController
     define_method(name, method)
   end
 
+  define_api_method("subjects", Subject)
   define_api_method("courses", Course)
   define_api_method("chapters", Chapter)
   define_api_method("lessons", Lesson)
   define_api_method("sections", Section)
 
   define_api_method("activities", Activity)
+  define_api_method("edges", Edge)
   define_api_method("gallery_images", Image)
   define_api_method("quiz_components", QuizComponent)
   define_api_method("section_components", SectionComponent)

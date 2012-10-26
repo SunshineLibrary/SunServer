@@ -10,12 +10,14 @@ SunServer::Application.routes.draw do
   resources :machine_types
   resources :api do
     collection do
+      get 'subjects'
       get 'courses'
       get 'chapters'
       get 'lessons'
       get 'sections'
 
       get 'activities'
+      get 'edges'
       get 'gallery_images'
       get 'quiz_components'
       get 'section_components'

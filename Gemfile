@@ -1,4 +1,4 @@
-# source 'http://rubygems.org'
+#source 'http://rubygems.org'
 source 'http://ruby.taobao.org'
 
 gem 'rails', '3.1.0'
@@ -17,6 +17,8 @@ gem 'devise' #used for authentication
 gem 'mathjax-rails', :git => "git://github.com/ukisami/mathjax-rails.git"  # used for rendering math formula
 gem 'wombat' #used for parsing douban book page
 gem "twitter-bootstrap-rails"
+gem 'tinymce-rails' 
+#gem 'tinymce-rails-langs'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -16,5 +16,9 @@
       = f.label :description, "名称", :class => "control-label"
       .controls
         = f.text_field :description
+    .control-group
+      = f.label :status, "状态", :class => "control-label"
+      .controls
+        = f.select :status, Apk.list_all_status
     .form-actions
       = f.submit "添加软件", :class => "btn btn-success"

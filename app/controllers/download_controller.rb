@@ -44,6 +44,11 @@ class DownloadController <  ApplicationController
   def activities
     activity = Activity.find(params[:id])
     @path = activity.content_file.url
+    
+    if activity.is_pdf
+      @path = activity.get_pdf_file("TODO: get machine type once passed")
+    end
+    
     download_path
   end
 

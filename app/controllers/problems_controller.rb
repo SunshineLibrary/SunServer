@@ -13,6 +13,10 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @quiz_activity = QuizActivity.find_by_id(params[:quiz_activity_id])
     @section_id = params[:section_id]
+    @answers = nil
+    if @problem.is_mamc
+      @answers = @problem.answer.split(';')
+    end
 
     respond_to do |format|
       format.html
@@ -41,6 +45,14 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @quiz_activity = QuizActivity.find(params[:quiz_activity_id])
     @section_id = params[:section_id]
+    if @problem.is_mamc
+      answer = ""
+      answer = answer + params[:answer1] if not params[:answer1].empty?
+      answer = answer + ";" + params[:answer2] if not params[:answer2].empty?
+      answer = answer + ";" + params[:answer3] if not params[:answer3].empty?
+      answer = answer + ";" + params[:answer4] if not params[:answer4].empty?
+      params[:problem][:answer] = answer
+    end
 
     respond_to do |format|
       if @problem.update_attributes(params[:problem])

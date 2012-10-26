@@ -22,4 +22,5 @@ module ApiModelHelper
     end
     return sequence[0, i]
   end
+  
 end

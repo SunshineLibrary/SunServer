@@ -14,3 +14,6 @@
 
 // For Bootstrap
 //= require twitter/bootstrap
+
+//For TinyMCE
+//= require tinymce
