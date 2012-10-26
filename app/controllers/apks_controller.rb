@@ -89,7 +89,7 @@ class ApksController < ApplicationController
     end
   end
 
-  #POST /apks/update
+
   def get_updates
     latest = Apk.latest
     pkgs_json = JSON(params[:packages])
@@ -99,7 +99,7 @@ class ApksController < ApplicationController
       installed[pkg_json["name"]] = pkg_json["version"]
     end
     latest.each do |package|
-      if (installed[package.name].to_i < package.version) and package.is_release
+      if (installed[package.name].to_i < package.version) and ("release" == package.status)
         pending << package
       end
     end
