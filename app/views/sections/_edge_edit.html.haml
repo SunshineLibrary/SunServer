@@ -11,7 +11,7 @@
     - @section.edges.each do |edge|
       %tr
         %td= best_in_place edge, :from_id, :type => :select, :collection => @section.activity_list_in_place
-        %td= best_in_place edge, :to_id, :type => :select, :collection => @section.activity_list_in_place
+        %td= best_in_place edge, :to_id, :type => :select, :collection => @section.activity_list_in_place << [-1, "*小节结束*"]
         %td= best_in_place edge, :condition, :type => :input
         %td= link_to_delete '删除', edge, confirm: '确定要删除这个跳转吗？', method: :delete
   %br/
@@ -20,7 +20,7 @@
     = f.label :from_id, "从"
     = f.select :from_id, @section.activity_list, :class => "input-small", :size => 10
     = f.label :to_id, "至"
-    = f.select :to_id, @section.activity_list, :class => "input-small", :size => 10
+    = f.select :to_id, @section.activity_list << ["*小节结束*", -1], :class => "input-small", :size => 10
     = f.text_field :section_id, :value => @section.id, :style => "display: none"
     %br/
     %br/
