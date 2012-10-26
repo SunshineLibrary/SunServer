@@ -19,3 +19,6 @@ Vagrantfile
 ToHaml.rb
 /sun_server.sublime-project
 /sun_server.sublime-workspace
+/k2pdfopt
+/gen_pdf_7.sh
+/gen_pdf_8.sh
