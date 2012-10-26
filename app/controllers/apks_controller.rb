@@ -99,7 +99,7 @@ class ApksController < ApplicationController
       installed[pkg_json["name"]] = pkg_json["version"]
     end
     latest.each do |package|
-      if installed[package.name].to_i < package.version
+      if installed[package.name].to_i < package.version  # nil.to_i = 0
         pending << package
       end
     end
