@@ -35,7 +35,9 @@ class PdfActivitiesController < ApplicationController
 
     respond_to do |format|
       if @pdf_activity.update_attributes(attr)
-        @pdf_activity.gen_cutted_pdf
+        if attr["content_file"] != nil
+            @pdf_activity.gen_cutted_pdf
+        end
         format.html { redirect_to Section.find_by_id(section_id), notice: '信息已更新' }
         format.json { head :ok }
       else
