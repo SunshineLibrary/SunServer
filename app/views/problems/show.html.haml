@@ -17,6 +17,10 @@
       .controls
         = f.file_field :image, :class => "input-xlarge"
     .control-group
+      = f.label :audio_file, "音频附件 (例如英语听力朗读)", :class=>"control-label"
+      .controls
+        = f.file_field :content_file, :class => "input-xlarge"
+    .control-group
       #answer.input-prepend
         %span.add-on 答案
         - if @problem.is_mc
