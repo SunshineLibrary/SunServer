@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121023214904) do
+ActiveRecord::Schema.define(:version => 20121029133459) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -288,6 +288,10 @@ ActiveRecord::Schema.define(:version => 20121023214904) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "audio_file_file_name"
+    t.string   "audio_file_content_type"
+    t.integer  "audio_file_file_size"
+    t.datetime "audio_file_updated_at"
   end
 
   create_table "providers", :force => true do |t|
@@ -349,6 +353,15 @@ ActiveRecord::Schema.define(:version => 20121023214904) do
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.string   "tag_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_logs", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "app_name"
+    t.string   "log_type"
+    t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
