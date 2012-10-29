@@ -1,0 +1,1 @@
+./k2pdfopt -ui- -w 768 -h 1024 -odip 160 -o %s_8 -x $1
