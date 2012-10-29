@@ -10,16 +10,6 @@
       = f.text_area :body, :id => "problem-body-input", :class => "span6", :placeholder => "填写问题……", :rows => 6
     .row.control-group
       %span#problem-body-preview.well.span6
-    .controls
-      = image_tag @problem.image.url if @problem.image?
-    .control-group
-      = f.label :image, "附图 (例如几何图形)", :class=>"control-label"
-      .controls
-        = f.file_field :image, :class => "input-xlarge"
-    .control-group
-      = f.label :audio_file, "音频附件 (例如英语听力朗读)", :class=>"control-label"
-      .controls
-        = f.file_field :content_file, :class => "input-xlarge"
     .control-group
       #answer.input-prepend
         %span.add-on 答案
@@ -35,6 +25,29 @@
         - if @problem.is_fb
           = f.text_field :answer, :class => "span5"
           %span.help-inline 直接填写答案
+    %br/
+        
+    .control-group
+      = f.label :image, "附图 (例如几何图形)", :class=>"control-label"
+      .controls
+        - if @problem.image?
+          = image_tag @problem.image.url
+        - else
+          = "暂无"
+        %br/
+        = f.file_field :image, :class => "input-xlarge"
+    
+    %br/    
+    .control-group  
+      = f.label :audio_file, "音频附件 (例如英语听力朗读)", :class=>"control-label"
+      .controls
+        - if @problem.audio_file?
+          = link_to @problem.audio_file_file_name, @problem.audio_file.url
+        - else
+          = "暂无"
+        %br/
+        = f.file_field :audio_file, :class => "input-xlarge"  
+    
     - if @problem.is_mc or @problem.is_mamc
       #all-choices
         %br/

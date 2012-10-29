@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ProblemsController < ApplicationController
   def index
     #TODO: need to update according to update time
@@ -56,7 +57,7 @@ class ProblemsController < ApplicationController
 
     respond_to do |format|
       if @problem.update_attributes(params[:problem])
-        format.html { redirect_to quiz_activity_path(@quiz_activity, :section_id => @section_id) }
+        format.html { redirect_to quiz_activity_path(@quiz_activity, :section_id => @section_id), notice: '习题已更新' }
         format.json { head :ok }
       else
         format.html { render action: "show" }

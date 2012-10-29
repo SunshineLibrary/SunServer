@@ -6,6 +6,7 @@ class Problem < ActiveRecord::Base
   accepts_nested_attributes_for :problem_choices, :reject_if => lambda { |a| a[:body].blank? }, :allow_destroy => true
 
   has_attached_file :image
+  has_attached_file :audio_file
 
   #def save
     #problem_choices.all?(&:save)
