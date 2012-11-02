@@ -37,11 +37,13 @@
       %tr
         %th 编号
         %th 名称
+        %th 学生人数
         %th
       - @school.classrooms.each do |c|
         %tr
           %td= c.id
           %td= link_to c.class_name, c
+          %td= c.students.count
           %td= link_to_edit '修改信息', edit_classroom_path(c)
     
   #teacher-user-list.tab-pane

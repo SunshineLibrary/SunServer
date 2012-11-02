@@ -56,6 +56,10 @@ class Classroom < ActiveRecord::Base
     collection
   end
   
+  def students
+    self.users.where("users.user_type = 'student'").all
+  end
+  
   # calculate class_of from user input
   def self.prepare_params(params)
     # a hack here to use :class_of field temporarily store grade info from submission form, then convert back to year
@@ -71,5 +75,7 @@ class Classroom < ActiveRecord::Base
       Time.now.year
     end
   end
+  
+
   
 end
