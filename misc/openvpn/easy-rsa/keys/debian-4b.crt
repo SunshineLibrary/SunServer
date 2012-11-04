@@ -1,0 +1,72 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 2 (0x2)
+        Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=CN, ST=Beijing, L=Beijing, O=Sunshine-Library, CN=sunshine-library/emailAddress=bowen@sunshine-library.org
+        Validity
+            Not Before: Nov  4 17:55:58 2012 GMT
+            Not After : Nov  2 17:55:58 2022 GMT
+        Subject: C=CN, ST=Beijing, L=Beijing, O=Sunshine-Library, CN=debian-4b/emailAddress=bowen@sunshine-library.org
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (1024 bit)
+                Modulus (1024 bit):
+                    00:9d:7c:0a:c6:b6:44:7d:d7:13:4b:e7:7f:65:c4:
+                    63:89:98:45:aa:89:00:5e:de:0f:d5:c7:4f:26:5e:
+                    ce:7b:d4:66:25:55:21:95:65:b8:74:c6:df:28:cd:
+                    93:6c:81:22:a3:36:c0:2a:a1:8c:f9:b8:02:d5:b8:
+                    9b:1a:0e:e2:ea:67:ad:50:11:0e:20:24:66:ac:c1:
+                    3b:db:5d:f9:cc:e3:9d:96:ec:3a:db:01:23:5d:1c:
+                    24:b6:42:d5:78:72:09:61:1f:77:b5:0c:e0:0f:8f:
+                    6e:a5:c7:66:6a:66:5c:22:39:78:b1:b4:d9:04:26:
+                    04:da:87:93:87:7e:89:64:53
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                Easy-RSA Generated Certificate
+            X509v3 Subject Key Identifier: 
+                19:A0:33:1D:64:09:58:DF:FD:C5:70:EC:1B:DD:F1:A6:6C:C2:72:22
+            X509v3 Authority Key Identifier: 
+                keyid:0C:D3:7A:79:BA:AC:F9:8B:17:7A:F7:67:89:7F:05:F3:52:4E:56:31
+                DirName:/C=CN/ST=Beijing/L=Beijing/O=Sunshine-Library/CN=sunshine-library/emailAddress=bowen@sunshine-library.org
+                serial:80:DC:CC:49:96:E1:C5:05
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+    Signature Algorithm: sha1WithRSAEncryption
+        4a:62:a1:8b:77:16:92:5f:f1:f9:d1:83:0b:ed:35:c4:e8:4d:
+        23:61:0b:eb:f6:31:a8:8f:02:ba:35:82:46:56:71:1a:38:df:
+        52:52:ef:2a:01:6b:9f:bb:62:17:45:c6:fb:86:0a:3a:16:d1:
+        bd:80:d0:9a:60:4c:90:73:0c:90:00:ff:21:4b:e8:ca:f2:60:
+        aa:f1:f5:37:cf:9e:6a:ef:17:e7:0d:05:22:09:9e:51:b1:8d:
+        b6:70:36:64:8d:07:69:9c:cf:bf:29:2d:2b:e1:45:33:31:8f:
+        d7:4b:b9:f0:a1:9b:b4:8b:6c:5e:50:43:fc:66:0a:28:eb:2d:
+        dd:94
+-----BEGIN CERTIFICATE-----
+MIID4DCCA0mgAwIBAgIBAjANBgkqhkiG9w0BAQUFADCBkjELMAkGA1UEBhMCQ04x
+EDAOBgNVBAgTB0JlaWppbmcxEDAOBgNVBAcTB0JlaWppbmcxGTAXBgNVBAoTEFN1
+bnNoaW5lLUxpYnJhcnkxGTAXBgNVBAMTEHN1bnNoaW5lLWxpYnJhcnkxKTAnBgkq
+hkiG9w0BCQEWGmJvd2VuQHN1bnNoaW5lLWxpYnJhcnkub3JnMB4XDTEyMTEwNDE3
+NTU1OFoXDTIyMTEwMjE3NTU1OFowgYsxCzAJBgNVBAYTAkNOMRAwDgYDVQQIEwdC
+ZWlqaW5nMRAwDgYDVQQHEwdCZWlqaW5nMRkwFwYDVQQKExBTdW5zaGluZS1MaWJy
+YXJ5MRIwEAYDVQQDEwlkZWJpYW4tNGIxKTAnBgkqhkiG9w0BCQEWGmJvd2VuQHN1
+bnNoaW5lLWxpYnJhcnkub3JnMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCd
+fArGtkR91xNL539lxGOJmEWqiQBe3g/Vx08mXs571GYlVSGVZbh0xt8ozZNsgSKj
+NsAqoYz5uALVuJsaDuLqZ61QEQ4gJGaswTvbXfnM452W7DrbASNdHCS2QtV4cglh
+H3e1DOAPj26lx2ZqZlwiOXixtNkEJgTah5OHfolkUwIDAQABo4IBSTCCAUUwCQYD
+VR0TBAIwADAtBglghkgBhvhCAQ0EIBYeRWFzeS1SU0EgR2VuZXJhdGVkIENlcnRp
+ZmljYXRlMB0GA1UdDgQWBBQZoDMdZAlY3/3FcOwb3fGmbMJyIjCBxwYDVR0jBIG/
+MIG8gBQM03p5uqz5ixd692eJfwXzUk5WMaGBmKSBlTCBkjELMAkGA1UEBhMCQ04x
+EDAOBgNVBAgTB0JlaWppbmcxEDAOBgNVBAcTB0JlaWppbmcxGTAXBgNVBAoTEFN1
+bnNoaW5lLUxpYnJhcnkxGTAXBgNVBAMTEHN1bnNoaW5lLWxpYnJhcnkxKTAnBgkq
+hkiG9w0BCQEWGmJvd2VuQHN1bnNoaW5lLWxpYnJhcnkub3JnggkAgNzMSZbhxQUw
+EwYDVR0lBAwwCgYIKwYBBQUHAwIwCwYDVR0PBAQDAgeAMA0GCSqGSIb3DQEBBQUA
+A4GBAEpioYt3FpJf8fnRgwvtNcToTSNhC+v2MaiPAro1gkZWcRo431JS7yoBa5+7
+YhdFxvuGCjoW0b2A0JpgTJBzDJAA/yFL6MryYKrx9TfPnmrvF+cNBSIJnlGxjbZw
+NmSNB2mcz78pLSvhRTMxj9dLufChm7SLbF5QQ/xmCijrLd2U
+-----END CERTIFICATE-----
