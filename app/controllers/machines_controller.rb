@@ -5,9 +5,8 @@ class MachinesController < ApplicationController
   respond_to :json, :only => [:sign_in]
 
   def index
-    @machines = nil
     if current_admin.is_global
-      @machines = Machines.all
+      @machines = Machine.all
     else
       @machines = current_admin.school.machines
     end

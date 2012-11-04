@@ -1,5 +1,7 @@
 .page-header
   %h1 所有机器
+  %br/
+  总数
   %span.label= @machines.count
 %table.table.table-striped
   %tr
@@ -12,6 +14,6 @@
     %tr
       %td= m.unique_id
       %td= m.machine_type.name
-      %td= m.user.name if not m.user.nil?
+      %td= m.current_user.name if m.current_user
       %td= m.is_locked
       %td= link_to_check '查看', m
