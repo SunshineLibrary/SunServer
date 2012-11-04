@@ -1,0 +1,31 @@
+.page-header
+  %h1
+    = @machine.unique_id
+    %span.label= Machine.zh_name
+.row
+  .span6
+    %dl.dl-horizontal
+      %dt 类型
+      %dd= @machine.machine_type.name
+      %dt 当前用户
+      - if @machine.current_user
+        %dd= link_to @machine.current_user.name, @machine.current_user
+      - else
+        %dd= 尚无
+      %dt 所在学校
+      - if @machine.current_user
+        %dd= @machine.current_user.school.name
+      - else
+        %dd= 上次登出时位于@machine.last_user.school.name
+      - if @machine.is_locked
+        %dt 状态
+        %dd{:style => "color:red"} 机器已被锁定
+    
+    - if not @machine.is_locked    
+      = link_to_machine_lock @machine
+    - else
+      = link_to_machine_unlock @machine  
+
+%br/
+
+= link_to_back '返回机器列表', machines_path

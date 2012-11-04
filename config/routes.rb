@@ -60,6 +60,8 @@ SunServer::Application.routes.draw do
     end
     member do
       post 'sign_out'
+      post 'lock'
+      post 'unlock'
     end
   end
 

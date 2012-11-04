@@ -47,6 +47,36 @@ class MachinesController < ApplicationController
     end
   end
   
+  
+  def lock
+    @machine = Machine.find(params[:id])
+    @machine.lock
+    respond_to do |format|
+      if @machine.save
+        format.html { redirect_to @machine, notice: '已锁定' }
+        format.json { head :ok }
+      else
+        format.html { render action: @machine, notice: '未锁定成功，请重试' }
+        format.json { render json: @machine.errors, status: :unprocessable_entity }
+      end 
+    end
+  end
+  
+  def unlock
+    @machine = Machine.find(params[:id])
+    @machine.unlock
+    respond_to do |format|
+      if @machine.save
+        format.html { redirect_to @machine, notice: '已解锁' }
+        format.json { head :ok }
+      else
+        format.html { render action: @machine, notice: '未解锁成功，请重试' }
+        format.json { render json: @machine.errors, status: :unprocessable_entity }
+      end 
+    end
+  end
+  
+  
   def sign_in
     # store params
     machine_id = params[:machine_id]
