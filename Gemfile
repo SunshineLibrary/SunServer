@@ -17,7 +17,7 @@ gem 'devise' #used for authentication
 gem 'mathjax-rails', :git => "git://github.com/ukisami/mathjax-rails.git"  # used for rendering math formula
 gem 'wombat' #used for parsing douban book page
 gem "twitter-bootstrap-rails"
-gem 'tinymce-rails' 
+#gem 'tinymce-rails' 
 #gem 'tinymce-rails-langs'
 
 # Gems used only for assets and not required
@@ -35,6 +35,7 @@ end
 group :development do
   gem 'sqlite3'
   gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'rails-dev-tweaks', '~> 0.6.1' #development is so slow....
 end
 
 group :test do
