@@ -11,7 +11,7 @@
           - @apk.errors.full_messages.each do |msg|
             %li= msg
     .control-group
-      = f.label :file, ".apk文件", :class => "control-label"
+      = f.label :file, ".apk文件" + file_status(@apk, "file"), :class => "control-label"
       .controls
         = f.file_field :file
     .control-group

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121029133459) do
+ActiveRecord::Schema.define(:version => 20121106061339) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -210,6 +210,16 @@ ActiveRecord::Schema.define(:version => 20121029133459) do
     t.datetime "updated_at"
     t.string   "course_type"
     t.integer  "semester"
+  end
+
+  create_table "download_permissions", :force => true do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.boolean  "permission_boolean"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "edges", :force => true do |t|

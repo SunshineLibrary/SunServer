@@ -1,5 +1,7 @@
 SunServer::Application.routes.draw do
 
+  resources :download_permissions
+
   resources :pdf_activities
 
   resources :apks do

@@ -20,5 +20,8 @@
       = f.label :status, "状态", :class => "control-label"
       .controls
         = f.select :status, Apk.list_all_status
+
+    = render "shared/download_permission"
+
     .form-actions
       = f.submit "添加软件", :class => "btn btn-success"

@@ -14,6 +14,8 @@
       %dd= @apk.version
       %dt 状态
       %dd= @apk.print_status
+      %dt 权限
+      %dd= DownloadPermission.where(resource_id: @apk.id, resource_type: "Apk").all.inspect
 
 
 = link_to_edit '修改信息', edit_apk_path(@apk)

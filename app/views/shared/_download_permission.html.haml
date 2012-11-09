@@ -1,0 +1,37 @@
+.control-group
+  .control-label
+    适用学校
+  .controls
+    - School.all.each do |school|
+      %label.checkbox.inline
+        = check_box_tag 'permission_schools[]', school.id
+        = school.name
+.control-group
+  .control-label
+    适用年级
+  .controls
+    - for grade in [7, 8, 9]
+      %label.checkbox.inline
+        = check_box_tag 'permission_grades[]', grade
+        = grade.to_s + "年级"
+.control-group
+  .control-label
+    适用班级
+  .controls
+    - Classroom.all.each do |clas|
+      %label.checkbox.inline
+        = check_box_tag 'permission_classrooms[]', clas.id
+        = clas.class_name
+.control-group
+  .control-label
+    适用用户
+  .controls
+    %label.checkbox.inline
+      = check_box_tag 'permission_users[]', 1
+      学生
+    %label.checkbox.inline
+      = check_box_tag 'permission_users[]', 2
+      老师
+    %label.checkbox.inline
+      = check_box_tag 'permission_users[]', 3
+      员工

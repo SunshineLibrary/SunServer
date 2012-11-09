@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Owner:</b>
+  <%= @download_permission.owner_id %>
+</p>
+
+<p>
+  <b>Owner type:</b>
+  <%= @download_permission.owner_type %>
+</p>
+
+<p>
+  <b>Resource:</b>
+  <%= @download_permission.resource_id %>
+</p>
+
+<p>
+  <b>Resource type:</b>
+  <%= @download_permission.resource_type %>
+</p>
+
+<p>
+  <b>Permission boolean:</b>
+  <%= @download_permission.permission_boolean %>
+</p>
+
+
+<%= link_to 'Edit', edit_download_permission_path(@download_permission) %> |
+<%= link_to 'Back', download_permissions_path %>

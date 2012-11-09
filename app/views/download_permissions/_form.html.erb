@@ -1,0 +1,37 @@
+<%= form_for(@download_permission) do |f| %>
+  <% if @download_permission.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@download_permission.errors.count, "error") %> prohibited this download_permission from being saved:</h2>
+
+      <ul>
+      <% @download_permission.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :owner_id %><br />
+    <%= f.number_field :owner_id %>
+  </div>
+  <div class="field">
+    <%= f.label :owner_type %><br />
+    <%= f.text_field :owner_type %>
+  </div>
+  <div class="field">
+    <%= f.label :resource_id %><br />
+    <%= f.number_field :resource_id %>
+  </div>
+  <div class="field">
+    <%= f.label :resource_type %><br />
+    <%= f.text_field :resource_type %>
+  </div>
+  <div class="field">
+    <%= f.label :permission_boolean %><br />
+    <%= f.check_box :permission_boolean %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

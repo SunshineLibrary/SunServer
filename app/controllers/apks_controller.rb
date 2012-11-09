@@ -45,11 +45,13 @@ class ApksController < ApplicationController
   # POST /apks.json
   def create
     @apk = Apk.new(params[:apk])
-    
+
     respond_to do |format|
       if @apk.save
         @apk.parse_info
         @apk.save
+        DownloadPermission.add_permission_from_params @apk.id, "Apk", true, params
+
         format.html { redirect_to apks_url, notice: '成功上传安装包' }
         format.json { render json: @apk, status: :created, location: @apk }
       else
@@ -63,7 +65,7 @@ class ApksController < ApplicationController
   # PUT /apks/1.json
   def update
     @apk = Apk.find(params[:id])
-    
+
     respond_to do |format|
       if @apk.update_attributes(params[:apk])
         @apk.parse_info
