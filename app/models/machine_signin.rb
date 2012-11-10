@@ -19,6 +19,10 @@ class MachineSignin < ActiveRecord::Base
     Digest::SHA256.hexdigest(text)
   end
   
+  def self.find_user_by_access_token(token)
+    MachineSignin.where(access_token: token, is_valid: true).first
+  end
+  
   def sign_out
     self.is_valid = false
     self.signed_out_at = Time.now

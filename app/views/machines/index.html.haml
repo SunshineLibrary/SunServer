@@ -12,8 +12,8 @@
     %th.span2
   - @machines.each do |m|
     %tr
-      %td= m.unique_id
+      %td= link_to m.unique_id, m
       %td= m.machine_type.name
       %td= m.current_user.name if m.current_user
-      %td= m.is_locked
+      %td= boolean_to_string m.is_locked
       %td= link_to_check '查看', m

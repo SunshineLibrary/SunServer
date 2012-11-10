@@ -50,6 +50,7 @@ class MachinesController < ApplicationController
   
   def lock
     @machine = Machine.find(params[:id])
+    @machine.current_signin_record.sign_out if @machine.current_signin_record #sign out first
     @machine.lock
     respond_to do |format|
       if @machine.save

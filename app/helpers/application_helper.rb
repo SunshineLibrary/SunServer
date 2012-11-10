@@ -66,4 +66,12 @@ module ApplicationHelper
       "(未上传)"
     end
   end
+  
+  def boolean_to_string(b)
+    if b
+      "是"
+    else
+      "否"
+    end
+  end
 end
