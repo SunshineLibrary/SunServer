@@ -43,6 +43,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
+        DownloadPermission.add_permission_from_params @course.id, "Course", true, params
         format.html { redirect_to @course, notice: '成功创建课程' }
         format.json { render json: @course, status: :created, location: @course }
       else

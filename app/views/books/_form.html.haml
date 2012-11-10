@@ -46,5 +46,8 @@
       .controls
         = f.file_field :epub_file
         = file_status(@book, :epub_file)
+
+    = render "shared/download_permission"
+
     .form-actions
       = f.submit "确定", :class => "btn btn-success"

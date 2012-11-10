@@ -21,7 +21,7 @@
     - Classroom.all.each do |clas|
       %label.checkbox.inline
         = check_box_tag 'permission_classrooms[]', clas.id
-        = clas.class_name
+        = clas.class_name_with_school
 .control-group
   .control-label
     适用用户

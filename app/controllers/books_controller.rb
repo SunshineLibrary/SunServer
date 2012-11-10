@@ -52,6 +52,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
+        DownloadPermission.add_permission_from_params @book.id, "Book", true, params
         format.html { redirect_to go_url, notice:'成功创建图书'}
         format.json { render json: @book, status: :created, location: @book }
       else

@@ -30,6 +30,9 @@
       = f.label :description, "描述", :class => "control-label"
       .controls
         = f.text_area :description, :class => "input-xlarge"
+
+    = render "shared/download_permission"
+
     .form-actions
       = f.submit :value => "确定", :class => "btn btn-primary"
       - if params[:action] == 'new'
