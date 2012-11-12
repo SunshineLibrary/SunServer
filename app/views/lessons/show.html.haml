@@ -7,11 +7,13 @@
   .span6
     %dl.dl-horizontal
       %dt 所属单元
-      %dd= link_to @lesson.chapter.name, chapter_path(@lesson.chapter)
+      %dd= @lesson.chapter.name
       %dt 章节概述
       %dd= @lesson.description
-    = link_to_edit '修改信息', edit_lesson_path(@lesson)
-    = link_to_back '返回单元', chapter_path(@lesson.chapter)
+
+.well
+  = link_to_edit '修改信息', edit_lesson_path(@lesson)
+  = link_to_back '返回单元', chapter_path(@lesson.chapter)
     
 %br/
 %br/

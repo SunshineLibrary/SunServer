@@ -1,54 +1,25 @@
+# encoding: UTF-8
 class AudioActivitiesController < ApplicationController
-  # GET /audio_activities
-  # GET /audio_activities.json
-  def index
-    @audio_activities = AudioActivity.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @audio_activities }
-    end
-  end
-
-  # GET /audio_activities/1
-  # GET /audio_activities/1.json
-  def show
-    @audio_activity = AudioActivity.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @audio_activity }
-    end
-  end
-
-  # GET /audio_activities/new
-  # GET /audio_activities/new.json
-  def new
-    @audio_activity = AudioActivity.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @audio_activity }
-    end
-  end
-
+  
   # GET /audio_activities/1/edit
   def edit
     @audio_activity = AudioActivity.find(params[:id])
+    @section_id = params[:section_id]
   end
 
   # POST /audio_activities
   # POST /audio_activities.json
   def create
     @audio_activity = AudioActivity.new(params[:audio_activity])
-    @audio_activity.sections << Section.find(params[:section_id])
+    section = Section.find_by_id(params[:section_id])
 
     respond_to do |format|
       if (@audio_activity.save)
-        format.html { redirect_to Section.find_by_id(params[:section_id]), notice: 'Audio activity was successfully created.' }
-        format.json { render json: Section.find_by_id(params[:section_id]), status: :created, location: Section.find_by_id(params[:section_id]) }
+        SectionComponent.create(section_id: section.id, activity_id: @audio_activity.id, seq: section.activities.size + 1)
+        format.html { redirect_to edit_audio_activity_path(@audio_activity, :section_id => section.id), notice: '成功创建音频环节，请上传音频 文件' }
+        format.json { render json: section, status: :created, location: section }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to section, notice: '出现错误，请重试' }
         format.json { render json: @audio_activity.errors, status: :unprocessable_entity }
       end
     end
@@ -57,11 +28,15 @@ class AudioActivitiesController < ApplicationController
   # PUT /audio_activities/1
   # PUT /audio_activities/1.json
   def update
-    @audio_activity = AudioActivity.find(params[:id])
+    @audio_activity = AudioActivity.find_by_id(params[:id])
+
+    attr = params[:audio_activity]
+    section_id = attr[:section_id]
+    attr.delete(:section_id)
 
     respond_to do |format|
-      if @audio_activity.update_attributes(params[:audio_activity])
-        format.html { redirect_to Section.find(params[:section_id]), notice: 'Audio activity was successfully updated.' }
+      if @audio_activity.update_attributes(attr)
+        format.html { redirect_to Section.find_by_id(section_id), notice: '信息已更新' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -73,11 +48,11 @@ class AudioActivitiesController < ApplicationController
   # DELETE /audio_activities/1
   # DELETE /audio_activities/1.json
   def destroy
-    @audio_activity = AudioActivity.find(params[:id])
+    @audio_activity = VideoActivity.find(params[:id])
     @audio_activity.destroy
 
     respond_to do |format|
-      format.html { redirect_to audio_activities_url }
+      format.html { redirect_to :back }
       format.json { head :ok }
     end
   end
