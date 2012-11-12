@@ -9,7 +9,7 @@
           - @apk.errors.full_messages.each do |msg|
             %li= msg
     .control-group
-      = f.label :file, ".apk文件", :class => "control-label"
+      = f.label :file, ".apk文件" + file_status(@apk, "file"), :class => "control-label"
       .controls
         = f.file_field :file
     .control-group
@@ -21,7 +21,7 @@
       .controls
         = f.select :status, Apk.list_all_status
 
-    = render "shared/download_permission"
+    = render :partial => "shared/download_permission", :locals => {:resource_id => @apk.id, :resource_type => "Apk"}
 
     .form-actions
-      = f.submit "添加软件", :class => "btn btn-success"
+      = f.submit :class => "btn btn-success"

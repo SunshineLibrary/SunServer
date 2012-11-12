@@ -1,10 +1,12 @@
+- allow_set = DownloadPermission.prepare_allow_set resource_id, resource_type
+
 .control-group
   .control-label
     适用学校
   .controls
     - School.all.each do |school|
       %label.checkbox.inline
-        = check_box_tag 'permission_schools[]', school.id
+        = check_box_tag 'permission_schools[]', school.id, allow_set["School"].include?(school.id)
         = school.name
 .control-group
   .control-label
@@ -12,7 +14,7 @@
   .controls
     - for grade in [7, 8, 9]
       %label.checkbox.inline
-        = check_box_tag 'permission_grades[]', grade
+        = check_box_tag 'permission_grades[]', grade, allow_set["Grade"].include?(grade)
         = grade.to_s + "年级"
 .control-group
   .control-label
@@ -20,18 +22,14 @@
   .controls
     - Classroom.all.each do |clas|
       %label.checkbox.inline
-        = check_box_tag 'permission_classrooms[]', clas.id
+        = check_box_tag 'permission_classrooms[]', clas.id, allow_set["Classroom"].include?(clas.id)
         = clas.class_name_with_school
 .control-group
   .control-label
     适用用户
   .controls
-    %label.checkbox.inline
-      = check_box_tag 'permission_users[]', 1
-      学生
-    %label.checkbox.inline
-      = check_box_tag 'permission_users[]', 2
-      老师
-    %label.checkbox.inline
-      = check_box_tag 'permission_users[]', 3
-      员工
+    - show = ["学生", "老师", "员工"]
+    - for i in [1, 2, 3]
+      %label.checkbox.inline
+        = check_box_tag 'permission_users[]', i, allow_set["User"].include?(i)
+        = show[i-1]

@@ -1,5 +1,9 @@
 #encoding: UTF-8
 class BooksController < ApplicationController
+  def lookup_permission book_id
+    @permission = DownloadPermission.where(resource_id:book_id, resource_type:"Book").all
+  end
+
   # GET /books
   # GET /books.json
   def index
@@ -15,6 +19,7 @@ class BooksController < ApplicationController
   # GET /books/1.json
   def show
     @book = Book.find(params[:id])
+    lookup_permission @book.id
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,6 +41,7 @@ class BooksController < ApplicationController
   # GET /books/1/edit
   def edit
     @book = Book.find(params[:id])
+    lookup_permission @book.id
   end
 
   # POST /books
@@ -62,6 +68,21 @@ class BooksController < ApplicationController
     end
   end
 
+  def eliminate_old_permission owner_type
+    DownloadPermission.eliminate_old_permission @permission, owner_type, @book.id, "Book", params
+  end
+
+  def update_permission
+    lookup_permission params[:id]
+
+    eliminate_old_permission "School"
+    eliminate_old_permission "Grade"
+    eliminate_old_permission "Classroom"
+    eliminate_old_permission "User"
+
+    DownloadPermission.add_permission_from_params @book.id, "Book", true, params
+  end
+
   # PUT /books/1
   # PUT /books/1.json
   def update
@@ -69,6 +90,8 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.update_attributes(params[:book]) and @book.update_tags(params[:tag_ids])
+        update_permission
+
         format.html {redirect_to books_url, notice: '信息已更新'}
         format.json { head :ok }
       else

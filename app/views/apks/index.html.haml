@@ -1,9 +1,9 @@
 .page-header
   %h1 软件列表
-  
-%div
-  - @apk = Apk.new
-  = render 'form'
+
+.well
+  = link_to '新建Apk', new_apk_path, :class => "btn btn-success"
+
 %table.table.table-striped
   %tr
     %th 应用名称

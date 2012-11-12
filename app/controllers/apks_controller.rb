@@ -3,6 +3,10 @@ class ApksController < ApplicationController
   protect_from_forgery :except => :get_updates
   skip_before_filter :admin_signed_in_required, :only => :get_updates
 
+  def lookup_permission apk_id
+    @permission = DownloadPermission.where(resource_id:apk_id, resource_type:"Apk").all
+  end
+
   # GET /apks
   # GET /apks.json
   def index
@@ -18,6 +22,7 @@ class ApksController < ApplicationController
   # GET /apks/1.json
   def show
     @apk = Apk.find(params[:id])
+    lookup_permission @apk.id
 
     respond_to do |format|
       format.html # show.html.erb
@@ -39,6 +44,7 @@ class ApksController < ApplicationController
   # GET /apks/1/edit
   def edit
     @apk = Apk.find(params[:id])
+    lookup_permission @apk.id
   end
 
   # POST /apks
@@ -61,6 +67,21 @@ class ApksController < ApplicationController
     end
   end
 
+  def eliminate_old_permission owner_type
+    DownloadPermission.eliminate_old_permission @permission, owner_type, @apk.id, "Apk", params
+  end
+
+  def update_permission
+    lookup_permission params[:id]
+
+    eliminate_old_permission "School"
+    eliminate_old_permission "Grade"
+    eliminate_old_permission "Classroom"
+    eliminate_old_permission "User"
+
+    DownloadPermission.add_permission_from_params @apk.id, "Apk", true, params
+  end
+
   # PUT /apks/1
   # PUT /apks/1.json
   def update
@@ -70,6 +91,8 @@ class ApksController < ApplicationController
       if @apk.update_attributes(params[:apk])
         @apk.parse_info
         @apk.save
+        update_permission
+
         format.html { redirect_to @apk, notice: '成功更新安装包' }
         format.json { head :ok }
       else

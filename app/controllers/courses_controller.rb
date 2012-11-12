@@ -2,6 +2,10 @@
 
 class CoursesController < ApplicationController
 
+  def lookup_permission course_id
+    @permission = DownloadPermission.where(resource_id:course_id, resource_type:"Course").all
+  end
+
   def index
     @courses = Course.all
 
@@ -15,6 +19,7 @@ class CoursesController < ApplicationController
   def show
     @course = Course.find(params[:id])
     @subject = @course.subject
+    lookup_permission @course.id
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,6 +40,7 @@ class CoursesController < ApplicationController
 
   def edit
     @course = Course.find_by_id(params[:id])
+    lookup_permission @course.id
   end
 
 
@@ -53,12 +59,28 @@ class CoursesController < ApplicationController
     end
   end
 
+  def eliminate_old_permission owner_type
+    DownloadPermission.eliminate_old_permission @permission, owner_type, @course.id, "Course", params
+  end
+
+  def update_permission
+    lookup_permission params[:id]
+
+    eliminate_old_permission "School"
+    eliminate_old_permission "Grade"
+    eliminate_old_permission "Classroom"
+    eliminate_old_permission "User"
+
+    DownloadPermission.add_permission_from_params @course.id, "Course", true, params
+  end
 
   def update
     @course = Course.find(params[:id])
 
     respond_to do |format|
       if @course.update_attributes(params[:course])
+        update_permission
+
         format.html { redirect_to @course, notice: '已更新课程信息' }
         format.json { head :ok }
       else

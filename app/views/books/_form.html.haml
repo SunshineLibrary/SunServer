@@ -47,7 +47,7 @@
         = f.file_field :epub_file
         = file_status(@book, :epub_file)
 
-    = render "shared/download_permission"
+    = render :partial => "shared/download_permission", :locals => {:resource_id => @book.id, :resource_type => "Book"}
 
     .form-actions
       = f.submit "确定", :class => "btn btn-success"

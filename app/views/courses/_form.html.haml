@@ -31,7 +31,7 @@
       .controls
         = f.text_area :description, :class => "input-xlarge"
 
-    = render "shared/download_permission"
+    = render :partial => "shared/download_permission", :locals => {:resource_id => @course.id, :resource_type => "Course"}
 
     .form-actions
       = f.submit :value => "确定", :class => "btn btn-primary"
