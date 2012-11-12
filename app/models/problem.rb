@@ -2,11 +2,15 @@
 class Problem < ActiveRecord::Base
   has_many :quiz_components
   has_many :quiz_activities, :through => :quiz_components
-  has_many :problem_choices
+  has_many :problem_choices, :conditions  => "problem_choices.created_at > '#{Time.at(0)}'"
   accepts_nested_attributes_for :problem_choices, :reject_if => lambda { |a| a[:body].blank? }, :allow_destroy => true
 
   has_attached_file :image
   has_attached_file :audio_file
+
+  before_save :strip_answer
+  before_save :formalize_answer_case
+
 
   #def save
     #problem_choices.all?(&:save)
@@ -49,4 +53,17 @@ class Problem < ActiveRecord::Base
     json[:problem_type] = problem_type
     return json
   end
+  
+  private
+  def strip_answer
+    self.answer.strip! if self.answer
+  end
+  
+  private
+  def formalize_answer_case
+    if self.answer and (self.is_mc or self.is_mamc)
+      self.answer.upcase!
+    end
+  end
+  
 end
