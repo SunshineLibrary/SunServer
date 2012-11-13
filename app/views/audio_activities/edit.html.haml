@@ -1,5 +1,29 @@
-%h1 Editing audio_activity
-= render 'form'
-= link_to 'Show', @audio_activity
-|
-\#{link_to 'Back', audio_activities_path}
+.page-header
+  %h1
+    = best_in_place @audio_activity, :name, :type => :input
+    %span.label= Activity.type_to_name('audio')
+= form_for @audio_activity, :html => {:class => "form-horizontal"} do |f|
+  %fieldset
+    = f.hidden_field :section_id, :value => params[:section_id]
+    .control-group
+      = f.label :provider_id, "提供者", :class => "control-label"
+      .controls
+        = f.select :provider_id, Provider.list_all, :class => "input-xlarge"
+    .control-group
+      = f.label :content_file, "音频文件", :class => "control-label"
+      .controls
+        - if @audio_activity.content_file?
+          = "已上传（#{@audio_activity.content_file_file_size / 1000000} MB）: "
+          =link_to @audio_activity.content_file_file_name, @audio_activity.content_file.url
+        - else
+          = "还未上传"
+        %br/
+        = f.file_field :content_file, :class => "input-xlarge"
+    .control-group
+      = f.label :notes, "重点笔记", :class => "control-label"
+      .controls
+        = f.text_area :notes, :class => "input-xlarge", :rows => 4
+        %span.help-inline 需要学生重点记忆的知识点，或对应音频的文本
+    .form-actions
+      = f.submit "保存", :class => "btn btn-primary"
+      = link_to "取消", section_path(@section_id), :class => "btn"
