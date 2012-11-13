@@ -144,20 +144,19 @@ class MachinesController < ApplicationController
       end
     end
 
-    # respond
     case status
     when "Success"
-      respond_with status: "200", message: "登录成功！", access_token: @machine_signin.access_token
+      respond_with({status: "200", message: "登录成功！", access_token: @machine_signin.access_token}, :location => nil)
     when "Wrong params"
-      respond_with status: "400", message: "错误：登录信息不正确"
+      respond_with({status: "400", message: "错误：登录信息不正确"}, :location => nil)
     when "User already signed in"
-      respond_with status: "400", message: "错误：用户已登录到另一台设备上"
+      respond_with({status: "400", message: "错误：用户已登录到另一台设备上"}, :location => nil)
     when "Machine already signed in"
-      respond_with status: "400", message: "错误：设备已登录"
+      respond_with({status: "400", message: "错误：设备已登录"}, :location => nil)
     when "Machine locked"
-      respond_with status: "400", message: "错误：设备已被锁定"
+      respond_with({status: "400", message: "错误：设备已被锁定"}, :location => nil)
     when "Internal error"
-      respond_with status: "500", message: "错误：请重试"
+      respond_with({status: "500", message: "错误：请重试"}, :location => nil)
     end
   end
 
