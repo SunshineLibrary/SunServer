@@ -58,7 +58,7 @@ SunServer::Application.routes.draw do
   resources :providers
   resources :machines do
     collection do
-      get 'sign_in'
+      post 'sign_in'
     end
     member do
       post 'sign_out'

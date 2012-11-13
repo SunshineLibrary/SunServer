@@ -46,8 +46,8 @@ class MachinesController < ApplicationController
       end
     end
   end
-  
-  
+
+
   def lock
     @machine = Machine.find(params[:id])
     @machine.current_signin_record.sign_out if @machine.current_signin_record #sign out first
@@ -62,7 +62,7 @@ class MachinesController < ApplicationController
       end 
     end
   end
-  
+
   def unlock
     @machine = Machine.find(params[:id])
     @machine.unlock
@@ -76,8 +76,8 @@ class MachinesController < ApplicationController
       end 
     end
   end
-  
-  
+
+
   def sign_in
     # store params
     machine_id = params[:machine_id]
@@ -91,7 +91,7 @@ class MachinesController < ApplicationController
     @user = nil
     @machine = nil
     @machine_signin = nil
-    
+
     # search db for ojbects
     status = "OK"
     if @school = School.find_by_id(user_school_id)
@@ -137,9 +137,9 @@ class MachinesController < ApplicationController
         end
       end
     end
-    
+
     # sign in
-    if status == "Ready for signin"  
+    if status == "Ready for signin"
       @machine_signin = MachineSignin.new(:machine_id => @machine.id, :user_id => @user.id)
       @machine_signin.access_token = MachineSignin.calculate_access_token(@machine.unique_id, @user.id)
       if @machine_signin.save
@@ -148,24 +148,23 @@ class MachinesController < ApplicationController
         status = "Internal error"
       end
     end
-    
-    # respond
+
     case status
     when "Success"
-      respond_with status: "200", message: "登录成功！", access_token: @machine_signin.access_token
+      respond_with({status: "200", message: "登录成功！", access_token: @machine_signin.access_token}, :location => nil)
     when "Wrong params"
-      respond_with status: "400", message: "错误：登录信息不正确"
-    when "Signed in another device"
-      respond_with status: "400", message: "错误：用户已登录到另一台设备上"
+      respond_with({status: "400", message: "错误：登录信息不正确"}, :location => nil)
+    when "User already signed in"
+      respond_with({status: "400", message: "错误：用户已登录到另一台设备上"}, :location => nil)
     when "Machine already signed in"
-      respond_with status: "400", message: "错误：设备已登录"
+      respond_with({status: "400", message: "错误：设备已登录"}, :location => nil)
     when "Machine locked"
-      respond_with status: "400", message: "错误：设备已被锁定"
+      respond_with({status: "400", message: "错误：设备已被锁定"}, :location => nil)
     when "Internal error"
-      respond_with status: "500", message: "错误：请重试"
+      respond_with({status: "500", message: "错误：请重试"}, :location => nil)
     end
   end
-  
+
   def sign_out
     @machine = Machine.find_by_id(params[:id])
     @user = User.find_by_id(params[:user_id])
@@ -177,5 +176,5 @@ class MachinesController < ApplicationController
       format.json { render json: @machine.errors, status: :unprocessable_entity }
     end
   end
-  
+
 end
