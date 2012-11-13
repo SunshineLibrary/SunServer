@@ -53,6 +53,7 @@
                       %li= link_to '管理学校', schools_path
                     - if current_admin.is_super
                       %li= link_to '管理应用', apks_path
+                      %li= link_to '管理机器', machines_path
                       %li= link_to '管理机器类型', machine_types_path
                       %li= link_to '下载权限列表', download_permissions_path
                       %li.divider
