@@ -31,7 +31,7 @@ class School < ActiveRecord::Base
 
   def list_all_grades
     require 'set'
-    collection = Set.new
+    collection = SortedSet.new
     self.classrooms.each do |c|
       next if c.destroyed?
       collection << c.class_of
