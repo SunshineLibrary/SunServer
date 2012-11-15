@@ -6,19 +6,19 @@
 .row
   .span6
     %dl.dl-horizontal
-      %dt 所属单元
+      %dt 所属#{Chapter.zh_name}
       %dd= @lesson.chapter.name
-      %dt 章节概述
+      %dt #{Lesson.zh_name}概述
       %dd= @lesson.description
 
 .well
   = link_to_edit '修改信息', edit_lesson_path(@lesson)
-  = link_to_back '返回单元', chapter_path(@lesson.chapter)
+  = link_to_back "返回#{Chapter.zh_name}", chapter_path(@lesson.chapter)
     
 %br/
 %br/
 %br/
-%h3 小节列表
+%h3 #{Section.zh_name}列表
 %table.table.table-striped
   %tr
     %th.span3 名称
@@ -28,4 +28,4 @@
       %td= link_to s.name, s
       %td= s.description
       
-= link_to_add '创建小节', new_section_path(:lesson_id => @lesson.id)
+= link_to_add "创建#{Section.zh_name}", new_section_path(:lesson_id => @lesson.id)

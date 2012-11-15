@@ -58,7 +58,7 @@ class ApksController < ApplicationController
         @apk.save
         DownloadPermission.add_permission_from_params @apk.id, "Apk", true, params
 
-        format.html { redirect_to apks_url, notice: '成功上传安装包' }
+        format.html { redirect_to apks_url, notice: "成功上传#{Apk.zh_name}" }
         format.json { render json: @apk, status: :created, location: @apk }
       else
         format.html { render action: "new" }
@@ -93,7 +93,7 @@ class ApksController < ApplicationController
         @apk.save
         update_permission
 
-        format.html { redirect_to @apk, notice: '成功更新安装包' }
+        format.html { redirect_to @apk, notice: "成功更新#{Apk.zh_name}" }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

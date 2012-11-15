@@ -22,6 +22,12 @@ class Activity < ActiveRecord::Base
   TYPE_TO_INT =  {"TextActivity" => 0, "AudioActivity" => 1, "VideoActivity" => 2, "GalleryActivity" => 3,
                   "QuizActivity" => 4, "HtmlActivity" => 5, "PdfActivity" => 6}
 
+  ZN_NAME = "活动"
+
+  def self.zh_name
+    ZN_NAME
+  end
+
   def self.type_to_name(t)
     TYPE_TO_NAME[t]
   end

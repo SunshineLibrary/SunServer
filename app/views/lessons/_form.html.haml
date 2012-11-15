@@ -9,7 +9,7 @@
           %li= msg
   %fieldset
     .control-group
-      = f.label :name, "章节名称", :class => "control-label"
+      = f.label :name, "#{Lesson.zh_name}名称", :class => "control-label"
       .controls
         = f.text_field :name, :class => "input-xlarge"
     - if params[:action] == 'new'

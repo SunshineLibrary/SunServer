@@ -6,6 +6,12 @@ class Edge < ActiveRecord::Base
 
   validates :section_id, :presence => true
 
+  ZN_NAME = "跳转条件"
+
+  def self.zh_name
+    ZN_NAME
+  end
+
   TYPE_TO_NAME = {"CorrectCount" => "答对一定数量的题目时"}
 
   def self.type_list

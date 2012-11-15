@@ -4,7 +4,7 @@ class Machine < ActiveRecord::Base
   has_many :machine_signins, :order => "machine_signins.created_at DESC"
   has_many :users, :through => :machine_signins, :source => :user
   
-  ZN_NAME = "科目"
+  ZN_NAME = "机器"
   
   def self.zh_name
     ZN_NAME

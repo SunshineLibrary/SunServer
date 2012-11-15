@@ -7,6 +7,12 @@ class BookCollection < ActiveRecord::Base
   has_attached_file :cover_m
   has_attached_file :cover_s
 
+  ZN_NAME = "图书合集"
+
+  def self.zh_name
+    ZN_NAME
+  end
+
   def BookCollection.selection
     #used for f.select in views
     bcollection = [["自动创建", -1]]

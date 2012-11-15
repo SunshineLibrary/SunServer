@@ -1,8 +1,16 @@
+# encoding: UTF-8
+
 class Provider < ActiveRecord::Base
   has_many :books
   has_attached_file :logo
     
   validates :name, :presence =>true
+  
+  ZN_NAME = "提供方"
+
+  def self.zh_name
+    ZN_NAME
+  end
   
   def self.list_all
     pccollection = []
