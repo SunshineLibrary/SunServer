@@ -20,18 +20,18 @@
 
 %ul#my-pills.nav.nav-pills
   %li.active
-    %a{:href => "#class-list"} 班级列表
+    %a{:href => "#class-list"} #{Classroom.zh_name}列表
   %li
-    %a{:href => "#teacher-user-list"} 教师晓书列表
+    %a{:href => "#teacher-user-list"} 教师晓书用户列表
   %li
-    %a{:href => "#admin-list"} 管理员列表
+    %a{:href => "#admin-list"} #{Admin.zh_name}列表
 
 
 .tab-content
   #class-list.tab-pane.active
     %h3 
       班级列表
-      = link_to_add '创建班级', new_classroom_path(:school_id => @school.id) if current_admin.is_manager
+      = link_to_add "创建#{Classroom.zh_name}", new_classroom_path(:school_id => @school.id) if current_admin.is_manager
     %br/
     %table.table.table-striped
       %tr
@@ -67,7 +67,7 @@
   #admin-list.tab-pane
     %h3 
       管理员用户列表
-      = link_to_add '添加管理员', new_admin_path(:school_id => @school.id) if current_admin.is_manager
+      = link_to_add '添加#{Admin.zh_name}', new_admin_path(:school_id => @school.id) if current_admin.is_manager
     %br/
     %table.table.table-striped
       %tr
