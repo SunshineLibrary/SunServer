@@ -51,6 +51,9 @@ class DownloadPermission < ActiveRecord::Base
         res[owner_type] << owner.owner_id
       end
     end
+
+    # Special treatment for User, allow all users at default.
+    res["User"] = [1,2,3].to_set until res["User"].any?
     res
   end
 

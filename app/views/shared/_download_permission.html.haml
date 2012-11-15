@@ -1,35 +1,52 @@
 - allow_set = DownloadPermission.prepare_allow_set resource_id, resource_type
 
-.control-group
-  .control-label
-    适用学校
-  .controls
-    - School.all.each do |school|
-      %label.checkbox.inline
-        = check_box_tag 'permission_schools[]', school.id, allow_set["School"].include?(school.id)
-        = school.name
-.control-group
-  .control-label
-    适用年级
-  .controls
-    - for grade in [7, 8, 9]
-      %label.checkbox.inline
-        = check_box_tag 'permission_grades[]', grade, allow_set["Grade"].include?(grade)
-        = grade.to_s + "年级"
-.control-group
-  .control-label
-    适用班级
-  .controls
-    - Classroom.all.each do |clas|
-      %label.checkbox.inline
-        = check_box_tag 'permission_classrooms[]', clas.id, allow_set["Classroom"].include?(clas.id)
-        = clas.class_name_with_school
-.control-group
-  .control-label
-    适用用户
-  .controls
-    - show = ["学生", "老师", "员工"]
-    - for i in [1, 2, 3]
-      %label.checkbox.inline
-        = check_box_tag 'permission_users[]', i, allow_set["User"].include?(i)
-        = show[i-1]
+.tabbable.tabs-left.well
+  %ul.nav.nav-tabs
+    %li.active
+      %a(href="#0A" data-toggle="tab")
+        通用权限
+    -c = 1
+    -School.all.each do |school|
+      %li
+        %a{:href => "\##{c}A", "data-toggle" => "tab"}
+          = school.name
+      -c = c + 1
+
+  .tab-content
+    .tab-pane.active(id="0A" )
+      .control-group
+        .control-label
+          适用所有年级：
+        .controls
+          - for grade in [7, 8, 9]
+            %label.checkbox.inline
+              = check_box_tag 'permission_grades[]', grade, allow_set["Grade"].include?(grade)
+              = Classroom.grade_to_name grade
+      .control-group
+        .control-label
+          适用用户：
+        .controls
+          - show = ["学生", "老师", "员工"]
+          - for i in [1, 2, 3]
+            %label.checkbox.inline
+              = check_box_tag 'permission_users[]', i, allow_set["User"].include?(i)
+              = show[i-1]
+    -c = 1
+    -School.all.each do |school|
+      .tab-pane{:id => "#{c}A"}
+        .control-group
+          .controls
+            %label.checkbox
+              = check_box_tag 'permission_schools[]', school.id, allow_set["School"].include?(school.id)
+              所有教师
+        - for grade in school.list_all_grades
+          - classroom = school.list_all_classes_in grade
+          .control-group
+            .control-label
+              = classroom[0].grade_name + "："
+            .controls
+              - for room in classroom
+                %label.checkbox.inline
+                  = check_box_tag 'permission_classrooms[]', room.id, allow_set["Classroom"].include?(room.id)
+                  = room.order_name
+      -c = c + 1

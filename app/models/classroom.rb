@@ -4,12 +4,15 @@ class Classroom < ActiveRecord::Base
   belongs_to :school
 
   ZN_NAME = "班级"
-
   GRADE_TO_NAME = { 1 => "一年级", 2 => "二年级", 3 => "三年级", 4 => "四年级", 5 => "五年级", 6 => "六年级", 7 => "初一", 8 => "初二", 9 => "初三" }
   ORDER_TO_NAME = { 1 => "1班", 2 => "2班", 3 => "3班", 4 => "4班", 5 => "5班", 6 => "6班" }
 
   def self.zh_name
     ZN_NAME
+  end
+
+  def self.grade_to_name number
+    GRADE_TO_NAME[number]
   end
 
   def class_name
