@@ -12,6 +12,10 @@ class Admin < ActiveRecord::Base
   def self.zh_name
     ZN_NAME
   end
+
+  def self.all
+    Admin.where("admins.created_at > '#{Time.at(0)}'")
+  end
   
   def email_required?
     false

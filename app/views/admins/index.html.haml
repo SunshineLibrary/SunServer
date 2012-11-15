@@ -10,12 +10,10 @@
     %th.span1 是否可以跨学校？
     %th.span1 是否能够管理其它老师？
     %th.span1 是否是超级管理员？
-    %th.span3
   - @admins.each do |a|
     %tr
-      %td= a.name
+      %td= link_to a.name, a
       %td= a.school.name
       %td= a.print_permission(:is_global)
       %td= a.print_permission(:is_manager)
       %td= a.print_permission(:is_super)
-      %td= link_to_check '查看', a

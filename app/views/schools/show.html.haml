@@ -66,20 +66,26 @@
     
   #admin-list.tab-pane
     %h3 
-      管理员用户列表
+      #{Admin.zh_name}列表
       = link_to_add "添加#{Admin.zh_name}", new_admin_path(:school_id => @school.id) if current_admin.is_manager
     %br/
     %table.table.table-striped
       %tr
-        %th.span3 姓名
-        %th.span3 用户名
-        %th.span4 最近一次登录时间
+        %th.span2 姓名
+        %th.span2 用户名
+        %th.span2 是否可以跨学校？
+        %th.span2 是否能够管理其它老师？
+        %th.span2 是否是超级管理员？
+        %th.span2 最近一次登录时间
       - @school.admins.each do |a|
         %tr
           %td= link_to a.name, a
           %td= a.username
+          %td= a.print_permission(:is_global)
+          %td= a.print_permission(:is_manager)
+          %td= a.print_permission(:is_super)
           %td= a.last_sign_in_at.to_formatted_s(:zh_long) if a.last_sign_in_at
-    
+          
 %script
   :plain
     $('#my-pills a').click(function (e) {
