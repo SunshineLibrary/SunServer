@@ -1,8 +1,8 @@
 .bundle
 db/*.sqlite3
-config/database.yml
 log/*.log
 tmp/
+config/database.yml
 .sass-cache/
 .rvmrc
 *.DS_STORE
@@ -13,7 +13,6 @@ public/system
 .metadata/
 Vagrantfile
 .vagrant
-/config/database.yml
 /db/files/video2.mp4
 .pydevproject
 ToHaml.rb

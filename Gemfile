@@ -47,5 +47,5 @@ group :test, :development do
   gem 'rspec-rails', "~> 2.0"
   gem 'capybara'
   gem 'guard-rspec'
-  # gem 'rb-inotify'
+  gem 'rb-inotify'
 end
