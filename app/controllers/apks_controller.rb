@@ -68,12 +68,10 @@ class ApksController < ApplicationController
     end
   end
 
-  private
   def eliminate_old_permission owner_type
     DownloadPermission.eliminate_old_permission @permission, owner_type, @apk.id, "Apk", params
   end
 
-  private
   def update_permission
     lookup_permission params[:id]
 
@@ -133,14 +131,13 @@ class ApksController < ApplicationController
     end
     render json: pending
   end
-  
-  
-  private 
+
+  private
   def super_admin_required
     unless current_admin.is_super
       flash[:error] = "对不起，您没有权限进行此操作"
       redirect_to root_url
     end
   end
-  
+
 end
