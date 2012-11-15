@@ -5,7 +5,7 @@ class Section < ActiveRecord::Base
   has_many :section_components, :uniq => true, :dependent => :destroy, :conditions  => "section_components.created_at > '#{Time.at(0)}'"
   has_many :activities, :through => :section_components, :source => :activity, :order => "section_components.seq", :conditions  => "activities.created_at > '#{Time.at(0)}'"
 
-  ZN_NAME = "小节"
+  ZN_NAME = "知识点"
 
   def self.zh_name
     ZN_NAME

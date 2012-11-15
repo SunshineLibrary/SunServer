@@ -28,9 +28,9 @@
                   课外资源
                   %b.caret
                 %ul.dropdown-menu
-                  %li= link_to '书籍', books_path
-                  %li= link_to '书籍合集', book_collections_path
-                  %li= link_to '作者', authors_path
+                  %li= link_to "#{Book.zh_name}", books_path
+                  %li= link_to "#{BookCollection.zh_name}", book_collections_path
+                  %li= link_to "#{Author.zh_name}", authors_path
                   %li.divider
                   %li= link_to '视频合集', video_collections_path
                   %li.divider
@@ -42,7 +42,7 @@
                   其它
                   %b.caret
                 %ul.dropdown-menu
-                  %li= link_to '提供方', providers_path
+                  %li= link_to "#{Provider.zh_name}", providers_path
               - if admin_signed_in? and (current_admin.is_super or current_admin.is_global)
                 %li.dropdown
                   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
@@ -50,20 +50,21 @@
                     %b.caret
                   %ul.dropdown-menu
                     - if current_admin.is_super or current_admin.is_global
-                      %li= link_to '管理学校', schools_path
+                      %li= link_to "管理#{School.zh_name}", schools_path
                     - if current_admin.is_super
-                      %li= link_to '管理应用', apks_path
-                      %li= link_to '管理机器类型', machine_types_path
+                      %li= link_to "管理#{Apk.zh_name}", apks_path
+                      %li= link_to "管理#{Machine.zh_name}", machines_path
+                      %li= link_to "管理#{MachineType.zh_name}", machine_types_path
                       %li= link_to '下载权限列表', download_permissions_path
                       %li.divider
-                      %li= link_to '批量创建用户', {:controller => 'users', :action => 'batch_new'}
+                      %li= link_to "批量创建#{User.zh_name}", {:controller => 'users', :action => 'batch_new'}
               - if admin_signed_in?
                 %li.dropdown
                   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                     我的…
                     %b.caret
                   %ul.dropdown-menu
-                    %li= link_to '学校', current_admin.school
+                    %li= link_to "#{School.zh_name}", current_admin.school
             %ul.nav.pull-right
               - if admin_signed_in?
                 %li= link_to current_admin.name, current_admin

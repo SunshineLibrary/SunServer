@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   validate :birthday_is_date?, :known_type?
 
-  ZN_NAME = "用户"
+  ZN_NAME = "晓书用户"
     
   TYPE_TO_NAME = { "student" => "学生", "teacher" => "教师", "staff" => "工作人员" }
   

@@ -1,4 +1,5 @@
 .page-header
-  %h1 修改管理员信息
+  %h1 修改#{Admin.zh_name}信息
 = render 'form'
 = link_to_back '取消修改', @admin
+= link_to_delete '删除', @admin, confirm: '确定要删除吗？', method: :delete

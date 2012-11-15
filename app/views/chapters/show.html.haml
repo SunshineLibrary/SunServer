@@ -7,13 +7,12 @@
   .span6
     %dl.dl-horizontal
       %dt 所属课程
-      %dd= link_to @course.name, course_path(@course)
+      %dd= @course.name
       %dt 单元概述
       %dd= @chapter.description
-
-    = link_to_edit '修改信息', edit_chapter_path(@chapter)
-    = link_to_back '返回课程', course_path(@course)
-    
+.well
+  = link_to_edit '修改信息', edit_chapter_path(@chapter)
+  = link_to_back '返回课程', course_path(@course)
     
 %br/
 %br/

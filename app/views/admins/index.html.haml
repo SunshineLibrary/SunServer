@@ -1,8 +1,8 @@
 .page-header
-  %h1 管理员列表
+  %h1 #{Admin.zh_name}列表
   %p
     %span.label.label-info 提示
-    要添加管理员，请从学校页面中添加
+    要添加#{Admin.zh_name}，请从学校页面中添加
 %table.table.table-striped
   %tr
     %th.span3 姓名
@@ -10,12 +10,10 @@
     %th.span1 是否可以跨学校？
     %th.span1 是否能够管理其它老师？
     %th.span1 是否是超级管理员？
-    %th.span3
   - @admins.each do |a|
     %tr
-      %td= a.name
+      %td= link_to a.name, a
       %td= a.school.name
       %td= a.print_permission(:is_global)
       %td= a.print_permission(:is_manager)
       %td= a.print_permission(:is_super)
-      %td= link_to_check '查看', a

@@ -1,26 +1,26 @@
 / Pages for edge edition
 / Seems working, need test
 %div
-  %h3 跳转条件
+  %h3 #{Edge.zh_name}
   %table.table.table-striped
     %tr
       %th.span2 从
       %th.span2 至
-      %th.span6 跳转条件
+      %th.span6 条件
       %th.span2
     - @section.edges.each do |edge|
       %tr
         %td= best_in_place edge, :from_id, :type => :select, :collection => @section.activity_list_in_place
-        %td= best_in_place edge, :to_id, :type => :select, :collection => @section.activity_list_in_place << [-1, "*小节结束*"]
+        %td= best_in_place edge, :to_id, :type => :select, :collection => @section.activity_list_in_place << [-1, "*#{Section.zh_name}结束*"]
         %td= best_in_place edge, :condition, :type => :input
-        %td= link_to_delete '删除', edge, confirm: '确定要删除这个跳转吗？', method: :delete
+        %td= link_to_delete '删除', edge, confirm: "确定要删除这个#{Edge.zh_name}吗？", method: :delete
   %br/
   - @edge = Edge.new
   = form_for @edge, :html => {:class => "well form-inline"} do |f|
     = f.label :from_id, "从"
     = f.select :from_id, @section.activity_list, :class => "input-small", :size => 10
     = f.label :to_id, "至"
-    = f.select :to_id, @section.activity_list << ["*小节结束*", -1], :class => "input-small", :size => 10
+    = f.select :to_id, @section.activity_list << ["*#{Section.zh_name}结束*", -1], :class => "input-small", :size => 10
     = f.text_field :section_id, :value => @section.id, :style => "display: none"
     %br/
     %br/
@@ -34,4 +34,4 @@
     = text_field_tag :cond2, "", :class => "input-small", :size => 5
     %br/
     %br/
-    = f.submit "添加跳转", :class => "btn btn-success"
+    = f.submit "添加#{Edge.zh_name}", :class => "btn btn-success"

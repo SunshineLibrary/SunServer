@@ -1,4 +1,6 @@
 class SchoolsController < ApplicationController
+  skip_before_filter :admin_signed_in_required, :only => :get_all
+
   # GET /schools
   # GET /schools.json
   def index
@@ -14,7 +16,7 @@ class SchoolsController < ApplicationController
   # GET /schools/1.json
   def show
     @school = School.find(params[:id])
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @school }
@@ -80,7 +82,7 @@ class SchoolsController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   # for json request
   def get_all
     schools = School.all
@@ -88,14 +90,14 @@ class SchoolsController < ApplicationController
       format.json { render json: schools.as_json(:only => [:id, :name])}
     end
   end
-  
+
   def my_school
     @school = current_admin.school
-    
+
     respond_to do |format|
       format.html { redirect_to @school }
       format.json { render json: @school }
     end
   end
-  
+
 end

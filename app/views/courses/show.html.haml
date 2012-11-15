@@ -7,7 +7,7 @@
   .span6
     %dl.dl-horizontal
       %dt 所属科目
-      %dd= link_to @subject.name, subject_path(@subject)
+      %dd= @subject.name
       %dt 适用年级
       %dd= @course.print_grade
       %dt 适用学期
@@ -16,8 +16,9 @@
       %dd= @course.print_course_type
       %dt 课程概述
       %dd= @course.description
-    = link_to_edit '修改信息', edit_course_path(@course)
-    = link_to_back '返回科目', subject_path(@subject)
+.well
+  = link_to_edit '修改信息', edit_course_path(@course)
+  = link_to_back '返回科目', subject_path(@subject)
 %br/
 %br/
 %br/

@@ -1,7 +1,7 @@
 = javascript_include_tag params[:controller]
 .row
   .span2
-    %h3 环节列表
+    %h3 #{Activity.zh_name}列表
 %table.table.table-striped
   %tr
     %th.span1
@@ -19,7 +19,7 @@
       %td= a.name
       - prefix = (a.tipe == "quiz") ? "" : "edit_"
       %td= link_to_check '查看', self.send("#{prefix}#{a.tipe}_activity_path", a, :section_id => @section.id)
-      %td= link_to_delete '删除', a, confirm: '确定要删除这个环节吗？', method: :delete
+      %td= link_to_delete '删除', a, confirm: "确定要删除这个#{Activity.zh_name}吗？", method: :delete
 .btn-group
   %button.btn.btn-success 添加环节
   %button.btn.btn-success.dropdown-toggle{"data-toggle" => "dropdown"}

@@ -3,4 +3,4 @@
 
 = render 'form'
 
-= link_to_delete '删除小节', @section, confirm: '确定要删除此小节吗？', method: :delete
+= link_to_delete "删除#{Section.zh_name}", @section, confirm: "确定要删除此#{Section.zh_name}吗？", method: :delete

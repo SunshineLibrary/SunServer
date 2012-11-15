@@ -46,8 +46,8 @@ class MachinesController < ApplicationController
       end
     end
   end
-  
-  
+
+
   def lock
     @machine = Machine.find(params[:id])
     @machine.current_signin_record.sign_out if @machine.current_signin_record #sign out first
@@ -62,7 +62,7 @@ class MachinesController < ApplicationController
       end 
     end
   end
-  
+
   def unlock
     @machine = Machine.find(params[:id])
     @machine.unlock
@@ -76,8 +76,8 @@ class MachinesController < ApplicationController
       end 
     end
   end
-  
-  
+
+
   def sign_in
     # store params
     machine_id = params[:machine_id]
@@ -91,7 +91,7 @@ class MachinesController < ApplicationController
     @user = nil
     @machine = nil
     @machine_signin = nil
-    
+
     # search db for ojbects
     status = "OK"
     if @school = School.find_by_id(user_school_id)
@@ -103,38 +103,43 @@ class MachinesController < ApplicationController
 
     # signin and return
     if status == "OK"
+      # first check "loggability" of user
       if @user.current_signin_record
-        # user currently signed in another machine
-        status = "User already signed in"
+        if @user.current_signin_record.machine_id = machine_id
+          # app reinstalled or data cleaned up, continue previous signin session
+          @machine_signin = @user.current_signin_record
+          status = "Success"
+        else
+          # user currently signed in another machine
+          status = "Signed in another device"
+        end
       else
+        # check "loggability" of the device
         if @machine = Machine.find_by_unique_id(machine_id)
           # known machine
           if @machine.is_locked
             status = "Machine locked"
+          elsif @machine.current_signin_record
+            # happen when machine app got reinstalled and another user tried to signin, previous user needs to sign out first
+            status = "Machine already signed in"
           else
-            if @machine_signin = MachineSignin.find_by_machine_and_user(@machine.id, @user.id) and @machine_signin.is_valid
-              # app reinstalled, continue previous signin session
-              status = "Success"
-            elsif @machine.current_signin_record
-              # theoretically not possible, but just in case...
-              status = "Machine already signed in"
-            else
-              status = "Ready for signin"
-            end
+            status = "Ready for signin"
           end
         else
           # unknown machine, create first
-          unless @machine_type = MachineType.find_by_android_version(machine_android_version)
-            respond_with {render status: "400", message: "登录失败：Android版本信息不正确"}
+          if @machine_type = MachineType.find_by_android_version(machine_android_version)
+            @machine = Machine.create(unique_id: machine_id, machine_type_id: @machine_type.id)
+          else
+            # use unknown device type
+            @machine = Machine.create(unique_id: machine_id, machine_type_id: MachineType.unknown_type)
           end
-          @machine = Machine.create(unique_id: machine_id, machine_type_id: @machine_type.id)
           status = "Ready for signin"
         end
-      end  
+      end
     end
-    
+
     # sign in
-    if status == "Ready for signin"  
+    if status == "Ready for signin"
       @machine_signin = MachineSignin.new(:machine_id => @machine.id, :user_id => @user.id)
       @machine_signin.access_token = MachineSignin.calculate_access_token(@machine.unique_id, @user.id)
       if @machine_signin.save
@@ -143,34 +148,33 @@ class MachinesController < ApplicationController
         status = "Internal error"
       end
     end
-    
-    # respond
+
     case status
     when "Success"
-      respond_with status: "200", message: "登录成功！", access_token: @machine_signin.access_token
+      respond_with({status: "200", message: "登录成功！", access_token: @machine_signin.access_token}, :location => nil)
     when "Wrong params"
-      respond_with status: "400", message: "错误：登录信息不正确"
+      respond_with({status: "400", message: "错误：登录信息不正确"}, :location => nil)
     when "User already signed in"
-      respond_with status: "400", message: "错误：用户已登录到另一台设备上"
+      respond_with({status: "400", message: "错误：用户已登录到另一台设备上"}, :location => nil)
     when "Machine already signed in"
-      respond_with status: "400", message: "错误：设备已登录"
+      respond_with({status: "400", message: "错误：设备已登录"}, :location => nil)
     when "Machine locked"
-      respond_with status: "400", message: "错误：设备已被锁定"
+      respond_with({status: "400", message: "错误：设备已被锁定"}, :location => nil)
     when "Internal error"
-      respond_with status: "500", message: "错误：请重试"
+      respond_with({status: "500", message: "错误：请重试"}, :location => nil)
     end
   end
-  
+
   def sign_out
     @machine = Machine.find_by_id(params[:id])
     @user = User.find_by_id(params[:user_id])
     if @machine.current_signin_record.sign_out
-      format.html { redirect_to :back, notice: '已登出' }
+      format.html { redirect_to @user, notice: '已登出' }
       format.json { head :ok }
     else
       format.html { redirect_to user_url(@user), notice: '登出出现错误' }
       format.json { render json: @machine.errors, status: :unprocessable_entity }
     end
   end
-  
+
 end

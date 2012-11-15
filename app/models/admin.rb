@@ -7,10 +7,14 @@ class Admin < ActiveRecord::Base
          
   belongs_to :school
   
-  ZN_NAME = "管理员"
+  ZN_NAME = "后台用户"
   
   def self.zh_name
     ZN_NAME
+  end
+
+  def self.all
+    Admin.where("admins.created_at > '#{Time.at(0)}'")
   end
   
   def email_required?
