@@ -52,10 +52,10 @@ class ProblemsController < ApplicationController
     @section_id = params[:section_id]
     if @problem.is_mamc
       answer = ""
-      answer = answer + params[:answer1].strip! if not params[:answer1].empty?
-      answer = answer + ";" + params[:answer2].strip! if not params[:answer2].empty?
-      answer = answer + ";" + params[:answer3].strip! if not params[:answer3].empty?
-      answer = answer + ";" + params[:answer4].strip! if not params[:answer4].empty?
+      answer = (answer + params[:answer1].strip) if not params[:answer1].empty?
+      answer = (answer + ";" + params[:answer2].strip) if not params[:answer2].empty?
+      answer = (answer + ";" + params[:answer3].strip) if not params[:answer3].empty?
+      answer = (answer + ";" + params[:answer4].strip) if not params[:answer4].empty?
       params[:problem][:answer] = answer
     end
     params[:problem][:answer].strip!
