@@ -1,6 +1,6 @@
 #encoding: UTF-8
 class MachinesController < ApplicationController
-
+  skip_before_filter :verify_authenticity_token, :only => [:sign_in]
   skip_before_filter :admin_signed_in_required, :only => [:sign_in]
   respond_to :json, :only => [:sign_in]
 

@@ -34,6 +34,11 @@ SunServer::Application.routes.draw do
       get 'book_collections_tags'
     end
   end
+  resources :user_records do
+    collection do
+      post 'batch_update'
+    end
+  end
 
   resources :schools do
     collection do

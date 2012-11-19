@@ -6,6 +6,8 @@ class Apk < ActiveRecord::Base
           "(select name, max(version) as version from apks where created_at > '1970-01-01 00:00:00.000000' group by name)" +
           "as a on apks.name = a.name and apks.version = a.version and apks.status = 'release' where apks.created_at > '1970-01-01 00:00:00.000000' group by apks.name")}
 
+  scope :latest_daemon, lambda { select('id, name, version').where(:status => "release", :name => "com.ssl.support.daemon").order('version DESC').limit(1) }
+
   has_attached_file :file
 
   TYPE_TO_NAME = { "release" => "发布", "test" => "测试"}

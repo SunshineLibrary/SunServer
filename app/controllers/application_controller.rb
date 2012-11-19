@@ -16,6 +16,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def get_user_from_token
+    if params[:access_token] and (@access_token = MachineSignin.find_user_by_access_token params[:access_token])
+      @access_token.user
+    else
+      nil
+    end
+  end
+
   #require 'books_controller'
   #require 'tags_controller'
   #require 'subjects_controller'

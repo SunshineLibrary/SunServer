@@ -11,9 +11,12 @@ class Problem < ActiveRecord::Base
   before_save :strip_answer
   before_save :formalize_answer_case
 
+  has_many :user_record, :as => :item
+  has_many :users, :through => :user_records
+
 
   #def save
-    #problem_choices.all?(&:save)
+  #problem_choices.all?(&:save)
   #end
 
   TYPE_TO_NAME = {"mc" => "单选题", "fb" => "填空题", "mamc" => "多选题" }
@@ -53,17 +56,17 @@ class Problem < ActiveRecord::Base
     json[:problem_type] = problem_type
     return json
   end
-  
+
   private
   def strip_answer
     self.answer.strip! if self.answer
   end
-  
+
   private
   def formalize_answer_case
     if self.answer and (self.is_mc or self.is_mamc)
       self.answer.upcase!
     end
   end
-  
+
 end

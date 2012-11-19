@@ -35,7 +35,12 @@ class ApiController < ApplicationController
   end
 
   def handle_api_request(klass)
-    @collection = ApiModelHelper.sequence_after(klass, @timestamp, @limit)
-    respond_with @collection
+    @current_user = get_user_from_token
+    if @current_user
+      @collection = ApiModelHelper.sequence_after(klass, @timestamp, @limit)
+      respond_with @collection
+    else
+      respond_with []
+    end
   end
 end

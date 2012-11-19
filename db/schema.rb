@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115025930) do
+ActiveRecord::Schema.define(:version => 20121115083155) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -386,7 +386,7 @@ ActiveRecord::Schema.define(:version => 20121115025930) do
     t.integer  "timestamp",  :default => 0
   end
 
-  add_index "user_records", ["user_id", "item_id", "item_type"], :name => "index_user_records_on_user_id_and_item_id_and_item_type", :unique => true
+  add_index "user_records", ["user_id", "item_id", "item_type"], :name => "index_user_records_on_user_id_and_item_id_and_item_type"
 
   create_table "users", :force => true do |t|
     t.string   "name"

@@ -2,6 +2,8 @@
 class Activity < ActiveRecord::Base
 
   has_many :section_components, :dependent => :destroy
+  has_many :user_record, :as => :item
+  has_many :users, :through => :user_records
 
   has_attached_file :content_file, {
     :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
@@ -20,7 +22,7 @@ class Activity < ActiveRecord::Base
 
   TYPE_TO_NAME = {"video" => "视频", "audio" => "音频", "quiz"=>"习题", "html" => "网页", "pdf" => "PDF", "text" => "文字"}
   TYPE_TO_INT =  {"TextActivity" => 0, "AudioActivity" => 1, "VideoActivity" => 2, "GalleryActivity" => 3,
-                  "QuizActivity" => 4, "HtmlActivity" => 5, "PdfActivity" => 6}
+    "QuizActivity" => 4, "HtmlActivity" => 5, "PdfActivity" => 6}
 
   ZN_NAME = "活动"
 
@@ -50,17 +52,17 @@ class Activity < ActiveRecord::Base
     json[:activity_type] = activity_type
     return json
   end
-  
+
   ###
   # for PDF
   ###
   def is_pdf
     "pdf" == self.tipe
   end
-  
+
   def get_pdf_file(machine_type)
     #TODO distinguish 7 and 8 inches, for now 7 by default
     self.modified_file1.url
   end
-  
+
 end

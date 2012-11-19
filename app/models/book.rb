@@ -5,19 +5,21 @@ class Book < ActiveRecord::Base
     :path => ":rails_root/public/system/:attachment/:id/:style/:hash.:extension",
     :url => "/system/:attachment/:id/:style/:hash.:extension",
     :hash_secret => "longSecretString"
-  }  
+  }
 
-  has_attached_file :cover_m, 
-    :styles => {      
-      :normal => "309x432"}
-  
+  has_attached_file :cover_m, :styles => {
+    :normal => "309x432"
+  }
+
   has_attached_file :cover_s, 
     :styles => {
-      :normal => "103x144#"}
+    :normal => "103x144#"}
 
   belongs_to :provider
   belongs_to :book_collection
   belongs_to :author
+  has_many :user_record, :as => :item
+  has_many :users, :through => :user_records
   has_and_belongs_to_many :tags
 
   validates :title, :presence =>true
@@ -126,7 +128,7 @@ class Book < ActiveRecord::Base
       puts "url parsing error"
     end
   end
-  
+
   def self.crawl book_id
     require 'wombat'
     crawl_res = Wombat.crawl do
@@ -174,7 +176,7 @@ class Book < ActiveRecord::Base
       return sr if s.end_with? sr
     end
   end
-  
+
   def Book.sequence_after(timestamp, limit)
     return ApiModelHelper.sequence_after(Book, timestamp, limit)
   end

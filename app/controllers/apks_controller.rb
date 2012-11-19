@@ -117,10 +117,16 @@ class ApksController < ApplicationController
 
 
   def get_updates
-    latest = Apk.latest
+    @current_user = get_user_from_token
+    if @current_user
+      latest = Apk.latest
+    else
+      latest = Apk.latest_daemon
+    end
+
     pkgs_json = JSON(params[:packages])
-    pending = []
     installed = {}
+    pending = []
     pkgs_json.each do |pkg_json|
       installed[pkg_json["name"]] = pkg_json["version"]
     end
@@ -129,6 +135,7 @@ class ApksController < ApplicationController
         pending << package
       end
     end
+
     render json: pending
   end
 

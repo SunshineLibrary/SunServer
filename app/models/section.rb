@@ -6,6 +6,8 @@ class Section < ActiveRecord::Base
   has_many :activities, :through => :section_components, :source => :activity, :order => "section_components.seq", :conditions  => "activities.created_at > '#{Time.at(0)}'"
 
   ZN_NAME = "知识点"
+  has_many :user_record, :as => :item
+  has_many :users, :through => :user_records
 
   def self.zh_name
     ZN_NAME
