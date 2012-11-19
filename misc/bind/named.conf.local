@@ -11,8 +11,13 @@ zone "api.sunshine-library.org" {
     file "/etc/bind/zones/sunshine-library.org.db";
 };
 
-zone "log.sunshine-library.org" {
-    type master;
-    file "/etc/bind/zones/sunshine-library.org.db";
-};
+// zone "." {
+//     type master;
+//     file "/etc/bind/zones/all-address.db";
+// };
+
+// zone "log.sunshine-library.org" {
+//     type master;
+//     file "/etc/bind/zones/sunshine-library.org.db";
+// };
 

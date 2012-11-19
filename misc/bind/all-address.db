@@ -1,0 +1,14 @@
+;
+; BIND reverse data file for local loopback interface
+;
+$TTL 300
+@   IN  SOA @   root (
+        20120905; Serial
+        300     ; Refresh
+        300     ; Retry
+        300     ; Expire
+        300 )   ; Negative Cache TTL
+;
+@   IN  NS  @
+@   IN  A   192.168.3.100 ; Replace with the address of this machine
+*   IN  A   192.168.3.100 ; Replace with the address of this machine
