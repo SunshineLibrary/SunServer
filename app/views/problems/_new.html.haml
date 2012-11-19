@@ -1,0 +1,35 @@
+%h3
+  添加习题
+
+= form_for @problem, :html => {:class => "well form-inline"} do |f|
+  = f.label :tipe, "选择习题类型"
+  .btn-group{"data-toggle" => "buttons-radio", "data-toggle-name" => "tipe"}
+    - counter = 1
+    - Problem::TYPE_TO_NAME.each do |t|
+      - if 1 == counter 
+        <button type="button" value=#{t.first} class="btn active" data-toggle="button">#{t.second}
+      - else
+        <button type="button" value=#{t.first} class="btn" data-toggle="button">#{t.second}
+      - counter += 1
+      
+  %input{:name => "tipe", :type => "hidden", :value => "mc"}/
+  %span{:style => "display: none"}= text_field_tag :quiz_activity_id, @quiz_activity.id
+  %span{:style => "display: none"}= text_field_tag :section_id, @section.id
+  %br/
+  = f.submit "添加习题", :class => "btn btn-success"
+:javascript
+  $('div.btn-group[data-toggle-name=*]').each(function(){
+    var group   = $(this);
+    var form    = group.parents('form').eq(0);
+    var name    = group.attr('data-toggle-name');
+    var hidden  = $('input[name="' + name + '"]', form);
+    $('button', group).each(function(){
+      var button = $(this);
+      button.live('click', function(){
+          hidden.val($(this).val());
+      });
+      if(button.val() == hidden.val()) {
+        button.addClass('active');
+      }
+    });
+  });

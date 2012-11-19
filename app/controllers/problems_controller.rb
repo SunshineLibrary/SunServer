@@ -16,7 +16,11 @@ class ProblemsController < ApplicationController
     @section_id = params[:section_id]
     @answers = nil
     if @problem.is_mamc
-      @answers = @problem.answer.split(';')
+      if @problem.answer
+        @answers = @problem.answer.split(';') 
+      else
+        @answers = []
+      end
     end
 
     respond_to do |format|
