@@ -1,6 +1,6 @@
 #encoding: UTF-8
 
-require 'csv'
+require 'csv' 
 
 class UsersController < ApplicationController
 
