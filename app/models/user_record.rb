@@ -15,7 +15,7 @@ class UserRecord < ActiveRecord::Base
       when /Problem/
         create(user_id: user.id, item_id: item_id, item_type: item_type,
                timestamp: record_hash[:timestamp].to_i, params: sanitize_params(record_hash))
-      when /Activity|Book/
+      when /Activity|Book|Section/
         record = find_record(user.id, item_id, item_type)
         if record
           record.update_attributes(timestamp: record_hash[:timestamp], params: sanitize_params(record_hash))
