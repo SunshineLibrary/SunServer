@@ -168,12 +168,15 @@ class MachinesController < ApplicationController
   def sign_out
     @machine = Machine.find_by_id(params[:id])
     @user = User.find_by_id(params[:user_id])
-    if @machine.current_signin_record.sign_out
-      format.html { redirect_to @user, notice: '已登出' }
-      format.json { head :ok }
-    else
-      format.html { redirect_to user_url(@user), notice: '登出出现错误' }
-      format.json { render json: @machine.errors, status: :unprocessable_entity }
+
+    respond_to do |format|
+      if @machine.current_signin_record.sign_out
+        format.html { redirect_to @user, notice: '已登出' }
+        format.json { head :ok }
+      else
+        format.html { redirect_to user_url(@user), notice: '登出出现错误' }
+        format.json { render json: @machine.errors, status: :unprocessable_entity }
+      end
     end
   end
 
