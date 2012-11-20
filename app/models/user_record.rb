@@ -55,7 +55,7 @@ class UserRecord < ActiveRecord::Base
   def self.param_filter(item_type)
     case item_type
     when "Problem"
-      @@param_filters["Problem"] ||= Proc.new {|key, value| /answer|is_correct/.match key}
+      @@param_filters["Problem"] ||= Proc.new {|key, value| /answer|is_correct|duration/.match key}
     when "Activity"
       @@param_filters["Activity"] ||= Proc.new {|key, value| /result|status/.match key}
     when "Book"
