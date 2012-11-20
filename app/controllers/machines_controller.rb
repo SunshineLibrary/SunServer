@@ -105,7 +105,7 @@ class MachinesController < ApplicationController
     if status == "OK"
       # first check "loggability" of user
       if @user.current_signin_record
-        if @user.current_signin_record.machine_id == machine_id
+        if @user.current_signin_record.machine.unique_id == machine_id
           # app reinstalled or data cleaned up, continue previous signin session
           @machine_signin = @user.current_signin_record
           status = "Success"
