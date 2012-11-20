@@ -22,7 +22,7 @@ server {
     }
 
     location /user_records/batch_update.json {
-        proxy_pass http://api.sunshien-library.org/user_records/batch_update.json;
+        proxy_pass http://api.sunshine-library.org/user_records/batch_update.json;
     }
 
     #error_page  404              /404.html;
