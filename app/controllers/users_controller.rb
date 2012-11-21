@@ -51,9 +51,9 @@ class UsersController < ApplicationController
     if @user.user_type == "student"
       classroom = Classroom.find_by_id(@user.classroom_id)
       @user.school_id = classroom.school.id
-    end
-    #@user.birthday = @user.birthday.to_date
-
+    end    
+    birthday = params[:year] + "-" + params[:month] + "-" + params[:day]
+    @user.birthday = birthday
     respond_to do |format|
       if @user.save
         if @user.is_student
