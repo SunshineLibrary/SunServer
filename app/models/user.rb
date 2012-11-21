@@ -22,10 +22,6 @@ class User < ActiveRecord::Base
     TYPE_TO_NAME[self.user_type]
   end
 
-  def machine
-    self.machines.first
-  end
-
   def self.all_types
     collection = []
     TYPE_TO_NAME.each do |t|

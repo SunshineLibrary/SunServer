@@ -56,7 +56,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to classroom, notice: '成功创建用户' }
+        if @user.is_student
+          format.html { redirect_to @user.classroom, notice: '成功创建用户' }
+        elsif @user.is_teacher
+          format.html { redirect_to @user.school, notice: '成功创建用户' }
+        end
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }

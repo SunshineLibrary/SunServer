@@ -53,17 +53,19 @@
     %br/
     %table.table.table-striped
       %tr
-        %th.span4 姓名
-        %th.span4 类型
-        %th.span2
-        %th.span2
+        %th.span1 姓名
+        %th.span1 类型
+        %th.span4 使用的晓书
       - @school.school_level_users.each do |u|
         %tr
-          %td= u.name
+          %td= link_to u.name, u
           %td= u.print_type
-          %td= link_to_check '查看', u
-          %td= link_to_delete '删除', u, confirm: '确定要删除此用户吗？', method: :delete
-    
+          %td 
+            - if u.current_machine.nil?
+              无
+            - else
+              = link_to u.current_machine.unique_id, u.current_machine
+
   #admin-list.tab-pane
     %h3 
       #{Admin.zh_name}列表
