@@ -18,18 +18,25 @@
 %br/
 %br/
 %br/
-%h3 学生列表
+%h3 
+  学生列表
+  = link_to_add '添加学生', new_user_path(:classroom_id => @classroom.id, :user_type => "student")
+%br/
 %table.table.table-striped
   %tr
-    %th.span4 姓名
-    %th.span4 生日
-    %th.span2
+    %th.span1 姓名
+    %th.span1 生日
+    %th.span2 正在使用的晓书
     %th.span2
   - @classroom.users.each do |u|
     %tr
-      %td= u.name
+      %td= link_to u.name, u
       %td= u.birthday
-      %td= link_to_check '查看', u
+      %td 
+        - if u.current_machine.nil?
+          无
+        - else
+          = link_to u.current_machine.unique_id, u.current_machine
       %td= link_to_delete '删除', u, confirm: '确定要删除此学生吗？', method: :delete
       
-= link_to_add '添加学生', new_user_path(:classroom_id => @classroom.id, :user_type => "student")
+
