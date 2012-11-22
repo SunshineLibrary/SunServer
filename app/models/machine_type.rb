@@ -10,7 +10,7 @@ class MachineType < ActiveRecord::Base
   end
   
   def unknown_type
-    MachineType.where(name: "未知").first # already created
+    MachineType.where(name: "Unknown").first # already created
   end
   
 end
