@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   ZN_NAME = "晓书用户"
 
-  TYPE_TO_NAME = { "student" => "学生", "teacher" => "教师", "staff" => "工作人员" }
+  TYPE_TO_NAME = { "student" => "学生", "teacher" => "教师" }
 
   def self.zh_name
     ZN_NAME
