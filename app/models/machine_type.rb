@@ -9,7 +9,7 @@ class MachineType < ActiveRecord::Base
     ZN_NAME
   end
   
-  def unknown_type
+  def self.unknown_type
     MachineType.where(name: "Unknown").first # already created
   end
   
