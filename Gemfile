@@ -16,6 +16,7 @@ gem 'best_in_place' # used for in place edition
 gem 'devise' #used for authentication
 gem 'mathjax-rails', :git => "git://github.com/ukisami/mathjax-rails.git"  # used for rendering math formula
 gem 'wombat' #used for parsing douban book page
+gem "less-rails" #twitter bootstrap require this
 gem "twitter-bootstrap-rails"
 #gem 'tinymce-rails'
 #gem 'tinymce-rails-langs'

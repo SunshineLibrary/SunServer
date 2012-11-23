@@ -59,7 +59,7 @@ class MachinesController < ApplicationController
       else
         format.html { render action: @machine, notice: '未锁定成功，请重试' }
         format.json { render json: @machine.errors, status: :unprocessable_entity }
-      end 
+      end
     end
   end
 
@@ -73,7 +73,7 @@ class MachinesController < ApplicationController
       else
         format.html { render action: @machine, notice: '未解锁成功，请重试' }
         format.json { render json: @machine.errors, status: :unprocessable_entity }
-      end 
+      end
     end
   end
 
@@ -98,7 +98,7 @@ class MachinesController < ApplicationController
       @user = User.find_by_type_school_grade_class_name_birthday(user_type, @school, user_grade, user_class, user_name, user_birthday)
       status = "Wrong params" if @user.nil?
     else
-      status = "Wrong params" 
+      status = "Wrong params"
     end
 
     # signin and return

@@ -34,13 +34,22 @@ class ApiController < ApplicationController
     @timestamp, @limit = ApiModelHelper.parse_params(params)
   end
 
+  UserString_To_Number = {"student" => 1, "teacher" => 2, "staff" => 3}
+
+  private
+  def have_permission klass
+    return true if klass != Course and klass != Book
+
+    DownloadPermission.check_permission @current_user
+  end
+
   def handle_api_request(klass)
     @current_user = get_user_from_token
-    if @current_user
+    if @current_user and have_permission klass
       @collection = ApiModelHelper.sequence_after(klass, @timestamp, @limit)
       respond_with @collection
     else
-      respond_with []
+      respond_with ["nimei", "womei"]
     end
   end
 end
