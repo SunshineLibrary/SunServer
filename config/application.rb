@@ -45,29 +45,48 @@ module SunServer
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-  end  
+  end
 end
 
 class ActiveRecord::Base
-  #Correctly override destroy
-  def destroy_without_callbacks
-    unless new_record?
-      self.created_at = Time.at(0)
-      self.save
+
+  def self.override_destroy(val = true)
+    if val
+      method = lambda { true }
+    else
+      method = lambda { false }
     end
-    freeze
+    define_method("override_destroy?", method)
   end
-  
+
   alias_method :hard_destroy, :destroy
   alias_method :hard_destroyed?, :destroyed?
-  
-  def destroy
+
+  override_destroy true
+
+  def soft_destroy
     self.created_at = Time.at(0)
     self.updated_at = Time.now
     self.save
   end
-  
-  def destroyed?
+
+  def soft_destroyed?
     self.created_at == Time.at(0)
-  end    
+  end
+
+  def destroy
+    if override_destroy?
+      soft_destroy
+    else
+      hard_destroy
+    end
+  end
+
+  def destroyed?
+    if override_destroy?
+      soft_destroyed?
+    else
+      hard_destroyed?
+    end
+  end
 end

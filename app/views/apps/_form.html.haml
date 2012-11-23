@@ -1,0 +1,21 @@
+= form_for(@app, :html => {:class => "form-horizontal"}) do |f|
+  %fieldset
+    - if @app.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@app.errors.count, "error")
+          prohibited this app from being saved:
+        %ul
+          - @app.errors.full_messages.each do |msg|
+            %li= msg
+    .control-group
+      = f.label :name, "名称", :class => "control-label"
+      .controls
+        = f.text_field :name
+    .control-group
+      = f.label :package_name, "包名称(不必填写)", :class => "control-label"
+      .controls
+        = f.text_field :package_name
+
+    .form-actions
+      = f.submit :class => "btn btn-success"
