@@ -1,5 +1,7 @@
 # encoding: UTF-8
 class Apk < ActiveRecord::Base
+  belongs_to :app
+
 
   scope :latest, lambda { select('apks.id, apks.name, apks.version').
     joins("inner join" +
@@ -9,6 +11,8 @@ class Apk < ActiveRecord::Base
   scope :latest_daemon, lambda { select('id, name, version').where(:status => "release", :name => "com.ssl.support.daemon").order('version DESC').limit(1) }
 
   has_attached_file :file
+
+  override_destroy false
 
   TYPE_TO_NAME = { "release" => "发布", "test" => "测试"}
 

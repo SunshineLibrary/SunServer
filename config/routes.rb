@@ -1,5 +1,7 @@
 SunServer::Application.routes.draw do
 
+  resources :apps
+
   resources :download_permissions
 
   resources :pdf_activities

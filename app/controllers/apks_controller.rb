@@ -1,5 +1,6 @@
 #encoding: UTF-8
 class ApksController < ApplicationController
+
   protect_from_forgery :except => :get_updates
   skip_before_filter :admin_signed_in_required, :only => :get_updates
   before_filter :super_admin_required,  :only => [:index, :show, :new, :edit, :create, :update, :destroy]

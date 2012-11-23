@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115083155) do
+ActiveRecord::Schema.define(:version => 20121121021557) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -76,11 +76,20 @@ ActiveRecord::Schema.define(:version => 20121115083155) do
     t.integer  "version"
     t.string   "version_name"
     t.string   "status",            :default => "test"
+    t.integer  "app_id"
   end
 
   create_table "apks_machine_types", :id => false, :force => true do |t|
     t.integer  "apk_id"
     t.integer  "machine_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "apps", :force => true do |t|
+    t.string   "name"
+    t.string   "package_name"
+    t.integer  "latest_version"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

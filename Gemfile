@@ -38,14 +38,16 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'
   gem 'database_cleaner', '~> 0.6.7'          # cucumber rails needs this
   gem 'factory_girl_rails', :require => false # generate model during testing
-  gem 'spork', '~> 0.9.0.rc9'                 # preload fixed rails resouces
+  gem 'spork'                                 # preload fixed rails resouces
+  gem 'guard-rspec'
 end
 
 group :test, :development do
   gem 'rspec-rails', "~> 2.0"
-  gem 'capybara'
-  gem 'guard-rspec'
-  gem 'rb-inotify'
+  gem 'rb-inotify', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
 end

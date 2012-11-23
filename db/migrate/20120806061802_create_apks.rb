@@ -5,7 +5,7 @@ class CreateApks < ActiveRecord::Migration
       t.string :name
       t.string :description
       t.has_attached_file :file 
-      
+
       t.timestamps
     end
   end

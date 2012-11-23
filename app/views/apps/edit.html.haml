@@ -1,0 +1,7 @@
+.page-header
+  %h1 修改#{Apk.zh_name}信息
+
+= render "form"
+
+= link_to_back '取消', apks_path
+= link_to_delete '删除', @apk, confirm: '确定要删除吗？', method: :delete
