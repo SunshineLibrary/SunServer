@@ -29,9 +29,7 @@ group :assets do
   gem 'uglifier'
 end
 
-group :production do
-  gem 'mysql2'
-end
+gem 'mysql2'
 
 group :development do
   gem 'sqlite3'
