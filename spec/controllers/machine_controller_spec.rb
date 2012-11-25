@@ -27,13 +27,38 @@ describe MachinesController do
       end
     end
 
-    it "allow a student sign in" do
-      info = {"machine_id"=>"KKDLA1232", "android_version"=>"4.0.3", "name"=>"杨同学",
+    def student_login
+      @info = {"machine_id"=>"KKDLA1232", "android_version"=>"4.0.3", "name"=>"杨同学",
               "user_type"=>"student", "school_id"=>"2", "grade"=>"7", "class"=>"1",
               "birthday"=>"1995-06-01", "format"=>"json"}
 
-      post :sign_in, info
+      post :sign_in, @info
+    end
 
+    it "gets the right access token for the given student" do
+      student_login
+
+      md = response.body.match /"access_token":"([^"]*)"/
+      token = md[1]
+
+      user = MachineSignin.find_user_by_access_token(token).user
+
+      user.name.should == @info["name"]
+      user.birthday.to_s.should == @info["birthday"]
+      user.classroom_id.to_s.should == @info["class"]
+      user.school_id.to_s.should == @info["school_id"]
+      user.user_type.should == "student"
+    end
+
+    it "gets an access token when a student sign in" do
+      student_login
+
+      b = response.body
+      b.should match /"access_token":"([^"]*)"/
+    end
+
+    it "allow a student sign in" do
+      student_login
       response.body.should match ':"200"'
     end
 
@@ -45,6 +70,45 @@ describe MachinesController do
 
       response.body.should match ':"200"'
     end
+
+    it "stop a student with wrong birthday to sign in" do
+      info = {"machine_id"=>"KKDLA1232", "android_version"=>"4.0.3", "name"=>"杨同学",
+              "user_type"=>"student", "school_id"=>"2", "grade"=>"7", "class"=>"1",
+              "birthday"=>"1995-06-02", "format"=>"json"}
+
+      post :sign_in, info
+
+      response.body.should match ':"400"'
+    end
+
+    it "stop a student with wrong school_id to sign in" do
+      info = {"machine_id"=>"KKDLA1232", "android_version"=>"4.0.3", "name"=>"杨同学",
+              "user_type"=>"student", "school_id"=>"1", "grade"=>"7", "class"=>"1",
+              "birthday"=>"1995-06-01", "format"=>"json"}
+
+      post :sign_in, info
+
+      response.body.should match ':"400"'
+    end
+
+    it "stop a teacher with wrong school_id to sign in" do
+      info = {"machine_id"=>"KKDLA1232", "android_version"=>"4.0.3", "name"=>"杨老师",
+              "user_type"=>"teacher", "school_id"=>"1", "birthday"=>"1970-12-22", "format"=>"json"}
+
+      post :sign_in, info
+
+      response.body.should match ':"400"'
+    end
+
+    it "stop a teacher with wrong birthday to sign in" do
+      info = {"machine_id"=>"KKDLA1232", "android_version"=>"4.0.3", "name"=>"杨老师",
+              "user_type"=>"teacher", "school_id"=>"2", "birthday"=>"1970-11-22", "format"=>"json"}
+
+      post :sign_in, info
+
+      response.body.should match ':"400"'
+    end
+
   end
 
 end
