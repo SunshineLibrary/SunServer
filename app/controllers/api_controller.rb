@@ -37,19 +37,32 @@ class ApiController < ApplicationController
   UserString_To_Number = {"student" => 1, "teacher" => 2, "staff" => 3}
 
   private
-  def have_permission klass
+  def have_permission item_id, klass
     return true if klass != Course and klass != Book
 
-    DownloadPermission.check_permission @current_user
+    #item_id = book.id, klass = Book => resource
+    #owner "student",
+    if @current_user.user_type == "student"
+      perm_user = DownloadPermission.check_permission 1, "User", item_id, klass.to_s
+      return false unless perm_user
+      perm_classroom = DownloadPermission.check_permission @current_user.classroom_id, "Classroom", item_id, klass.to_s
+      return (perm_classroom and perm_user)
+    else #"staff" or "teacher"
+      user_type = @current_user.user_type == "staff" ? 3 : 2
+      perm_user = DownloadPermission.check_permission user_type, "User", item_id, klass.to_s
+      return false unless perm_user
+      perm_school = DownloadPermission.check_permission @current_user.school_id, "School", item_id, klass.to_s
+      return (perm_user and perm_school)
+    end
   end
 
   def handle_api_request(klass)
     @current_user = get_user_from_token
-    if @current_user and have_permission klass
+    if @current_user
       @collection = ApiModelHelper.sequence_after(klass, @timestamp, @limit)
-      respond_with @collection
+      respond_with @collection.select{|item| have_permission item.id, klass}
     else
-      respond_with ["nimei", "womei"]
+      respond_with []
     end
   end
 end
