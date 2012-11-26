@@ -1,5 +1,31 @@
 class DownloadController <  ApplicationController
   skip_before_filter :admin_signed_in_required
+  before_filter :permission_filter
+
+  def permission_filter
+    unless check_permission params[:action], params[:id]
+      render :nothing => true, :status => 404
+    end
+  end
+
+  def check_permission action_name, item_id
+    if action_name.match(/book/).nil? and action_name.match(/apk/).nil?
+      return true
+    end
+
+    if action_name.match /book/
+      item_type = "Book"
+    else
+      item_type = "Apk"
+    end
+
+    @current_user = get_user_from_token
+    if @current_user and DownloadPermission.check_user_with_resource @current_user, item_id.to_i, item_type
+      return true
+    else
+      return false
+    end
+  end
 
   def books
     book = Book.find(params[:id])
@@ -12,7 +38,7 @@ class DownloadController <  ApplicationController
 
   def books_thumb
     book = Book.find(params[:id])
-    if book.cover_m? 
+    if book.cover_m?
       @path = book.cover_m.url
     else
       @path = DEFAULT_BOOKS_THUMB

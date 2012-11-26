@@ -40,20 +40,7 @@ class ApiController < ApplicationController
   def have_permission item_id, klass
     return true if klass != Course and klass != Book
 
-    #item_id = book.id, klass = Book => resource
-    #owner "student",
-    if @current_user.user_type == "student"
-      perm_user = DownloadPermission.check_permission 1, "User", item_id, klass.to_s
-      return false unless perm_user
-      perm_classroom = DownloadPermission.check_permission @current_user.classroom_id, "Classroom", item_id, klass.to_s
-      return (perm_classroom and perm_user)
-    else #"staff" or "teacher"
-      user_type = @current_user.user_type == "staff" ? 3 : 2
-      perm_user = DownloadPermission.check_permission user_type, "User", item_id, klass.to_s
-      return false unless perm_user
-      perm_school = DownloadPermission.check_permission @current_user.school_id, "School", item_id, klass.to_s
-      return (perm_user and perm_school)
-    end
+    DownloadPermission.check_user_with_resource @current_user, item_id, klass.to_s
   end
 
   def handle_api_request(klass)
