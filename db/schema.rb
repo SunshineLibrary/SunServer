@@ -11,13 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121121021557) do
+ActiveRecord::Schema.define(:version => 20121127085953) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
     t.string   "name"
     t.integer  "provider_id"
-    t.string   "notes"
     t.integer  "duration"
     t.string   "content_file_file_name"
     t.string   "content_file_content_type"
@@ -37,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20121121021557) do
     t.string   "modified_file2_content_type"
     t.integer  "modified_file2_file_size"
     t.datetime "modified_file2_updated_at"
+    t.text     "notes"
   end
 
   create_table "admins", :force => true do |t|
