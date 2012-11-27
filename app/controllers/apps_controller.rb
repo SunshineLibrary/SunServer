@@ -33,7 +33,6 @@ class AppsController < ApplicationController
   def create
     @app = App.new(params[:app])
 
-    debugger
     respond_to do |format|
       if @app.save
         format.html { redirect_to @app, notice: 'App was successfully created.' }
