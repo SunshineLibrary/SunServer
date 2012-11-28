@@ -2,7 +2,6 @@
 require "spec_helper"
 
 describe DownloadController do
-
   describe "it manage authentication right" do
     before :all do
       provider = Provider.create name: "阳光书屋", intro:"神秘组织，不崇拜星辰诸神"

@@ -36,9 +36,15 @@
       .tab-pane{:id => "#{c}A"}
         .control-group
           .controls
-            %label.checkbox
-              = check_box_tag 'permission_schools[]', school.id, allow_set["School"].include?(school.id)
+            %label.checkbox.inline
+              = check_box_tag 'permission_all_people[]', school.id, allow_set["AllPeople"].include?(school.id)
+              所有人
+            %label.checkbox.inline
+              = check_box_tag 'permission_all_teachers[]', school.id, allow_set["AllTeacher"].include?(school.id)
               所有教师
+            %label.checkbox.inline
+              = check_box_tag 'permission_all_staffs[]', school.id, allow_set["AllStaff"].include?(school.id)
+              所有员工
         - for grade in school.list_all_grades
           - classroom = school.list_all_classes_in grade
           .control-group

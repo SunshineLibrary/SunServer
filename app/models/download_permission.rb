@@ -23,6 +23,10 @@ class DownloadPermission < ActiveRecord::Base
       false
   end
 
+  def self.list_permit owner_type, resource_id, resource_type
+    DownloadPermission.where(owner_type: owner_type, resource_id: resource_id, resource_type: resource_type, permission_boolean: true).all
+  end
+
   def self.add_permission_from_params resource_id, resource_type, pboolean, params
       params[:permission_schools].each do |id_str|
           DownloadPermission.add_permission id_str.to_i, "School", resource_id, resource_type, pboolean
@@ -46,7 +50,7 @@ class DownloadPermission < ActiveRecord::Base
     res = {}
     for owner_type in ["School", "User", "Grade", "Classroom"]
       res[owner_type] = Set.new
-      lookup = DownloadPermission.where(owner_type: owner_type, resource_id: resource_id, resource_type: resource_type, permission_boolean: true).all
+      lookup = DownloadPermission.list_permit owner_type, resource_id, resource_type
       for owner in lookup
         res[owner_type] << owner.owner_id
       end
@@ -54,6 +58,10 @@ class DownloadPermission < ActiveRecord::Base
 
     # Special treatment for User, allow all users at default.
     res["User"] = [1,2,3].to_set until res["User"].any?
+
+    res["AllPeople"] = Set.new
+    res["AllStaff"] = Set.new
+    res["AllTeacher"] = Set.new
     res
   end
 
