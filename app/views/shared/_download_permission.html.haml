@@ -37,7 +37,7 @@
         .control-group
           .controls
             %label.checkbox.inline
-              = check_box_tag 'permission_all_people[]', school.id, allow_set["AllPeople"].include?(school.id)
+              = check_box_tag 'permission_all_people[]', school.id
               所有人
             %label.checkbox.inline
               = check_box_tag 'permission_all_teachers[]', school.id, allow_set["AllTeacher"].include?(school.id)

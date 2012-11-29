@@ -1,4 +1,6 @@
 class DownloadPermission < ActiveRecord::Base
+  override_destroy false
+
   private
   def self.locate owner_id, owner_type, resource_id, resource_type
       DownloadPermission.where(owner_id: owner_id, owner_type: owner_type, resource_id: resource_id,
@@ -43,6 +45,27 @@ class DownloadPermission < ActiveRecord::Base
       params[:permission_users].each do |id_str|
           DownloadPermission.add_permission id_str.to_i, "User", resource_id, resource_type, pboolean
       end if params.has_key? 'permission_users'
+
+      params[:permission_all_people].each do |id_str|
+          DownloadPermission.add_permission id_str.to_i, "School", resource_id, resource_type, pboolean
+          DownloadPermission.add_permission 1, "User", resource_id, resource_type, pboolean
+          DownloadPermission.add_permission 2, "User", resource_id, resource_type, pboolean
+          DownloadPermission.add_permission 3, "User", resource_id, resource_type, pboolean
+
+          for pair in School.find_by_id(id_str).list_all_classrooms
+            DownloadPermission.add_permission pair[1], "Classroom", resource_id, resource_type, pboolean
+          end
+      end if params.has_key? 'permission_all_people'
+
+      params[:permission_all_teachers].each do |id_str|
+          DownloadPermission.add_permission id_str.to_i, "School", resource_id, resource_type, pboolean
+          DownloadPermission.add_permission 2, "User", resource_id, resource_type, pboolean
+      end if params.has_key? 'permission_all_teachers'
+
+      params[:permission_all_staffs].each do |id_str|
+          DownloadPermission.add_permission id_str.to_i, "School", resource_id, resource_type, pboolean
+          DownloadPermission.add_permission 3, "User", resource_id, resource_type, pboolean
+      end if params.has_key? 'permission_all_staffs'
   end
 
   def self.prepare_allow_set resource_id, resource_type
@@ -59,9 +82,11 @@ class DownloadPermission < ActiveRecord::Base
     # Special treatment for User, allow all users at default.
     res["User"] = [1,2,3].to_set until res["User"].any?
 
-    res["AllPeople"] = Set.new
-    res["AllStaff"] = Set.new
     res["AllTeacher"] = Set.new
+    res["AllTeacher"] = res["School"] if res["User"].include?(2)
+    res["AllStaff"] = Set.new
+    res["AllStaff"] = res["School"] if res["User"].include?(3)
+
     res
   end
 
@@ -83,6 +108,10 @@ class DownloadPermission < ActiveRecord::Base
   end
 
   def self.check_user_with_resource current_user, item_id, item_type
+    if item_type == "Book" and (not DownloadPermission.any_description? item_id, item_type)
+      return true
+    end
+
     #item_id = book.id, item_type = Book => resource
     #owner "student",
     if current_user.user_type == "student"
@@ -97,5 +126,9 @@ class DownloadPermission < ActiveRecord::Base
       perm_school = DownloadPermission.check_permission current_user.school_id, "School", item_id, item_type
       return (perm_user and perm_school)
     end
+  end
+
+  def self.any_description? r_id, r_type
+    DownloadPermission.where(resource_id:r_id, resource_type:r_type).any?
   end
 end

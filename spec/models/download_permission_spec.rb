@@ -46,10 +46,6 @@ describe DownloadPermission do
       @allow_set["AllStaff"].should_not include 1, 2
     end
 
-    it "fill allow_set[AllPeople] correctly" do
-
-    end
-
     def set_list_permit_return
       DownloadPermission.should_receive(:list_permit).with("School", anything(), anything()).and_return @school_set
       DownloadPermission.should_receive(:list_permit).with("User", anything(), anything()).and_return @user_set

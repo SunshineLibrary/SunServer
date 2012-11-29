@@ -9,6 +9,7 @@ describe DownloadController do
       author = Author.create name: "J.K 罗琳"
       collection = BookCollection.create title: "哈利·波特与凤凰社", intro: intro
         book = collection.books.create title: "哈利·波特与凤凰社1", intro: intro, author: author, provider_id: provider.id
+        @free_book = collection.books.create title: "哈利·波特与凤凰社2", intro: intro, author: author, provider_id: provider.id
 
       DownloadPermission.create owner_id: 1, owner_type: "Classroom", resource_id: book.id, resource_type: "Book", permission_boolean: true
       DownloadPermission.create owner_id: 2, owner_type: "School", resource_id: book.id, resource_type: "Book", permission_boolean: true
@@ -44,6 +45,17 @@ describe DownloadController do
 
     it "forbit a ill staff to download book" do
       fill_ill_user_and_check @staff
+    end
+
+    it "a book without any description on permission is accessable to everyone" do
+      controller.should_receive(:get_user_from_token).and_return @teacher
+      controller.check_permission("books", @free_book.id).should be_true
+
+      controller.should_receive(:get_user_from_token).and_return @staff
+      controller.check_permission("books", @free_book.id).should be_true
+
+      controller.should_receive(:get_user_from_token).and_return @student
+      controller.check_permission("books", @free_book.id).should be_true
     end
 
     def fill_valid_user_and_check user
