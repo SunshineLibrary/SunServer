@@ -1,6 +1,6 @@
 class DownloadController <  ApplicationController
   skip_before_filter :admin_signed_in_required
-  before_filter :permission_filter
+  # before_filter :permission_filter
 
   def permission_filter
     unless check_permission params[:action], params[:id]

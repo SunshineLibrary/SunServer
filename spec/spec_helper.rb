@@ -14,8 +14,6 @@ Spork.prefork do
   require 'factory_girl_rails'
 
   require 'database_cleaner'
-  DatabaseCleaner.clean_with :truncation
-  DatabaseCleaner.strategy = :transaction
 
   RSpec.configure do |config|
     # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -35,6 +33,11 @@ Spork.prefork do
     #     --seed 1234
     config.order = "random"
 
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.clean_with :truncation
+    end
+
     config.before(:each) do
       DatabaseCleaner.start
     end
@@ -46,7 +49,4 @@ Spork.prefork do
 end
 
 Spork.each_run do
-  # No need to run these, keeping around in case future need
-  # Dir[Rails.root.join("app/models/**.rb")].each {|f| require f}
-  # Dir[Rails.root.join("spec/factories/**.rb")].each {|f| require f}
 end

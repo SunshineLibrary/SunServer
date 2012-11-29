@@ -47,7 +47,8 @@ class ApiController < ApplicationController
     @current_user = get_user_from_token
     if @current_user
       @collection = ApiModelHelper.sequence_after(klass, @timestamp, @limit)
-      respond_with @collection.select{|item| have_permission item.id, klass}
+      respond_with @collection
+      # respond_with @collection.select{|item| have_permission item.id, klass}
     else
       respond_with []
     end
