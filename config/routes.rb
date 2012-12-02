@@ -1,16 +1,15 @@
 SunServer::Application.routes.draw do
 
-  resources :apps
+  resources :apps do
+    resources :apks
+  end
+
+  match "apks/get_updates" => "apks#get_updates"
 
   resources :download_permissions
 
   resources :pdf_activities
 
-  resources :apks do
-    collection do
-      post 'get_updates'
-    end
-  end
   resources :machine_types
   resources :api do
     collection do
@@ -36,6 +35,7 @@ SunServer::Application.routes.draw do
       get 'book_collections_tags'
     end
   end
+
   resources :user_records do
     collection do
       post 'batch_update'

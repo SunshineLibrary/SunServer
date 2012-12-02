@@ -52,7 +52,7 @@
                     - if current_admin.is_super or current_admin.is_global
                       %li= link_to "管理#{School.zh_name}", schools_path
                     - if current_admin.is_super
-                      %li= link_to "管理#{Apk.zh_name}", apks_path
+                      %li= link_to "管理#{App.zh_name}", apps_path
                       %li= link_to "管理#{Machine.zh_name}", machines_path
                       %li= link_to "管理#{MachineType.zh_name}", machine_types_path
                       %li= link_to '下载权限列表', download_permissions_path

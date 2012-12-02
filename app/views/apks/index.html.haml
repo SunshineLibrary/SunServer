@@ -1,21 +1,22 @@
 .page-header
-  %h1 软件列表
+  %h1= @app.name
+  %br
+  %div 软件包名称: #{@app.package_name}
 
 .well
-  = link_to "添加#{Apk.zh_name}", new_apk_path, :class => "btn btn-success"
+  = link_to "添加#{Apk.zh_name}", new_app_apk_path(app_id: params[:app_id]), :class => "btn btn-success"
 
 %table.table.table-striped
   %tr
-    %th 应用名称
     %th 文件名
     %th 版本号
     %th 更新序号
+    %th 发布状态
     %th
   - @apks.each do |apk|
-    - next if apk.destroyed?
     %tr
-      %td= link_to apk.description, apk
       %td= apk.name
       %td= apk.version_name
       %td= apk.version
-      %td= link_to_edit '修改', edit_apk_path(apk)
+      %td= (apk.status == "release") ? "发布" : "测试"
+      %td= link_to_edit '修改', edit_app_apk_path(params[:app_id], apk.id)

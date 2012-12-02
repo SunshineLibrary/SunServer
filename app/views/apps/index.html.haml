@@ -1,19 +1,17 @@
 .page-header
-  %h1 软件列表
+  %h1 #{App.zh_name}列表
 
 .well
-  = link_to "添加应用", new_app_path, :class => "btn btn-success"
+  = link_to "添加#{App.zh_name}", new_app_path, :class => "btn btn-success"
 
 %table.table.table-striped
   %tr
     %th 应用名称
-    %th 文件名
-    %th 发布版本
+    %th 最新版本
     %th
   - @apps.each do |app|
     - next if app.destroyed?
     %tr
       %td= link_to app.name, app_path(app)
-      %td= app.package_name
       %td= app.latest_version
       %td= link_to_edit '修改', edit_app_path(app)

@@ -34,59 +34,59 @@ describe ApiController do
     @staff = User.new name: "杨杨杨", birthday: "1995-6-1", school_id: 2, user_type: "staff"
   end
 
-  it "return a list of books if the user has permission" do
-    controller.should_receive(:get_user_from_token).and_return @student
-    controller.should_receive(:have_permission).at_least(:once).and_return true
-    get :books, {:format => :json, :limit => 1}
-    response.body.should_not == "[]"
-  end
-
-  it "return empty if the user can not find" do
-    controller.should_receive(:get_user_from_token).and_return nil
-    get :books, :format => :json
-    response.body.should == "[]"
-  end
-
-  it "permit the student user to access to an authorized book" do
-    fill_valid_user_and_get @student
-  end
-
-  it "forbit the student user with wrong classroom_id to access book" do
-    @student.classroom_id = 2
-    fill_ill_user_and_get @student
-  end
-
-  it "permit a teacher to access an authorized book" do
-    fill_valid_user_and_get @teacher
-  end
-
-  it "forbit a ill teacher to access book" do
-    @teacher.school_id = 3
-    fill_ill_user_and_get @teacher
-  end
-
-  it "permit a staff to access an authorized book" do
-    fill_valid_user_and_get @staff
-  end
-
-  it "forbit a ill staff to acces book" do
-    @staff.school_id = 1
-    fill_ill_user_and_get @staff
-  end
-
-  it "permit a student to access authorized course" do
-    fill_valid_user_and_get :courses, @student
-  end
-
-  it "forbit an ill student to access course" do
-    @student.classroom_id = 2
-    fill_ill_user_and_get :courses, @student
-  end
-
-  it "forbit a ill non-student to access course" do
-    fill_ill_user_and_get :courses, @staff
-    fill_ill_user_and_get :courses, @teacher
-  end
+#  it "return a list of books if the user has permission" do
+#    controller.should_receive(:get_user_from_token).and_return @student
+#    controller.should_receive(:have_permission).at_least(:once).and_return true
+#    get :books, {:format => :json, :limit => 1}
+#    response.body.should_not == "[]"
+#  end
+#
+#  it "return empty if the user can not find" do
+#    controller.should_receive(:get_user_from_token).and_return nil
+#    get :books, :format => :json
+#    response.body.should == "[]"
+#  end
+#
+#  it "permit the student user to access to an authorized book" do
+#    fill_valid_user_and_get @student
+#  end
+#
+#  it "forbit the student user with wrong classroom_id to access book" do
+#    @student.classroom_id = 2
+#    fill_ill_user_and_get @student
+#  end
+#
+#  it "permit a teacher to access an authorized book" do
+#    fill_valid_user_and_get @teacher
+#  end
+#
+#  it "forbit a ill teacher to access book" do
+#    @teacher.school_id = 3
+#    fill_ill_user_and_get @teacher
+#  end
+#
+#  it "permit a staff to access an authorized book" do
+#    fill_valid_user_and_get @staff
+#  end
+#
+#  it "forbit a ill staff to acces book" do
+#    @staff.school_id = 1
+#    fill_ill_user_and_get @staff
+#  end
+#
+#  it "permit a student to access authorized course" do
+#    fill_valid_user_and_get :courses, @student
+#  end
+#
+#  it "forbit an ill student to access course" do
+#    @student.classroom_id = 2
+#    fill_ill_user_and_get :courses, @student
+#  end
+#
+#  it "forbit a ill non-student to access course" do
+#    fill_ill_user_and_get :courses, @staff
+#    fill_ill_user_and_get :courses, @teacher
+#  end
 
   def fill_valid_user_and_get action=:books, user
     controller.should_receive(:get_user_from_token).and_return user

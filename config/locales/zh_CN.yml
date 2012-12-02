@@ -1,4 +1,4 @@
-zh-CN:       
+zh-CN:
   date:
     abbr_day_names:
     - 日
@@ -201,6 +201,3 @@ zh-CN:
   activerecord:
     errors:
       <<: *errors
-      
-  
-      

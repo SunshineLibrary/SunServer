@@ -1,2 +1,2 @@
-class TextActivity < Activity    
+class TextActivity < Activity
 end

@@ -12,7 +12,7 @@ class AppsController < ApplicationController
     @app = App.find(params[:id])
 
     respond_to do |format|
-      format.html { redirect_to apks_path(:app_id => @app.id) }
+      format.html { redirect_to app_apks_path(:app_id => @app.id) }
       format.json { render json: @app }
     end
   end

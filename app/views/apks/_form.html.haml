@@ -1,4 +1,4 @@
-= form_for(@apk, :html => {:class => "form-horizontal"}) do |f|
+= form_for([:app, @apk], :html => {:class => "form-horizontal"}) do |f|
   %fieldset
     - if @apk.errors.any?
       #error_explanation
@@ -8,20 +8,15 @@
         %ul
           - @apk.errors.full_messages.each do |msg|
             %li= msg
+    = f.hidden_field :app_id
     .control-group
       = f.label :file, ".apk文件" + file_status(@apk, "file"), :class => "control-label"
       .controls
         = f.file_field :file
     .control-group
-      = f.label :description, "名称", :class => "control-label"
-      .controls
-        = f.text_field :description
-    .control-group
       = f.label :status, "状态", :class => "control-label"
       .controls
         = f.select :status, Apk.list_all_status
-
     = render :partial => "shared/download_permission", :locals => {:resource_id => @apk.id, :resource_type => "Apk"}
-
     .form-actions
       = f.submit :class => "btn btn-success"

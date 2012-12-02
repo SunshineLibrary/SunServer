@@ -18,5 +18,5 @@
       %dd= allow_list.inspect
 
 
-= link_to_edit '修改信息', edit_apk_path(@apk)
-= link_to_back '返回', apks_path
+= link_to_edit '修改信息', edit_app_apk_path(@apk)
+= link_to_back '返回', app_apks_path(params[:app_id])
