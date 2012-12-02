@@ -34,7 +34,7 @@ class TextActivitiesController < ApplicationController
   end
 
   # GET /text_activities/1/edit
-  def edit    
+  def edit
     @text_activity = TextActivity.find(params[:id])
   end
 
