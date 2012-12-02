@@ -69,13 +69,26 @@ class DownloadController <  ApplicationController
 
   def activities
     activity = Activity.find(params[:id])
-    @path = activity.content_file.url
+    if activity.activity_type == 0
+      redirect_to action: :text_activities, id: params[:id], format: :txt
+    else
+      @path = activity.content_file.url
 
-    if activity.is_pdf
-      @path = activity.get_pdf_file("TODO: get machine type once passed")
+      if activity.is_pdf
+        @path = activity.get_pdf_file("TODO: get machine type once passed")
+      end
+
+      download_path
     end
+  end
 
-    download_path
+  def text_activities
+    content = TextActivityContent.where(:text_activity_id => params[:id]).first
+    if content
+      render :text => content.content
+    else
+      render :nothing => true, :status => 404
+    end
   end
 
   def activities_thumb

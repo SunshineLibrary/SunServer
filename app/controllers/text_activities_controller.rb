@@ -35,7 +35,7 @@ class TextActivitiesController < ApplicationController
 
   # GET /text_activities/1/edit
   def edit
-    @text_activity = TextActivity.find(params[:id])
+    @text_activity = TextActivity.includes(:text_activity_content).find(params[:id])
   end
 
   # POST /text_activities
@@ -60,11 +60,11 @@ class TextActivitiesController < ApplicationController
   # PUT /text_activities/1.json
   def update
     @text_activity = TextActivity.find_by_id(params[:id])    
-    
+
     attr = params[:text_activity]
     section_id = attr[:section_id]
     attr.delete(:section_id) 
-    
+
     respond_to do |format|
       if @text_activity.update_attributes(attr)
         format.html { redirect_to Section.find(section_id), notice: 'Text activity was successfully updated.' }

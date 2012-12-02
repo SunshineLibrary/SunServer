@@ -10,7 +10,14 @@
       .controls
         = f.select :provider_id, Provider.list_all, :class => "input-xlarge"
     .control-group
-      = f.text_area :notes, :class => "tinymce", :rows => 40, :cols => 120
+      = f.label :notes, "简介", :class => "control-label"
+      .controls
+        = f.text_area :notes, :style => "width: 480px; height: 120px;"
+    = f.fields_for :text_activity_content_attributes, @text_activity.text_activity_content do |content|
+      .control-group
+        = content.label :content, "内容", :class => "control-label"
+        .controls
+          = content.text_area :content, :style => "width: 480px; height: 240px;"
     .form-actions
       = f.submit "保存", :class => "btn btn-primary"
       = link_to "取消", section_path(@section_id), :class => "btn"
