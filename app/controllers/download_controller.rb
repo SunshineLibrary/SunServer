@@ -114,6 +114,17 @@ class DownloadController <  ApplicationController
     download_path
   end
 
+  def problems
+    problem = Problem.find(params[:id])
+    if problem.image?
+      redirect_to problem.image.url
+    elsif probem.audio_file?
+      redirect_to problem.audio_file.url
+    else
+      render :nothing => true, :status => 200
+    end
+  end
+
   private
   def download_path
     if @path.nil?
