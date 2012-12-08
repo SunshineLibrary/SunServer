@@ -18,7 +18,7 @@
     .control-group
       = f.label :birthday, "生日", :class => "control-label"
       .controls
-        = f.text_field :birthday, :class => "input-xlarge"      
+        = f.text_field :birthday, :class => "input-xlarge"
     - if @user.user_type == "student"
       .control-group
         = f.label :classroom_id, "班级", :class => "control-label"
@@ -27,5 +27,5 @@
     .form-actions
       = f.submit "更新", :class => "btn btn-primary"
       = link_to '取消', @user, :class => "btn"
-      
+
 %td= link_to_delete '删除', @user, confirm: '确定要删除此用户吗？', method: :delete
