@@ -12,6 +12,7 @@
 
 .well  
   = link_to_edit "修改信息", edit_section_path(@section)
+  = link_to_check "转移章节", relink_section_path(@section)
   = link_to_back "返回#{Lesson.zh_name}", lesson_path(@lesson)
 
 %br/

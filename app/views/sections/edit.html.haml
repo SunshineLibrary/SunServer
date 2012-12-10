@@ -1,6 +1,30 @@
 .page-header
-  %h1 编辑小节
+  %h1 
+    编辑
+    = Section.zh_name
 
-= render 'form'
+= form_for @section, :html => {:class => "form-horizontal"} do |f|
+  - if @section.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@section.errors.count, "error")
+        prohibited this chapter from being saved:
+      %ul
+        - @section.errors.full_messages.each do |msg|
+          %li= msg
+  %fieldset
+    .control-group
+      = f.label :name, "#{Section.zh_name}名称", :class => "control-label"
+      .controls
+        = f.text_field :name, :class => "input-xlarge"
+    - if params[:action] == 'new'
+      = f.hidden_field :lesson_id, :value => params[:lesson_id]
+    .control-group
+      = f.label :description, "描述", :class => "control-label"
+      .controls
+        = f.text_area :description, :class => "input-xlarge"
+    .form-actions
+      = f.submit :value => "确定", :class => "btn btn-primary"
+      = link_to '返回', @section, :class => "btn"
 
 = link_to_delete "删除#{Section.zh_name}", @section, confirm: "确定要删除此#{Section.zh_name}吗？", method: :delete

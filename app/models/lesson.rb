@@ -13,4 +13,13 @@ class Lesson < ActiveRecord::Base
     ZN_NAME
   end
   
+  def self.list_all
+    collection = []
+    Lesson.all.each do |l|
+      next if l.destroyed?
+      collection << [l.name, l.id]
+    end
+    collection
+  end
+  
 end
