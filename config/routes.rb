@@ -79,7 +79,13 @@ SunServer::Application.routes.draw do
   resources :courses
   resources :lessons
   resources :chapters
-  resources :sections
+  resources :sections do
+    member do
+      get 'relink'
+      post 'relink_post'
+    end
+  end
+  
   resources :activities do
     collection do
       post 'add_form'
