@@ -1,4 +1,7 @@
+# encoding: UTF-8
 class SectionsController < ApplicationController
+
+  include SectionsHelper
 
   def index
     @sections = Section.all
@@ -81,4 +84,25 @@ class SectionsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def relink
+    @section = Section.find(params[:id])
+  end
+  
+  def relink_post
+    @section = Section.find(params[:id])
+    lesson = Lesson.find(params[:lesson_id])
+    @section.lesson = lesson
+    respond_to do |format|
+      if @section.save
+        format.html { redirect_to @section, notice: '成功转移' }
+        format.json { head :ok }
+      else
+        format.html { redirect_to @section, error: '转移失败' }
+        format.json { render json: @section.errors, status: :unprocessable_entity }
+      end
+    end
+    
+  end
+  
 end

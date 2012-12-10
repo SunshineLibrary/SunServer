@@ -1,0 +1,14 @@
+.page-header
+  %h1 
+    转移 
+    = Section.zh_name
+
+= form_tag({:action => "relink_post"}, :class => "form-horizontal") do
+  %fieldset
+    .control-group
+      = label_tag :lesson_id, "转移至", :class => "control-label"
+      .controls
+        = select_tag :lesson_id, options_for_select(Lesson.list_all), :class => "input-xlarge"
+    .form-actions
+      = submit_tag "确定", :class => "btn btn-primary"
+      = link_to '取消', @section, :class => "btn"
