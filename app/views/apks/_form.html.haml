@@ -19,4 +19,4 @@
         = f.select :status, Apk.list_all_status
     = render :partial => "shared/download_permission", :locals => {:resource_id => @apk.id, :resource_type => "Apk"}
     .form-actions
-      = f.submit :class => "btn btn-success"
+      = f.submit "更新#{Apk.zh_name}", :class => "btn btn-success"
