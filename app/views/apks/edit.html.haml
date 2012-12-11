@@ -3,5 +3,5 @@
 
 = render "form"
 
-= link_to_back '取消', apks_path
-= link_to_delete '删除', @apk, confirm: '确定要删除吗？', method: :delete
+= link_to_back '取消', app_apks_path(@apk.app)
+= link_to_delete '删除', [@apk.app, @apk], confirm: '确定要删除吗？', method: :delete
