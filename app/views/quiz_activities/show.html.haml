@@ -17,6 +17,8 @@
     = link_to_back '返回小节', section_path(@section)
 %br/
 %br/
+= render :partial => "problems/new"
+%br/
 .row
   %h3.span2 习题列表
 %table.table.table-striped
@@ -25,8 +27,8 @@
       %abbr.initialism{:title => "单击后输入数字以改变顺序，刷新后重新排序"} 顺序
     %th.span1 类型
     %th.span8 内容
-    %th.span1
-    %th.span1
+    %th.span2
+    %th.span2
   - @quiz_activity.problems.each do |p|
     %tr
       %td= best_in_place @quiz_activity.get_quiz_component(p), :seq, :type => :input
@@ -35,5 +37,3 @@
       %td= p.body
       %td= link_to_check "查看", problem_path(p, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id)
       %td= link_to_delete "删除", remove_problem_quiz_activity_path(@quiz_activity, :problem_id => p.id, :quiz_activity_id => @quiz_activity.id, :section_id => @section.id), confirm: '确定要删除此习题吗？', method: :post
-
-= render :partial => "problems/new"

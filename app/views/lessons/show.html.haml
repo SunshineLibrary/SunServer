@@ -21,10 +21,13 @@
 %h3 #{Section.zh_name}列表
 %table.table.table-striped
   %tr
+    %th.span1
+      %abbr.initialism{:title => "单击后输入数字以改变顺序，刷新后重新排序"} 顺序
     %th.span3 名称
     %th.span9 重点笔记
   - @lesson.sections.each do |s|
     %tr
+      %td= best_in_place s, :seq, :type => :input
       %td= link_to s.name, s
       %td= s.description
       
