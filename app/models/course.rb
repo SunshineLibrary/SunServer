@@ -62,4 +62,12 @@ class Course < ActiveRecord::Base
     collection
   end
   
+  def self.list_all
+    collection = []
+    Course.all.each do |c|
+      collection << [c.name, c.id]
+    end
+    collection
+  end
+  
 end
