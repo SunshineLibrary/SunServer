@@ -36,6 +36,7 @@ class TextActivitiesController < ApplicationController
   # GET /text_activities/1/edit
   def edit
     @text_activity = TextActivity.includes(:text_activity_content).find(params[:id])
+    @section_id = params[:section_id]
   end
 
   # POST /text_activities

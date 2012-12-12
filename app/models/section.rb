@@ -20,6 +20,10 @@ class Section < ActiveRecord::Base
   def get_section_component(activity)
     SectionComponent.where("section_id = '#{self.id}' AND activity_id = '#{activity.id}'").first
   end
+  
+  def get_quiz_activities
+    self.activities.where(type: "QuizActivity")
+  end
 
   def activity_list
     collection = []
