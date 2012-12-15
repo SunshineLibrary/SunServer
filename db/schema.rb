@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(:version => 20121216211102) do
     t.string   "type"
     t.string   "name"
     t.integer  "provider_id"
-    t.text     "notes"
     t.integer  "duration"
     t.string   "content_file_file_name"
     t.string   "content_file_content_type"
@@ -37,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20121216211102) do
     t.string   "modified_file2_content_type"
     t.integer  "modified_file2_file_size"
     t.datetime "modified_file2_updated_at"
+    t.text     "notes"
   end
 
   create_table "admins", :force => true do |t|
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(:version => 20121216211102) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
-    t.string   "intro",       :limit => 1023
+    t.string   "intro"
     t.string   "nationality"
     t.datetime "created_at"
     t.datetime "updated_at"
