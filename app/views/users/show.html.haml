@@ -2,6 +2,8 @@
   %h1
     = @user.name
     %span.label= User.zh_name
+    - if @user.is_staff
+      %span.label 测试用户
 .row
   .span6
     %dl.dl-horizontal
@@ -14,6 +16,7 @@
       %dd= @user.birthday
       %dt 类型
       %dd= @user.print_type
+
   = link_to_edit "修改信息", edit_user_path(@user)
 
 %br/
