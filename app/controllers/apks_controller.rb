@@ -121,7 +121,7 @@ class ApksController < ApplicationController
   def get_updates
     @current_user = get_user_from_token
     if @current_user
-      latest = Apk.latest
+      latest = @current_user.is_staff ? Apk.latest_testing : Apk.latest
     else
       latest = Apk.latest_daemon
     end

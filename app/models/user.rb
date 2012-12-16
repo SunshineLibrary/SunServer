@@ -38,10 +38,6 @@ class User < ActiveRecord::Base
     self.user_type == "student"
   end
 
-  def is_staff
-    self.user_type == "staff"
-  end
-
   def current_machine
     self.machines.where("machine_signins.is_valid" => true).first
   end
