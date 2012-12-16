@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121202170225) do
+ActiveRecord::Schema.define(:version => 20121216211102) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -353,6 +353,7 @@ ActiveRecord::Schema.define(:version => 20121202170225) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "seq"
   end
 
   create_table "subjects", :force => true do |t|
@@ -412,6 +413,7 @@ ActiveRecord::Schema.define(:version => 20121202170225) do
     t.string   "user_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_staff",     :default => false, :null => false
   end
 
   add_index "users", ["name", "birthday", "classroom_id"], :name => "index_users_on_name_and_birthday_and_classroom_id", :unique => true
