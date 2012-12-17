@@ -119,6 +119,15 @@ SunServer::Application.routes.draw do
   resources :audios
   resources :authors
   resources :tags
+  
+  resources :stats do
+    collection do
+      get 'section_by_class'
+      get 'quiz_by_class'
+      post 'get_classrooms_from_school'
+      post 'get_sections_from_course'
+    end
+  end
 
   match 'download/:action/:id', controller: "Download"
 

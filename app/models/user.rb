@@ -60,6 +60,11 @@ class User < ActiveRecord::Base
     user
   end
 
+  # For stats
+  def get_first_record item
+    UserRecord.get_first_record(self.id, item.id, item.class)
+  end
+
   private
   def birthday_is_date?
     if !self.birthday.is_a?(Date)

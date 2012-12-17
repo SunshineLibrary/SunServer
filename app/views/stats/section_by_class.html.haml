@@ -1,0 +1,54 @@
+.page-header
+  %h1
+    = @classroom.school.name + @classroom.class_name
+    %small 
+      = Section.zh_name + "学习情况"
+  %br/
+  = render :partial => "shared/breadcrumb_curriculum", :locals => { :item => @section }
+
+
+  = form_tag({:action => "section_by_class"}, :method => :get, :class => "form-inline") do
+    = select_tag "school", options_for_select(School.list_all)
+    = select_tag "classroom_id", nil
+    = hidden_field_tag "section_id", @section.id
+    = submit_tag "切换班级", :class => "btn btn-primary"
+  
+  = form_tag({:action => "section_by_class"}, :method => :get, :class => "form-inline") do
+    = select_tag "course", options_for_select(Course.list_all)
+    = select_tag "section_id", nil
+    = hidden_field_tag "classroom_id", @classroom.id
+    = submit_tag "切换知识点", :class => "btn btn-primary"
+
+
+%h3 习题环节列表
+%table.table.table-striped
+  %tr
+    %th 名称
+    %th 平均正确率
+    %th 平均答对题数
+    %th 题目数量
+    %th 回答人数
+  - @section.get_quiz_activities.each do |q|
+    %tr
+      - score = q.get_class_avg_score(@classroom)
+      - percent = q.convert_to_percent(score)
+      %td 
+        = link_to q.name, {:action => "quiz_by_class", :classroom_id => @classroom.id, :section_id => @section.id, :quiz_id => q.id}
+      %td
+        .progress
+          - if percent < 40
+            .bar.bar-danger{:style => "width: #{percent}%;"}
+              = "#{percent}%"
+          - elsif percent < 80
+            .bar.bar-warning{:style => "width: #{percent}%;"}
+              = "#{percent}%"
+          - else
+            .bar.bar-success{:style => "width: #{percent}%;"}
+              = "#{percent}%"
+      %td
+        = score.round(1)
+      %td
+        = q.problem_count
+      %td 
+        = q.count_done_user_in_class @classroom
+      
