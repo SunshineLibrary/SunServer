@@ -16,8 +16,9 @@ class Apk < ActiveRecord::Base
   ZN_NAME = "版本包"
 
   scope :latest, lambda { select('apks.id, apks.name, apks.version').
-    joins("inner join (select name, max(version) as version from apks group by name) as a " +
-          "on apks.name = a.name and apks.version = a.version and apks.status = 'release' " +
+    joins("inner join " +
+          "(select name, max(version) as version from apks where status = 'release' group by name) " +
+          "as a on apks.name = a.name and apks.version = a.version and apks.status = 'release' " +
           "group by apks.name")}
 
   scope :latest_testing, lambda { select('apks.id, apks.name, apks.version').
