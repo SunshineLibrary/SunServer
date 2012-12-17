@@ -6,18 +6,21 @@
   %br/
   = render :partial => "shared/breadcrumb_curriculum", :locals => { :item => @section }
 
-
   = form_tag({:action => "section_by_class"}, :method => :get, :class => "form-inline") do
-    = select_tag "school", options_for_select(School.list_all)
+    = submit_tag " 切换班级 ", :class => "btn btn-primary"
+    - if current_admin.is_global?
+      = select_tag "school", options_for_select(School.list_all), :prompt => "请选择学校"
+    - else
+      = hidden_field_tag "school", current_admin.school.id
     = select_tag "classroom_id", nil
     = hidden_field_tag "section_id", @section.id
-    = submit_tag "切换班级", :class => "btn btn-primary"
+    
   
   = form_tag({:action => "section_by_class"}, :method => :get, :class => "form-inline") do
-    = select_tag "course", options_for_select(Course.list_all)
+    = submit_tag "切换知识点", :class => "btn btn-primary"
+    = select_tag "course", get_course_option_list.html_safe, :prompt => "请选择课程"
     = select_tag "section_id", nil
     = hidden_field_tag "classroom_id", @classroom.id
-    = submit_tag "切换知识点", :class => "btn btn-primary"
 
 
 %h3 习题环节列表

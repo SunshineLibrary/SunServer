@@ -2,6 +2,9 @@ class StatsController < ApplicationController
   
   include StatsHelper
   
+  def choose_section_and_class
+  end
+  
   def section_by_class
     @classroom = Classroom.find(params[:classroom_id])
     @section = Section.find(params[:section_id])

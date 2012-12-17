@@ -122,6 +122,7 @@ SunServer::Application.routes.draw do
   
   resources :stats do
     collection do
+      get 'choose_section_and_class'
       get 'section_by_class'
       get 'quiz_by_class'
       post 'get_classrooms_from_school'

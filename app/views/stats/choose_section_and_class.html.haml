@@ -1,0 +1,27 @@
+.page-header
+  %h1
+    = "选择班级和知识点"
+
+= form_tag({:action => "section_by_class"}, :method => :get, :class => "form-horizontal") do
+  %fieldset
+    - if current_admin.is_global?
+      .control-group
+        = label_tag :school, "学校", :class => "control-label"
+        .controls
+          = select_tag :school, options_for_select(School.list_all), :prompt => "请选择学校", :class => "input-xlarge"
+    - else
+      = hidden_field_tag :school, current_admin.school.id
+    .control-group
+      = label_tag :classroom_id, "班级", :class => "control-label"
+      .controls
+        = select_tag :classroom_id, nil, :class => "input-xlarge"
+    .control-group
+      = label_tag :course, "课程", :class => "control-label"
+      .controls
+        = select_tag :course, get_course_option_list.html_safe, :prompt => "请选择课程", :class => "input-xlarge"
+    .control-group
+      = label_tag :section_id, "知识点", :class => "control-label"
+      .controls
+        = select_tag :section_id, nil, :class => "input-xlarge"
+    .form-actions
+      = submit_tag "查看", :class => "btn btn-primary"
