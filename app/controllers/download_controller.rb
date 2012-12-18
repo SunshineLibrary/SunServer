@@ -75,7 +75,7 @@ class DownloadController <  ApplicationController
       @path = activity.content_file.url
 
       if activity.is_pdf
-        @path = activity.get_pdf_file("TODO: get machine type once passed")
+        @path = activity.get_pdf_file(get_user_from_token.current_machine.machine_type)
       end
 
       download_path
