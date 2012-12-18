@@ -1,7 +1,8 @@
 #encoding: UTF-8
 
 class BookCollection < ActiveRecord::Base
-  has_and_belongs_to_many :tags
+  #It associate with tag by MengBookCollectionsTags implicitly.
+
   has_many :books
 
   has_attached_file :cover_m
@@ -25,7 +26,7 @@ class BookCollection < ActiveRecord::Base
 
   def as_json(options ={})
     json = super(options)
-    
+
     if books.count > 0
       json[:author] = books.first.author
       json[:publisher] = books.first.provider
@@ -33,7 +34,7 @@ class BookCollection < ActiveRecord::Base
       json[:author] = "Miss"
       json[:publisher] = "Miss"
     end
-    
+
     json
   end
 end

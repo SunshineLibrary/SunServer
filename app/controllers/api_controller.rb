@@ -26,8 +26,8 @@ class ApiController < ApplicationController
   define_api_method("books", Book)
   define_api_method("book_collections", BookCollection)
   define_api_method("tags", Tag)
-  define_api_method("books_tags", BooksTags)
-  define_api_method("book_collections_tags", BookCollectionsTags)
+  define_api_method("books_tags", MengBooksTags)
+  define_api_method("book_collections_tags", MengBookCollectionsTags)
 
   private
   def get_params

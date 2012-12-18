@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218024605) do
+ActiveRecord::Schema.define(:version => 20121218041207) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -288,6 +288,16 @@ ActiveRecord::Schema.define(:version => 20121218024605) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "meng_book_collections_tags", :force => true do |t|
+    t.integer  "book_collection_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "meng_book_collections_tags", ["book_collection_id"], :name => "index_meng_book_collections_tags_on_book_collection_id"
+  add_index "meng_book_collections_tags", ["tag_id"], :name => "index_meng_book_collections_tags_on_tag_id"
 
   create_table "meng_books_tags", :force => true do |t|
     t.integer  "book_id"
