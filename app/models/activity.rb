@@ -53,6 +53,28 @@ class Activity < ActiveRecord::Base
     return json
   end
 
+  # for UserRecord
+  
+  def user_is_done? user
+    if ur = UserRecord.get_first_record(user.id, self.id, "Activity")
+      h = ur.get_params_as_hash
+      return h["status"] == "done"
+    else
+      return false
+    end
+  end
+  
+  def count_done_user_in_class classroom
+    count = 0
+    classroom.users.each do |u|
+      if self.user_is_done? u
+        count += 1
+      end
+    end
+    count
+  end
+  
+
   ###
   # for PDF
   ###
@@ -61,8 +83,11 @@ class Activity < ActiveRecord::Base
   end
 
   def get_pdf_file(machine_type)
-    #TODO distinguish 7 and 8 inches, for now 7 by default
-    self.modified_file1.url
+    if machine_type.size == "800*480"
+      self.modified_file1.url
+    else
+      self.modified_file2.url
+    end
   end
 
 end
