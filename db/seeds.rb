@@ -91,12 +91,12 @@ collection = BookCollection.create title: "哈利·波特与凤凰社", intro: i
   book = collection.books.create title: "哈利·波特与凤凰社4", intro: intro, author: author, provider_id: provider.id
   book = collection.books.create title: "哈利·波特与凤凰社5", intro: intro, author: author, provider_id: provider.id
 
-  collection.tags << (Tag.create name: "哈利·波特")
-  collection.tags << (Tag.create name: "J.K 罗琳")
-  collection.tags << (Tag.create name: "魔法")
-  collection.tags << (Tag.create name: "英国")
-  collection.tags << (Tag.create name: "魔幻小说", tag_type: "theme")
-  
+  book.tags << (Tag.create name: "哈利·波特")
+  book.tags << (Tag.create name: "J.K 罗琳")
+  book.tags << (Tag.create name: "魔法")
+  book.tags << (Tag.create name: "英国")
+  book.tags << (Tag.create name: "魔幻小说", tag_type: "theme")
+
 apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "alarming.apk")), description: "尊贵的小闹钟"
 apk.parse_info
 apk.save
