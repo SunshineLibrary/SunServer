@@ -57,6 +57,32 @@ class Problem < ActiveRecord::Base
     return json
   end
 
+  # For stats
+  def get_first_user_record user
+    UserRecord.get_first_record(user.id, self.id, self.class)
+  end
+  
+  def get_first_user_answer user
+    if ur = self.get_first_user_record(user)
+      h = ur.get_params_as_hash
+      h["answer"]
+    else
+      nil
+    end
+  end
+  
+  def user_did_correct_first? user
+    if ur = self.get_first_user_record(user)
+      h = ur.get_params_as_hash
+      h["is_correct"]
+    else
+      nil
+    end
+  end
+
+
+  # Formatting
+
   private
   def strip_answer
     self.answer.strip! if self.answer
@@ -68,5 +94,6 @@ class Problem < ActiveRecord::Base
       self.answer.upcase!
     end
   end
+
 
 end
