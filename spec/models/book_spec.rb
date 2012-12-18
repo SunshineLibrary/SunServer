@@ -29,12 +29,10 @@ describe Book do
       @book.tags.sort.should == [@tag1, @tag3].sort
     end
 
-    it "distinguish soft destroyed tags" do
+    it "update tags cont." do
+      @book.update_tags [@tag1.id, @tag2.id]
       @book.update_tags @tag_id_array
-      BooksTags.where(book_id: @book.id, tag_id: @tag1.id).first.soft_destroy
-      BooksTags.where(book_id: @book.id, tag_id: @tag2.id).first.soft_destroy
-      @book.tag_ids.sort.should == [@tag3.id, @tag4.id].sort
-      @book.tags.sort.should == [@tag3, @tag4].sort
+      @book.tags.sort.should == @tag_arrary.sort
     end
   end
 end

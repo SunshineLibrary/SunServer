@@ -106,13 +106,13 @@ class Book < ActiveRecord::Base
       old_ids = self.tag_ids
       for temp_id in old_ids
         if not new_tag_ids.include? temp_id
-          btitem = BooksTags.where(book_id: self.id, tag_id: temp_id).first
+          btitem = MengBooksTags.where(book_id: self.id, tag_id: temp_id).first
           btitem.soft_destroy
         end
       end
       for temp_id in new_tag_ids
         if not old_ids.include? temp_id
-          BooksTags.create book_id: self.id, tag_id: temp_id
+          MengBooksTags.create book_id: self.id, tag_id: temp_id
         end
       end
     end
