@@ -3,55 +3,126 @@
     = @classroom.school.name + @classroom.class_name
     %small 
       = Section.zh_name + "学习情况"
-  %br/
+    %a.pull-right{:href => "#changeClassroom", :role => "button", :class => "btn", "data-toggle" => "modal"}
+      = "切换#{Classroom.zh_name}"
+    %a.pull-right{:href => "#changeSection", :role => "button", :class => "btn", "data-toggle" => "modal"}
+      = "切换#{Section.zh_name}"
+      
   = render :partial => "shared/breadcrumb_curriculum", :locals => { :item => @section }
 
-  = form_tag({:action => "section_by_class"}, :method => :get, :class => "form-inline") do
-    = submit_tag " 切换班级 ", :class => "btn btn-primary"
-    - if current_admin.is_global?
-      = select_tag "school", options_for_select(School.list_all), :prompt => "请选择学校"
-    - else
-      = hidden_field_tag "school", current_admin.school.id
-    = select_tag "classroom_id", nil
-    = hidden_field_tag "section_id", @section.id
+.modal.hide.fade{:id => "changeClassroom", :tabindex => "-1", :role => "dialog", "aria-labelledby" => "changeClassroomLabel", "aria-hidden" => "true"}
+  .modal-header
+    %button{:type => "button", :class => "close", "data-dismiss" => "modal", "aria-hidden" => "true"}
+      &times;
+    %h3{:id => "changeClassroomLabel"}
+      = "切换#{Classroom.zh_name}"
+  .modal-body
+    = form_tag({:action => "section_by_class"}, :method => :get, :class => "form-horizontal") do
+      %fieldset
+        - if current_admin.is_global?
+          .control-group
+            = label_tag :school, "学校", :class => "control-label"
+            .controls
+              = select_tag :school, options_for_select(School.list_all), :prompt => "请选择学校", :class => "input-xlarge"
+        - else
+          = hidden_field_tag "school", current_admin.school.id
+        .control-group
+          = label_tag :classroom_id, "班级", :class => "control-label"
+          .controls
+            = select_tag :classroom_id, nil, :class => "input-xlarge"
+        = hidden_field_tag "section_id", @section.id
+        .form-actions
+          = submit_tag "切换班级", :class => "btn btn-primary"
+          %a{:href => "#", :class => "btn", "data-dismiss" => "modal", "aria-hidden" => "true"}
+            = "关闭"
     
-  
-  = form_tag({:action => "section_by_class"}, :method => :get, :class => "form-inline") do
-    = submit_tag "切换知识点", :class => "btn btn-primary"
-    = select_tag "course", get_course_option_list.html_safe, :prompt => "请选择课程"
-    = select_tag "section_id", nil
-    = hidden_field_tag "classroom_id", @classroom.id
+.modal.hide.fade{:id => "changeSection", :tabindex => "-1", :role => "dialog", "aria-labelledby" => "changeSectionLabel", "aria-hidden" => "true"}
+  .modal-header
+    %button{:type => "button", :class => "close", "data-dismiss" => "modal", "aria-hidden" => "true"}
+      &times;
+    %h3{:id => "changeSectionLabel"}
+      = "切换#{Section.zh_name}"
+  .modal-body
+    = form_tag({:action => "section_by_class"}, :method => :get, :class => "form-horizontal") do
+      %fieldset
+        .control-group
+          = label_tag :course, "课程", :class => "control-label"
+          .controls
+            = select_tag :course, get_course_option_list.html_safe, :prompt => "请选择课程", :class => "input-xlarge"
+        = hidden_field_tag :classroom_id, @classroom.id
+        .control-group
+          = label_tag :section_id, "班级", :class => "control-label"
+          .controls
+            = select_tag :section_id, nil, :class => "input-xlarge"
+        .form-actions
+          = submit_tag "切换知识点", :class => "btn btn-primary"
+          %a{:href => "#", :class => "btn", "data-dismiss" => "modal", "aria-hidden" => "true"}
+            = "关闭"
+
+%ul#my-pills.nav.nav-pills
+  %li.active
+    %a{:href => "#quiz-list"} 习题成绩统计
+  %li
+    %a{:href => "#user-list"} 学生完成情况
+
+.tab-content
+  #quiz-list.tab-pane.active
+    %h3 
+      = "习题成绩统计"
+    %table.table.table-striped
+      %tr
+        %th 名称
+        %th 平均正确率
+        %th 平均答对题数
+        %th 题目数量
+        %th 回答人数
+      - @section.get_quiz_activities.each do |q|
+        %tr
+          - score = q.get_class_avg_score(@classroom)
+          - percent = q.convert_to_percent(score)
+          %td 
+            = link_to q.name, {:action => "quiz_by_class", :classroom_id => @classroom.id, :section_id => @section.id, :quiz_id => q.id}
+          %td
+            .progress
+              - if percent < 40
+                .bar.bar-danger{:style => "width: #{percent}%;"}
+                  = "#{percent}%"
+              - elsif percent < 80
+                .bar.bar-warning{:style => "width: #{percent}%;"}
+                  = "#{percent}%"
+              - else
+                .bar.bar-success{:style => "width: #{percent}%;"}
+                  = "#{percent}%"
+          %td
+            = score.round(1)
+          %td
+            = q.problem_count
+          %td 
+            = q.count_done_user_in_class @classroom
+     
+  #user-list.tab-pane.active
+    %h3 
+      = "学生完成情况" 
+    %table.table.table-bordered
+      %tr
+        %th.span1 姓名
+        - @section.activities.each do |a|
+          %th.span2{:style => "text-align: center"}
+            = a.name
+      - @classroom.users.each do |u|
+        %tr
+          %td
+            = u.name
+          - @section.activities.each do |a|
+            - if a.user_is_done? u
+              %td{:style => "background-color: #DFF0D8; text-align: center;"}
+            - else
+              %td{:style => "background-color: #F2DEDE; text-align: center;"}
 
 
-%h3 习题环节列表
-%table.table.table-striped
-  %tr
-    %th 名称
-    %th 平均正确率
-    %th 平均答对题数
-    %th 题目数量
-    %th 回答人数
-  - @section.get_quiz_activities.each do |q|
-    %tr
-      - score = q.get_class_avg_score(@classroom)
-      - percent = q.convert_to_percent(score)
-      %td 
-        = link_to q.name, {:action => "quiz_by_class", :classroom_id => @classroom.id, :section_id => @section.id, :quiz_id => q.id}
-      %td
-        .progress
-          - if percent < 40
-            .bar.bar-danger{:style => "width: #{percent}%;"}
-              = "#{percent}%"
-          - elsif percent < 80
-            .bar.bar-warning{:style => "width: #{percent}%;"}
-              = "#{percent}%"
-          - else
-            .bar.bar-success{:style => "width: #{percent}%;"}
-              = "#{percent}%"
-      %td
-        = score.round(1)
-      %td
-        = q.problem_count
-      %td 
-        = q.count_done_user_in_class @classroom
-      
+%script
+  :plain
+    $('#my-pills a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    })
