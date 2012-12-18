@@ -38,10 +38,6 @@ class User < ActiveRecord::Base
     self.user_type == "student"
   end
 
-  def is_staff
-    self.user_type == "staff"
-  end
-
   def current_machine
     self.machines.where("machine_signins.is_valid" => true).first
   end
@@ -78,5 +74,7 @@ class User < ActiveRecord::Base
       errors.add(:user_type, '用户类型不正确！') 
     end
   end
+
+
 
 end

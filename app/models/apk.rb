@@ -16,11 +16,19 @@ class Apk < ActiveRecord::Base
   ZN_NAME = "版本包"
 
   scope :latest, lambda { select('apks.id, apks.name, apks.version').
-    joins("inner join" +
-          "(select name, max(version) as version from apks where created_at > '1970-01-01 00:00:00.000000' group by name)" +
-          "as a on apks.name = a.name and apks.version = a.version and apks.status = 'release' where apks.created_at > '1970-01-01 00:00:00.000000' group by apks.name")}
+    joins("inner join " +
+          "(select name, max(version) as version from apks where status = 'release' group by name) " +
+          "as a on apks.name = a.name and apks.version = a.version and apks.status = 'release' " +
+          "group by apks.name")}
 
-  scope :latest_daemon, lambda { select('id, name, version').where(:status => "release", :name => "com.ssl.support.daemon").order('version DESC').limit(1) }
+  scope :latest_testing, lambda { select('apks.id, apks.name, apks.version').
+    joins("inner join (select name, max(version) as version from apks group by name) as a " +
+          "on apks.name = a.name and apks.version = a.version group by apks.name")}
+
+
+  scope :latest_daemon, lambda { select('id, name, version').
+    where(:status => "release", :name => "com.ssl.support.daemon").
+    order('version DESC').limit(1) }
 
   def self.zh_name
     ZN_NAME
