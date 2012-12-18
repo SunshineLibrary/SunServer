@@ -11,7 +11,7 @@ class Book < ActiveRecord::Base
     :normal => "309x432"
   }
 
-  has_attached_file :cover_s, 
+  has_attached_file :cover_s,
     :styles => {
     :normal => "103x144#"}
 
@@ -20,7 +20,6 @@ class Book < ActiveRecord::Base
   belongs_to :author
   has_many :user_record, :as => :item
   has_many :users, :through => :user_records
-  has_and_belongs_to_many :tags
 
   validates :title, :presence =>true
 
@@ -93,10 +92,29 @@ class Book < ActiveRecord::Base
     end
   end
 
+  def tag_ids
+    books_tags_item = MengBooksTags.where(book_id: self.id).select {|item| not item.destroyed?}
+    books_tags_item.map{|item| item.tag_id}
+  end
+
+  def tags
+    self.tag_ids.map {|tag_id| Tag.find_by_id tag_id}
+  end
+
   def update_tags new_tag_ids
     if not new_tag_ids.nil?
-      self.tag_ids = new_tag_ids.map{|t| t.to_i}
-      save
+      old_ids = self.tag_ids
+      for temp_id in old_ids
+        if not new_tag_ids.include? temp_id
+          btitem = BooksTags.where(book_id: self.id, tag_id: temp_id).first
+          btitem.soft_destroy
+        end
+      end
+      for temp_id in new_tag_ids
+        if not old_ids.include? temp_id
+          BooksTags.create book_id: self.id, tag_id: temp_id
+        end
+      end
     end
     true
   end
