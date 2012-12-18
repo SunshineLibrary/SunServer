@@ -22,10 +22,16 @@
           %a.brand{:href => "#"} 阳光书屋
           .container.nav-collapse
             %ul.nav
-              %li= link_to '科目总览', :controller => "/subjects", :action => "index"
               %li.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-                  课外资源
+                  = "阳光课堂"
+                  %b.caret
+                %ul.dropdown-menu
+                  %li= link_to '科目总览', :controller => "/subjects", :action => "index"
+                  %li= link_to "学习情况", :controller => "/stats", :action => "choose_section_and_class"
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}      
+                  = "阳光书屋"
                   %b.caret
                 %ul.dropdown-menu
                   %li= link_to "#{Book.zh_name}", books_path

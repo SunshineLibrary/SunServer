@@ -3,7 +3,11 @@ class UserRecord < ActiveRecord::Base
   belongs_to :item, :polymorphic => true
 
   def self.find_record(user_id, item_id, item_type)
-    UserRecord.where("user_id" => user_id, "item_id" => item_id, "item_type" => item_type).first
+    UserRecord.where("user_id" => user_id, "item_id" => item_id, "item_type" => item_type).order("created_at").first
+  end
+  
+  def self.get_first_record(user_id, item_id, item_type)
+    self.find_record(user_id, item_id, item_type)
   end
 
   def self.update_or_create_record(user, record_hash)
@@ -66,4 +70,9 @@ class UserRecord < ActiveRecord::Base
       nil
     end
   end
+  
+  def get_params_as_hash
+    JSON.parse self.params
+  end
+  
 end
