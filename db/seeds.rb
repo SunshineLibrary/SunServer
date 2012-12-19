@@ -73,6 +73,12 @@ Tag.create name: "中学", tag_type: "对象"
 Tag.create name: "自然", tag_type: "内容"
 Tag.create name: "历史", tag_type: "内容"
 
+tag1 = Tag.create name: "哈利·波特"
+tag2 = Tag.create name: "J.K 罗琳"
+tag3 = Tag.create name: "魔法"
+tag4 = Tag.create name: "英国"
+tag5 = Tag.create name: "魔幻小说", tag_type: "theme"
+
 
 intro = <<DESC
     《哈利·波特与凤凰社》是“哈利·波特”系列的第五部。
@@ -91,12 +97,8 @@ collection = BookCollection.create title: "哈利·波特与凤凰社", intro: i
   book = collection.books.create title: "哈利·波特与凤凰社4", intro: intro, author: author, provider_id: provider.id
   book = collection.books.create title: "哈利·波特与凤凰社5", intro: intro, author: author, provider_id: provider.id
 
-  collection.tags << (Tag.create name: "哈利·波特")
-  collection.tags << (Tag.create name: "J.K 罗琳")
-  collection.tags << (Tag.create name: "魔法")
-  collection.tags << (Tag.create name: "英国")
-  collection.tags << (Tag.create name: "魔幻小说", tag_type: "theme")
-  
+  book.update_tags( [tag1, tag2, tag3, tag4, tag5].map {|t| t.id} )
+
 apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "alarming.apk")), description: "尊贵的小闹钟"
 apk.parse_info
 apk.save
