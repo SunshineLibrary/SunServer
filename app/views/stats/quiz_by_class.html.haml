@@ -2,31 +2,32 @@
   %h1
     = @classroom.class_name
     %small 习题环节答题情况
-  %br/
-  = link_to_back "返回知识点学习情况", {:action => "section_by_class", :section_id => @section.id, :classroom_id => @classroom.id}
-
+    .pull-right
+      = link_to_back "返回知识点学习情况", {:action => "section_by_class", :section_id => @section.id, :classroom_id => @classroom.id}
+  
 
 %h3 答题情况
-%table.table.table-bordered
-  %tr
-    %th.span 姓名
-    - count = 0
-    - @problems.each do |p|
-      - count = count + 1
-      %th.span{:style => "text-align: center"}
-        %a{:href => "#", :class => "btn", :rel => "popover", "data-toggle" => "button", "data-placement" => "top", "data-original-title" => "第#{count}题", "data-content" => "#{p.body}"}
-          第#{count}题
-  - @classroom.users.each do |u|
+
+.student_records
+  %table.table.table-bordered.table-condensed
     %tr
-      %td
-        = u.name
+      %th.span 姓名
+      - count = 0
       - @problems.each do |p|
-        - result = p.user_did_correct_first? u
-        - if result
-          %td{:style => "background-color: #DFF0D8; text-align: center;"}
-        - elsif false == result
-          %td{:style => "background-color: #F2DEDE; text-align: center;"}
-            = p.get_first_user_answer u
-        -else
-          %td
-        
+        - count = count + 1
+        %th.span{:style => "text-align: center"}
+          %a{:href => "#", :class => "btn", :rel => "popover", "data-toggle" => "button", "data-placement" => "top", "data-original-title" => "第#{count}题", "data-content" => "#{p.body}"}
+            第#{count}题
+    - @classroom.users.each do |u|
+      %tr
+        %td
+          = u.name
+        - @problems.each do |p|
+          - result = p.user_did_correct_first? u
+          - if result
+            %td{:style => "background-color: #51A351; text-align: center;"}
+          - elsif false == result
+            %td{:style => "background-color: #BD362F; text-align: center;"}
+              = p.get_first_user_answer u
+          -else
+            %td
