@@ -51,7 +51,7 @@
             = select_tag :course, get_course_option_list.html_safe, :prompt => "请选择课程", :class => "input-xlarge"
         = hidden_field_tag :classroom_id, @classroom.id
         .control-group
-          = label_tag :section_id, "班级", :class => "control-label"
+          = label_tag :section_id, "知识点", :class => "control-label"
           .controls
             = select_tag :section_id, nil, :class => "input-xlarge"
         .form-actions
@@ -63,61 +63,63 @@
   %li.active
     %a{:href => "#quiz-list"} 习题成绩统计
   %li
-    %a{:href => "#user-list"} 学生完成情况
+    %a{:href => "#student-progress"} 学生完成情况
 
 .tab-content
   #quiz-list.tab-pane.active
     %h3 
       = "习题成绩统计"
-    %table.table.table-striped
-      %tr
-        %th 名称
-        %th 平均正确率
-        %th 平均答对题数
-        %th 题目数量
-        %th 回答人数
-      - @section.get_quiz_activities.each do |q|
+    .quiz_list
+      %table.table.table-striped.table-condensed
         %tr
-          - score = q.get_class_avg_score(@classroom)
-          - percent = q.convert_to_percent(score)
-          %td 
-            = link_to q.name, {:action => "quiz_by_class", :classroom_id => @classroom.id, :section_id => @section.id, :quiz_id => q.id}
-          %td
-            .progress
-              - if percent < 40
-                .bar.bar-danger{:style => "width: #{percent}%;"}
-                  = "#{percent}%"
-              - elsif percent < 80
-                .bar.bar-warning{:style => "width: #{percent}%;"}
-                  = "#{percent}%"
-              - else
-                .bar.bar-success{:style => "width: #{percent}%;"}
-                  = "#{percent}%"
-          %td
-            = score.round(1)
-          %td
-            = q.problem_count
-          %td 
-            = q.count_done_user_in_class @classroom
+          %th 名称
+          %th 平均正确率
+          %th 平均答对题数
+          %th 题目数量
+          %th 回答人数
+        - @section.get_quiz_activities.each do |q|
+          %tr
+            - score = q.get_class_avg_score(@classroom)
+            - percent = q.convert_to_percent(score)
+            %td 
+              = link_to q.name, {:action => "quiz_by_class", :classroom_id => @classroom.id, :section_id => @section.id, :quiz_id => q.id}
+            %td
+              .progress
+                - if percent < 40
+                  .bar.bar-danger{:style => "width: #{percent}%;"}
+                    = "#{percent}%"
+                - elsif percent < 80
+                  .bar.bar-warning{:style => "width: #{percent}%;"}
+                    = "#{percent}%"
+                - else
+                  .bar.bar-success{:style => "width: #{percent}%;"}
+                    = "#{percent}%"
+            %td
+              = score.round(1)
+            %td
+              = q.problem_count
+            %td 
+              = q.count_done_user_in_class @classroom
      
-  #user-list.tab-pane.active
+  #student-progress.tab-pane.active
     %h3 
       = "学生完成情况" 
-    %table.table.table-bordered
-      %tr
-        %th.span1 姓名
-        - @section.activities.each do |a|
-          %th.span2{:style => "text-align: center"}
-            = a.name
-      - @classroom.users.each do |u|
+    .student_records
+      %table.table.table-bordered.table-condensed
         %tr
-          %td
-            = u.name
+          %th 姓名
           - @section.activities.each do |a|
-            - if a.user_is_done? u
-              %td{:style => "background-color: #DFF0D8; text-align: center;"}
-            - else
-              %td{:style => "background-color: #F2DEDE; text-align: center;"}
+            %th{:style => "text-align: center"}
+              = a.name
+        - @classroom.users.each do |u|
+          %tr
+            %td
+              = u.name
+            - @section.activities.each do |a|
+              - if a.user_is_done? u
+                %td{:style => "background-color: #0088CC; text-align: center;"}
+              - else
+                %td{:style => "background-color: #F5F5F5; text-align: center;"}
 
 
 %script
