@@ -18,6 +18,7 @@ gem 'mathjax-rails', :git => "git://github.com/ukisami/mathjax-rails.git"  # use
 gem 'wombat' #used for parsing douban book page
 gem "less-rails" #twitter bootstrap require this
 gem "twitter-bootstrap-rails"
+gem 'bootstrap-will_paginate' # for paginate in book view
 #gem 'tinymce-rails'
 #gem 'tinymce-rails-langs'
 
