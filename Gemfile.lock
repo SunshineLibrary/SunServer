@@ -43,6 +43,8 @@ GEM
     best_in_place (2.0.1)
       jquery-rails
       rails (~> 3.1)
+    bootstrap-will_paginate (0.0.9)
+      will_paginate
     builder (3.0.4)
     capybara (2.0.1)
       mime-types (>= 1.16)
@@ -242,6 +244,7 @@ GEM
       rack (>= 1.0)
     webrobots (0.0.13)
     websocket (1.0.3)
+    will_paginate (3.0.3)
     wombat (2.0.1)
       activesupport
       mechanize
@@ -254,6 +257,7 @@ PLATFORMS
 
 DEPENDENCIES
   best_in_place
+  bootstrap-will_paginate
   capybara
   coffee-rails (~> 3.1.0)
   database_cleaner (~> 0.6.7)

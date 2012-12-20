@@ -6,6 +6,7 @@
 .well
   = render 'urlform'
   = link_to '手动创建图书', new_book_path, :class => "btn btn-success"
+
 %table.table.table-striped
   %tr
     %th.span2 书名
@@ -28,4 +29,6 @@
       %td= book.updated_at
       %td= link_to_check '查看', book
       %td= link_to_delete '删除', book, confirm: '确定要删除吗？', method: :delete
+
+= will_paginate @books, :previous_label => "上一页", :next_label => "下一页"
 %br/

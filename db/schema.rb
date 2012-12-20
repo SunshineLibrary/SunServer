@@ -11,13 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121216211102) do
+ActiveRecord::Schema.define(:version => 20121218041207) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
     t.string   "name"
     t.integer  "provider_id"
-    t.text     "notes"
     t.integer  "duration"
     t.string   "content_file_file_name"
     t.string   "content_file_content_type"
@@ -37,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20121216211102) do
     t.string   "modified_file2_content_type"
     t.integer  "modified_file2_file_size"
     t.datetime "modified_file2_updated_at"
+    t.text     "notes"
   end
 
   create_table "admins", :force => true do |t|
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(:version => 20121216211102) do
 
   create_table "authors", :force => true do |t|
     t.string   "name"
-    t.string   "intro",       :limit => 1023
+    t.string   "intro"
     t.string   "nationality"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -288,6 +288,26 @@ ActiveRecord::Schema.define(:version => 20121216211102) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "meng_book_collections_tags", :force => true do |t|
+    t.integer  "book_collection_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "meng_book_collections_tags", ["book_collection_id"], :name => "index_meng_book_collections_tags_on_book_collection_id"
+  add_index "meng_book_collections_tags", ["tag_id"], :name => "index_meng_book_collections_tags_on_tag_id"
+
+  create_table "meng_books_tags", :force => true do |t|
+    t.integer  "book_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "meng_books_tags", ["book_id"], :name => "index_meng_books_tags_on_book_id"
+  add_index "meng_books_tags", ["tag_id"], :name => "index_meng_books_tags_on_tag_id"
 
   create_table "problem_choices", :force => true do |t|
     t.integer  "problem_id"
