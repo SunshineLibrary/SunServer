@@ -118,7 +118,7 @@ class DownloadController <  ApplicationController
     problem = Problem.find(params[:id])
     if problem.image?
       redirect_to problem.image.url
-    elsif probem.audio_file?
+    elsif problem.audio_file?
       redirect_to problem.audio_file.url
     else
       render :nothing => true, :status => 200
