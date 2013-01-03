@@ -29,8 +29,8 @@
                   = "阳光课堂"
                   %b.caret
                 %ul.dropdown-menu
-                  %li= link_to '科目总览', :controller => "/subjects", :action => "index"
-                  %li= link_to "学习情况", :controller => "/stats", :action => "choose_section_and_class"
+                  %li= link_to (content_tag(:i, "", :class => "icon-list") + " " + "科目总览").html_safe, :controller => "/subjects", :action => "index"
+                  %li= link_to (content_tag(:i, "", :class => "icon-search") + " " + "学习情况 ").html_safe, :controller => "/stats", :action => "choose_section_and_class"
               %li.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}      
                   = "课外中心"
