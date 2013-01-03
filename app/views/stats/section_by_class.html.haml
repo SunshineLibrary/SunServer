@@ -23,13 +23,13 @@
           .control-group
             = label_tag :school, "学校", :class => "control-label"
             .controls
-              = select_tag :school, options_for_select(School.list_all), :prompt => "请选择学校", :class => "input-xlarge"
+              = select_tag :school, options_from_collection_for_select(School.all, :id, :name, @classroom.school.id), :class => "input-xlarge"
         - else
           = hidden_field_tag "school", current_admin.school.id
         .control-group
           = label_tag :classroom_id, "班级", :class => "control-label"
           .controls
-            = select_tag :classroom_id, nil, :class => "input-xlarge"
+            = select_tag :classroom_id, options_from_collection_for_select(@classroom.school.classrooms, :id, :name, @classroom.id), :class => "input-xlarge"
         = hidden_field_tag "section_id", @section.id
         .form-actions
           = submit_tag "切换班级", :class => "btn btn-primary"
@@ -101,7 +101,7 @@
             %td 
               = q.count_done_user_in_class @classroom
      
-  #student-progress.tab-pane.active
+  #student-progress.tab-pane.inactive
     %h3 
       = "学生完成情况" 
     .student_records
