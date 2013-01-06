@@ -1,5 +1,9 @@
-%h1 Editing video
+.page-holder
+  %h1
+    修改信息
+    %span.label= Video.zh_name
+
 = render 'form'
-= link_to 'Show', @video
-|
-\#{link_to 'Back', videos_path}
+
+= link_to_back '取消', @video
+= link_to_delete '删除', @video, confirm: '确定要删除吗？', method: :delete
