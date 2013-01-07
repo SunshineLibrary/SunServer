@@ -1,7 +1,10 @@
 = form_for @video, :html => {:class => "form-horizontal"} do |f|
   %fieldset
     = form_field :title, "视频名", f, :text_field
-    = form_field :title, "视频合集", f, :text_field
+    .control-group
+      = f.label :video_collection_id, "视频合集", :class => "control-label"
+      .controls
+        = f.select :video_collection_id, VideoCollection.selection, :class => "span4"
 
     .control-group
       = f.label :intro, "简介", :class=> "control-label"
