@@ -13,7 +13,6 @@
     %th.span2 最近修改时间
     %th.span2
     %th.span2
-    %th.span2
   - @videos.each do |video|
     - next if video.destroyed?
     %tr
@@ -24,8 +23,7 @@
       - else
         %td= video.video_file?
       %td= video.updated_at
-      %td= link_to '查看', video
-      %td= link_to '编辑', edit_video_path(video)
-      %td= link_to '删除', video, confirm: '确定要删除吗？', method: :delete
+      %td= link_to_check '查看', video
+      %td= link_to_delete '删除', video, confirm: '确定要删除吗？', method: :delete
 %br/
 

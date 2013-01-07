@@ -1,12 +1,23 @@
-%p
-  %b Title:
-  = @video.title
-%p
-  %b Intro:
-  = @video.intro
-%p
-  %b Video collection:
-  = @video.video_collection
-= link_to 'Edit', edit_video_path(@video)
-|
-\#{link_to 'Back', videos_path}
+.page-header
+  %h1
+    = @video.title
+    %span.label= Video.zh_name
+.row
+  .span8
+    %dl.dl-horizontal
+      %dt 所属集合
+      %dd= @video.video_collection
+      %dt 简介
+      %dd= @video.intro
+      %dt 标签
+      %dd= @video.tags.map{|tag| tag.name}.inspect
+      %dt 文件
+      %dd= link_to @video.video_file_file_name, @video.video_file.url(:original, false) if @video.video_file?
+      %dt 封面图片（小）
+      %dd= link_to @video.cover_s_file_name, @video.cover_s.url(:original, false) if @video.cover_s?
+      %dt 封面图片（中）
+      %dd= link_to @video.cover_m_file_name, @video.cover_m.url(:original, false) if @video.cover_m?
+
+%br/
+= link_to_edit '编辑', edit_video_path(@video)
+= link_to_back '返回', videos_path
