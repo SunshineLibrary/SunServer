@@ -91,6 +91,7 @@ class MachinesController < ApplicationController
     @user = nil
     @machine = nil
     @machine_signin = nil
+    replace_user = nil
 
     # search db for ojbects
     status = "OK"
@@ -121,6 +122,7 @@ class MachinesController < ApplicationController
             status = "Machine locked"
           elsif @machine.current_signin_record
             # happen when machine app got reinstalled and another user tried to signin, previous user needs to sign out first
+            replace_user = @machine.current_user
             status = "Machine already signed in"
           else
             status = "Ready for signin"
@@ -155,9 +157,9 @@ class MachinesController < ApplicationController
     when "Wrong params"
       respond_with({status: "400", message: "错误：登录信息不正确"}, :location => nil)
     when "Signed in another device"
-      respond_with({status: "400", message: "错误：用户已登录到另一台设备上"}, :location => nil)
+      respond_with({status: "400", message: "错误：该用户已登录到另一台设备上"}, :location => nil)
     when "Machine already signed in"
-      respond_with({status: "400", message: "错误：设备已登录"}, :location => nil)
+      respond_with({status: "400", message: "错误：#{replace_user.name}（ID: #{replace_user.id}）正在使用该设备，请先在后台登出"}, :location => nil)
     when "Machine locked"
       respond_with({status: "400", message: "错误：设备已被锁定"}, :location => nil)
     when "Internal error"
