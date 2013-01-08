@@ -19,16 +19,8 @@
       = f.label :intro, "简介", :class=> "control-label"
       .controls
         = f.text_area :intro, :class=> "span6"
-    - my_tag_ids = @book.tag_ids
-    - Tag.type_list.each do |type|
-      .control-group
-        %label.control-label
-          = "无类型" if type.nil?
-          = type
-        #tag_controls.controls
-          - Tag.valid_tags(type).each do |tag|
-            = check_box_tag 'tag_ids[]', tag.id, my_tag_ids.include?(tag.id)
-            = tag.name
+    =render :partial => "shared/tag_list", :locals => {my_tag_ids: @book.tag_ids}
+
     .controls
       = image_tag @book.cover_m.url if @book.cover_m?
     .controls-group

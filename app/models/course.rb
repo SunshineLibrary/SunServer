@@ -4,6 +4,8 @@ class Course < ActiveRecord::Base
   belongs_to :provider
   has_many :chapters, :dependent => :destroy, :conditions  => "chapters.created_at > '#{Time.at(0)}'"
   
+  validates_presence_of :name
+  
   SEMESTER_TO_NAME = { 1 => "上学期", 2 => "下学期", 3 => "全学年" }
   TYPE_TO_NAME = { "arranged" => "按部就班", "free_of_choice" => "自由选择" }
   

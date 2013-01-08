@@ -99,6 +99,10 @@ collection = BookCollection.create title: "哈利·波特与凤凰社", intro: i
 
   book.update_tags( [tag1, tag2, tag3, tag4, tag5].map {|t| t.id} )
 
+collection = VideoCollection.create title: "哈利波特和四十大盗", intro: "啦啦啦"
+  video = collection.books.create title: "哈利波特和四十大盗1", intro: intro
+  video = collection.books.create title: "哈利波特和四十大盗2", intro: intro
+
 apk = Apk.create file: open(File.join(File.dirname(__FILE__), "files", "alarming.apk")), description: "尊贵的小闹钟"
 apk.parse_info
 apk.save
