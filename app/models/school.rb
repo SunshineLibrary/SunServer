@@ -11,6 +11,10 @@ class School < ActiveRecord::Base
     ZN_NAME
   end
 
+  def self.all
+    School.where("created_at > '#{Time.at(0)}'")
+  end
+
   def self.list_all
     collection = []
     School.all.each do |s|

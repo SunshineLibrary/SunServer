@@ -1,19 +1,29 @@
-%h1 Listing videos
+.page-header
+  %h1
+    所有视频
+
+.well
+  = link_to '创建视频', new_video_path, :class => "btn btn-success"
+
 %table.table.table-striped
   %tr
-    %th Title
-    %th Intro
-    %th Video collection
-    %th
-    %th
-    %th
+    %th.span2 视频名
+    %th.span2 合集
+    %th.span1 已上传？
+    %th.span2 最近修改时间
+    %th.span2
+    %th.span2
   - @videos.each do |video|
+    - next if video.destroyed?
     %tr
       %td= video.title
-      %td= video.intro
-      %td= video.video_collection_id
-      %td= link_to 'Show', video
-      %td= link_to 'Edit', edit_video_path(video)
-      %td= link_to 'Destroy', video, confirm: 'Are you sure?', method: :delete
+      %td= video.video_collection
+      - unless video.video_file?
+        %td{:style => "background:#FA5858"}= video.video_file?
+      - else
+        %td= video.video_file?
+      %td= video.updated_at
+      %td= link_to_check '查看', video
+      %td= link_to_delete '删除', video, confirm: '确定要删除吗？', method: :delete
 %br/
-= link_to 'New Video', new_video_path
+

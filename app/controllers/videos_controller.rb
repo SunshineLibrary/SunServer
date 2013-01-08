@@ -1,3 +1,4 @@
+#encoding: UTF-8
 class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
@@ -43,8 +44,8 @@ class VideosController < ApplicationController
     @video = Video.new(params[:video])
 
     respond_to do |format|
-      if @video.save
-        format.html { redirect_to edit_video_collection_url(VideoCollection.find(@video.video_collection_id)), notice: 'Video was successfully created.' }
+      if @video.save and @video.update_tags params[:tag_ids]
+        format.html { redirect_to videos_url, notice: '成功创建视频' }
         format.json { render json: @video, status: :created, location: @video }
       else
         format.html { render action: "new" }
@@ -57,10 +58,11 @@ class VideosController < ApplicationController
   # PUT /videos/1.json
   def update
     @video = Video.find(params[:id])
+    @video.update_tags params[:tag_ids]
 
     respond_to do |format|
       if @video.update_attributes(params[:video])
-        format.html { redirect_to edit_video_collection_url(@video.video_collection_id), notice: 'Video was successfully updated.' }
+        format.html {redirect_to videos_url, notice: '信息已更新'}
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -73,11 +75,10 @@ class VideosController < ApplicationController
   # DELETE /videos/1.json
   def destroy
     @video = Video.find(params[:id])
-    collection_id = @video.video_collection_id;        
     @video.destroy
 
     respond_to do |format|
-      format.html { redirect_to edit_video_collection_path(VideoCollection.find(collection_id)) }
+      format.html { redirect_to videos_url }
       format.json { head :ok }
     end
   end

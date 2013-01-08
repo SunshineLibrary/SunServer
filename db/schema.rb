@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218041207) do
+ActiveRecord::Schema.define(:version => 20130106013341) do
 
   create_table "activities", :force => true do |t|
     t.string   "type"
@@ -469,6 +469,13 @@ ActiveRecord::Schema.define(:version => 20121218041207) do
     t.string   "video_file_content_type"
     t.integer  "video_file_file_size"
     t.datetime "video_file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "videos_tags", :force => true do |t|
+    t.integer  "video_id"
+    t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
