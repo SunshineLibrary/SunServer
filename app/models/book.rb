@@ -92,31 +92,22 @@ class Book < ActiveRecord::Base
     end
   end
 
+  require 'tag_manager'
+
+  def tag_param
+    {:joint_class => MengBooksTags, :owner_key => :book_id, :id => self.id}
+  end
+
   def tag_ids
-    books_tags_item = MengBooksTags.where(book_id: self.id).select {|item| not item.destroyed?}
-    books_tags_item.map{|item| item.tag_id}
+    TagManager.tag_ids tag_param
   end
 
   def tags
-    self.tag_ids.map {|tag_id| Tag.find_by_id tag_id}
+    TagManager.tags tag_param
   end
 
   def update_tags new_tag_ids
-    if not new_tag_ids.nil?
-      old_ids = self.tag_ids
-      for temp_id in old_ids
-        if not new_tag_ids.include? temp_id
-          btitem = MengBooksTags.where(book_id: self.id, tag_id: temp_id).first
-          btitem.soft_destroy
-        end
-      end
-      for temp_id in new_tag_ids
-        if not old_ids.include? temp_id
-          MengBooksTags.create book_id: self.id, tag_id: temp_id
-        end
-      end
-    end
-    true
+    TagManager.update_tags tag_param.merge :new_tag_ids => new_tag_ids
   end
 
   def url

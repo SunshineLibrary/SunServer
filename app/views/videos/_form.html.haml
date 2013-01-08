@@ -1,31 +1,34 @@
-= form_for(@video) do |f|
-  - if @video.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@video.errors.count, "error")
-        prohibited this video from being saved:
-      %ul
-        - @video.errors.full_messages.each do |msg|
-          %li= msg
-  .field
-    = f.label :title
-    %br/
-    = f.text_field :title
-  .field
-    = f.label :intro
-    %br/
-    = f.text_field :intro
-  .field
-    - if defined? video_collection_id
-      = f.hidden_field :video_collection_id, :value => video_collection_id
-    - else
-      = f.label :video_collection_id
-      %br/
-      = f.number_field :video_collection_id
-  .field
-    = f.label :video_file
-    = "已上传(#{@video.video_file_file_name})" if @video.video_file?
-    %br/
-    = f.file_field :video_file
-  .actions
-    = f.submit
+= form_for @video, :html => {:class => "form-horizontal"} do |f|
+  %fieldset
+    = form_field :title, "视频名", f, :text_field
+    .control-group
+      = f.label :video_collection_id, "视频合集", :class => "control-label"
+      .controls
+        = f.select :video_collection_id, VideoCollection.selection, :class => "span4"
+
+    .control-group
+      = f.label :intro, "简介", :class=> "control-label"
+      .controls
+        = f.text_area :intro, :class=> "span6"
+
+    =render :partial => "shared/tag_list", :locals => {my_tag_ids: @video.tag_ids}
+    .controls
+      = image_tag @video.cover_m.url if @video.cover_m?
+    .controls-group
+      = f.label :cover_m, "封面（中）", :class=>"control-label"
+      .controls
+        = f.file_field :cover_m
+    .controls
+      = image_tag @video.cover_s.url if @video.cover_s?
+    .controls-group
+      = f.label :cover_s, "封面（小）" , :class=>"control-label"
+      .controls
+        = f.file_field :cover_s
+    .controls-group
+      = f.label :video_file, "视频路径", :class=>"control-label"
+      .controls
+        = f.file_field :video_file
+        = file_status(@video, :video_file)
+
+    .form-actions
+      = f.submit "确定", :class => "btn btn-success"

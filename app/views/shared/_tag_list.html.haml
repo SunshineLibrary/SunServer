@@ -1,0 +1,12 @@
+/ local: my_tag_ids
+
+- Tag.type_list.each do |type|
+  .control-group
+    %label.control-label
+      = "无类型" if type.nil?
+      = type
+    #tag_controls.controls
+      - Tag.valid_tags(type).each do |tag|
+        %label.checkbox.inline
+          = check_box_tag 'tag_ids[]', tag.id, my_tag_ids.include?(tag.id)
+          = tag.name
