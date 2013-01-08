@@ -83,11 +83,13 @@ class Activity < ActiveRecord::Base
   end
 
   def get_pdf_file(machine_type)
-    if machine_type.size == "800*480"
-      self.modified_file1.url
-    else
-      self.modified_file2.url
-    end
+    # NOTE: convertion quality not ideal, serve original pdf file temporarily. Looking for better solution
+    self.content_file.url 
+    #f machine_type.size == "800*480"
+    #  self.modified_file1.url
+    #else
+    #  self.modified_file2.url
+    #end
   end
 
 end
